@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Assets for the Elevate theme",
   "scripts": {
-    "start": "hs-cms-dev-server .",
+    "start": "hs-cms-dev-server . --ssl",
     "generate-tmp-json-for-translations": "jsx-module-fields-to-fields-json"
   },
   "type": "module",
