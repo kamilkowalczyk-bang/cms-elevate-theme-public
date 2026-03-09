@@ -81,8 +81,8 @@
                           }
                         },
                         "default": {
-                          "size": 57,
-                          "variant": "500"
+                          "size": 56,
+                          "variant": "900"
                         }
                       }
                     ]
@@ -111,8 +111,8 @@
                           }
                         },
                         "default": {
-                          "size": 43,
-                          "variant": "600"
+                          "size": 42,
+                          "variant": "900"
                         }
                       }
                     ]
@@ -142,7 +142,7 @@
                         },
                         "default": {
                           "size": 32,
-                          "variant": "600"
+                          "variant": "900"
                         }
                       }
                     ]
@@ -171,9 +171,8 @@
                           }
                         },
                         "default": {
-                          "bold": true,
                           "size": 24,
-                          "variant": "600"
+                          "variant": "900"
                         }
                       }
                     ]
@@ -203,8 +202,8 @@
                         },
                         "default": {
                           "bold": true,
-                          "size": 20,
-                          "variant": "600"
+                          "size": 21,
+                          "variant": "500"
                         }
                       }
                     ]
@@ -234,8 +233,8 @@
                         },
                         "default": {
                           "bold": true,
-                          "size": 16,
-                          "variant": "600"
+                          "size": 18,
+                          "variant": "700"
                         }
                       }
                     ]
@@ -328,6 +327,50 @@
                         "default": {
                           "variant": "400"
                         }
+                      }
+                    ]
+                  },
+                  {
+                    "label": "Display title",
+                    "name": "group_display_titles",
+                    "type": "group",
+                    "display": "inline",
+                    "inline_help_text": "Use for titles that are larger than headings",
+                    "children": [
+                      {
+                        "label": "Font",
+                        "name": "font",
+                        "type": "font",
+                        "visibility": {
+                          "hidden_subfields": {
+                            "underline": true
+                          }
+                        },
+                        "inherited_value": {
+                          "property_value_paths": {
+                            "font": "theme.group_foundation.group_fonts.base_font.font",
+                            "font_set": "theme.group_foundation.group_fonts.base_font.font_set",
+                            "fallback": "theme.group_foundation.group_fonts.base_font.fallback"
+                          }
+                        },
+                        "default": {
+                          "variant": "900",
+                          "size": 68,
+                          "color": "#2B2D3A"
+                        }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -607,6 +650,20 @@
                               "color": "#647390",
                               "opacity": 100
                             }
+                          },
+                          {
+                            "label": "Display title text color",
+                            "name": "display_title_text_color",
+                            "type": "color",
+                            "visibility": {
+                              "hidden_subfields": {
+                                "opacity": true
+                              }
+                            },
+                            "default": {
+                              "color": "#2B2D3A",
+                              "opacity": 100
+                            }
                           }
                         ]
                       },
@@ -764,6 +821,20 @@
                             },
                             "default": {
                               "color": "#647390",
+                              "opacity": 100
+                            }
+                          },
+                          {
+                            "label": "Display title text color",
+                            "name": "display_title_text_color",
+                            "type": "color",
+                            "visibility": {
+                              "hidden_subfields": {
+                                "opacity": true
+                              }
+                            },
+                            "default": {
+                              "color": "#2B2D3A",
                               "opacity": 100
                             }
                           }
@@ -925,6 +996,20 @@
                               "color": "#4D6080",
                               "opacity": 100
                             }
+                          },
+                          {
+                            "label": "Display title text color",
+                            "name": "display_title_text_color",
+                            "type": "color",
+                            "visibility": {
+                              "hidden_subfields": {
+                                "opacity": true
+                              }
+                            },
+                            "default": {
+                              "color": "#2B2D3A",
+                              "opacity": 100
+                            }
                           }
                         ]
                       },
@@ -1074,6 +1159,20 @@
                           {
                             "label": "Caption text color",
                             "name": "caption_color",
+                            "type": "color",
+                            "visibility": {
+                              "hidden_subfields": {
+                                "opacity": true
+                              }
+                            },
+                            "default": {
+                              "color": "#7D8CA5",
+                              "opacity": 100
+                            }
+                          },
+                          {
+                            "label": "Display title text color",
+                            "name": "display_title_text_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
