@@ -240,6 +240,17 @@ blockquote {
   text-transform: var(--hsElevate--captions__case);
 }
 
+/* Display titles */
+
+.hs-elevate-display-title {
+  color: var(--hsElevate--displayTitles__fontColor, var(--hsElevate--section--lightSection--1--displayTitleColor));
+  font-family: var(--hsElevate--displayTitles__font);
+  font-size: var(--hsElevate--displayTitles__fontSize);
+  font-style: var(--hsElevate--displayTitles__fontStyle);
+  font-weight: var(--hsElevate--displayTitles__fontWeight);
+  text-transform: var(--hsElevate--displayTitles__case);
+}
+
 /* Tags */
 .hs-elevate-tag {
   padding: 2px 8px;
