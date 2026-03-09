@@ -3,6 +3,7 @@
 {% set body_font_1 = theme.group_foundation.group_fonts.group_font_elements.group_body_font.group_paragraph %}
 {% set quotes = theme.group_foundation.group_fonts.group_font_elements.group_other_elements.group_block_quote %}
 {% set captions = theme.group_foundation.group_fonts.group_font_elements.group_other_elements.group_caption %}
+{% set display_titles = theme.group_foundation.group_fonts.group_font_elements.group_other_elements.group_display_titles %}
 {% set headings = theme.group_foundation.group_fonts.group_font_elements.group_headings %}
 {% set links = theme.group_elements.group_links %}
 
@@ -138,6 +139,15 @@
   --hsElevate--captions__fontWeight: {{ captions.font.styles["font-weight"] }};
   --hsElevate--captions__fontStyle: {{ captions.font.styles["font-style"] }};
   --hsElevate--captions__case: {{ captions.case }};
+
+    /* Display titles */
+
+  --hsElevate--displayTitles__font: {{ display_titles.font.font }};
+  --hsElevate--displayTitles__fontColor: {{ display_titles.font.color }};
+  --hsElevate--displayTitles__fontSize: {{ display_titles.font.size / base_size ~ "rem" }};
+  --hsElevate--displayTitles__fontWeight: {{ display_titles.font.styles["font-weight"] }};
+  --hsElevate--displayTitles__fontStyle: {{ display_titles.font.styles["font-style"] }};
+  --hsElevate--displayTitles__case: {{ display_titles.case }};
 
   /* Images */
 
