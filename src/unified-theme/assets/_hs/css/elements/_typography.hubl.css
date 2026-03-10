@@ -80,7 +80,8 @@ h4,
 h5,
 h6,
 .hs-elevate-display-1,
-.hs-elevate-display-2 {
+.hs-elevate-display-2,
+.hs-elevate-display-title {
   line-height: var(--hsElevate--heading__lineHeight);
   margin-block: var(--hsElevate--text__margin);
 }
@@ -154,6 +155,10 @@ h6,
 
   .hs-elevate-display-2 {
     font-size: var(--hsElevate--display2__fontSize);
+  }
+
+  .hs-elevate-display-title {
+    font-size: var(--hsElevate--displayTitles__fontSize);
   }
 
   h1,
@@ -245,7 +250,7 @@ blockquote {
 .hs-elevate-display-title {
   color: var(--hsElevate--displayTitles__fontColor, var(--hsElevate--section--lightSection--1--displayTitleColor));
   font-family: var(--hsElevate--displayTitles__font);
-  font-size: var(--hsElevate--displayTitles__fontSize);
+  font-size:  calc(var(--hsElevate--displayTitles__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--displayTitles__fontStyle);
   font-weight: var(--hsElevate--displayTitles__fontWeight);
   text-transform: var(--hsElevate--displayTitles__case);

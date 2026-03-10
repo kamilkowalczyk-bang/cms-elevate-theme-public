@@ -355,8 +355,7 @@
                         },
                         "default": {
                           "variant": "900",
-                          "size": 68,
-                          "color": "#2B2D3A"
+                          "size": 68
                         }
                       },
                       {
@@ -481,7 +480,7 @@
                 },
                 "alternate_names": ["primary_color"],
                 "default": {
-                  "color": "#09152B"
+                  "color": "#2B2D3A"
                 }
               }
             ]
@@ -653,7 +652,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -826,7 +825,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -999,7 +998,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -1172,7 +1171,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -1180,7 +1179,7 @@
                               }
                             },
                             "default": {
-                              "color": "#7D8CA5",
+                              "color": "#F7F9FC",
                               "opacity": 100
                             }
                           }
