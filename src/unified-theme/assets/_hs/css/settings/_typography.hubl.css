@@ -93,10 +93,6 @@
   --hsElevate--display2__font: {{ base_font.font }};
   --hsElevate--display2__fontSize: 4.75rem;
 
-  --hsElevate--displayTitles__fontSize: {{ display_titles.font.size / base_size ~ "rem" }};
-  --hsElevate--displayTitles__fontWeight: {{ display_titles.font.styles["font-weight"] }};
-  --hsElevate--displayTitles__fontStyle: {{ display_titles.font.styles["font-style"] }};
-  --hsElevate--displayTitles__case: {{ display_titles.case }};
 
   --hsElevate--h1__font: {{ headings.group_heading_1.font.font }};
   --hsElevate--h1__fontSize: {{ headings.group_heading_1.font.size / base_size ~ "rem" }};
