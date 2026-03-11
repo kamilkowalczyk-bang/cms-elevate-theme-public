@@ -381,9 +381,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           <div className="splide__list hs-elevate-testimonial-slider__list">
             {groupTestimonial.map((testimonial, index) => {
               const infoImage = layoutType === 'info' ? testimonial.groupInfoImage?.image : undefined;
-              const hasInfoBackground = Boolean(infoImage?.src);
               const slideStyle =
-                layoutType === 'info' && hasInfoBackground
+                layoutType === 'info' && infoImage?.src
                   ? {
                       backgroundImage: `url(${infoImage.src})`,
                       backgroundSize: 'cover',
@@ -393,9 +392,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
 
               return (
                 <div
-                  className={cx('splide__slide', 'hs-elevate-testimonial-slider__slide', {
-                    [styles['hs-elevate-testimonial-slider__slide--info-has-bg']]: layoutType === 'info' && hasInfoBackground,
-                  })}
+                  className="splide__slide hs-elevate-testimonial-slider__slide"
                   style={slideStyle}
                   key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
                 >

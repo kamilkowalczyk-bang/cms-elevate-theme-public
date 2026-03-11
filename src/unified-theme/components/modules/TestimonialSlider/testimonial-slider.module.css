@@ -160,11 +160,6 @@
 .hs-elevate-testimonial-slider--info .hs-elevate-testimonial-slider__content-container {
   padding-block: var(--hsElevate--spacing--40, 40px);
   padding-inline: var(--hsElevate--spacing--48, 48px);
-  min-height: 450px;
-}
-
-.hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
-  padding-block: 150px;
 }
 
 .hs-elevate-testimonial-slider__info-button-container {
@@ -196,9 +191,5 @@
     background-color: var(--hsElevate--cardIcon__fillColor, #000);
     opacity: 1;
     transform: none;
-  }
-
-  .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
-    bottom: 5em !important;
   }
 }
