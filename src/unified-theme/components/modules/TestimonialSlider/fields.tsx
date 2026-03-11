@@ -310,7 +310,12 @@ export const fields = (
         }}
       >
         <BooleanField label="Show button" name="showButton" display="toggle" default={false} />
-        <ButtonContent textDefault="Industrial IoT &amp; smart metering" />
+        <ButtonContent
+          textDefault="Industrial IoT &amp; smart metering"
+          linkDefault={{
+            open_in_new_tab: false,
+          }}
+        />
       </FieldGroup>
     </RepeatedFieldGroup>
     <FieldGroup label="Default text" name="groupDefaultText" locked={true}>
