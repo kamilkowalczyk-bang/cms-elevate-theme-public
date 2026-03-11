@@ -147,6 +147,15 @@
   padding-block: var(--hsElevate--spacing--48, 48px);
 }
 
+.hs-elevate-testimonial-slider--info .hs-elevate-testimonial-slider__slide {
+  padding: 0;
+}
+
+.hs-elevate-testimonial-slider--info .hs-elevate-testimonial-slider__content-container {
+  padding-block: var(--hsElevate--spacing--40, 40px);
+  padding-inline: var(--hsElevate--spacing--48, 48px);
+}
+
 .hs-elevate-testimonial-slider__slider {
   padding-inline: var(--hsElevate--spacing--48, 48px);
 

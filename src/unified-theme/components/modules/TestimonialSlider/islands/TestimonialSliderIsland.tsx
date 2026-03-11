@@ -309,9 +309,15 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
 
   const hasMultipleTestimonials = groupTestimonial.length > 1;
   const cardVariantClassName = getCardVariantClassName({ cardVariant: cardStyleVariant, fallbackCardVariant: 'card_variant_1' });
+  const isInfoLayout = layoutType === 'info';
 
   return (
-    <TestimonialSliderContainer style={cssVarsMap} className={cx(swm('hs-elevate-testimonial-slider'), cardVariantClassName)}>
+    <TestimonialSliderContainer
+      style={cssVarsMap}
+      className={cx(swm('hs-elevate-testimonial-slider'), cardVariantClassName, {
+        [styles['hs-elevate-testimonial-slider--info']]: isInfoLayout,
+      })}
+    >
       <Splide
         className={swm('hs-elevate-testimonial-slider__slider')}
         hasTrack={false}
@@ -337,26 +343,42 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
       >
         <div className="splide__track hs-elevate-testimonial-slider__track">
           <div className="splide__list hs-elevate-testimonial-slider__list">
-            {groupTestimonial.map((testimonial, index) => (
-              <div className="splide__slide hs-elevate-testimonial-slider__slide" key={layoutType === 'info' ? index : testimonial.groupQuote.quote}>
-                {layoutType === 'info' ? (
-                  <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
-                ) : (
-                  <Testimonial
-                    moduleName={moduleName}
-                    testimonialIndex={index}
-                    quote={testimonial.groupQuote.quote}
-                    authorName={testimonial.groupAuthor?.authorName}
-                    authorTitle={testimonial.groupAuthor?.authorTitle}
-                    authorImage={testimonial.groupAuthor?.authorImage}
-                    showImage={testimonial.groupImage?.showImage}
-                    image={testimonial.groupImage?.image}
-                    linkText={testimonial.groupLink?.linkText}
-                    link={testimonial.groupLink?.link}
-                  />
-                )}
-              </div>
-            ))}
+            {groupTestimonial.map((testimonial, index) => {
+              const infoImage = layoutType === 'info' ? testimonial.groupInfoImage?.image : undefined;
+              const slideStyle =
+                layoutType === 'info' && infoImage?.src
+                  ? {
+                      backgroundImage: `url(${infoImage.src})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }
+                  : undefined;
+
+              return (
+                <div
+                  className="splide__slide hs-elevate-testimonial-slider__slide"
+                  style={slideStyle}
+                  key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
+                >
+                  {layoutType === 'info' ? (
+                    <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
+                  ) : (
+                    <Testimonial
+                      moduleName={moduleName}
+                      testimonialIndex={index}
+                      quote={testimonial.groupQuote.quote}
+                      authorName={testimonial.groupAuthor?.authorName}
+                      authorTitle={testimonial.groupAuthor?.authorTitle}
+                      authorImage={testimonial.groupAuthor?.authorImage}
+                      showImage={testimonial.groupImage?.showImage}
+                      image={testimonial.groupImage?.image}
+                      linkText={testimonial.groupLink?.linkText}
+                      link={testimonial.groupLink?.link}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
         {hasMultipleTestimonials && <Navigation previousAltText={groupDefaultText.previousArrowAltText} nextAltText={groupDefaultText.nextArrowAltText} />}

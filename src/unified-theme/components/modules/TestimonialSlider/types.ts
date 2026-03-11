@@ -67,6 +67,7 @@ export type TestimonialContentProps = {
   groupImage?: TestimonialImageProps;
   groupLink?: TestimonialLinkProps;
   groupInfoContent?: RichTextContentFieldLibraryType;
+  groupInfoImage?: TestimonialImageProps;
 };
 
 // Layout type for testimonial slider

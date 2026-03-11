@@ -271,6 +271,34 @@ export const fields = (
           featureSet="text"
         />
       </FieldGroup>
+      <FieldGroup
+        label="Info background image"
+        name="groupInfoImage"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      >
+        <BooleanField label="Show background image" name="showImage" display="toggle" default={false} />
+        <ImageField
+          label="Background image"
+          name="image"
+          resizable={false}
+          responsive={false}
+          showLoading={false}
+          visibility={{
+            controlling_field_path: 'groupTestimonial.groupInfoImage.showImage',
+            controlling_value_regex: 'true',
+            operator: 'EQUAL',
+          }}
+          default={{
+            alt: '',
+            src: '',
+          }}
+        />
+      </FieldGroup>
     </RepeatedFieldGroup>
     <FieldGroup label="Default text" name="groupDefaultText" locked={true}>
       <TextField label="Previous" name="previousArrowAltText" default="Previous" />
