@@ -1,5 +1,5 @@
 import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField } from '@hubspot/cms-components/fields';
-import { RichTextContent } from '../../fieldLibrary/index.js';
+import { ButtonContent, RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
 import testimonialImageOne from './assets/testimonial-image-1.png';
@@ -298,6 +298,18 @@ export const fields = (
             src: '',
           }}
         />
+      </FieldGroup>
+      <FieldGroup
+        label="Info button"
+        name="groupInfoButton"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      >
+        <ButtonContent textDefault="Industrial IoT &amp; smart metering" />
       </FieldGroup>
     </RepeatedFieldGroup>
     <FieldGroup label="Default text" name="groupDefaultText" locked={true}>

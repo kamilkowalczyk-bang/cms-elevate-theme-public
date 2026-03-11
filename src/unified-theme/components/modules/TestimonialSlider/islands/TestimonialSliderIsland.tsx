@@ -9,6 +9,7 @@ import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../../
 import { useEffect, useId, useState } from 'react';
 import { getCardVariantClassName } from '../../../utils/card-variants.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
+import { Button } from '../../../ButtonComponent/index.js';
 
 const swm = staticWithModule(styles);
 
@@ -221,6 +222,7 @@ const Testimonial = (props: TestimonialProps) => {
 // Info slide content (rich text)
 
 const InfoContentContainer = createComponent('div');
+const InfoButtonContainer = createComponent('div');
 
 type InfoContentProps = {
   html?: string;
@@ -240,6 +242,37 @@ const InfoContent = ({ html }: InfoContentProps) => {
       // Rich text from HubSpot editor
       dangerouslySetInnerHTML={{ __html: html }}
     />
+  );
+};
+
+type InfoButtonProps = {
+  moduleName?: string;
+  text?: TestimonialLinkProps['linkText'];
+  link?: TestimonialLinkProps['link'];
+};
+
+const InfoButton = ({ moduleName, text, link }: InfoButtonProps) => {
+  if (!text) {
+    return null;
+  }
+
+  const href = getLinkFieldHref(link);
+  const rel = getLinkFieldRel(link);
+  const target = getLinkFieldTarget(link);
+
+  return (
+    <InfoButtonContainer className={swm('hs-elevate-testimonial-slider__info-button-container')}>
+      <Button
+        buttonStyle="accent"
+        buttonSize="medium"
+        href={href}
+        rel={rel}
+        target={target}
+        showIcon={false}
+      >
+        {text}
+      </Button>
+    </InfoButtonContainer>
   );
 };
 
@@ -364,7 +397,14 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
                   key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
                 >
                   {layoutType === 'info' ? (
-                    <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
+                    <>
+                      <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
+                      <InfoButton
+                        moduleName={moduleName}
+                        text={testimonial.groupInfoButton?.buttonContentText}
+                        link={testimonial.groupInfoButton?.buttonContentLink}
+                      />
+                    </>
                   ) : (
                     <Testimonial
                       moduleName={moduleName}

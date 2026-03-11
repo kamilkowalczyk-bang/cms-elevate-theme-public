@@ -162,6 +162,12 @@
   padding-inline: var(--hsElevate--spacing--48, 48px);
 }
 
+.hs-elevate-testimonial-slider__info-button-container {
+  display: flex;
+  justify-content: center;
+  margin-block: var(--hsElevate--spacing--24, 24px);
+}
+
 .hs-elevate-testimonial-slider__slider {
   padding-inline: var(--hsElevate--spacing--48, 48px);
 
