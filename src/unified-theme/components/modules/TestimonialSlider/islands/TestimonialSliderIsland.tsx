@@ -231,9 +231,12 @@ const InfoContent = ({ html }: InfoContentProps) => {
     return null;
   }
 
+  const cssVarsMap = generateAlignmentCSSVars(true);
+
   return (
     <InfoContentContainer
       className={swm('hs-elevate-testimonial-slider__content-container')}
+      style={cssVarsMap}
       // Rich text from HubSpot editor
       dangerouslySetInnerHTML={{ __html: html }}
     />
