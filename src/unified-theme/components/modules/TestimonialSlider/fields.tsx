@@ -1,4 +1,5 @@
 import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField } from '@hubspot/cms-components/fields';
+import { RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
 import testimonialImageOne from './assets/testimonial-image-1.png';
@@ -250,6 +251,24 @@ export const fields = (
           name="link"
           supportedTypes={['EXTERNAL', 'CONTENT', 'FILE', 'EMAIL_ADDRESS', 'CALL_TO_ACTION', 'BLOG', 'PAYMENT']}
           default={{}}
+        />
+      </FieldGroup>
+      <FieldGroup
+        label="Info content"
+        name="groupInfoContent"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      >
+        <RichTextContent
+          label="Info content"
+          richTextDefault={
+            '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>'
+          }
+          featureSet="text"
         />
       </FieldGroup>
     </RepeatedFieldGroup>

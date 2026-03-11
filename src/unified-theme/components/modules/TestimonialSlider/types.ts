@@ -1,5 +1,6 @@
 import { ImageFieldType, TextFieldType, LinkFieldType, BooleanFieldType } from '@hubspot/cms-components/fields';
 import { CardStyleFieldLibraryType } from '../../fieldLibrary/CardStyle/types.js';
+import { RichTextContentFieldLibraryType } from '../../fieldLibrary/RichTextContent/types.js';
 
 // Types for testimonial default text
 
@@ -65,6 +66,7 @@ export type TestimonialContentProps = {
   groupAuthor?: TestimonialAuthorProps;
   groupImage?: TestimonialImageProps;
   groupLink?: TestimonialLinkProps;
+  groupInfoContent?: RichTextContentFieldLibraryType;
 };
 
 // Layout type for testimonial slider

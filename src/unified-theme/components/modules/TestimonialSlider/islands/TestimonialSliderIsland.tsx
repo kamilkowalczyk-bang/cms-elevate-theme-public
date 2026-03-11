@@ -218,6 +218,28 @@ const Testimonial = (props: TestimonialProps) => {
   );
 };
 
+// Info slide content (rich text)
+
+const InfoContentContainer = createComponent('div');
+
+type InfoContentProps = {
+  html?: string;
+};
+
+const InfoContent = ({ html }: InfoContentProps) => {
+  if (!html) {
+    return null;
+  }
+
+  return (
+    <InfoContentContainer
+      className={swm('hs-elevate-testimonial-slider__content-container')}
+      // Rich text from HubSpot editor
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+};
+
 // Testimonial slider component
 
 // Function to generate CSS variables for colors
@@ -317,18 +339,20 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           <div className="splide__list hs-elevate-testimonial-slider__list">
             {groupTestimonial.map((testimonial, index) => (
               <div className="splide__slide hs-elevate-testimonial-slider__slide" key={layoutType === 'info' ? index : testimonial.groupQuote.quote}>
-                {layoutType === 'info' ? null : (
+                {layoutType === 'info' ? (
+                  <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
+                ) : (
                   <Testimonial
                     moduleName={moduleName}
                     testimonialIndex={index}
                     quote={testimonial.groupQuote.quote}
-                    authorName={testimonial.groupAuthor.authorName}
-                    authorTitle={testimonial.groupAuthor.authorTitle}
-                    authorImage={testimonial.groupAuthor.authorImage}
-                    showImage={testimonial.groupImage.showImage}
-                    image={testimonial.groupImage.image}
-                    linkText={testimonial.groupLink.linkText}
-                    link={testimonial.groupLink.link}
+                    authorName={testimonial.groupAuthor?.authorName}
+                    authorTitle={testimonial.groupAuthor?.authorTitle}
+                    authorImage={testimonial.groupAuthor?.authorImage}
+                    showImage={testimonial.groupImage?.showImage}
+                    image={testimonial.groupImage?.image}
+                    linkText={testimonial.groupLink?.linkText}
+                    link={testimonial.groupLink?.link}
                   />
                 )}
               </div>
