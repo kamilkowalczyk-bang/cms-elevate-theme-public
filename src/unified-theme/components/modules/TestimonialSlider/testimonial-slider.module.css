@@ -127,6 +127,8 @@
 .hs-elevate-testimonial-slider__content-container {
   display: flex;
   flex-direction: column;
+  text-align: var(--hsElevate--testimonial__textAlign);
+  padding-inline: var(--hsElevate--spacing--40, 40px);
 }
 
 .hs-elevate-testimonial-slider__quote-text {
