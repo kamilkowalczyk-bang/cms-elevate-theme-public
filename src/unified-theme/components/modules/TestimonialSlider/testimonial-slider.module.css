@@ -162,6 +162,11 @@
   padding-inline: var(--hsElevate--spacing--48, 48px);
 }
 
+.hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
+  padding-block: 150px;
+  min-height: 450px;
+}
+
 .hs-elevate-testimonial-slider__info-button-container {
   display: flex;
   justify-content: center;

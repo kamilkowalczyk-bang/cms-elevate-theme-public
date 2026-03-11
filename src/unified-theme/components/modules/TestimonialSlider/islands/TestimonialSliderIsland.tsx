@@ -4,7 +4,7 @@ import styles from '../testimonial-slider.module.css';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { createComponent } from '../../../utils/create-component.js';
 import { TestimonialLinkProps, TestimonialMetaProps, TestimonialProps, TestimonialSliderProps } from '../types.js';
-import { CardVariantType } from '../../../types/fields.js';
+import { CardVariantType, ElementPositionType } from '../../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../../utils/content-fields.js';
 import { useEffect, useId, useState } from 'react';
 import { getCardVariantClassName } from '../../../utils/card-variants.js';
@@ -247,18 +247,23 @@ const InfoContent = ({ html }: InfoContentProps) => {
 
 type InfoButtonProps = {
   moduleName?: string;
-  text?: TestimonialLinkProps['linkText'];
-  link?: TestimonialLinkProps['link'];
+  index: number;
+  button?: {
+    buttonContentText?: TestimonialLinkProps['linkText'];
+    buttonContentLink?: TestimonialLinkProps['link'];
+    buttonContentShowIcon?: boolean;
+    buttonContentIconPosition?: ElementPositionType;
+  };
 };
 
-const InfoButton = ({ moduleName, text, link }: InfoButtonProps) => {
-  if (!text) {
+const InfoButton = ({ moduleName, index, button }: InfoButtonProps) => {
+  if (!button?.buttonContentText) {
     return null;
   }
 
-  const href = getLinkFieldHref(link);
-  const rel = getLinkFieldRel(link);
-  const target = getLinkFieldTarget(link);
+  const href = getLinkFieldHref(button.buttonContentLink);
+  const rel = getLinkFieldRel(button.buttonContentLink);
+  const target = getLinkFieldTarget(button.buttonContentLink);
 
   return (
     <InfoButtonContainer className={swm('hs-elevate-testimonial-slider__info-button-container')}>
@@ -268,9 +273,13 @@ const InfoButton = ({ moduleName, text, link }: InfoButtonProps) => {
         href={href}
         rel={rel}
         target={target}
-        showIcon={false}
+        showIcon={button.buttonContentShowIcon}
+        iconFieldPath={`groupTestimonial[${index}].groupInfoButton.buttonContentIcon`}
+        iconPosition={button.buttonContentIconPosition}
+        moduleName={moduleName}
+        textFieldPath={`groupTestimonial[${index}].groupInfoButton.buttonContentText`}
       >
-        {text}
+        {button.buttonContentText}
       </Button>
     </InfoButtonContainer>
   );
@@ -381,8 +390,9 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           <div className="splide__list hs-elevate-testimonial-slider__list">
             {groupTestimonial.map((testimonial, index) => {
               const infoImage = layoutType === 'info' ? testimonial.groupInfoImage?.image : undefined;
+              const hasInfoBackground = layoutType === 'info' && Boolean(infoImage?.src);
               const slideStyle =
-                layoutType === 'info' && infoImage?.src
+                hasInfoBackground
                   ? {
                       backgroundImage: `url(${infoImage.src})`,
                       backgroundSize: 'cover',
@@ -392,18 +402,16 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
 
               return (
                 <div
-                  className="splide__slide hs-elevate-testimonial-slider__slide"
+                  className={cx('splide__slide', 'hs-elevate-testimonial-slider__slide', {
+                    [styles['hs-elevate-testimonial-slider__slide--info-has-bg']]: hasInfoBackground,
+                  })}
                   style={slideStyle}
                   key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
                 >
                   {layoutType === 'info' ? (
                     <>
                       <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
-                      <InfoButton
-                        moduleName={moduleName}
-                        text={testimonial.groupInfoButton?.buttonContentText}
-                        link={testimonial.groupInfoButton?.buttonContentLink}
-                      />
+                      <InfoButton moduleName={moduleName} index={index} button={testimonial.groupInfoButton} />
                     </>
                   ) : (
                     <Testimonial
