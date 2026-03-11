@@ -1,4 +1,4 @@
-import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField } from '@hubspot/cms-components/fields';
+import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
 import testimonialImageOne from './assets/testimonial-image-1.png';
@@ -143,6 +143,18 @@ const testimonial5 = {
 
 export const fields = (
   <ModuleFields>
+    <FieldGroup label="Layout" name="groupLayout" display="inline">
+      <ChoiceField
+        label="Layout type"
+        name="layoutType"
+        display="radio"
+        choices={[
+          ['testimonial', 'Testimonial'],
+          ['info', 'Info'],
+        ]}
+        default="testimonial"
+      />
+    </FieldGroup>
     <RepeatedFieldGroup
       label="Testimonial"
       name="groupTestimonial"
@@ -153,7 +165,16 @@ export const fields = (
       }}
       default={[testimonial1, testimonial2, testimonial3, testimonial4, testimonial5]}
     >
-      <FieldGroup label="Quote" name="groupQuote" display="inline">
+      <FieldGroup
+        label="Quote"
+        name="groupQuote"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'testimonial',
+          operator: 'EQUAL',
+        }}
+      >
         <TextField
           label="Quotation text"
           name="quote"
@@ -161,7 +182,16 @@ export const fields = (
           default="The measurable results have transformed our business. Highly recommend for anyone looking to elevate their marketing game."
         />
       </FieldGroup>
-      <FieldGroup label="Author" name="groupAuthor" display="inline">
+      <FieldGroup
+        label="Author"
+        name="groupAuthor"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'testimonial',
+          operator: 'EQUAL',
+        }}
+      >
         <TextField label="Name" name="authorName" default="Sarah Johnson" />
         <TextField label="Title" name="authorTitle" default="Chief Marketing Officer @ StellarForge" />
         <ImageField
@@ -176,7 +206,16 @@ export const fields = (
           }}
         />
       </FieldGroup>
-      <FieldGroup label="Image" name="groupImage" display="inline">
+      <FieldGroup
+        label="Image"
+        name="groupImage"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'testimonial',
+          operator: 'EQUAL',
+        }}
+      >
         <BooleanField label="Show image" name="showImage" display="toggle" default={true} />
         <ImageField
           label="Image"
@@ -195,7 +234,16 @@ export const fields = (
           }}
         />
       </FieldGroup>
-      <FieldGroup label="Link" name="groupLink" display="inline">
+      <FieldGroup
+        label="Link"
+        name="groupLink"
+        display="inline"
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'testimonial',
+          operator: 'EQUAL',
+        }}
+      >
         <TextField label="Link text" name="linkText" default="Read case study" />
         <LinkField
           label="Link"

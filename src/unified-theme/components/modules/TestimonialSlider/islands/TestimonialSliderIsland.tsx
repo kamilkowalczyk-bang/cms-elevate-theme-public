@@ -168,7 +168,7 @@ const TestimonialMeta = (props: TestimonialMetaProps) => {
 
 // Testimonial slide content
 
-const SlideContainer = createComponent('blockquote');
+const SlideContainer = createComponent('div');
 const ImageContainer = createComponent('div');
 const TestimonialImage = createComponent('img');
 const ContentContainer = createComponent('div');
@@ -264,10 +264,13 @@ const TestimonialSliderContainer = createComponent('div');
 const TestimonialSlider = (props: TestimonialSliderProps) => {
   const {
     moduleName,
+    groupLayout,
     groupTestimonial,
     groupStyle: { cardStyleVariant },
     groupDefaultText,
   } = props;
+
+  const layoutType = groupLayout?.layoutType ?? 'testimonial';
 
   const cssVarsMap = {
     ...generateIconColorCssVar(cardStyleVariant),
@@ -313,19 +316,21 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
         <div className="splide__track hs-elevate-testimonial-slider__track">
           <div className="splide__list hs-elevate-testimonial-slider__list">
             {groupTestimonial.map((testimonial, index) => (
-              <div className="splide__slide hs-elevate-testimonial-slider__slide" key={testimonial.groupQuote.quote}>
-                <Testimonial
-                  moduleName={moduleName}
-                  testimonialIndex={index}
-                  quote={testimonial.groupQuote.quote}
-                  authorName={testimonial.groupAuthor.authorName}
-                  authorTitle={testimonial.groupAuthor.authorTitle}
-                  authorImage={testimonial.groupAuthor.authorImage}
-                  showImage={testimonial.groupImage.showImage}
-                  image={testimonial.groupImage.image}
-                  linkText={testimonial.groupLink.linkText}
-                  link={testimonial.groupLink.link}
-                />
+              <div className="splide__slide hs-elevate-testimonial-slider__slide" key={layoutType === 'info' ? index : testimonial.groupQuote.quote}>
+                {layoutType === 'info' ? null : (
+                  <Testimonial
+                    moduleName={moduleName}
+                    testimonialIndex={index}
+                    quote={testimonial.groupQuote.quote}
+                    authorName={testimonial.groupAuthor.authorName}
+                    authorTitle={testimonial.groupAuthor.authorTitle}
+                    authorImage={testimonial.groupAuthor.authorImage}
+                    showImage={testimonial.groupImage.showImage}
+                    image={testimonial.groupImage.image}
+                    linkText={testimonial.groupLink.linkText}
+                    link={testimonial.groupLink.link}
+                  />
+                )}
               </div>
             ))}
           </div>

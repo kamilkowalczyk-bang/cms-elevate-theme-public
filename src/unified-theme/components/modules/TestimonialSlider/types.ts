@@ -67,6 +67,14 @@ export type TestimonialContentProps = {
   groupLink?: TestimonialLinkProps;
 };
 
+// Layout type for testimonial slider
+
+export type TestimonialSliderLayoutType = 'testimonial' | 'info';
+
+export type TestimonialLayoutProps = {
+  layoutType: TestimonialSliderLayoutType;
+};
+
 // Types for testimonial slide styles
 
 export type TestimonialStyleProps = CardStyleFieldLibraryType;
@@ -75,6 +83,7 @@ export type TestimonialStyleProps = CardStyleFieldLibraryType;
 
 export type TestimonialSliderProps = {
   moduleName?: string;
+  groupLayout?: TestimonialLayoutProps;
   groupTestimonial: TestimonialContentProps[];
   groupStyle: TestimonialStyleProps;
   groupDefaultText: TestimonialDefaultTextProps;
