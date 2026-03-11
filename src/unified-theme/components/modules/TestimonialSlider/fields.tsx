@@ -309,6 +309,7 @@ export const fields = (
           operator: 'EQUAL',
         }}
       >
+        <BooleanField label="Show button" name="showButton" display="toggle" default={false} />
         <ButtonContent textDefault="Industrial IoT &amp; smart metering" />
       </FieldGroup>
     </RepeatedFieldGroup>

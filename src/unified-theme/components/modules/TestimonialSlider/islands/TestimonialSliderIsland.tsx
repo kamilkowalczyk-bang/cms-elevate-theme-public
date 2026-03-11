@@ -249,6 +249,7 @@ type InfoButtonProps = {
   moduleName?: string;
   index: number;
   button?: {
+    showButton?: boolean;
     buttonContentText?: TestimonialLinkProps['linkText'];
     buttonContentLink?: TestimonialLinkProps['link'];
     buttonContentShowIcon?: boolean;
@@ -257,7 +258,7 @@ type InfoButtonProps = {
 };
 
 const InfoButton = ({ moduleName, index, button }: InfoButtonProps) => {
-  if (!button?.buttonContentText) {
+  if (!button?.showButton) {
     return null;
   }
 

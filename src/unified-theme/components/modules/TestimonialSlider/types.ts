@@ -69,7 +69,9 @@ export type TestimonialContentProps = {
   groupLink?: TestimonialLinkProps;
   groupInfoContent?: RichTextContentFieldLibraryType;
   groupInfoImage?: TestimonialImageProps;
-  groupInfoButton?: ButtonContentType;
+  groupInfoButton?: ButtonContentType & {
+    showButton?: BooleanFieldType['default'];
+  };
 };
 
 // Layout type for testimonial slider
