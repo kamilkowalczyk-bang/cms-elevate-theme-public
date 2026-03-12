@@ -410,10 +410,13 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
                   key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
                 >
                   {layoutType === 'info' ? (
-                    <>
-                      <InfoContent html={testimonial.groupInfoContent?.richTextContentHTML} />
+                    <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
+                      <div
+                        // Rich text from HubSpot editor
+                        dangerouslySetInnerHTML={{ __html: testimonial.groupInfoContent?.richTextContentHTML || '' }}
+                      />
                       <InfoButton moduleName={moduleName} index={index} button={testimonial.groupInfoButton} />
-                    </>
+                    </ContentContainer>
                   ) : (
                     <Testimonial
                       moduleName={moduleName}

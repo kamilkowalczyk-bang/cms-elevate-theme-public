@@ -160,10 +160,13 @@
 .hs-elevate-testimonial-slider--info .hs-elevate-testimonial-slider__content-container {
   padding-block: var(--hsElevate--spacing--40, 40px);
   padding-inline: var(--hsElevate--spacing--48, 48px);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
-  padding-block: 150px;
+  padding-block: 250px 150px;
   min-height: 450px;
 }
 
