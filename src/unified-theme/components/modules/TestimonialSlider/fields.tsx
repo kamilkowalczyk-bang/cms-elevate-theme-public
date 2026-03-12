@@ -155,6 +155,17 @@ export const fields = (
         ]}
         default="testimonial"
       />
+      <BooleanField
+        label="Show navigation arrows (info layout)"
+        name="showInfoArrows"
+        display="toggle"
+        default={true}
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      />
     </FieldGroup>
     <RepeatedFieldGroup
       label="Testimonial"

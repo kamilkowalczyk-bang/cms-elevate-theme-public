@@ -80,6 +80,7 @@ export type TestimonialSliderLayoutType = 'testimonial' | 'info';
 
 export type TestimonialLayoutProps = {
   layoutType: TestimonialSliderLayoutType;
+  showInfoArrows?: BooleanFieldType['default'];
 };
 
 // Types for testimonial slide styles

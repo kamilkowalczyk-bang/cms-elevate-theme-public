@@ -356,6 +356,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
   const hasMultipleTestimonials = groupTestimonial.length > 1;
   const cardVariantClassName = getCardVariantClassName({ cardVariant: cardStyleVariant, fallbackCardVariant: 'card_variant_1' });
   const isInfoLayout = layoutType === 'info';
+  const showArrows =
+    hasMultipleTestimonials && (!isInfoLayout || groupLayout?.showInfoArrows !== false);
 
   return (
     <TestimonialSliderContainer
@@ -371,7 +373,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           lazyLoad: true,
           rewind: true,
           direction: htmlDirection,
-          arrows: hasMultipleTestimonials,
+          arrows: showArrows,
           pagination: hasMultipleTestimonials,
           i18n: {
             // https://splidejs.com/guides/i18n/
