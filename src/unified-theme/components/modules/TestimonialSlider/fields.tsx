@@ -2,6 +2,7 @@ import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, Bo
 import { ButtonContent, RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
+import heroImage from './assets/hero.png';
 import testimonialImageOne from './assets/testimonial-image-1.png';
 import testimonialImageTwo from './assets/testimonial-image-2.jpg';
 import testimonialImageThree from './assets/testimonial-image-3.jpg';
@@ -13,7 +14,17 @@ import testimonialUserImageThree from './assets/testimonial-user-image-3.png';
 import testimonialUserImageFour from './assets/testimonial-user-image-4.png';
 import testimonialUserImageFive from './assets/testimonial-user-image-5.png';
 
+/**
+ * Default content for both layouts. HubSpot does not support different default
+ * arrays per layout (e.g. one for "testimonial", another for "info"). The repeater
+ * has a single `default` array, so we include data for both layouts in every slide.
+ * When editors switch layout in Design Manager, they always see example content.
+ */
 const defaultRichTextInfo =
+  '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
+
+/** Hero-style example for first slide when using Info layout (e.g. in page Hero). */
+const defaultRichTextInfoHero =
   '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
 
 const defaultTestimonial = {
@@ -53,18 +64,19 @@ const defaultTestimonial = {
       max_height: 315,
       max_width: 315,
       size_type: 'auto_custom_max',
-      src: '',
+      src: heroImage,
     },
   },
   groupInfoButton: {
     showButton: false,
-    buttonContentText: 'Industrial IoT &amp; smart metering',
+    buttonContentText: 'Industrial IoT & smart metering',
     buttonContentLink: { open_in_new_tab: false },
     buttonContentShowIcon: false,
     buttonContentIconPosition: 'right',
   },
 };
 
+/** First slide: hero-style example for Info layout (button visible), testimonial example for Testimonial layout. */
 const testimonial1 = {
   ...defaultTestimonial,
   groupQuote: { quote: 'Add a testimonial quote #1 here. Keep it concise and impactful to enhance credibility with your business' },
@@ -82,6 +94,16 @@ const testimonial1 = {
       ...defaultTestimonial.groupImage.image,
       src: testimonialImageOne,
     },
+  },
+  groupInfoContent: { richTextContentHTML: defaultRichTextInfoHero },
+  groupInfoImage: {
+    ...defaultTestimonial.groupInfoImage,
+    showImage: true,
+    image: { ...defaultTestimonial.groupInfoImage.image, src: heroImage },
+  },
+  groupInfoButton: {
+    ...defaultTestimonial.groupInfoButton,
+    showButton: true,
   },
 };
 
@@ -208,6 +230,7 @@ export const fields = (
         min: 1,
         max: 20,
         default: 3,
+        sorting_label_field: 'groupTestimonial.groupQuote.quote',
       }}
       default={[testimonial1, testimonial2, testimonial3, testimonial4, testimonial5]}
     >
@@ -338,7 +361,7 @@ export const fields = (
           }}
           default={{
             alt: '',
-            src: '',
+            src: heroImage,
           }}
         />
       </FieldGroup>
