@@ -238,7 +238,7 @@ const InfoContent = ({ moduleName, index, richTextContentHTML }: InfoContentProp
 
   return (
     <InfoContentWrapper
-      className={swm('hs-elevate-testimonial-slider__content-container')}
+      className={swm('hs-elevate-testimonial-slider__info-content')}
       style={cssVarsMap}
     >
       {richTextContentHTML && (
