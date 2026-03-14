@@ -1,4 +1,4 @@
-import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField } from '@hubspot/cms-components/fields';
+import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField, AdvancedVisibility } from '@hubspot/cms-components/fields';
 import { ButtonContent, RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
@@ -12,6 +12,9 @@ import testimonialUserImageTwo from './assets/testimonial-user-image-2.png';
 import testimonialUserImageThree from './assets/testimonial-user-image-3.png';
 import testimonialUserImageFour from './assets/testimonial-user-image-4.png';
 import testimonialUserImageFive from './assets/testimonial-user-image-5.png';
+
+const defaultRichTextInfo =
+  '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
 
 const defaultTestimonial = {
   groupQuote: { quote: '' },
@@ -39,6 +42,26 @@ const defaultTestimonial = {
   groupLink: {
     linkText: 'Read case study',
     link: { open_in_new_tab: true },
+  },
+  groupInfoContent: {
+    richTextContentHTML: defaultRichTextInfo,
+  },
+  groupInfoImage: {
+    showImage: false,
+    image: {
+      alt: '',
+      max_height: 315,
+      max_width: 315,
+      size_type: 'auto_custom_max',
+      src: '',
+    },
+  },
+  groupInfoButton: {
+    showButton: false,
+    buttonContentText: 'Industrial IoT &amp; smart metering',
+    buttonContentLink: { open_in_new_tab: false },
+    buttonContentShowIcon: false,
+    buttonContentIconPosition: 'right',
   },
 };
 
@@ -141,6 +164,17 @@ const testimonial5 = {
     },
   },
 };
+
+const infoButtonFieldVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [
+    {
+      controlling_field_path: 'groupTestimonial.groupInfoButton.showButton',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+} as const;
 
 export const fields = (
   <ModuleFields>
@@ -276,9 +310,7 @@ export const fields = (
       >
         <RichTextContent
           label="Info content"
-          richTextDefault={
-            '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>'
-          }
+          richTextDefault={defaultRichTextInfo}
           featureSet="text"
         />
       </FieldGroup>
@@ -326,6 +358,9 @@ export const fields = (
           linkDefault={{
             open_in_new_tab: false,
           }}
+          textVisibility={infoButtonFieldVisibility}
+          linkVisibility={infoButtonFieldVisibility}
+          showIconVisibility={infoButtonFieldVisibility}
         />
       </FieldGroup>
     </RepeatedFieldGroup>

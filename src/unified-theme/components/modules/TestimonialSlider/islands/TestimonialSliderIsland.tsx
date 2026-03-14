@@ -1,11 +1,13 @@
 import { Splide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { RichText } from '@hubspot/cms-components';
 import styles from '../testimonial-slider.module.css';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { createComponent } from '../../../utils/create-component.js';
 import { TestimonialLinkProps, TestimonialMetaProps, TestimonialProps, TestimonialSliderProps } from '../types.js';
 import { CardVariantType, ElementPositionType } from '../../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../../utils/content-fields.js';
+import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { useEffect, useId, useState } from 'react';
 import { getCardVariantClassName } from '../../../utils/card-variants.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
@@ -221,27 +223,32 @@ const Testimonial = (props: TestimonialProps) => {
 
 // Info slide content (rich text)
 
-const InfoContentContainer = createComponent('div');
+const InfoContentWrapper = createComponent('div');
 const InfoButtonContainer = createComponent('div');
 
 type InfoContentProps = {
-  html?: string;
+  moduleName?: string;
+  index: number;
+  richTextContentHTML?: string;
 };
 
-const InfoContent = ({ html }: InfoContentProps) => {
-  if (!html) {
-    return null;
-  }
-
+const InfoContent = ({ moduleName, index, richTextContentHTML }: InfoContentProps) => {
   const cssVarsMap = generateAlignmentCSSVars(true);
+  const fieldPath = `groupTestimonial[${index}].groupInfoContent.richTextContentHTML`;
 
   return (
-    <InfoContentContainer
+    <InfoContentWrapper
       className={swm('hs-elevate-testimonial-slider__content-container')}
       style={cssVarsMap}
-      // Rich text from HubSpot editor
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    >
+      {richTextContentHTML && (
+        <RichText
+          fieldPath={fieldPath}
+          className={swm('hs-elevate-testimonial-slider__info-rich-text')}
+          data-hs-token={getDataHSToken(moduleName, fieldPath)}
+        />
+      )}
+    </InfoContentWrapper>
   );
 };
 
@@ -413,9 +420,10 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
                 >
                   {layoutType === 'info' ? (
                     <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
-                      <div
-                        // Rich text from HubSpot editor
-                        dangerouslySetInnerHTML={{ __html: testimonial.groupInfoContent?.richTextContentHTML || '' }}
+                      <InfoContent
+                        moduleName={moduleName}
+                        index={index}
+                        richTextContentHTML={testimonial.groupInfoContent?.richTextContentHTML}
                       />
                       <InfoButton moduleName={moduleName} index={index} button={testimonial.groupInfoButton} />
                     </ContentContainer>
