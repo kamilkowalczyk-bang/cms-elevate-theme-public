@@ -10,3 +10,39 @@
     align-items: center;
   }
 }
+
+
+.hs-rad-footer .hs-logo-grid,
+.hs-rad-footer .hs-logo-grid__logo-wrapper {
+  justify-content: flex-start;
+}
+
+.hs-rad-footer .widget-type-logo img.hs-image-widget {
+  max-height: 150px;
+  height: auto;
+}
+
+.hs-rad-footer-address,
+.hs-rad-footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hs-rad-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.hs-rad-footer-legal a,
+.hs-rad-footer-legal span {
+  white-space: nowrap;
+}
+
+@media (width <= 767px) {
+  .hs-rad-footer-legal {
+    justify-content: flex-start;
+  }
+}
