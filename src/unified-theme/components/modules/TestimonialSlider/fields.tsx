@@ -21,11 +21,11 @@ import testimonialUserImageFive from './assets/testimonial-user-image-5.png';
  * When editors switch layout in Design Manager, they always see example content.
  */
 const defaultRichTextInfo =
-  '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
+  '<h4 style="text-transform: uppercase;">Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
 
 /** Hero-style example for first slide when using Info layout (e.g. in page Hero). */
 const defaultRichTextInfoHero =
-  '<h4>Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
+  '<h4 style="text-transform: uppercase;">Wireless performance matters</h4><p class="hs-elevate-display-title">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>';
 
 const defaultTestimonial = {
   groupQuote: { quote: '' },
