@@ -55,6 +55,11 @@
   padding: 0 var(--hsElevate--section--horizontalPadding);
 }
 
+#hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
 /* Medium screens: logo full row, cols 2+3 on second row */
 @media (width <= 1024px) {
   .hs-rad-footer-top__inner {
@@ -90,6 +95,12 @@
   .hs-rad-footer-bottom__inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+@media (width <= 320px) {
+  #hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
