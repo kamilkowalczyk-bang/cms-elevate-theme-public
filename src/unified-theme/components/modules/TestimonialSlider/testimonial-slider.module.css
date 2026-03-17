@@ -233,10 +233,26 @@
   background: var(--hsElevate--cardIcon__fillColor, #000);
   opacity: 0.3;
 }
+:global(.splide__pagination__page) {
+  /* stylelint-disable-line selector-pseudo-class-no-unknown */
+  height: 4px;
+  width: 48px;
+  border: none;
+  border-radius: 20px;
+  margin: 0 6px;
+  background: var(--hsElevate--cardIcon__fillColor, #000) !important;
+  opacity: 0.3;
+}
 
 .hs-elevate-testimonial-slider :global(.splide__pagination__page.is-active) {
   /* stylelint-disable-line selector-pseudo-class-no-unknown */
   background: var(--hsElevate--cardIcon__fillColor, #000);
+  opacity: 1;
+  transform: none;
+}
+:global(.splide__pagination__page.is-active) {
+  /* stylelint-disable-line selector-pseudo-class-no-unknown */
+  background: var(--hsElevate--cardIcon__fillColor, #000) !important;
   opacity: 1;
   transform: none;
 }
