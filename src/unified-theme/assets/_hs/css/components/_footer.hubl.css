@@ -3,6 +3,12 @@
   TODO: Remove this file and its references from main.hubl.css
 */
 
+.hs-rad-footer {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 @media (width <= 767px) {
   .hs-elevate-footer .hs-elevate-menu {
     display: flex;
@@ -152,4 +158,30 @@
   .hs-rad-footer-legal {
     justify-content: flex-start;
   }
+}
+
+/* Footer menu styling */
+.hs-rad-footer-menu .hs-menu-wrapper,
+.hs-rad-footer-menu .hs-menu-wrapper ul,
+.hs-rad-footer-menu .hs-menu-wrapper li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper a {
+  color: var(--hsElevate--color--base--2);
+  font-size: var(--hsElevate--body--small__fontSize);
+  text-decoration: none;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper a:hover,
+.hs-rad-footer-menu .hs-menu-wrapper a:focus {
+  text-decoration: none;
 }

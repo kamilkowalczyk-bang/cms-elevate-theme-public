@@ -12,14 +12,11 @@
 
 {# Partial #}
 
-<footer class="hs-elevate-footer hs-rad-footer">
+<footer class="hs-elevate-footer hs-rad-footer" style="background-color: {{ dark_section_1_background_color }};">
 
   {# Footer top (non-DnD, flex layout) #}
 
-  <div
-    class="hs-elevate-footer hs-rad-footer hs-rad-footer-top"
-    style="background-color: {{ dark_section_1_background_color }};"
-  >
+  <div class="hs-elevate-footer hs-rad-footer hs-rad-footer-top">
     <div class="hs-elevate-content-wrapper hs-rad-footer-top__inner">
 
       {# Column 1: logo + badge logos #}
@@ -146,24 +143,17 @@
 
     {# Footer bottom #}
 
-    <div
-      class="hs-elevate-footer hs-rad-footer hs-rad-footer-bottom"
-      style="background-color: {{ dark_section_1_background_color }};"
-    >
+    <div class="hs-elevate-footer hs-rad-footer hs-rad-footer-bottom">
       <div class="hs-elevate-content-wrapper hs-rad-footer-bottom__inner">
-        {% module_block module "rad_footer_legal"
-          path="../../components/modules/RichText",
-          groupStyle={
-            "sectionStyleVariant": "section_variant_4"
-          }
-        %}
-          {% module_attribute "richTextContentHTML"%}
-            <div class="hs-rad-footer-legal">
-              <a href="" style="text-decoration: none;">{{ template_translations.partial_footer_privacy.message }}</a>
-              <a href="" style="text-decoration: none;">{{ template_translations.partial_footer_legal.message }}</a>
-            </div>
-          {% end_module_attribute %}
-        {% end_module_block %}
+        <div class="hs-rad-footer-legal hs-rad-footer-menu">
+          {% module "rad_footer_menu"
+            path="@hubspot/menu",
+            id=208276805447,
+            flow="horizontal",
+            flyouts=false,
+            label="Footer Menu"
+          %}
+        </div>
 
         {% module "rad_footer_social"
           path="../../components/modules/SocialFollow",
@@ -199,32 +189,6 @@
                 "link": {
                   "url": {
                     "href": "https://www.twitter.com"
-                  },
-                  "open_in_new_window": true
-                }
-              },
-              "groupIcon": {
-                "customizeIcon": false,
-              }
-            },
-            {
-              "groupLink": {
-                "link": {
-                  "url": {
-                    "href": "https://www.instagram.com"
-                  },
-                  "open_in_new_window": true
-                }
-              },
-              "groupIcon": {
-                "customizeIcon": false,
-              }
-            },
-            {
-              "groupLink": {
-                "link": {
-                  "url": {
-                    "href": "https://www.tiktok.com"
                   },
                   "open_in_new_window": true
                 }
