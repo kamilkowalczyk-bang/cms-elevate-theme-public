@@ -24,7 +24,6 @@ export default function StyleFields() {
           ['default', 'Default'],
           ['none', 'None'],
         ]}
-        display="buttons"
         required={true}
         default="default"
       />
