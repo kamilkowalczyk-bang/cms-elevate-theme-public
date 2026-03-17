@@ -14,7 +14,9 @@
 .hs-elevate-social-share__link {
   display: flex;
   padding: var(--hsElevate--socialShareIcon__padding);
-  border: var(--hsElevate--socialShareIcon__borderWidth) solid var(--hsElevate--socialShareIcon__borderColor);
+  border-width: var(--hsElevate--socialShareIcon__borderWidth);
+  border-style: var(--hsElevate--socialShareIcon__borderStyle, solid);
+  border-color: var(--hsElevate--socialShareIcon__borderColor);
   border-radius: var(--hsElevate--socialShareIcon__shape);
   align-items: center;
   justify-content: center;

@@ -16,6 +16,7 @@ const swm = staticWithModule(styles);
 
 type ShapeOption = 'square' | 'rounded' | 'circle';
 type SizeOption = StandardSizeType;
+type BorderOption = 'default' | 'none';
 
 type DefaultTextProps = {
   twitterLinkAriaLabel: TextFieldType['default'];
@@ -32,6 +33,7 @@ type SocialShareProps = {
     shape: ShapeOption;
     spaceBetweenIcons: StandardSizeType;
     alignment: AlignmentFieldType['default'];
+    iconBorder?: BorderOption;
   };
 };
 
@@ -159,6 +161,22 @@ function generateButtonStyles(buttonStyleVariant: ButtonStyleType): CSSPropertie
   };
 }
 
+function generateBorderOverrideCssVars(iconBorder?: BorderOption): CSSPropertiesMap {
+  if (iconBorder !== 'none') {
+    return {};
+  }
+
+  return {
+    '--hsElevate--socialShareIcon__borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__borderWidth': '0',
+    '--hsElevate--socialShareIcon__hover--borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__hover--borderWidth': '0',
+    '--hsElevate--socialShareIcon__active--borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__active--borderWidth': '0',
+    '--hsElevate--socialShareIcon__borderStyle': 'none',
+  };
+}
+
 function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default']): CSSPropertiesMap {
   const alignmentCss = getAlignmentFieldCss(alignmentField);
 
@@ -208,7 +226,7 @@ export const Component = (props: SocialShareProps) => {
   const {
     platforms,
     groupDefaultText,
-    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment },
+    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment, iconBorder },
   } = props;
 
   const cssVarsMap = {
@@ -217,6 +235,7 @@ export const Component = (props: SocialShareProps) => {
     ...generateIconGapCssVars(spaceBetweenIcons),
     ...generateButtonStyles(buttonStyleVariant),
     ...generateAlignmentCssVars(alignment),
+    ...generateBorderOverrideCssVars(iconBorder),
   };
 
   const currentUrl = usePageUrl().href;

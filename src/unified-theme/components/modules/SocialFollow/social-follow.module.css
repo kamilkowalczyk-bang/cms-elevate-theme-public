@@ -11,7 +11,7 @@
   padding: var(--hsElevate--socialFollowIcon__padding);
   border-color: var(--hsElevate--socialFollowIcon__borderColor);
   border-radius: var(--hsElevate--socialFollowIcon__shape);
-  border-style: solid;
+  border-style: var(--hsElevate--socialFollowIcon__borderStyle, solid);
   border-width: var(--hsElevate--socialFollowIcon__borderWidth);
   align-items: center;
   justify-content: center;
