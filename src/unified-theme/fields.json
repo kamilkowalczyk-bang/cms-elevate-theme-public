@@ -3828,5 +3828,50 @@
         ]
       }
     ]
-  }
+  },
+  {
+  "name": "group_footer_rad",
+  "label": "Footer RAD",
+  "required": false,
+  "locked": false,
+  "children": [
+    {
+    "name": "footer_rad_background_color",
+    "label": "Footer RAD background color",
+    "required": false,
+    "locked": false,
+    "inline_help_text": "",
+    "help_text": "",
+    "type": "color",
+    "default": {
+      "color": "#2B2D3A",
+      "opacity": 100 } 
+    },{
+      "name": "footer_rad_background_image",
+      "label": "Footer RAD background image",
+      "required": false,
+      "type": "backgroundimage",
+      "default": {
+        "src": "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Footer_rad.png",
+        "background_position": "MIDDLE_CENTER",
+        "background_size": "cover"
+      }
+    }
+  ],
+  "type": "group",
+  "inline_help_text": "",
+  "help_text": "",
+  "default": {   
+    "footer_rad_background_color": {
+      "color": "#2B2D3A",
+      "opacity": 100
+    },
+    "footer_rad_background_image": {
+      "src": "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Footer_rad.png",
+      "background_position": "MIDDLE_CENTER",
+      "background_size": "cover"
+    }
+  } 
+}
+
 ]
