@@ -119,7 +119,7 @@ export const Component = (props: MenuModulePropTypes) => {
     groupMenu: {
       menuAlignment,
       menuBackgroundColor: { color: menuBackgroundColor, opacity: menuBackgroundOpacity } = { color: '#ffffff', opacity: 100 },
-      menuAccentColor: { color: menuAccentColor } = { color: '#D3DAE4' },
+      menuAccentColor: { color: menuAccentColor, opacity: menuAccentOpacity } = { color: '#D3DAE4', opacity: 100 },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
     },
@@ -132,9 +132,10 @@ export const Component = (props: MenuModulePropTypes) => {
   const langSwitcherIconFieldPath = 'globe_icon';
 
   const menuBackgroundColorWithOpacity = withOpacity(menuBackgroundColor, menuBackgroundOpacity);
+  const menuAccentColorWithOpacity = withOpacity(menuAccentColor, menuAccentOpacity);
 
   const mobileMenuBackgroundRaw = groupMobileMenu?.mobileMenuBackgroundColor ?? { color: menuBackgroundColor, opacity: menuBackgroundOpacity };
-  const mobileMenuAccentRaw = groupMobileMenu?.mobileMenuAccentColor ?? { color: menuAccentColor, opacity: 100 };
+  const mobileMenuAccentRaw = groupMobileMenu?.mobileMenuAccentColor ?? { color: menuAccentColor, opacity: menuAccentOpacity };
   const mobileMenuTextRaw = groupMobileMenu?.mobileMenuTextColor ?? { color: menuTextColor };
   const mobileMenuTextHoverRaw = groupMobileMenu?.mobileMenuTextHoverColor ?? { color: menuTextHoverColor };
 
@@ -148,7 +149,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextColor,
       menuTextHoverColor,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
-      menuAccentColor,
+      menuAccentColor: menuAccentColorWithOpacity,
     }),
   };
 

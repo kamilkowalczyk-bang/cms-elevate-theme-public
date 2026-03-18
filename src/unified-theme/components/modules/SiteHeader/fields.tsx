@@ -114,9 +114,8 @@ export const fields = (
           label="Accent color"
           name="menuAccentColor"
           helpText="Controls the color of menu item hover states and the border color of flyout menus."
-          visibility={{ hidden_subfields: { opacity: true } }}
           limitedOptions={limitedOptionsColorsSet}
-          default={{ color: '#F7F9FC' }}
+          default={{ color: '#F7F9FC', opacity: 100 }}
         />
         <ColorField
           label="Background color"
