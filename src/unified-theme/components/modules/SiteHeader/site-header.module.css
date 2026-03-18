@@ -98,7 +98,7 @@
 
       :global(.hs-elevate-menu__arrow-path) {
         /* stylelint-disable-line selector-pseudo-class-no-unknown */
-        fill: var(--hsElevate--siteHeader__menuTextColor);
+        fill: var(--hsElevate--siteHeader__menuArrowIconFill, var(--hsElevate--siteHeader__menuTextColor));
       }
     }
   }

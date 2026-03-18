@@ -27,6 +27,7 @@ const swm = staticWithModule(styles);
 type ColorProps = {
   menuTextColor: string;
   menuTextHoverColor: string;
+  menuArrowIconFill: string;
   menuBackgroundColor: string;
   menuAccentColor: string;
 };
@@ -56,11 +57,12 @@ function withOpacity(color: string, opacityPercent?: number): string {
 }
 
 function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
-  const { menuTextColor, menuTextHoverColor, menuBackgroundColor, menuAccentColor } = props;
+  const { menuTextColor, menuTextHoverColor, menuArrowIconFill, menuBackgroundColor, menuAccentColor } = props;
 
   return {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
+    '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
     '--hsElevate--siteHeader__menuAccentColor': menuAccentColor,
   };
@@ -122,6 +124,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuAccentColor: { color: menuAccentColor, opacity: menuAccentOpacity } = { color: '#D3DAE4', opacity: 100 },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
+      menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
     },
     groupButton: { buttonStyleVariant, buttonStyleSize },
     groupMobileMenu,
@@ -148,6 +151,7 @@ export const Component = (props: MenuModulePropTypes) => {
     ...generateColorCssVars({
       menuTextColor,
       menuTextHoverColor,
+      menuArrowIconFill,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
       menuAccentColor: menuAccentColorWithOpacity,
     }),

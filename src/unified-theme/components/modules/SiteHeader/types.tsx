@@ -33,6 +33,7 @@ type GroupMenuStyle = {
   menuAlignment: AlignmentFieldType['default'];
   menuTextColor: ColorFieldType['default'];
   menuTextHoverColor: ColorFieldType['default'];
+  menuArrowIconFill: ColorFieldType['default'];
   menuAccentColor: ColorFieldType['default'];
   menuBackgroundColor: ColorFieldType['default'];
 };

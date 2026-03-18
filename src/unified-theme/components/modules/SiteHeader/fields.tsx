@@ -111,6 +111,13 @@ export const fields = (
           inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
         />
         <ColorField
+          label="Arrow icon fill"
+          name="menuArrowIconFill"
+          visibility={{ hidden_subfields: { opacity: true } }}
+          limitedOptions={limitedOptionsColorsSet}
+          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
+        />
+        <ColorField
           label="Accent color"
           name="menuAccentColor"
           helpText="Controls the color of menu item hover states and the border color of flyout menus."
