@@ -121,9 +121,9 @@ export const fields = (
         <ColorField
           label="Background color"
           name="menuBackgroundColor"
-          visibility={{ hidden_subfields: { opacity: true } }}
+          helpText="Adjust opacity to make the header background transparent."
           limitedOptions={limitedColorDefaults.themeSectionBackgroundColors}
-          default={{ color: '#ffffff' }}
+          default={{ color: '#ffffff', opacity: 100 }}
         />
         <AlignmentField
           label="Horizontal alignment"

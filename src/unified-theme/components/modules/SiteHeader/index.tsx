@@ -31,6 +31,30 @@ type ColorProps = {
   menuAccentColor: string;
 };
 
+function withOpacity(color: string, opacityPercent?: number): string {
+  if (opacityPercent == null) return color;
+  if (opacityPercent >= 100) return color;
+  if (opacityPercent <= 0) return 'transparent';
+
+  const trimmed = color.trim();
+  if (!trimmed.startsWith('#')) return color;
+
+  const hex = trimmed.slice(1);
+  const isShort = hex.length === 3;
+  const isLong = hex.length === 6;
+  if (!isShort && !isLong) return color;
+
+  const expanded = isShort ? hex.split('').map(ch => `${ch}${ch}`).join('') : hex;
+  const r = Number.parseInt(expanded.slice(0, 2), 16);
+  const g = Number.parseInt(expanded.slice(2, 4), 16);
+  const b = Number.parseInt(expanded.slice(4, 6), 16);
+
+  if ([r, g, b].some(n => Number.isNaN(n))) return color;
+
+  const alpha = opacityPercent / 100;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
   const { menuTextColor, menuTextHoverColor, menuBackgroundColor, menuAccentColor } = props;
 
@@ -94,7 +118,7 @@ export const Component = (props: MenuModulePropTypes) => {
   const {
     groupMenu: {
       menuAlignment,
-      menuBackgroundColor: { color: menuBackgroundColor } = { color: '#ffffff' },
+      menuBackgroundColor: { color: menuBackgroundColor, opacity: menuBackgroundOpacity } = { color: '#ffffff', opacity: 100 },
       menuAccentColor: { color: menuAccentColor } = { color: '#D3DAE4' },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
@@ -106,7 +130,8 @@ export const Component = (props: MenuModulePropTypes) => {
   const showLanguageSwitcher = translations?.length > 1;
   const langSwitcherIconFieldPath = 'globe_icon';
 
-  const cssVarsMap = { ...generateColorCssVars({ menuTextColor, menuTextHoverColor, menuBackgroundColor, menuAccentColor }) };
+  const menuBackgroundColorWithOpacity = withOpacity(menuBackgroundColor, menuBackgroundOpacity);
+  const cssVarsMap = { ...generateColorCssVars({ menuTextColor, menuTextHoverColor, menuBackgroundColor: menuBackgroundColorWithOpacity, menuAccentColor }) };
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), { [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher });
 
@@ -148,7 +173,7 @@ export const Component = (props: MenuModulePropTypes) => {
             <LanguageSwitcherContainer className={swm('hs-elevate-site-header__language-switcher-container')}>
               <Island
                 module={LanguageSwitcherIsland}
-                menuBackgroundColor={menuBackgroundColor}
+                menuBackgroundColor={menuBackgroundColorWithOpacity}
                 menuBackgroundColorHover={menuAccentColor}
                 textColor={menuTextColor}
                 textColorHover={menuTextHoverColor}
@@ -188,7 +213,7 @@ export const Component = (props: MenuModulePropTypes) => {
               menuAlignment={menuAlignment}
               navigationAriaLabel="Main mobile navigation"
               flyouts={true}
-              menuBackgroundColor={menuBackgroundColor}
+              menuBackgroundColor={menuBackgroundColorWithOpacity}
               menuAccentColor={menuAccentColor}
               menuTextColor={menuTextColor}
               menuTextHoverColor={menuTextHoverColor}
