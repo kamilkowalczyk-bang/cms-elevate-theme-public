@@ -20,3 +20,28 @@
   height: auto;
   width: auto;
 }
+
+/* Header + slider combination
+   Allows transparent SiteHeader to visually overlap the TestimonialSlider section below.
+*/
+
+.hs-elevate-header--with-slider {
+  position: relative;
+  z-index: 10;
+}
+
+.hs-elevate-header-slider {
+  position: relative;
+  z-index: 1;
+  margin-top: -8rem;
+}
+
+/* Ensure the first header DnD row stays transparent when overlaying slider */
+
+.hs-elevate-header--with-slider .header-row-0-padding,
+.hs-elevate-header--with-slider .header-row-0-padding .row-fluid {
+  background-color: transparent !important;
+}
+
+
+

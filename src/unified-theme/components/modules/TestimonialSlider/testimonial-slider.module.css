@@ -184,7 +184,7 @@
 
 @media (width >= 768px) {
   .hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
-    padding-block: 120px 100px;
+    padding-block: 185px 100px;
     padding-inline: var(--hsElevate--spacing--48, 48px);
     min-height: 420px;
   }
@@ -192,7 +192,7 @@
 
 @media (width >= 1200px) {
   .hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
-    padding: 150px 250px;
+    padding: 250px 250px 150px 250px;
     min-height: 450px;
   }
 }
