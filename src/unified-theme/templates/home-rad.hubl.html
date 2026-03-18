@@ -1,0 +1,14 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Home Radientum
+  screenshotPath: ../images/template-previews/blank.png
+-->
+{% extends "./layouts/base-rad.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+  {% end_dnd_area %}
+{% endblock body %}

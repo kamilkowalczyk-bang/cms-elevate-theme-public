@@ -40,7 +40,7 @@ const logoLinkVisibility: Visibility = {
 
 export const fields = (
   <ModuleFields>
-    <FieldGroup label="Logo" name="groupLogo" display="inline">
+    <FieldGroup label="Branding" name="groupLogo" display="inline">
       <LogoField label="Logo" name="logo" showLoading={false} />
       <BooleanField
         id="overrideLogoLink"
