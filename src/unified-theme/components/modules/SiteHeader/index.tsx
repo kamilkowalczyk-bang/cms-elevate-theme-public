@@ -124,6 +124,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
     },
     groupButton: { buttonStyleVariant, buttonStyleSize },
+    groupMobileMenu,
   } = groupStyles;
 
   const translations = useLanguageVariants();
@@ -131,7 +132,25 @@ export const Component = (props: MenuModulePropTypes) => {
   const langSwitcherIconFieldPath = 'globe_icon';
 
   const menuBackgroundColorWithOpacity = withOpacity(menuBackgroundColor, menuBackgroundOpacity);
-  const cssVarsMap = { ...generateColorCssVars({ menuTextColor, menuTextHoverColor, menuBackgroundColor: menuBackgroundColorWithOpacity, menuAccentColor }) };
+
+  const mobileMenuBackgroundRaw = groupMobileMenu?.mobileMenuBackgroundColor ?? { color: menuBackgroundColor, opacity: menuBackgroundOpacity };
+  const mobileMenuAccentRaw = groupMobileMenu?.mobileMenuAccentColor ?? { color: menuAccentColor, opacity: 100 };
+  const mobileMenuTextRaw = groupMobileMenu?.mobileMenuTextColor ?? { color: menuTextColor };
+  const mobileMenuTextHoverRaw = groupMobileMenu?.mobileMenuTextHoverColor ?? { color: menuTextHoverColor };
+
+  const mobileMenuBackgroundColor = withOpacity(mobileMenuBackgroundRaw.color, mobileMenuBackgroundRaw.opacity);
+  const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
+  const mobileMenuTextColor = mobileMenuTextRaw.color;
+  const mobileMenuTextHoverColor = mobileMenuTextHoverRaw.color;
+
+  const cssVarsMap = {
+    ...generateColorCssVars({
+      menuTextColor,
+      menuTextHoverColor,
+      menuBackgroundColor: menuBackgroundColorWithOpacity,
+      menuAccentColor,
+    }),
+  };
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), { [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher });
 
@@ -173,10 +192,10 @@ export const Component = (props: MenuModulePropTypes) => {
             <LanguageSwitcherContainer className={swm('hs-elevate-site-header__language-switcher-container')}>
               <Island
                 module={LanguageSwitcherIsland}
-                menuBackgroundColor={menuBackgroundColorWithOpacity}
-                menuBackgroundColorHover={menuAccentColor}
-                textColor={menuTextColor}
-                textColorHover={menuTextHoverColor}
+                menuBackgroundColor={mobileMenuBackgroundColor}
+                menuBackgroundColorHover={mobileMenuAccentColor}
+                textColor={mobileMenuTextColor}
+                textColorHover={mobileMenuTextHoverColor}
                 languageSwitcherSelectText={languageSwitcherSelectText}
                 langSwitcherIconFieldPath={langSwitcherIconFieldPath}
               />
@@ -213,10 +232,10 @@ export const Component = (props: MenuModulePropTypes) => {
               menuAlignment={menuAlignment}
               navigationAriaLabel="Main mobile navigation"
               flyouts={true}
-              menuBackgroundColor={menuBackgroundColorWithOpacity}
-              menuAccentColor={menuAccentColor}
-              menuTextColor={menuTextColor}
-              menuTextHoverColor={menuTextHoverColor}
+              menuBackgroundColor={mobileMenuBackgroundColor}
+              menuAccentColor={mobileMenuAccentColor}
+              menuTextColor={mobileMenuTextColor}
+              menuTextHoverColor={mobileMenuTextHoverColor}
               buttonStyleVariant={buttonStyleVariant}
               buttonStyleSize={buttonStyleSize}
               groupButton={groupButton}

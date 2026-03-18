@@ -37,9 +37,17 @@ type GroupMenuStyle = {
   menuBackgroundColor: ColorFieldType['default'];
 };
 
+type GroupMobileMenuStyle = {
+  mobileMenuTextColor: ColorFieldType['default'];
+  mobileMenuTextHoverColor: ColorFieldType['default'];
+  mobileMenuAccentColor: ColorFieldType['default'];
+  mobileMenuBackgroundColor: ColorFieldType['default'];
+};
+
 type MenuModuleStyles = {
   groupMenu: GroupMenuStyle;
   groupButton: ButtonStyleFieldLibraryType;
+  groupMobileMenu?: GroupMobileMenuStyle;
 };
 
 export interface MenuModulePropTypes extends MenuModuleContentFields {

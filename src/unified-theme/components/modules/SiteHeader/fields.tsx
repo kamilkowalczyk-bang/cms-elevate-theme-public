@@ -133,6 +133,36 @@ export const fields = (
           default={{ horizontal_align: 'CENTER' }}
         />
       </FieldGroup>
+      <FieldGroup label="Mobile menu" name="groupMobileMenu" display="inline">
+        <ColorField
+          label="Text color (mobile)"
+          name="mobileMenuTextColor"
+          limitedOptions={limitedOptionsColorsSet}
+          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
+        />
+        <ColorField
+          label="Text color (hover, mobile)"
+          name="mobileMenuTextHoverColor"
+          limitedOptions={limitedOptionsColorsSet}
+          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextHoverColor.color' }}
+        />
+        <ColorField
+          label="Accent color (mobile)"
+          name="mobileMenuAccentColor"
+          helpText="Controls hover background and separators in the mobile menu. Adjust opacity for a softer highlight."
+          limitedOptions={limitedOptionsColorsSet}
+          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuAccentColor.color' }}
+          default={{ opacity: 100 }}
+        />
+        <ColorField
+          label="Background color (mobile)"
+          name="mobileMenuBackgroundColor"
+          helpText="Adjust opacity to make the mobile menu background transparent."
+          limitedOptions={limitedColorDefaults.themeSectionBackgroundColors}
+          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuBackgroundColor.color' }}
+          default={{ opacity: 100 }}
+        />
+      </FieldGroup>
       <FieldGroup label="Button" name="groupButton" display="inline">
         <ButtonStyle
           buttonStyleDefault="primary"
