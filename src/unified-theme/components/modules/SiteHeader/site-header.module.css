@@ -71,7 +71,9 @@
       text-decoration: none;
     }
 
-    a:hover {
+    a:hover,
+    :global(.hs-elevate-menu__menu-item-span:hover) {
+      /* stylelint-disable-line selector-pseudo-class-no-unknown */
       color: var(--hsElevate--siteHeader__hover--menuTextColor);
       text-decoration: none;
     }
