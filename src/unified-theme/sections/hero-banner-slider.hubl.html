@@ -19,16 +19,23 @@
     "left": 0
   }
 %}
+<div class="{{ context.wrapper_class }}">
   {% dnd_column %}
     {% dnd_row %}
       {% dnd_module
         path="../components/modules/TestimonialSlider",
+        offset=0,
+        width=12,
         groupLayout={
-          "layoutType": "info",
-          "showInfoArrows": false
+          "layoutType" : "info",
+          "showInfoArrows" : false
+        },
+        groupStyle={
+          "cardStyleVariant" : "card_variant_4"
         }
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
+  </div>
 {% end_dnd_section %}

@@ -60,12 +60,16 @@ export const fields = (
       />
     </FieldGroup>
     <FieldGroup label="Navigation" name="groupNavigation" display="inline">
-      <MenuField label="Menu" name="menu" default="default" />
+      <MenuField
+        label="Menu"
+        name="menu"
+        default={207886880356}
+      />
     </FieldGroup>
     <FieldGroup label="Button" name="groupButton" display="inline">
       <BooleanField label="Show button" name="showButton" display="toggle" default={true} />
       <ButtonContent
-        textDefault="Get started"
+        textDefault="Book a free demo"
         linkDefault={{ open_in_new_tab: false }}
         iconPositionDefault="right"
         textVisibility={buttonFieldVisibility}
@@ -101,35 +105,35 @@ export const fields = (
           helpText="Controls the color of text in the navigation bar. Also controls the color of the hamburger menu."
           visibility={{ hidden_subfields: { opacity: true } }}
           limitedOptions={limitedOptionsColorsSet}
-          default={{ color: '#09152B' }}
+          default={{ color: '#FFFFFF' }}
         />
         <ColorField
           label="Text color (hover)"
           name="menuTextHoverColor"
           visibility={{ hidden_subfields: { opacity: true } }}
           limitedOptions={limitedOptionsColorsSet}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
+          default={{ color: '#52BAD1' }}
         />
         <ColorField
           label="Arrow icon fill"
           name="menuArrowIconFill"
           visibility={{ hidden_subfields: { opacity: true } }}
           limitedOptions={limitedOptionsColorsSet}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
+          default={{ color: '#52BAD1' }}
         />
         <ColorField
           label="Accent color"
           name="menuAccentColor"
           helpText="Controls the color of menu item hover states and the border color of flyout menus."
           limitedOptions={limitedOptionsColorsSet}
-          default={{ color: '#F7F9FC', opacity: 100 }}
+          default={{ color: '#161C26', opacity: 50 }}
         />
         <ColorField
           label="Background color"
           name="menuBackgroundColor"
           helpText="Adjust opacity to make the header background transparent."
           limitedOptions={limitedColorDefaults.themeSectionBackgroundColors}
-          default={{ color: '#ffffff', opacity: 100 }}
+          default={{ color: '#161C26', opacity: 0 }}
         />
         <BooleanField
           label="Use accent color on flyout hover"
@@ -151,35 +155,33 @@ export const fields = (
           label="Text color (mobile)"
           name="mobileMenuTextColor"
           limitedOptions={limitedOptionsColorsSet}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextColor.color' }}
+          default={{ color: '#FFFFFF' }}
         />
         <ColorField
           label="Text color (hover, mobile)"
           name="mobileMenuTextHoverColor"
           limitedOptions={limitedOptionsColorsSet}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuTextHoverColor.color' }}
+          default={{ color: '#52BAD1' }}
         />
         <ColorField
           label="Accent color (mobile)"
           name="mobileMenuAccentColor"
           helpText="Controls hover background and separators in the mobile menu. Adjust opacity for a softer highlight."
           limitedOptions={limitedOptionsColorsSet}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuAccentColor.color' }}
-          default={{ opacity: 100 }}
+          default={{ color: '#161C26', opacity: 0 }}
         />
         <ColorField
           label="Background color (mobile)"
           name="mobileMenuBackgroundColor"
           helpText="Adjust opacity to make the mobile menu background transparent."
           limitedOptions={limitedColorDefaults.themeSectionBackgroundColors}
-          inheritedValuePropertyValuePaths={{ color: 'module.styles.groupMenu.menuBackgroundColor.color' }}
-          default={{ opacity: 100 }}
+          default={{ color: '#161C26', opacity: 100 }}
         />
       </FieldGroup>
       <FieldGroup label="Button" name="groupButton" display="inline">
         <ButtonStyle
-          buttonStyleDefault="primary"
-          buttonSizeDefault="medium"
+          buttonStyleDefault="secondary"
+          buttonSizeDefault="small"
           buttonSizeVisibility={buttonFieldVisibility}
           buttonStyleVisibility={buttonFieldVisibility}
         />

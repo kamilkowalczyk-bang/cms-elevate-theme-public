@@ -28,12 +28,15 @@
 .hs-elevate-header--with-slider {
   position: relative;
   z-index: 10;
+  margin-bottom: -8rem;
+  
 }
 
 .hs-elevate-header-slider {
   position: relative;
   z-index: 1;
-  margin-top: -8rem;
+  
+  
 }
 
 /* Ensure the first header DnD row stays transparent when overlaying slider */
