@@ -1,0 +1,34 @@
+<!--
+  templateType: section
+  label: Hero banner - slider
+  isAvailableForNewContent: true
+  landingPageSectionCategories: [HERO]
+  screenshotPath: ../images/section-previews/radientum_slider-section.png
+  description: "Section with a full-width testimonial slider, aligned under the global header."
+-->
+
+{% set template_translations = load_translations("../templates/_locales", html_lang, "en") %}
+{% import "../helpers/variables.hubl.html" %}
+
+{% dnd_section
+  full_width=true,
+  padding={
+    "top": 0,
+    "right": 0,
+    "bottom": 0,
+    "left": 0
+  }
+%}
+  {% dnd_column %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/TestimonialSlider",
+        groupLayout={
+          "layoutType": "info",
+          "showInfoArrows": false
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}

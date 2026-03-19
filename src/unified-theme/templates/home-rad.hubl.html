@@ -4,11 +4,18 @@
   label: Home Radientum
   screenshotPath: ../images/template-previews/blank.png
 -->
-{% extends "./layouts/base-rad-slider.hubl.html" %}
+{% extends "./layouts/base-rad.hubl.html" %}
 
 {% block body %}
   {% dnd_area "dnd_area"
     label="Main section"
   %}
+
+    {% include_dnd_partial
+      path="../sections/hero-banner-slider.hubl.html",
+      context={
+      }
+    %}
+
   {% end_dnd_area %}
 {% endblock body %}
