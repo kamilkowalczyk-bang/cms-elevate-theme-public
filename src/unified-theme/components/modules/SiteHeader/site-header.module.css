@@ -113,6 +113,17 @@
     background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
   }
 
+  :global(.hs-elevate-menu__submenu.hs-elevate-menu__flyout-submenu) {
+    /* stylelint-disable-line selector-pseudo-class-no-unknown */
+    border-color: var(--hsElevate--siteHeader__menuAccentColor);
+    background-color: var(--hsElevate--siteHeader__flyoutBackgroundColor, var(--hsElevate--siteHeader__menuBackgroundColor));
+  }
+
+  :global(.hs-elevate-menu__submenu.hs-elevate-menu__flyout-submenu .hs-elevate-menu__menu-item-link-container) {
+    /* stylelint-disable-line selector-pseudo-class-no-unknown */
+    background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
+  }
+
   [data-hs-elevate-menuitem-depth='1'] {
     > :global(.hs-elevate-menu__menu-item-link-container):hover {
       /* stylelint-disable-line selector-pseudo-class-no-unknown */

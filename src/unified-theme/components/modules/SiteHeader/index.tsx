@@ -57,7 +57,13 @@ function withOpacity(color: string, opacityPercent?: number): string {
 }
 
 function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
-  const { menuTextColor, menuTextHoverColor, menuArrowIconFill, menuBackgroundColor, menuAccentColor } = props;
+  const {
+    menuTextColor,
+    menuTextHoverColor,
+    menuArrowIconFill,
+    menuBackgroundColor,
+    menuAccentColor,
+  } = props;
 
   return {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
@@ -65,6 +71,9 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
     '--hsElevate--siteHeader__menuAccentColor': menuAccentColor,
+    // Flyout background uses Accent color (including its opacity) so designers
+    // can independently control header background vs. flyout background.
+    '--hsElevate--siteHeader__flyoutBackgroundColor': menuAccentColor,
   };
 }
 
