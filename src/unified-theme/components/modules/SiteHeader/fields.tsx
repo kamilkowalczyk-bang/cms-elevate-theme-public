@@ -131,6 +131,13 @@ export const fields = (
           limitedOptions={limitedColorDefaults.themeSectionBackgroundColors}
           default={{ color: '#ffffff', opacity: 100 }}
         />
+        <BooleanField
+          label="Use accent color on flyout hover"
+          name="menuFlyoutUseAccentOnHover"
+          display="toggle"
+          default={false}
+          helpText="When enabled, flyout menu items use the Accent color as their hover background. When disabled, they keep the background color on hover."
+        />
         <AlignmentField
           label="Horizontal alignment"
           name="menuAlignment"

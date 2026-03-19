@@ -36,6 +36,7 @@ type GroupMenuStyle = {
   menuArrowIconFill: ColorFieldType['default'];
   menuAccentColor: ColorFieldType['default'];
   menuBackgroundColor: ColorFieldType['default'];
+  menuFlyoutUseAccentOnHover: BooleanFieldType['default'];
 };
 
 type GroupMobileMenuStyle = {

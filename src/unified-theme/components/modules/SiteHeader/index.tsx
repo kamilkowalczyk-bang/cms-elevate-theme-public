@@ -30,6 +30,7 @@ type ColorProps = {
   menuArrowIconFill: string;
   menuBackgroundColor: string;
   menuAccentColor: string;
+  flyoutItemHoverBackgroundColor: string;
 };
 
 function withOpacity(color: string, opacityPercent?: number): string {
@@ -63,6 +64,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     menuArrowIconFill,
     menuBackgroundColor,
     menuAccentColor,
+    flyoutItemHoverBackgroundColor,
   } = props;
 
   return {
@@ -74,6 +76,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     // Flyout background uses Accent color (including its opacity) so designers
     // can independently control header background vs. flyout background.
     '--hsElevate--siteHeader__flyoutBackgroundColor': menuAccentColor,
+    '--hsElevate--siteHeader__flyoutItemHoverBackgroundColor': flyoutItemHoverBackgroundColor,
   };
 }
 
@@ -134,6 +137,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
+      menuFlyoutUseAccentOnHover = false,
     },
     groupButton: { buttonStyleVariant, buttonStyleSize },
     groupMobileMenu,
@@ -145,6 +149,9 @@ export const Component = (props: MenuModulePropTypes) => {
 
   const menuBackgroundColorWithOpacity = withOpacity(menuBackgroundColor, menuBackgroundOpacity);
   const menuAccentColorWithOpacity = withOpacity(menuAccentColor, menuAccentOpacity);
+  const flyoutItemHoverBackgroundColor = menuFlyoutUseAccentOnHover
+    ? menuAccentColorWithOpacity
+    : menuBackgroundColorWithOpacity;
 
   const mobileMenuBackgroundRaw = groupMobileMenu?.mobileMenuBackgroundColor ?? { color: menuBackgroundColor, opacity: menuBackgroundOpacity };
   const mobileMenuAccentRaw = groupMobileMenu?.mobileMenuAccentColor ?? { color: menuAccentColor, opacity: menuAccentOpacity };
@@ -163,6 +170,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuArrowIconFill,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
       menuAccentColor: menuAccentColorWithOpacity,
+      flyoutItemHoverBackgroundColor,
     }),
   };
 

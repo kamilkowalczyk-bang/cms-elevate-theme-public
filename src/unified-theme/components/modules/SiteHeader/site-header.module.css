@@ -132,7 +132,7 @@
 
     li :global(.hs-elevate-menu__menu-item-link-container):hover {
       /* stylelint-disable-line selector-pseudo-class-no-unknown */
-      background-color: var(--hsElevate--siteHeader__menuAccentColor);
+      background-color: var(--hsElevate--siteHeader__flyoutItemHoverBackgroundColor, var(--hsElevate--siteHeader__menuAccentColor));
     }
 
     > ul {
