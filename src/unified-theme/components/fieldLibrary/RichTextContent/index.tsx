@@ -43,6 +43,7 @@ const extendedFeatureSet = [
   'video',
   'charmap',
   'anchor',
+  'text_color',
   'nonbreaking_space',
   'source_code',
   'visual_blocks',

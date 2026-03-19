@@ -1,0 +1,29 @@
+[
+  {
+    "name": "background_image",
+    "type": "image",
+    "description": "A wide background image for the hero banner section.",
+    "width": "1750",
+    "height": "1000"
+  },
+  {
+    "name": "rich_text",
+    "type": "text",
+    "description": "A short introductory line shown above the hero heading."
+  },
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "The main value proposition heading for the hero banner."
+  },
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "The call-to-action button text for the hero section."
+  },
+  {
+    "name": "button_link",
+    "type": "link",
+    "description": "The URL for the call-to-action button."
+  }
+]

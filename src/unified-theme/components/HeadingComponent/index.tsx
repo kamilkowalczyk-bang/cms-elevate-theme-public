@@ -26,6 +26,7 @@ type HeadingProps = HeadingInlineStyleProps &
 const headingClasses = {
   display_1: 'hs-elevate-display-1',
   display_2: 'hs-elevate-display-2',
+  display_title: 'hs-elevate-display-title',
   h1: 'hs-elevate-h1',
   h2: 'hs-elevate-h2',
   h3: 'hs-elevate-h3',
