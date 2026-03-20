@@ -101,8 +101,8 @@ export const Component = (props: ElevatedHeadingProps) => {
               additionalClassArray={[swm('hs-elevate-elevated-heading__card')]}
               inlineStyles={{
                 padding: 0,
-                justifyContent: 'center',
-                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
                 flexDirection: 'column',
               }}
             >
