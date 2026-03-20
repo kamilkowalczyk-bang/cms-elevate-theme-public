@@ -1,0 +1,77 @@
+.hs-elevate-elevated-heading {
+  /* Outer wrapper styling from your screenshot */
+  box-shadow: 0 -48px 48px -24px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 40px;
+}
+
+.hs-elevate-elevated-heading__heading {
+  text-align: center;
+}
+
+.hs-elevate-elevated-heading__heading h1,
+.hs-elevate-elevated-heading__heading h2,
+.hs-elevate-elevated-heading__heading h3,
+.hs-elevate-elevated-heading__heading h4,
+.hs-elevate-elevated-heading__heading h5,
+.hs-elevate-elevated-heading__heading h6,
+.hs-elevate-elevated-heading__heading .hs-elevate-h1,
+.hs-elevate-elevated-heading__heading .hs-elevate-h2,
+.hs-elevate-elevated-heading__heading .hs-elevate-h3,
+.hs-elevate-elevated-heading__heading .hs-elevate-h4,
+.hs-elevate-elevated-heading__heading .hs-elevate-h5,
+.hs-elevate-elevated-heading__heading .hs-elevate-h6 {
+  color: var(--hsElevate--heading__textColor);
+}
+
+.hs-elevate-elevated-heading__divider {
+  border: 0 none;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(82, 186, 209, 1.0);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.hs-elevate-elevated-heading__cards {
+  margin-top: var(--hsElevate--spacing--24, 24px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+@media (width < 1000px) {
+  .hs-elevate-elevated-heading__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width < 767px) {
+  .hs-elevate-elevated-heading__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hs-elevate-elevated-heading__card {
+  /* Override CardComponent variant visuals for this module */
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+.hs-elevate-elevated-heading__cardIcon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: var(--hsElevate--spacing--12, 12px);
+}
+
+.hs-elevate-elevated-heading__cardTitle h4 {
+  margin: 0;
+}
+
