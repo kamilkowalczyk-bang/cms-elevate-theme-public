@@ -15,7 +15,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: flex-start;
-  background-color: white;
+  background-color: transparent;
   transition: all 0.3s ease;
 
   > nav {
@@ -75,7 +75,7 @@
 
       :global(.hs-elevate-menu__arrow-path) {
         /* stylelint-disable-line selector-pseudo-class-no-unknown */
-        fill: var(--hsElevate--mobileMenu__textColor);
+        fill: var(--hsElevate--siteHeader__menuArrowIconFill);
       }
     }
 
