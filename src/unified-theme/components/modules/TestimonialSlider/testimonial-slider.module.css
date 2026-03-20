@@ -177,7 +177,7 @@
 
 /* Info with background image: generous top/bottom padding so hero background shows */
 .hs-elevate-testimonial-slider__slide--info-has-bg .hs-elevate-testimonial-slider__content-container {
-  padding-block: 80px 60px;
+  padding-block: 120px 60px;
   padding-inline: var(--hsElevate--spacing--24, 24px);
   min-height: 380px;
 }
