@@ -1,6 +1,6 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { RichText } from '@hubspot/cms-components';
-import { ImageFieldType, RichTextFieldType, ChoiceFieldType } from '@hubspot/cms-components/fields';
+import { ImageFieldType, ChoiceFieldType, TextFieldType } from '@hubspot/cms-components/fields';
 import { SectionVariantType } from '../../types/fields.js';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
 import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/types.js';
@@ -8,7 +8,7 @@ import { RichTextContentFieldLibraryType } from '../../fieldLibrary/RichTextCont
 import HeadingComponent from '../../HeadingComponent/index.js';
 import { Card } from '../../CardComponent/index.js';
 import styles from './elevated-heading.module.css';
-import { staticWithModule } from '../../utils/classnames.js';
+import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { getDataHSToken } from '../../utils/inline-editing.js';
 import { CSSPropertiesMap } from '../../types/components.js';
@@ -20,7 +20,7 @@ const swm = staticWithModule(styles);
 
 type GroupHeading = {
   groupHeading: {
-    richTextContentHTML: RichTextFieldType['default'];
+    heading: TextFieldType['default'];
     headingLevel: ChoiceFieldType['default'];
   };
 };
@@ -36,8 +36,9 @@ type CardItem = {
 
 type ElevatedHeadingProps = {
   moduleName?: string;
+  isElevated?: boolean;
   groupHeading: {
-    richTextContentHTML: RichTextFieldType['default'];
+    heading: TextFieldType['default'];
     headingLevel: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   };
   groupStyle: GroupStyle;
@@ -51,26 +52,41 @@ function generateHeadingColorCssVars(sectionVariantField: SectionVariantType): C
 }
 
 export const Component = (props: ElevatedHeadingProps) => {
-  const { moduleName, groupHeading, groupStyle: { sectionStyleVariant, headingStyleVariant }, groupCards } = props;
+  const {
+    moduleName,
+    isElevated = false,
+    groupHeading,
+    groupStyle: { sectionStyleVariant, headingStyleVariant },
+    groupCards,
+  } = props;
   const cssVarsMap: CSSPropertiesMap = generateHeadingColorCssVars(sectionStyleVariant);
 
+  const ModuleWrapper = createComponent('div');
   const HeadingWrapper = createComponent('div');
   const Section = createComponent('section');
 
   return (
-    <Section className={swm('hs-elevate-elevated-heading')} style={cssVarsMap}>
+    <ModuleWrapper
+      className={swm('hs-elevate-elevated-heading__moduleWrapper')}
+    >
+      <Section
+        className={cx(swm('hs-elevate-elevated-heading'), {
+          [swm('hs-elevate-elevated-heading__moduleWrapper--is-elevated')]: isElevated,
+        })}
+        style={cssVarsMap}
+      >
+      <hr className={swm('hs-elevate-elevated-heading__divider')} aria-hidden="true" />
+
       <HeadingWrapper className={swm('hs-elevate-elevated-heading__heading')}>
         <HeadingComponent
           additionalClassArray={[]}
           headingLevel={groupHeading.headingLevel}
-          heading={groupHeading.richTextContentHTML}
+          heading={groupHeading.heading}
           headingStyleVariant={headingStyleVariant}
           moduleName={moduleName}
-          fieldPath="groupHeading.richTextContentHTML"
+          fieldPath="groupHeading.heading"
         />
       </HeadingWrapper>
-
-      <hr className={swm('hs-elevate-elevated-heading__divider')} aria-hidden="true" />
 
       <div className={swm('hs-elevate-elevated-heading__cards')}>
         {groupCards.map((card, index) => {
@@ -113,7 +129,8 @@ export const Component = (props: ElevatedHeadingProps) => {
           );
         })}
       </div>
-    </Section>
+      </Section>
+    </ModuleWrapper>
   );
 };
 

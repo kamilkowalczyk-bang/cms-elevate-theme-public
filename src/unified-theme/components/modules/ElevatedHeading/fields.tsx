@@ -4,6 +4,8 @@ import {
   FieldGroup,
   ImageField,
   ChoiceField,
+  TextField,
+  BooleanField,
 } from '@hubspot/cms-components/fields';
 import { HeadingStyle, SectionStyle, RichTextContent } from '../../fieldLibrary/index.js';
 
@@ -20,12 +22,14 @@ const iconUrl = 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/
 
 export const fields = (
   <ModuleFields>
+    <BooleanField label="Elevate (offset)" name="isElevated" display="toggle" default={false} />
+
     <FieldGroup label="Heading" name="groupHeading" display="inline">
-      {/* Use RichText so designers can include line breaks like the screenshot */}
-      <RichTextContent
+      <TextField
         label="Heading text"
-        richTextDefault={'YOUR TRUSTED<br/>ANTENNA DESIGN PARTNER'}
-        featureSet="text"
+        name="heading"
+        default="YOUR TRUSTED ANTENNA DESIGN PARTNER"
+        inlineEditable={true}
       />
       <ChoiceField
         label="Semantic heading level"
