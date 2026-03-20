@@ -516,7 +516,7 @@
                   }
                 },
                 "default": {
-                  "color": "#D2CAFF",
+                  "color": "#52BAD1",
                   "opacity": 100
                 }
               },
@@ -530,7 +530,7 @@
                   }
                 },
                 "default": {
-                  "color": "#4F38E0",
+                  "color": "#FFFFFF",
                   "opacity": 100
                 }
               }
