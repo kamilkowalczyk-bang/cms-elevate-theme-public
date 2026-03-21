@@ -1,5 +1,5 @@
 import { ModuleMeta } from '../../types/modules.js';
-import { TextAlignmentFieldType } from '@hubspot/cms-components/fields';
+import { BooleanFieldType, TextAlignmentFieldType } from '@hubspot/cms-components/fields';
 import headingIconSvg from './assets/heading.svg';
 import HeadingComponent from '../../HeadingComponent/index.js';
 import { SectionVariantType } from '../../types/fields.js';
@@ -19,6 +19,7 @@ const swm = staticWithModule(styles);
 type GroupStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     alignment?: TextAlignmentFieldType['default'];
+    headingUppercase?: BooleanFieldType['default'];
   };
 type HeadingProps = HeadingAndTextFieldLibraryType & {
   moduleName?: string;
@@ -47,7 +48,7 @@ export const Component = (props: HeadingProps) => {
     moduleName,
     headingAndTextHeadingLevel,
     headingAndTextHeading,
-    groupStyle: { alignment, headingStyleVariant, sectionStyleVariant },
+    groupStyle: { alignment, headingStyleVariant, sectionStyleVariant, headingUppercase = false },
     hublData: { renderedWithGrids = false },
   } = props;
 
@@ -63,6 +64,7 @@ export const Component = (props: HeadingProps) => {
         heading={headingAndTextHeading}
         alignment={alignment}
         headingStyleVariant={headingStyleVariant}
+        headingUppercase={headingUppercase}
         moduleName={moduleName}
         fieldPath="headingAndTextHeading"
       />
