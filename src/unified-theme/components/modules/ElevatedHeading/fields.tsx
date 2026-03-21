@@ -6,6 +6,7 @@ import {
   ChoiceField,
   TextField,
   BooleanField,
+  ColorField,
 } from '@hubspot/cms-components/fields';
 import { HeadingStyle, SectionStyle, RichTextContent } from '../../fieldLibrary/index.js';
 
@@ -43,6 +44,12 @@ export const fields = (
     </FieldGroup>
 
     <FieldGroup label="Styles" name="groupStyle" tab="STYLE" display="inline">
+      <ColorField
+        label="Module background"
+        name="sectionBackgroundColor"
+        helpText="Background color and opacity for the whole module (section container)."
+        default={{ color: '#F0F0F3', opacity: 100 }}
+      />
       <SectionStyle sectionStyleDefault="section_variant_1" />
       <HeadingStyle headingStyleAsDefault="display_title" />
     </FieldGroup>

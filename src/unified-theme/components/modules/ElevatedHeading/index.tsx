@@ -1,6 +1,6 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { RichText } from '@hubspot/cms-components';
-import { ImageFieldType, ChoiceFieldType, TextFieldType } from '@hubspot/cms-components/fields';
+import { ImageFieldType, ChoiceFieldType, TextFieldType, ColorFieldType } from '@hubspot/cms-components/fields';
 import { SectionVariantType } from '../../types/fields.js';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
 import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/types.js';
@@ -18,14 +18,34 @@ import { sectionColorsMap } from '../../utils/section-color-map.js';
 
 const swm = staticWithModule(styles);
 
-type GroupHeading = {
-  groupHeading: {
-    heading: TextFieldType['default'];
-    headingLevel: ChoiceFieldType['default'];
+type GroupStyle = SectionStyleFieldLibraryType &
+  HeadingStyleFieldLibraryType & {
+    sectionBackgroundColor: ColorFieldType['default'];
   };
-};
 
-type GroupStyle = SectionStyleFieldLibraryType & HeadingStyleFieldLibraryType;
+function sectionBackgroundWithOpacity(color: string, opacityPercent?: number): string {
+  if (opacityPercent == null) return color;
+  if (opacityPercent >= 100) return color;
+  if (opacityPercent <= 0) return 'transparent';
+
+  const trimmed = color.trim();
+  if (!trimmed.startsWith('#')) return color;
+
+  const hex = trimmed.slice(1);
+  const isShort = hex.length === 3;
+  const isLong = hex.length === 6;
+  if (!isShort && !isLong) return color;
+
+  const expanded = isShort ? hex.split('').map(ch => `${ch}${ch}`).join('') : hex;
+  const r = Number.parseInt(expanded.slice(0, 2), 16);
+  const g = Number.parseInt(expanded.slice(2, 4), 16);
+  const b = Number.parseInt(expanded.slice(4, 6), 16);
+
+  if ([r, g, b].some(n => Number.isNaN(n))) return color;
+
+  const alpha = opacityPercent / 100;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
 
 type CardItem = {
   groupIcon: {
@@ -56,10 +76,18 @@ export const Component = (props: ElevatedHeadingProps) => {
     moduleName,
     isElevated = false,
     groupHeading,
-    groupStyle: { sectionStyleVariant, headingStyleVariant },
+    groupStyle: {
+      sectionStyleVariant,
+      headingStyleVariant,
+      sectionBackgroundColor: sectionBackgroundColorField = { color: '#F0F0F3', opacity: 100 },
+    },
     groupCards,
   } = props;
   const cssVarsMap: CSSPropertiesMap = generateHeadingColorCssVars(sectionStyleVariant);
+  const sectionBackgroundColor = sectionBackgroundWithOpacity(
+    sectionBackgroundColorField?.color ?? '#F0F0F3',
+    sectionBackgroundColorField?.opacity,
+  );
 
   const ModuleWrapper = createComponent('div');
   const HeadingWrapper = createComponent('div');
@@ -73,7 +101,7 @@ export const Component = (props: ElevatedHeadingProps) => {
         className={cx(swm('hs-elevate-elevated-heading'), {
           [swm('hs-elevate-elevated-heading__moduleWrapper--is-elevated')]: isElevated,
         })}
-        style={cssVarsMap}
+        style={{ ...cssVarsMap, backgroundColor: sectionBackgroundColor }}
       >
       <hr className={swm('hs-elevate-elevated-heading__divider')} aria-hidden="true" />
 

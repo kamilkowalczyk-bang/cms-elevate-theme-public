@@ -16,7 +16,7 @@
 .hs-elevate-elevated-heading {
   /* Outer wrapper styling from your screenshot */
   box-shadow: 0 -48px 48px -24px rgba(0, 0, 0, 0.15);
-  background-color: #ffffff;
+  /* background-color: set from module field (Style tab) via inline style */
   border-radius: 8px;
   padding: 60px;
 }
