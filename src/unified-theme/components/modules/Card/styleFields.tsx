@@ -2,6 +2,7 @@ import {
   FieldGroup,
   ChoiceField,
   AlignmentField,
+  BooleanField,
 } from '@hubspot/cms-components/fields';
 import  {
   CardStyle,
@@ -46,6 +47,12 @@ export default function StyleFields() {
           default={{
             horizontal_align: 'LEFT',
           }}
+        />
+        <BooleanField
+          label='Uppercase card heading'
+          name='headingUppercase'
+          display='toggle'
+          default={false}
         />
       </FieldGroup>
       <FieldGroup

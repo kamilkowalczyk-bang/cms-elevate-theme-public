@@ -92,6 +92,10 @@
     margin-block-end: 0;
   }
 }
+/* Card title only — does not target headings inside Rich Text body */
+.hs-elevate-card-container__title {
+  font-weight: 900;
+}
 
 @media (width >= 1000px) {
   .hs-elevate-card-container__card--row .hs-elevate-card-container__content {

@@ -62,6 +62,7 @@ type GroupCardStyles = {
 type GroupContentStyles = {
   groupContent: HeadingStyleFieldLibraryType & {
     alignment: AlignmentFieldType['default'];
+    headingUppercase?: BooleanFieldType['default'];
   };
 };
 
@@ -158,7 +159,7 @@ export const Component = (props: CardProps) => {
     groupCards,
     groupStyle: {
       groupCard: { cardStyleVariant, cardOrientation },
-      groupContent: { alignment, headingStyleVariant },
+      groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
     hublData: { renderedWithGrids = false },
@@ -245,7 +246,8 @@ export const Component = (props: CardProps) => {
                   heading={card.groupContent.headingAndTextHeading}
                   headingStyleVariant={headingStyleVariant}
                   inlineStyles={headingInlineStyles}
-                  additionalClassArray={['hs-elevate-card-container__title']}
+                  headingUppercase={headingUppercase}
+                  additionalClassArray={[swm('hs-elevate-card-container__title')]}
                   moduleName={moduleName}
                   fieldPath={`groupCards[${index}].groupContent.headingAndTextHeading`}
                 />
