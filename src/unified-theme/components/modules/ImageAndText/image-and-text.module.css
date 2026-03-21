@@ -3,19 +3,30 @@
   flex-direction: column;
   align-items: var(--hsElevate--imageAndText__alignItems, center);
   justify-content: space-between;
-  -moz-column-gap: var(--hsElevate--spacing--80, 80px);
-  column-gap: var(--hsElevate--spacing--80, 80px);
+  -moz-column-gap: var(--hsElevate--spacing--4, 4px);
+  column-gap: var(--hsElevate--spacing--4, 4px);
 
   @media (width >= 767px) {
-    flex-direction: row;
+    /* Equal-width columns; flex + rich text min-content was skewing the content track */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: var(--hsElevate--gap--medium, 32px);
+    row-gap: 0;
   }
 }
 
 .hs-elevate-image-and-text__image-container {
-  margin-block-end: var(--hsElevate--spacing--32, 32px);
+  /* Column layout: parent align-items can be "center" (from vertical alignment field),
+     which would shrink this box to content width — invisible background-only column on mobile */
+  align-self: stretch;
+  width: 100%;
+  margin-block-end: var(--hsElevate--spacing--8, 8px);
 
   @media (width >= 767px) {
-    width: 55%;
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
     order: var(--hsElevate--imageAndText__order, 0);
     margin-block-end: 0;
   }
@@ -28,7 +39,7 @@
 }
 
 .hs-elevate-image-and-text__image-container--bg-only {
-  min-height: 280px;
+  min-height: 375px;
 }
 
 .hs-elevate-image-and-text__image {
@@ -36,7 +47,30 @@
   width: 100%;
 }
 
+@media (width >= 767px) {
+  .hs-elevate-image-and-text__image-container--bg {
+    align-self: stretch;
+    min-height: 0;
+  }
+
+  .hs-elevate-image-and-text__image-container--bg-only {
+    min-height: 0;
+  }
+
+  .hs-elevate-image-and-text__image-container--bg .hs-elevate-image-and-text__image {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .hs-elevate-image-and-text__content-container {
+  box-sizing: border-box;
+  align-self: stretch;
+  min-width: 0;
+  width: 100%;
+  /* Theme has no --spacing--25; fixed mobile inset per design */
+  padding: 25px;
+
   h1,
   h2,
   h3,
@@ -51,7 +85,10 @@
   }
 
   @media (width >= 767px) {
-    width: 45%;
+    min-width: 0;
+    max-width: 100%;
+    width: auto;
+    padding: var(--hsElevate--spacing--80, 80px);
   }
 }
 

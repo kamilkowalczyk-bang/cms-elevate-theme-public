@@ -99,6 +99,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupContent.showList.label": {
+    "message": "Show list",
+    "description": "",
+    "placeholders": null
+  },
   "groupContent.listIcon.label": {
     "message": "List icon",
     "description": "",
@@ -284,28 +289,23 @@
     "description": "",
     "placeholders": null
   },
-  "groupStyle.groupContent.dividerAlignment.label": {
+  "groupStyle.groupContent.dividerHorizontalAlignment.label": {
     "message": "Divider alignment",
     "description": "",
     "placeholders": null
   },
-  "groupStyle.groupContent.dividerAlignment.choices.LEFT": {
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.LEFT": {
     "message": "Left",
     "description": "",
     "placeholders": null
   },
-  "groupStyle.groupContent.dividerAlignment.choices.CENTER": {
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.CENTER": {
     "message": "Center",
     "description": "",
     "placeholders": null
   },
-  "groupStyle.groupContent.dividerAlignment.choices.RIGHT": {
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.RIGHT": {
     "message": "Right",
-    "description": "",
-    "placeholders": null
-  },
-  "groupStyle.groupContent.dividerAlignment.choices.JUSTIFY": {
-    "message": "Justify",
     "description": "",
     "placeholders": null
   },

@@ -9,7 +9,7 @@ import {
   IconField,
   RepeatedFieldGroup,
   TextField,
-  TextAlignmentField,
+  Visibility,
 } from '@hubspot/cms-components/fields';
 import {
   ButtonContent,
@@ -53,14 +53,17 @@ const groupListContentDefault = {
   },
 };
 
-const dividerAlignmentVisibility: AdvancedVisibility = {
-  boolean_operator: 'OR',
-  criteria: [{
-    controlling_field_path: 'groupStyle.groupContent.showContentDivider',
-    controlling_value_regex: 'true',
-    operator: 'EQUAL',
-  }],
-} as const;
+const dividerHorizontalAlignmentVisibility = {
+  controlling_field_path: 'groupStyle.groupContent.showContentDivider',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
+const listFieldsVisibility = {
+  controlling_field_path: 'groupContent.showList',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
 
 export const fields = (
   <ModuleFields>
@@ -98,7 +101,7 @@ export const fields = (
       <ChoiceField
         label='Image position'
         name='imagePosition'
-        visibility={imageColumnVisibility}
+        visibility={imageColumnVisibility as unknown as Visibility}
         display='radio'
         choices={[
           ['left', 'Left'],
@@ -123,10 +126,17 @@ export const fields = (
         richTextDefault='<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature. A couple of sentences here is just right.</p>'
         featureSet='text'
       />
+      <BooleanField
+        label='Show list'
+        name='showList'
+        display='toggle'
+        default={false}
+      />
       <IconField
         label='List icon'
         name='listIcon'
         iconSet='fontawesome-6.4.2'
+        visibility={listFieldsVisibility}
         default={{
           name: 'check',
         }}
@@ -135,6 +145,7 @@ export const fields = (
         label='List items'
         name='groupListItems'
         id='imageAndTextGroupListItems'
+        visibility={listFieldsVisibility}
         occurrence={{
           min: 1,
           max: 20,
@@ -196,12 +207,13 @@ export const fields = (
           display='toggle'
           default={false}
         />
-        <TextAlignmentField
+        <AlignmentField
           label='Divider alignment'
-          name='dividerAlignment'
-          visibility={dividerAlignmentVisibility}
+          name='dividerHorizontalAlignment'
+          visibility={dividerHorizontalAlignmentVisibility}
+          alignmentDirection='HORIZONTAL'
           default={{
-            text_align: 'LEFT',
+            horizontal_align: 'LEFT',
           }}
         />
       </FieldGroup>

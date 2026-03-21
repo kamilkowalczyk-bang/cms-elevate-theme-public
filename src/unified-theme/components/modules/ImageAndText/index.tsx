@@ -2,7 +2,7 @@ import { ModuleMeta } from '../../types/modules.js';
 import { Icon, RichText } from '@hubspot/cms-components';
 import HeadingComponent from '../../HeadingComponent/index.js';
 import { Button } from '../../ButtonComponent/index.js';
-import { AlignmentFieldType, TextAlignmentFieldType } from '@hubspot/cms-components/fields';
+import { AlignmentFieldType } from '@hubspot/cms-components/fields';
 import { ElementPositionType, SectionVariantType } from '../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../utils/content-fields.js';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
@@ -46,14 +46,14 @@ function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default'])
   return { '--hsElevate--imageAndText__alignItems': alignmentCss.alignItems || 'center' };
 }
 
-function getDividerAlignmentClass(
-  textAlign: TextAlignmentFieldType['default']['text_align'] | undefined,
+function getDividerHorizontalAlignmentClass(
+  alignment: AlignmentFieldType['default'] | undefined,
 ): string {
-  const align = textAlign || 'LEFT';
-  if (align === 'CENTER') {
+  const horizontal = alignment?.horizontal_align || 'LEFT';
+  if (horizontal === 'CENTER') {
     return swm('hs-elevate-image-and-text__divider--align-center');
   }
-  if (align === 'RIGHT') {
+  if (horizontal === 'RIGHT') {
     return swm('hs-elevate-image-and-text__divider--align-right');
   }
   return swm('hs-elevate-image-and-text__divider--align-left');
@@ -86,6 +86,7 @@ export const Component = (props: ImageAndTextProps) => {
       headingAndTextHeadingLevel,
       headingAndTextHeading,
       richTextContentHTML,
+      showList = false,
       listIcon,
       groupListItems = [],
     },
@@ -96,7 +97,7 @@ export const Component = (props: ImageAndTextProps) => {
         headingStyleVariant,
         verticalAlignment,
         showContentDivider = false,
-        dividerAlignment,
+        dividerHorizontalAlignment,
       },
       groupButton: { buttonStyleSize, buttonStyleVariant },
     },
@@ -122,7 +123,7 @@ export const Component = (props: ImageAndTextProps) => {
     ? backgroundImageStyleFromField(backgroundSrc)
     : undefined;
 
-  const hasListBlock = groupListItems.length > 0;
+  const hasListBlock = showList && groupListItems.length > 0;
   const hasContent =
     headingAndTextHeading ||
     richTextContentHTML ||
@@ -157,7 +158,10 @@ export const Component = (props: ImageAndTextProps) => {
         <ContentContainer className={swm('hs-elevate-image-and-text__content-container')}>
           {showContentDivider && (
             <DividerRule
-              className={cx(swm('hs-elevate-image-and-text__divider'), getDividerAlignmentClass(dividerAlignment?.text_align))}
+              className={cx(
+                swm('hs-elevate-image-and-text__divider'),
+                getDividerHorizontalAlignmentClass(dividerHorizontalAlignment),
+              )}
               aria-hidden={true}
             />
           )}

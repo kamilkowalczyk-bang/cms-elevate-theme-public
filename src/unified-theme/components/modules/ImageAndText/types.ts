@@ -4,7 +4,6 @@ import {
   AlignmentFieldType,
   IconFieldType,
   TextFieldType,
-  TextAlignmentFieldType,
 } from '@hubspot/cms-components/fields';
 import { ElementPositionType } from '../../types/fields.js';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
@@ -37,6 +36,7 @@ export type GroupContentListItem = {
 // Content group types
 export type GroupContent = RichTextContentFieldLibraryType &
   HeadingAndTextFieldLibraryType & {
+    showList?: BooleanFieldType['default'];
     listIcon?: IconFieldType['default'];
     groupListItems?: GroupContentListItem[];
   };
@@ -45,7 +45,7 @@ export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
     showContentDivider?: BooleanFieldType['default'];
-    dividerAlignment?: TextAlignmentFieldType['default'];
+    dividerHorizontalAlignment?: AlignmentFieldType['default'];
   };
 
 // Style group types
