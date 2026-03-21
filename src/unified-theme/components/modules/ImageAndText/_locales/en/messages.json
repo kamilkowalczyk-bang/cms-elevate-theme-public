@@ -14,6 +14,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupImage.containerBackgroundImage.label": {
+    "message": "Container background image",
+    "description": "",
+    "placeholders": null
+  },
   "groupImage.imagePosition.label": {
     "message": "Image position",
     "description": "",
@@ -91,6 +96,51 @@
   },
   "groupContent.richTextContentHTML.default": {
     "message": "<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature. A couple of sentences here is just right.</p>",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.listIcon.label": {
+    "message": "List icon",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.label": {
+    "message": "List items",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.0.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.1.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.2.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.3.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.label": {
+    "message": "List items",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.listItemContent.label": {
+    "message": "Item",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.listItemContent.default": {
+    "message": "Add a list item here.",
     "description": "",
     "placeholders": null
   },
@@ -226,6 +276,36 @@
   },
   "groupStyle.groupContent.verticalAlignment.label": {
     "message": "Vertical alignment",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.showContentDivider.label": {
+    "message": "Show divider",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerAlignment.label": {
+    "message": "Divider alignment",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerAlignment.choices.LEFT": {
+    "message": "Left",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerAlignment.choices.CENTER": {
+    "message": "Center",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerAlignment.choices.RIGHT": {
+    "message": "Right",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerAlignment.choices.JUSTIFY": {
+    "message": "Justify",
     "description": "",
     "placeholders": null
   },

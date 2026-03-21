@@ -1,4 +1,11 @@
-import { ImageFieldType, BooleanFieldType, AlignmentFieldType } from '@hubspot/cms-components/fields';
+import {
+  ImageFieldType,
+  BooleanFieldType,
+  AlignmentFieldType,
+  IconFieldType,
+  TextFieldType,
+  TextAlignmentFieldType,
+} from '@hubspot/cms-components/fields';
 import { ElementPositionType } from '../../types/fields.js';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
 import { ButtonStyleFieldLibraryType } from '../../fieldLibrary/ButtonStyle/types.js';
@@ -11,6 +18,7 @@ import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndTex
 export interface GroupImage {
   image?: ImageFieldType['default'];
   imagePosition: ElementPositionType;
+  containerBackgroundImage?: ImageFieldType['default'];
 }
 
 // Button group types
@@ -20,12 +28,24 @@ export interface GroupButton extends ButtonContentType {
 
 export type GroupButtonStyle = ButtonStyleFieldLibraryType;
 
+export type GroupContentListItem = {
+  groupListContent: {
+    listItemContent: TextFieldType['default'];
+  };
+};
+
 // Content group types
-export type GroupContent = RichTextContentFieldLibraryType & HeadingAndTextFieldLibraryType;
+export type GroupContent = RichTextContentFieldLibraryType &
+  HeadingAndTextFieldLibraryType & {
+    listIcon?: IconFieldType['default'];
+    groupListItems?: GroupContentListItem[];
+  };
 
 export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
+    showContentDivider?: BooleanFieldType['default'];
+    dividerAlignment?: TextAlignmentFieldType['default'];
   };
 
 // Style group types

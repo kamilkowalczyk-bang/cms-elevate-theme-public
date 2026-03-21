@@ -6,6 +6,10 @@ import {
   FieldGroup,
   AlignmentField,
   AdvancedVisibility,
+  IconField,
+  RepeatedFieldGroup,
+  TextField,
+  TextAlignmentField,
 } from '@hubspot/cms-components/fields';
 import {
   ButtonContent,
@@ -24,6 +28,38 @@ const buttonFieldVisibility: AdvancedVisibility = {
     controlling_value_regex: 'true',
     operator: 'EQUAL',
   }]
+} as const;
+
+const imageColumnVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [
+    {
+      controlling_field_path: 'groupImage.image',
+      property: 'src',
+      operator: 'NOT_EMPTY',
+    },
+    {
+      controlling_field_path: 'groupImage.containerBackgroundImage',
+      property: 'src',
+      operator: 'NOT_EMPTY',
+    },
+  ],
+} as const;
+
+const listItemDefault = 'Add a list item here.';
+const groupListContentDefault = {
+  groupListContent: {
+    listItemContent: listItemDefault,
+  },
+};
+
+const dividerAlignmentVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [{
+    controlling_field_path: 'groupStyle.groupContent.showContentDivider',
+    controlling_value_regex: 'true',
+    operator: 'EQUAL',
+  }],
 } as const;
 
 export const fields = (
@@ -46,14 +82,23 @@ export const fields = (
         }}
         inlineEditable={true}
       />
+      <ImageField
+        label='Container background image'
+        name='containerBackgroundImage'
+        resizable={false}
+        responsive={false}
+        showLoading={true}
+        default={{
+          alt: '',
+          loading: 'lazy',
+          src: '',
+        }}
+        inlineEditable={true}
+      />
       <ChoiceField
         label='Image position'
         name='imagePosition'
-        visibility={{
-          controlling_field_path: 'groupImage.image',
-          property: 'src',
-          operator: 'NOT_EMPTY',
-        }}
+        visibility={imageColumnVisibility}
         display='radio'
         choices={[
           ['left', 'Left'],
@@ -78,6 +123,34 @@ export const fields = (
         richTextDefault='<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature. A couple of sentences here is just right.</p>'
         featureSet='text'
       />
+      <IconField
+        label='List icon'
+        name='listIcon'
+        iconSet='fontawesome-6.4.2'
+        default={{
+          name: 'check',
+        }}
+      />
+      <RepeatedFieldGroup
+        label='List items'
+        name='groupListItems'
+        id='imageAndTextGroupListItems'
+        occurrence={{
+          min: 1,
+          max: 20,
+          default: 4,
+        }}
+        default={[
+          groupListContentDefault,
+          groupListContentDefault,
+          groupListContentDefault,
+          groupListContentDefault,
+        ]}
+      >
+        <FieldGroup label='List items' name='groupListContent' display='inline'>
+          <TextField label='Item' name='listItemContent' default={listItemDefault} inlineEditable={true} />
+        </FieldGroup>
+      </RepeatedFieldGroup>
     </FieldGroup>
     <FieldGroup
       label='Button'
@@ -115,6 +188,20 @@ export const fields = (
           alignmentDirection='VERTICAL'
           default={{
             vertical_align: 'MIDDLE',
+          }}
+        />
+        <BooleanField
+          label='Show divider'
+          name='showContentDivider'
+          display='toggle'
+          default={false}
+        />
+        <TextAlignmentField
+          label='Divider alignment'
+          name='dividerAlignment'
+          visibility={dividerAlignmentVisibility}
+          default={{
+            text_align: 'LEFT',
           }}
         />
       </FieldGroup>

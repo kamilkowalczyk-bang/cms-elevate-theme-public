@@ -1,15 +1,15 @@
 import { ModuleMeta } from '../../types/modules.js';
-import { RichText } from '@hubspot/cms-components';
+import { Icon, RichText } from '@hubspot/cms-components';
 import HeadingComponent from '../../HeadingComponent/index.js';
 import { Button } from '../../ButtonComponent/index.js';
-import { AlignmentFieldType } from '@hubspot/cms-components/fields';
+import { AlignmentFieldType, TextAlignmentFieldType } from '@hubspot/cms-components/fields';
 import { ElementPositionType, SectionVariantType } from '../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../utils/content-fields.js';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
 import styles from './image-and-text.module.css';
 import imageAndTextIconSvg from './assets/image.svg';
 import { sectionColorsMap } from '../../utils/section-color-map.js';
-import { staticWithModule } from '../../utils/classnames.js';
+import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
 import { ImageAndTextProps } from './types.js';
@@ -46,21 +46,58 @@ function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default'])
   return { '--hsElevate--imageAndText__alignItems': alignmentCss.alignItems || 'center' };
 }
 
+function getDividerAlignmentClass(
+  textAlign: TextAlignmentFieldType['default']['text_align'] | undefined,
+): string {
+  const align = textAlign || 'LEFT';
+  if (align === 'CENTER') {
+    return swm('hs-elevate-image-and-text__divider--align-center');
+  }
+  if (align === 'RIGHT') {
+    return swm('hs-elevate-image-and-text__divider--align-right');
+  }
+  return swm('hs-elevate-image-and-text__divider--align-left');
+}
+
 // Components
 
 const ImageAndText = createComponent('div');
 const ImageContainer = createComponent('div');
 const Image = createComponent('img');
 const ContentContainer = createComponent('div');
+const DividerRule = createComponent('hr');
+const ListContainer = createComponent('ul');
+const ListItem = createComponent('li');
+const ListIconContainer = createComponent('span');
+const ListItemText = createComponent('span');
+
+function backgroundImageStyleFromField(src: string | undefined): CSSPropertiesMap | undefined {
+  if (typeof src !== 'string' || !src.trim()) {
+    return undefined;
+  }
+  return { backgroundImage: `url(${src})` };
+}
 
 export const Component = (props: ImageAndTextProps) => {
   const {
     moduleName,
-    groupImage: { imagePosition, image },
-    groupContent: { headingAndTextHeadingLevel, headingAndTextHeading, richTextContentHTML },
+    groupImage: { imagePosition, image, containerBackgroundImage },
+    groupContent: {
+      headingAndTextHeadingLevel,
+      headingAndTextHeading,
+      richTextContentHTML,
+      listIcon,
+      groupListItems = [],
+    },
     groupButton: { showButton, buttonContentText: text, buttonContentLink: link, buttonContentShowIcon: showIcon, buttonContentIconPosition: iconPosition },
     groupStyle: {
-      groupContent: { sectionStyleVariant, headingStyleVariant, verticalAlignment },
+      groupContent: {
+        sectionStyleVariant,
+        headingStyleVariant,
+        verticalAlignment,
+        showContentDivider = false,
+        dividerAlignment,
+      },
       groupButton: { buttonStyleSize, buttonStyleVariant },
     },
   } = props;
@@ -68,7 +105,30 @@ export const Component = (props: ImageAndTextProps) => {
   const buttonHref = getLinkFieldHref(link);
   const buttonRel = getLinkFieldRel(link);
   const buttonTarget = getLinkFieldTarget(link);
-  const hasContent = headingAndTextHeading || richTextContentHTML || showButton;
+
+  const mainImageSrc = image?.src;
+  const hasMainImage = Boolean(mainImageSrc);
+  const backgroundSrc = containerBackgroundImage?.src;
+  const hasBackgroundImage = typeof backgroundSrc === 'string' && Boolean(backgroundSrc.trim());
+  const showImageColumn = hasMainImage || hasBackgroundImage;
+
+  const imageContainerClass = cx(
+    swm('hs-elevate-image-and-text__image-container'),
+    hasBackgroundImage && swm('hs-elevate-image-and-text__image-container--bg'),
+    hasBackgroundImage && !hasMainImage && swm('hs-elevate-image-and-text__image-container--bg-only'),
+  );
+
+  const imageContainerStyle: CSSPropertiesMap | undefined = hasBackgroundImage
+    ? backgroundImageStyleFromField(backgroundSrc)
+    : undefined;
+
+  const hasListBlock = groupListItems.length > 0;
+  const hasContent =
+    headingAndTextHeading ||
+    richTextContentHTML ||
+    showButton ||
+    showContentDivider ||
+    hasListBlock;
 
   const cssVarsMap = {
     ...generateImagePositionCssVars(imagePosition),
@@ -78,21 +138,29 @@ export const Component = (props: ImageAndTextProps) => {
 
   return (
     <ImageAndText className={swm('hs-elevate-image-and-text')} style={cssVarsMap}>
-      {image.src && (
-        <ImageContainer className={swm('hs-elevate-image-and-text__image-container')}>
-          <Image
-            className={swm('hs-elevate-image-and-text__image')}
-            src={image.src}
-            alt={image.alt}
-            width={image.width}
-            height={image.height}
-            loading={image.loading !== 'disabled' ? image.loading : 'eager'}
-            data-hs-token={getDataHSToken(moduleName, 'groupImage.image')}
-          />
+      {showImageColumn && (
+        <ImageContainer className={imageContainerClass} style={imageContainerStyle}>
+          {hasMainImage && (
+            <Image
+              className={swm('hs-elevate-image-and-text__image')}
+              src={mainImageSrc}
+              alt={image?.alt}
+              width={image?.width}
+              height={image?.height}
+              loading={image?.loading && image.loading !== 'disabled' ? image.loading : 'eager'}
+              data-hs-token={getDataHSToken(moduleName, 'groupImage.image')}
+            />
+          )}
         </ImageContainer>
       )}
       {hasContent && (
         <ContentContainer className={swm('hs-elevate-image-and-text__content-container')}>
+          {showContentDivider && (
+            <DividerRule
+              className={cx(swm('hs-elevate-image-and-text__divider'), getDividerAlignmentClass(dividerAlignment?.text_align))}
+              aria-hidden={true}
+            />
+          )}
           {headingAndTextHeading && (
             <HeadingComponent
               additionalClassArray={['hs-elevate-image-and-text__title']}
@@ -109,6 +177,22 @@ export const Component = (props: ImageAndTextProps) => {
               className="hs-elevate-image-and-text__body"
               data-hs-token={getDataHSToken(moduleName, 'groupContent.richTextContentHTML')}
             />
+          )}
+          {hasListBlock && (
+            <ListContainer className={swm('hs-elevate-image-and-text__list')}>
+              {groupListItems.map((item, index) => (
+                <ListItem className={swm('hs-elevate-image-and-text__list-item')} key={index}>
+                  {listIcon?.name && (
+                    <ListIconContainer className={swm('hs-elevate-image-and-text__list-icon-container')}>
+                      <Icon className={swm('hs-elevate-image-and-text__list-icon')} fieldPath="groupContent.listIcon" purpose="DECORATIVE" />
+                    </ListIconContainer>
+                  )}
+                  <ListItemText data-hs-token={getDataHSToken(moduleName, `groupContent.groupListItems[${index}].groupListContent.listItemContent`)}>
+                    {item.groupListContent.listItemContent}
+                  </ListItemText>
+                </ListItem>
+              ))}
+            </ListContainer>
           )}
           {showButton && (
             <Button
