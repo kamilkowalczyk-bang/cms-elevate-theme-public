@@ -111,3 +111,10 @@
 .hs-elevate-card-container__button-wrapper {
   align-self: var(--hsElevate--card__alignment);
 }
+
+/* Full-card background from Designer BackgroundImageField: cover, no-repeat, center */
+.hs-elevate-card-container__card--bg-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}

@@ -45,7 +45,13 @@ type ButtonGroup = {
   };
 };
 
-type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup;
+type CardBackgroundGroup = {
+  groupCardBackground: {
+    image: ImageFieldType['default'];
+  };
+};
+
+type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup & Partial<CardBackgroundGroup>;
 
 type GroupCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
@@ -128,6 +134,14 @@ function imageShouldUseBackground(imagePath: string): boolean {
   return /-use-background-/.test(imagePath);
 }
 
+function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | undefined): string | undefined {
+  const src = image?.src;
+  if (typeof src !== 'string' || !src.trim()) {
+    return undefined;
+  }
+  return src;
+}
+
 // Components
 
 const CardContainer = createComponent('div');
@@ -182,16 +196,30 @@ export const Component = (props: CardProps) => {
         const hasValidIconName = card?.groupIcon?.icon?.name;
         const isIconVisible = isIcon && hasValidIconName;
 
+        const cardBackgroundSrc = getCardBackgroundImageSrc(card.groupCardBackground?.image);
+        const hasCardBackgroundImage = Boolean(cardBackgroundSrc);
+
         const cardClasses = cx('hs-elevate-card-container__card', styles[`hs-elevate-card-container__card--${cardOrientation}`], {
           [styles['hs-elevate-card-container__card--no-button']]: !showButton,
+          [styles['hs-elevate-card-container__card--bg-image']]: hasCardBackgroundImage,
         });
+
+        const cardBackgroundStyles: CSSPropertiesMap | undefined = hasCardBackgroundImage
+          ? { backgroundImage: `url(${cardBackgroundSrc})` }
+          : undefined;
 
         const imageWrapperClasses = cx(swm('hs-elevate-card-container__image-wrapper'), {
           [styles['hs-elevate-card-container__image-wrapper--use-background']]: cardImageUsesBackground,
         });
 
         return (
-          <Card additionalClassArray={[cardClasses]} key={index} cardStyleVariant={cardStyleVariant} cardOrientation={cardOrientation}>
+          <Card
+            additionalClassArray={[cardClasses]}
+            key={index}
+            cardStyleVariant={cardStyleVariant}
+            cardOrientation={cardOrientation}
+            inlineStyles={cardBackgroundStyles}
+          >
             {isIconVisible && (
               <IconWrapper className={swm('hs-elevate-card-container__icon-wrapper')}>
                 <Icon className={swm('hs-elevate-card-container__icon')} purpose="DECORATIVE" fieldPath={`groupCards[${index}].groupIcon.icon`} />

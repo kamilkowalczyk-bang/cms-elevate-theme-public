@@ -6,7 +6,7 @@ import {
   ImageField,
   BooleanField,
   FieldGroup,
-  AdvancedVisibility
+  AdvancedVisibility,
 } from '@hubspot/cms-components/fields';
 import {
   HeadingAndText,
@@ -134,6 +134,16 @@ export const fields = (
           textVisibility={buttonFieldVisibility}
           linkVisibility={buttonFieldVisibility}
           showIconVisibility={buttonFieldVisibility}
+        />
+      </FieldGroup>
+      <FieldGroup label='Card background' name='groupCardBackground' display='inline'>
+        <ImageField
+          label='Card background image'
+          name='image'
+          resizable={false}
+          responsive={false}
+          showLoading={true}
+          inlineEditable={true}
         />
       </FieldGroup>
     </RepeatedFieldGroup>
