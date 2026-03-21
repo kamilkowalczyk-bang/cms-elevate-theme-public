@@ -44,6 +44,7 @@ export type GroupContent = RichTextContentFieldLibraryType &
 export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
+    headingUppercase?: BooleanFieldType['default'];
     showContentDivider?: BooleanFieldType['default'];
     dividerHorizontalAlignment?: AlignmentFieldType['default'];
   };

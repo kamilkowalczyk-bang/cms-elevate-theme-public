@@ -193,6 +193,12 @@ export const fields = (
       >
         <SectionStyle sectionStyleDefault='section_variant_1' />
         <HeadingStyle headingStyleAsDefault='h3' />
+        <BooleanField
+          label='Uppercase heading'
+          name='headingUppercase'
+          display='toggle'
+          default={false}
+        />
         <AlignmentField
           label='Vertical alignment'
           name='verticalAlignment'

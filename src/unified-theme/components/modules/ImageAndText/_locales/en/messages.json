@@ -279,6 +279,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupContent.headingUppercase.label": {
+    "message": "Uppercase heading",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupContent.verticalAlignment.label": {
     "message": "Vertical alignment",
     "description": "",

@@ -96,6 +96,7 @@ export const Component = (props: ImageAndTextProps) => {
         sectionStyleVariant,
         headingStyleVariant,
         verticalAlignment,
+        headingUppercase = false,
         showContentDivider = false,
         dividerHorizontalAlignment,
       },
@@ -171,6 +172,7 @@ export const Component = (props: ImageAndTextProps) => {
               headingLevel={headingAndTextHeadingLevel}
               headingStyleVariant={headingStyleVariant}
               heading={headingAndTextHeading}
+              headingUppercase={headingUppercase}
               moduleName={moduleName}
               fieldPath="groupContent.headingAndTextHeading"
             />
