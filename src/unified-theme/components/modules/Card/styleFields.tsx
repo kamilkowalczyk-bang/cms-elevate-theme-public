@@ -44,6 +44,13 @@ export default function StyleFields() {
             operator: 'EQUAL',
           }}
         />
+        <BooleanField
+          label='Show card drop shadow'
+          name='showCardShadow'
+          display='toggle'
+          default={false}
+          helpText='Adds a soft drop shadow around each card.'
+        />
         <CardStyle cardStyleDefault='card_variant_1' />
       </FieldGroup>
       <FieldGroup

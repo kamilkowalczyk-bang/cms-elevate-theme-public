@@ -194,6 +194,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupCard.showCardShadow.label": {
+    "message": "Show card drop shadow",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showCardShadow.help_text": {
+    "message": "Adds a soft drop shadow around each card (the outer article element).",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupCard.cardStyleVariant.label": {
     "message": "Card style",
     "description": "",

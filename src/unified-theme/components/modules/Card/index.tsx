@@ -57,6 +57,7 @@ type GroupCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
     cardOrientation: 'row' | 'column';
     showIconBorder?: BooleanFieldType['default'];
+    showCardShadow?: BooleanFieldType['default'];
   };
 };
 
@@ -159,7 +160,7 @@ export const Component = (props: CardProps) => {
     imageOrIcon,
     groupCards,
     groupStyle: {
-      groupCard: { cardStyleVariant, cardOrientation, showIconBorder = true },
+      groupCard: { cardStyleVariant, cardOrientation, showIconBorder = true, showCardShadow = false },
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
@@ -204,6 +205,7 @@ export const Component = (props: CardProps) => {
         const cardClasses = cx('hs-elevate-card-container__card', styles[`hs-elevate-card-container__card--${cardOrientation}`], {
           [styles['hs-elevate-card-container__card--no-button']]: !showButton,
           [styles['hs-elevate-card-container__card--bg-image']]: hasCardBackgroundImage,
+          [styles['hs-elevate-card-container__card--drop-shadow']]: showCardShadow,
         });
 
         const cardBackgroundStyles: CSSPropertiesMap | undefined = hasCardBackgroundImage

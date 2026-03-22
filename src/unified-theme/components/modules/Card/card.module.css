@@ -127,3 +127,8 @@
   background-repeat: no-repeat;
   background-position: center;
 }
+
+/* Applied on Card module’s <article> via additionalClassArray (shared CardComponent) */
+.hs-elevate-card-container__card--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.6);
+}
