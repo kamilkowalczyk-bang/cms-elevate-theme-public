@@ -97,6 +97,18 @@
     margin-block-end: 0;
   }
 }
+.hs-elevate-card-container__caption {
+  margin: 0 0 var(--hsElevate--spacing--16, 16px);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  color: var(--hsElevate--captions__fontColor, var(--hsElevate--section--lightSection--1__captionColor));
+}
+
 /* Card title only — does not target headings inside Rich Text body */
 .hs-elevate-card-container__title {
   font-weight: 900;

@@ -1,6 +1,12 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { Icon, RichText } from '@hubspot/cms-components';
-import { AlignmentFieldType, BooleanFieldType, IconFieldType, ImageFieldType } from '@hubspot/cms-components/fields';
+import {
+  AlignmentFieldType,
+  BooleanFieldType,
+  IconFieldType,
+  ImageFieldType,
+  TextFieldType,
+} from '@hubspot/cms-components/fields';
 import { ButtonStyleType, StandardSizeType } from '../../types/fields.js';
 import cardIconSvg from './assets/card-icon-temp.svg';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
@@ -36,7 +42,11 @@ type ImageGroup = {
 };
 
 type ContentGroup = {
-  groupContent: RichTextContentFieldLibraryType & HeadingAndTextFieldLibraryType;
+  groupContent: RichTextContentFieldLibraryType &
+    HeadingAndTextFieldLibraryType & {
+      showCaption?: BooleanFieldType['default'];
+      captionText?: TextFieldType['default'];
+    };
 };
 
 type ButtonGroup = {
@@ -153,6 +163,7 @@ const ImageWrapper = createComponent('div');
 const Image = createComponent('img');
 const CardContent = createComponent('div');
 const ButtonWrapper = createComponent('div');
+const Caption = createComponent('p');
 
 export const Component = (props: CardProps) => {
   const {
@@ -249,6 +260,15 @@ export const Component = (props: CardProps) => {
               </ImageWrapper>
             )}
             <CardContent className={swm('hs-elevate-card-container__content')}>
+              {card.groupContent.showCaption === true && Boolean(card.groupContent.captionText?.trim()) && (
+                <Caption
+                  className={swm('hs-elevate-card-container__caption')}
+                  style={{ textAlign: textAlignment }}
+                  data-hs-token={getDataHSToken(moduleName, `groupCards[${index}].groupContent.captionText`)}
+                >
+                  {card.groupContent.captionText}
+                </Caption>
+              )}
               {card.groupContent.headingAndTextHeading && (
                 <HeadingComponent
                   headingLevel={card.groupContent.headingAndTextHeadingLevel}

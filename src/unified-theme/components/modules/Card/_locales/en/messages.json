@@ -49,6 +49,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupCards.groupContent.showCaption.label": {
+    "message": "Show caption",
+    "description": "",
+    "placeholders": null
+  },
+  "groupCards.groupContent.captionText.label": {
+    "message": "Caption",
+    "description": "",
+    "placeholders": null
+  },
   "groupCards.groupContent.headingAndTextHeading.label": {
     "message": "Title",
     "description": "",
