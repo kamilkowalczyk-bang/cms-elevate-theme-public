@@ -78,6 +78,30 @@ function backgroundImageStyleFromField(src: string | undefined): CSSPropertiesMa
   return { backgroundImage: `url(${src})` };
 }
 
+function colorWithOpacity(color: string, opacityPercent?: number): string {
+  if (opacityPercent == null) return color;
+  if (opacityPercent >= 100) return color;
+  if (opacityPercent <= 0) return 'transparent';
+
+  const trimmed = color.trim();
+  if (!trimmed.startsWith('#')) return color;
+
+  const hex = trimmed.slice(1);
+  const isShort = hex.length === 3;
+  const isLong = hex.length === 6;
+  if (!isShort && !isLong) return color;
+
+  const expanded = isShort ? hex.split('').map((ch) => `${ch}${ch}`).join('') : hex;
+  const r = Number.parseInt(expanded.slice(0, 2), 16);
+  const g = Number.parseInt(expanded.slice(2, 4), 16);
+  const b = Number.parseInt(expanded.slice(4, 6), 16);
+
+  if ([r, g, b].some((n) => Number.isNaN(n))) return color;
+
+  const alpha = opacityPercent / 100;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 export const Component = (props: ImageAndTextProps) => {
   const {
     moduleName,
@@ -97,6 +121,7 @@ export const Component = (props: ImageAndTextProps) => {
         sectionStyleVariant,
         headingStyleVariant,
         verticalAlignment,
+        contentBackgroundColor: contentBackgroundColorField = { color: '#FFFFFF', opacity: 0 },
         headingUppercase = false,
         showContentDivider = false,
         dividerHorizontalAlignment,
@@ -142,6 +167,13 @@ export const Component = (props: ImageAndTextProps) => {
     ...generateAlignmentCssVars(verticalAlignment),
   };
 
+  const contentContainerStyle: CSSPropertiesMap = {
+    backgroundColor: colorWithOpacity(
+      contentBackgroundColorField?.color ?? '#FFFFFF',
+      contentBackgroundColorField?.opacity,
+    ),
+  };
+
   return (
     <ImageAndText
       className={cx(
@@ -167,7 +199,7 @@ export const Component = (props: ImageAndTextProps) => {
         </ImageContainer>
       )}
       {hasContent && (
-        <ContentContainer className={swm('hs-elevate-image-and-text__content-container')}>
+        <ContentContainer className={swm('hs-elevate-image-and-text__content-container')} style={contentContainerStyle}>
           {showContentDivider && (
             <DividerRule
               className={cx(

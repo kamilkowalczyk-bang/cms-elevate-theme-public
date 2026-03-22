@@ -3,6 +3,7 @@ import {
   ImageField,
   ChoiceField,
   BooleanField,
+  ColorField,
   FieldGroup,
   AlignmentField,
   AdvancedVisibility,
@@ -192,6 +193,12 @@ export const fields = (
         display='inline'
       >
         <SectionStyle sectionStyleDefault='section_variant_1' />
+        <ColorField
+          label='Content background'
+          name='contentBackgroundColor'
+          helpText='Background color and opacity for the text column only.'
+          default={{ color: '#FFFFFF', opacity: 0 }}
+        />
         <HeadingStyle headingStyleAsDefault='h3' />
         <BooleanField
           label='Uppercase heading'

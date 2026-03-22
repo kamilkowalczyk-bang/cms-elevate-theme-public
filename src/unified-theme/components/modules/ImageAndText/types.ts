@@ -2,6 +2,7 @@ import {
   ImageFieldType,
   BooleanFieldType,
   AlignmentFieldType,
+  ColorFieldType,
   IconFieldType,
   TextFieldType,
 } from '@hubspot/cms-components/fields';
@@ -44,6 +45,7 @@ export type GroupContent = RichTextContentFieldLibraryType &
 export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
+    contentBackgroundColor?: ColorFieldType['default'];
     headingUppercase?: BooleanFieldType['default'];
     showContentDivider?: BooleanFieldType['default'];
     dividerHorizontalAlignment?: AlignmentFieldType['default'];

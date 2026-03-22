@@ -234,6 +234,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupContent.contentBackgroundColor.label": {
+    "message": "Content background",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.contentBackgroundColor.help_text": {
+    "message": "Background color and opacity for the text column only.",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupContent.headingStyleVariant.label": {
     "message": "Heading style",
     "description": "",
