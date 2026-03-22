@@ -373,5 +373,10 @@
     "message": "Drop shadow",
     "description": "",
     "placeholders": null
+  },
+  "groupStyle.groupModule.showRoundedCorners.label": {
+    "message": "Rounded corners",
+    "description": "",
+    "placeholders": null
   }
 }

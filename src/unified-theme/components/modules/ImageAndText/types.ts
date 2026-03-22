@@ -51,6 +51,7 @@ export type GroupContentStyle = SectionStyleFieldLibraryType &
 
 export interface GroupModuleStyle {
   showDropShadow?: BooleanFieldType['default'];
+  showRoundedCorners?: BooleanFieldType['default'];
 }
 
 // Style group types

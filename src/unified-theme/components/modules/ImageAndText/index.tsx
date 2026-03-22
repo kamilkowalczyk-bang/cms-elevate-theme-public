@@ -106,6 +106,7 @@ export const Component = (props: ImageAndTextProps) => {
   } = props;
 
   const showDropShadow = groupModule?.showDropShadow === true;
+  const showRoundedCorners = groupModule?.showRoundedCorners === true;
 
   const buttonHref = getLinkFieldHref(link);
   const buttonRel = getLinkFieldRel(link);
@@ -146,6 +147,7 @@ export const Component = (props: ImageAndTextProps) => {
       className={cx(
         swm('hs-elevate-image-and-text'),
         showDropShadow && swm('hs-elevate-image-and-text--drop-shadow'),
+        showRoundedCorners && swm('hs-elevate-image-and-text--rounded-corners'),
       )}
       style={cssVarsMap}
     >

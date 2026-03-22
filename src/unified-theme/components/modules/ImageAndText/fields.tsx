@@ -246,6 +246,12 @@ export const fields = (
           display='toggle'
           default={false}
         />
+        <BooleanField
+          label='Rounded corners'
+          name='showRoundedCorners'
+          display='toggle'
+          default={false}
+        />
       </FieldGroup>
     </FieldGroup>
   </ModuleFields>
