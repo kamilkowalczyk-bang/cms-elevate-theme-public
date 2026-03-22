@@ -5,7 +5,6 @@ import {
   TextField,
   AlignmentField,
   TextAlignmentField,
-  ColorField,
   AdvancedVisibility,
   Visibility,
 } from '@hubspot/cms-components/fields';
@@ -112,13 +111,6 @@ export const fields = (
           default={{
             horizontal_align: 'LEFT',
           }}
-        />
-        <ColorField
-          label="Caption color"
-          name="captionColor"
-          visibility={captionFieldsVisibility}
-          helpText="Uses theme caption color for the selected text color (section) when opacity is 0%. Increase opacity to use a custom color."
-          default={{ color: '#FFFFFF', opacity: 0 }}
         />
       </FieldGroup>
       <FieldGroup label="Button" name="groupButton" display="inline">

@@ -34,30 +34,6 @@ function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPrope
   };
 }
 
-function colorWithOpacity(color: string, opacityPercent?: number): string {
-  if (opacityPercent == null) return color;
-  if (opacityPercent >= 100) return color;
-  if (opacityPercent <= 0) return 'transparent';
-
-  const trimmed = color.trim();
-  if (!trimmed.startsWith('#')) return color;
-
-  const hex = trimmed.slice(1);
-  const isShort = hex.length === 3;
-  const isLong = hex.length === 6;
-  if (!isShort && !isLong) return color;
-
-  const expanded = isShort ? hex.split('').map((ch) => `${ch}${ch}`).join('') : hex;
-  const r = Number.parseInt(expanded.slice(0, 2), 16);
-  const g = Number.parseInt(expanded.slice(2, 4), 16);
-  const b = Number.parseInt(expanded.slice(4, 6), 16);
-
-  if ([r, g, b].some((n) => Number.isNaN(n))) return color;
-
-  const alpha = opacityPercent / 100;
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
 function getHorizontalAlignmentClass(
   alignment: AlignmentFieldType['default'] | undefined,
   element: 'divider' | 'caption',
@@ -132,7 +108,6 @@ export const Component = (props: CaseStudyProps) => {
         headingUppercase = false,
         headingTextAlignment,
         richTextTextAlignment,
-        captionColor: captionColorField = { color: '#FFFFFF', opacity: 0 },
         dividerHorizontalAlignment,
         captionHorizontalAlignment,
       },
@@ -145,18 +120,9 @@ export const Component = (props: CaseStudyProps) => {
   const buttonTarget = getLinkFieldTarget(link);
 
   const hasCaptionBlock = showCaption === true && Boolean(captionText?.trim());
-  const captionUsesThemeCaptionColor = captionColorField?.opacity == null || captionColorField.opacity <= 0;
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars(sectionStyleVariant),
-    ...(!captionUsesThemeCaptionColor
-      ? {
-          '--hsElevate--caseStudy__captionColor': colorWithOpacity(
-            captionColorField?.color ?? '#FFFFFF',
-            captionColorField?.opacity,
-          ),
-        }
-      : {}),
   };
 
   const richTextAlign = textAlignFromField(richTextTextAlignment);
@@ -204,28 +170,28 @@ export const Component = (props: CaseStudyProps) => {
             />
           </RichTextWrap>
         )}
-        {showButton === true && (
-          <ButtonRow
-            className={cx(swm('hs-elevate-case-study__button-row'), getButtonRowClass(buttonHorizontalAlignment))}
-          >
-            <Button
-              additionalClassArray={['hs-elevate-case-study__button']}
-              buttonSize={buttonStyleSize}
-              buttonStyle={buttonStyleVariant}
-              href={buttonHref}
-              rel={buttonRel}
-              target={buttonTarget}
-              showIcon={showIcon}
-              iconFieldPath="groupButton.buttonContentIcon"
-              iconPosition={iconPosition}
-              moduleName={moduleName}
-              textFieldPath="groupButton.buttonContentText"
-            >
-              {text}
-            </Button>
-          </ButtonRow>
-        )}
       </InnerContainer>
+      {showButton === true && (
+        <ButtonRow
+          className={cx(swm('hs-elevate-case-study__button-row'), getButtonRowClass(buttonHorizontalAlignment))}
+        >
+          <Button
+            additionalClassArray={['hs-elevate-case-study__button']}
+            buttonSize={buttonStyleSize}
+            buttonStyle={buttonStyleVariant}
+            href={buttonHref}
+            rel={buttonRel}
+            target={buttonTarget}
+            showIcon={showIcon}
+            iconFieldPath="groupButton.buttonContentIcon"
+            iconPosition={iconPosition}
+            moduleName={moduleName}
+            textFieldPath="groupButton.buttonContentText"
+          >
+            {text}
+          </Button>
+        </ButtonRow>
+      )}
     </CaseStudySection>
   );
 };

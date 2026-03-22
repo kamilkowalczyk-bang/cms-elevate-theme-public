@@ -1,10 +1,4 @@
-import {
-  AlignmentFieldType,
-  BooleanFieldType,
-  ColorFieldType,
-  TextAlignmentFieldType,
-  TextFieldType,
-} from '@hubspot/cms-components/fields';
+import { AlignmentFieldType, BooleanFieldType, TextAlignmentFieldType, TextFieldType } from '@hubspot/cms-components/fields';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
 import { ButtonStyleFieldLibraryType } from '../../fieldLibrary/ButtonStyle/types.js';
 import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndText/types.js';
@@ -28,7 +22,6 @@ export type CaseStudyGroupContentStyle = SectionStyleFieldLibraryType &
     headingUppercase?: BooleanFieldType['default'];
     headingTextAlignment?: TextAlignmentFieldType['default'];
     richTextTextAlignment?: TextAlignmentFieldType['default'];
-    captionColor?: ColorFieldType['default'];
     dividerHorizontalAlignment?: AlignmentFieldType['default'];
     captionHorizontalAlignment?: AlignmentFieldType['default'];
   };

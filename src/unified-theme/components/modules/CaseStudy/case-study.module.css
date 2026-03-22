@@ -18,7 +18,7 @@
 .hs-elevate-case-study__inner h4,
 .hs-elevate-case-study__inner h5,
 .hs-elevate-case-study__inner h6,
-.hs-elevate-case-study__inner p,
+.hs-elevate-case-study__inner p:not(.hs-elevate-case-study__caption),
 .hs-elevate-case-study__inner li,
 .hs-elevate-case-study__inner span,
 .hs-elevate-case-study__inner div {
@@ -71,7 +71,7 @@
   margin-right: 0;
 }
 
-/* p + two classes beats .hs-elevate-case-study__inner p for caption color */
+/* Card module pattern: caption typography and color from theme only (fields.json / theme settings) */
 .hs-elevate-case-study__inner p.hs-elevate-case-study__caption {
   margin-top: 0;
   margin-bottom: var(--hsElevate--spacing--24, 24px);
@@ -81,10 +81,7 @@
   font-style: var(--hsElevate--captions__fontStyle);
   font-weight: var(--hsElevate--captions__fontWeight);
   text-transform: var(--hsElevate--captions__case);
-  color: var(
-    --hsElevate--caseStudy__captionColor,
-    var(--hsElevate--captions__fontColor, var(--hsElevate--caseStudy__sectionCaptionColor))
-  );
+  color: var(--hsElevate--captions__fontColor, var(--hsElevate--caseStudy__sectionCaptionColor));
 }
 
 .hs-elevate-case-study__heading-wrap {
@@ -107,6 +104,18 @@
 .hs-elevate-case-study__button-row {
   display: flex;
   flex-wrap: wrap;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Button sits outside .__inner so section link rules never apply; reinforce theme button treatment (_buttons.hubl.css) */
+.hs-elevate-case-study .hs-elevate-button {
+  text-decoration: none;
+}
+
+.hs-elevate-case-study .hs-elevate-button:hover,
+.hs-elevate-case-study .hs-elevate-button:focus {
+  text-decoration: none;
 }
 
 .hs-elevate-case-study__button-row--justify-start {
