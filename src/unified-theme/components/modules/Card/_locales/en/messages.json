@@ -184,6 +184,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupCard.showIconBorder.label": {
+    "message": "Show icon border and background",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showIconBorder.help_text": {
+    "message": "When off, the card icon has no border and a transparent background so full-card or image backgrounds show through.",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupCard.cardStyleVariant.label": {
     "message": "Card style",
     "description": "",

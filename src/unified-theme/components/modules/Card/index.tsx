@@ -56,6 +56,7 @@ type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup & Partial<
 type GroupCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
     cardOrientation: 'row' | 'column';
+    showIconBorder?: BooleanFieldType['default'];
   };
 };
 
@@ -158,7 +159,7 @@ export const Component = (props: CardProps) => {
     imageOrIcon,
     groupCards,
     groupStyle: {
-      groupCard: { cardStyleVariant, cardOrientation },
+      groupCard: { cardStyleVariant, cardOrientation, showIconBorder = true },
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
@@ -223,7 +224,13 @@ export const Component = (props: CardProps) => {
           >
             {isIconVisible && (
               <IconWrapper className={swm('hs-elevate-card-container__icon-wrapper')}>
-                <Icon className={swm('hs-elevate-card-container__icon')} purpose="DECORATIVE" fieldPath={`groupCards[${index}].groupIcon.icon`} />
+                <Icon
+                  className={cx(swm('hs-elevate-card-container__icon'), {
+                    [styles['hs-elevate-card-container__icon--no-frame']]: !showIconBorder,
+                  })}
+                  purpose="DECORATIVE"
+                  fieldPath={`groupCards[${index}].groupIcon.icon`}
+                />
               </IconWrapper>
             )}
             {isImageVisible && (

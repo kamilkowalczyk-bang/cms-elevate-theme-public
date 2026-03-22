@@ -32,6 +32,18 @@ export default function StyleFields() {
           display='radio'
           default='column'
         />
+        <BooleanField
+          label='Show icon border and background'
+          name='showIconBorder'
+          display='toggle'
+          default={true}
+          helpText='When off, the card icon has no border and a transparent background so full-card or image backgrounds show through.'
+          visibility={{
+            controlling_field: 'imageOrIcon',
+            controlling_value_regex: 'icon',
+            operator: 'EQUAL',
+          }}
+        />
         <CardStyle cardStyleDefault='card_variant_1' />
       </FieldGroup>
       <FieldGroup

@@ -47,6 +47,11 @@
   fill: var(--hsElevate--cardIcon__fillColor);
 }
 
+.hs-elevate-card-container__icon--no-frame {
+  background-color: transparent;
+  border: none;
+}
+
 .hs-elevate-card-container__image-wrapper {
   display: flex;
   overflow: hidden;
