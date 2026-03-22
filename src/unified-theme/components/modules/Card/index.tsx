@@ -38,6 +38,7 @@ type IconGroup = {
 type ImageGroup = {
   groupImage: {
     image: ImageFieldType['default'];
+    showRoundImageBorder?: BooleanFieldType['default'];
   };
 };
 
@@ -223,8 +224,12 @@ export const Component = (props: CardProps) => {
           ? { backgroundImage: `url(${cardBackgroundSrc})` }
           : undefined;
 
+        const showRoundImageBorder = card.groupImage.showRoundImageBorder === true;
+
         const imageWrapperClasses = cx(swm('hs-elevate-card-container__image-wrapper'), {
           [styles['hs-elevate-card-container__image-wrapper--use-background']]: cardImageUsesBackground,
+          [styles['hs-elevate-card-container__image-wrapper--round-border']]:
+            isImageVisible && showRoundImageBorder,
         });
 
         return (

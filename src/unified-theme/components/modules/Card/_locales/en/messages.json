@@ -44,6 +44,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupCards.groupImage.showRoundImageBorder.label": {
+    "message": "Round border around image",
+    "description": "",
+    "placeholders": null
+  },
   "groupCards.groupContent.label": {
     "message": "Content",
     "description": "",

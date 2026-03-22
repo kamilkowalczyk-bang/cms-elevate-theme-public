@@ -62,6 +62,7 @@ export const fields = (
             },
           },
           groupImage: {
+            showRoundImageBorder: false,
             image: {
               src: newsletterImage,
               alt: '',
@@ -124,6 +125,17 @@ export const fields = (
             src: newsletterImage,
           }}
           inlineEditable={true}
+        />
+        <BooleanField
+          label='Round border around image'
+          name='showRoundImageBorder'
+          display='toggle'
+          default={false}
+          visibility={{
+            controlling_field: 'imageOrIcon',
+            controlling_value_regex: 'image',
+            operator: 'EQUAL',
+          }}
         />
       </FieldGroup>
       <FieldGroup label='Content' name='groupContent' display='inline' id='groupContent'>

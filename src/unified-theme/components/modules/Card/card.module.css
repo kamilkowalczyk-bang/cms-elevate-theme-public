@@ -88,6 +88,25 @@
   background-color: var(--hsElevate--cardIcon__backgroundColor);
 }
 
+/* Per-card optional round frame for Cards > Image only (not icon, not card background image) */
+.hs-elevate-card-container__image-wrapper--round-border {
+  box-sizing: border-box;
+  border: 0.5px solid transparent;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: min(250px, 100%);
+  max-width: min(250px, 100%);
+}
+
+.hs-elevate-card-container__image-wrapper--round-border img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  min-width: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
 .hs-elevate-card-container__content {
   display: flex;
   flex-direction: column;
