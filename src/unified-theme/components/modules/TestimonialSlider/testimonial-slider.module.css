@@ -149,6 +149,10 @@
   padding-block: var(--hsElevate--spacing--48, 48px);
 }
 
+.hs-elevate-testimonial-slider--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.15);
+}
+
 .hs-elevate-testimonial-slider--info {
   padding-block: 0;
 }

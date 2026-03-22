@@ -85,7 +85,9 @@ export type TestimonialLayoutProps = {
 
 // Types for testimonial slide styles
 
-export type TestimonialStyleProps = CardStyleFieldLibraryType;
+export type TestimonialStyleProps = CardStyleFieldLibraryType & {
+  showTestimonialDropShadow?: BooleanFieldType['default'];
+};
 
 // Types for the testimonial slider
 

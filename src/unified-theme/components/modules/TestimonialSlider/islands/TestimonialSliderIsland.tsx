@@ -341,7 +341,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
     moduleName,
     groupLayout,
     groupTestimonial,
-    groupStyle: { cardStyleVariant },
+    groupStyle: { cardStyleVariant, showTestimonialDropShadow },
     groupDefaultText,
   } = props;
 
@@ -371,6 +371,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
       style={cssVarsMap}
       className={cx(swm('hs-elevate-testimonial-slider'), cardVariantClassName, {
         [styles['hs-elevate-testimonial-slider--info']]: isInfoLayout,
+        [styles['hs-elevate-testimonial-slider--drop-shadow']]:
+          !isInfoLayout && showTestimonialDropShadow === true,
       })}
     >
       <Splide
