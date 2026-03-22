@@ -341,7 +341,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
     moduleName,
     groupLayout,
     groupTestimonial,
-    groupStyle: { cardStyleVariant, showTestimonialDropShadow },
+    groupStyle: { cardStyleVariant, showTestimonialDropShadow, showTestimonialQuoteBoldUppercase },
     groupDefaultText,
   } = props;
 
@@ -373,6 +373,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
         [styles['hs-elevate-testimonial-slider--info']]: isInfoLayout,
         [styles['hs-elevate-testimonial-slider--drop-shadow']]:
           !isInfoLayout && showTestimonialDropShadow === true,
+        [styles['hs-elevate-testimonial-slider--quote-bold-uppercase']]:
+          !isInfoLayout && showTestimonialQuoteBoldUppercase === true,
       })}
     >
       <Splide

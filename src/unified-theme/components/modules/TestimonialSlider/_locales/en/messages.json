@@ -129,6 +129,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.showTestimonialQuoteBoldUppercase.label": {
+    "message": "Bold uppercase quotation",
+    "description": "",
+    "placeholders": null
+  },
   "groupTestimonial.default.0.groupQuote.quote": {
     "message": "Add a testimonial quote #1 here. Keep it concise and impactful to enhance credibility with your business",
     "description": "",

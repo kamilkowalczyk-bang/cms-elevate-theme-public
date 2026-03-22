@@ -15,6 +15,17 @@ export default function StyleFields() {
           operator: 'EQUAL',
         }}
       />
+      <BooleanField
+        label="Bold uppercase quotation"
+        name="showTestimonialQuoteBoldUppercase"
+        display="toggle"
+        default={false}
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'testimonial',
+          operator: 'EQUAL',
+        }}
+      />
       <CardStyle cardStyleDefault="card_variant_1" />
     </FieldGroup>
   );

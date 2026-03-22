@@ -58,7 +58,8 @@
 
 .hs-elevate-testimonial-slider__author-name {
   display: block;
-  font-size: var(--hsElevate--body--large__fontSize);
+  font-size: var(--hsElevate--body--small__fontSize);
+  font-weight: var(--hsElevate--body__fontWeight, 300);
   line-height: 1;
   margin-block: var(--hsElevate--text--extraSmall__margin, 0 12px);
 }
@@ -66,6 +67,7 @@
 .hs-elevate-testimonial-slider__author-title {
   display: block;
   font-size: var(--hsElevate--body--small__fontSize);
+  font-weight: var(--hsElevate--body__fontWeight, 300);
 }
 
 .hs-elevate-testimonial-slider__slide {
@@ -151,6 +153,13 @@
 
 .hs-elevate-testimonial-slider--drop-shadow {
   box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.15);
+}
+
+/* Testimonial layout only: info slides use RichText, not __quote-text */
+.hs-elevate-testimonial-slider--quote-bold-uppercase .hs-elevate-testimonial-slider__quote-text {
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .hs-elevate-testimonial-slider--info {
