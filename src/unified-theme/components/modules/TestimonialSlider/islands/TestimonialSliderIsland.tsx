@@ -276,7 +276,7 @@ const InfoButton = ({ moduleName, index, button }: InfoButtonProps) => {
   return (
     <InfoButtonContainer className={swm('hs-elevate-testimonial-slider__info-button-container')}>
       <Button
-        buttonStyle="accent"
+        buttonStyle="primary"
         buttonSize="medium"
         href={href}
         rel={rel}
