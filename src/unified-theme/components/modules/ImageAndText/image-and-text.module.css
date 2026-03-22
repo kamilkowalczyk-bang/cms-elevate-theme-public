@@ -114,19 +114,39 @@
   width: 100px;
 }
 
-.hs-elevate-image-and-text__divider--align-left {
+.hs-elevate-image-and-text__divider--align-left,
+.hs-elevate-image-and-text__caption--align-left {
   margin-left: 0;
   margin-right: auto;
 }
 
-.hs-elevate-image-and-text__divider--align-center {
+.hs-elevate-image-and-text__divider--align-center,
+.hs-elevate-image-and-text__caption--align-center {
   margin-left: auto;
   margin-right: auto;
 }
 
-.hs-elevate-image-and-text__divider--align-right {
+.hs-elevate-image-and-text__divider--align-right,
+.hs-elevate-image-and-text__caption--align-right {
   margin-left: auto;
   margin-right: 0;
+}
+
+/* p + two classes beats .content-container p for color */
+.hs-elevate-image-and-text__content-container p.hs-elevate-image-and-text__caption {
+  margin-top: 0;
+  margin-bottom: 25px;
+  max-width: 100%;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  /* Match .hs-elevate-caption: module override → theme caption token → section caption color */
+  color: var(
+    --hsElevate--imageAndText__captionColor,
+    var(--hsElevate--captions__fontColor, var(--hsElevate--imageAndText__sectionCaptionColor))
+  );
 }
 
 .hs-elevate-image-and-text__list {

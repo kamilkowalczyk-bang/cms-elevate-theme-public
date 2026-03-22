@@ -24,6 +24,7 @@ const swm = staticWithModule(styles);
 function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPropertiesMap {
   return {
     '--hsElevate--imageAndText__textColor': sectionColorsMap[sectionVariantField].textColor,
+    '--hsElevate--imageAndText__sectionCaptionColor': sectionColorsMap[sectionVariantField].sectionCaptionColor,
     '--hsElevate--imageAndText__accentColor': sectionColorsMap[sectionVariantField].accentColor,
     '--hsElevate--blockquote__textColor': sectionColorsMap[sectionVariantField].blockquoteTextColor,
     '--hsElevate--blockquote__backgroundColor': sectionColorsMap[sectionVariantField].blockquoteBackgroundColor,
@@ -46,17 +47,22 @@ function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default'])
   return { '--hsElevate--imageAndText__alignItems': alignmentCss.alignItems || 'center' };
 }
 
-function getDividerHorizontalAlignmentClass(
+function getHorizontalAlignmentClass(
   alignment: AlignmentFieldType['default'] | undefined,
+  element: 'divider' | 'caption',
 ): string {
   const horizontal = alignment?.horizontal_align || 'LEFT';
+  const prefix =
+    element === 'divider'
+      ? 'hs-elevate-image-and-text__divider--align-'
+      : 'hs-elevate-image-and-text__caption--align-';
   if (horizontal === 'CENTER') {
-    return swm('hs-elevate-image-and-text__divider--align-center');
+    return swm(`${prefix}center`);
   }
   if (horizontal === 'RIGHT') {
-    return swm('hs-elevate-image-and-text__divider--align-right');
+    return swm(`${prefix}right`);
   }
-  return swm('hs-elevate-image-and-text__divider--align-left');
+  return swm(`${prefix}left`);
 }
 
 // Components
@@ -70,6 +76,7 @@ const ListContainer = createComponent('ul');
 const ListItem = createComponent('li');
 const ListIconContainer = createComponent('span');
 const ListItemText = createComponent('span');
+const Caption = createComponent('p');
 
 function backgroundImageStyleFromField(src: string | undefined): CSSPropertiesMap | undefined {
   if (typeof src !== 'string' || !src.trim()) {
@@ -110,6 +117,8 @@ export const Component = (props: ImageAndTextProps) => {
       headingAndTextHeadingLevel,
       headingAndTextHeading,
       richTextContentHTML,
+      showCaption = false,
+      captionText = '',
       showList = false,
       listIcon,
       groupListItems = [],
@@ -122,6 +131,7 @@ export const Component = (props: ImageAndTextProps) => {
         headingStyleVariant,
         verticalAlignment,
         contentBackgroundColor: contentBackgroundColorField = { color: '#FFFFFF', opacity: 0 },
+        captionColor: captionColorField = { color: '#FFFFFF', opacity: 0 },
         headingUppercase = false,
         showContentDivider = false,
         dividerHorizontalAlignment,
@@ -154,17 +164,30 @@ export const Component = (props: ImageAndTextProps) => {
     : undefined;
 
   const hasListBlock = showList && groupListItems.length > 0;
+  const hasCaptionBlock = showCaption === true && Boolean(captionText?.trim());
   const hasContent =
     headingAndTextHeading ||
     richTextContentHTML ||
     showButton ||
     showContentDivider ||
-    hasListBlock;
+    hasListBlock ||
+    hasCaptionBlock;
 
-  const cssVarsMap = {
+  const captionUsesThemeCaptionColor =
+    captionColorField?.opacity == null || captionColorField.opacity <= 0;
+
+  const cssVarsMap: CSSPropertiesMap = {
     ...generateImagePositionCssVars(imagePosition),
     ...generateColorCssVars(sectionStyleVariant),
     ...generateAlignmentCssVars(verticalAlignment),
+    ...(!captionUsesThemeCaptionColor
+      ? {
+          '--hsElevate--imageAndText__captionColor': colorWithOpacity(
+            captionColorField?.color ?? '#FFFFFF',
+            captionColorField?.opacity,
+          ),
+        }
+      : {}),
   };
 
   const contentContainerStyle: CSSPropertiesMap = {
@@ -204,10 +227,21 @@ export const Component = (props: ImageAndTextProps) => {
             <DividerRule
               className={cx(
                 swm('hs-elevate-image-and-text__divider'),
-                getDividerHorizontalAlignmentClass(dividerHorizontalAlignment),
+                getHorizontalAlignmentClass(dividerHorizontalAlignment, 'divider'),
               )}
               aria-hidden={true}
             />
+          )}
+          {hasCaptionBlock && (
+            <Caption
+              className={cx(
+                swm('hs-elevate-image-and-text__caption'),
+                getHorizontalAlignmentClass(dividerHorizontalAlignment, 'caption'),
+              )}
+              data-hs-token={getDataHSToken(moduleName, 'groupContent.captionText')}
+            >
+              {captionText}
+            </Caption>
           )}
           {headingAndTextHeading && (
             <HeadingComponent

@@ -54,8 +54,24 @@ const groupListContentDefault = {
   },
 };
 
-const dividerHorizontalAlignmentVisibility = {
-  controlling_field_path: 'groupStyle.groupContent.showContentDivider',
+const dividerOrCaptionHorizontalAlignmentVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [
+    {
+      controlling_field_path: 'groupStyle.groupContent.showContentDivider',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+    {
+      controlling_field_path: 'groupContent.showCaption',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+} as const;
+
+const captionFieldsVisibility = {
+  controlling_field_path: 'groupContent.showCaption',
   controlling_value_regex: 'true',
   operator: 'EQUAL',
 } as const satisfies Visibility;
@@ -126,6 +142,19 @@ export const fields = (
         label='Description'
         richTextDefault='<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature. A couple of sentences here is just right.</p>'
         featureSet='text'
+      />
+      <BooleanField
+        label='Show caption'
+        name='showCaption'
+        display='toggle'
+        default={false}
+      />
+      <TextField
+        label='Caption'
+        name='captionText'
+        visibility={captionFieldsVisibility}
+        default=''
+        inlineEditable={true}
       />
       <BooleanField
         label='Show list'
@@ -221,13 +250,20 @@ export const fields = (
           default={false}
         />
         <AlignmentField
-          label='Divider alignment'
+          label='Divider and caption alignment'
           name='dividerHorizontalAlignment'
-          visibility={dividerHorizontalAlignmentVisibility}
+          visibility={dividerOrCaptionHorizontalAlignmentVisibility as unknown as Visibility}
           alignmentDirection='HORIZONTAL'
           default={{
             horizontal_align: 'LEFT',
           }}
+        />
+        <ColorField
+          label='Caption color'
+          name='captionColor'
+          visibility={captionFieldsVisibility}
+          helpText='Uses theme caption color for the selected text color (section) when opacity is 0%. Increase opacity to use a custom color.'
+          default={{ color: '#FFFFFF', opacity: 0 }}
         />
       </FieldGroup>
       <FieldGroup

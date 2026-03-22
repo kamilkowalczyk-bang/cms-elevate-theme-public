@@ -99,6 +99,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupContent.showCaption.label": {
+    "message": "Show caption",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.captionText.label": {
+    "message": "Caption",
+    "description": "",
+    "placeholders": null
+  },
   "groupContent.showList.label": {
     "message": "Show list",
     "description": "",
@@ -305,7 +315,17 @@
     "placeholders": null
   },
   "groupStyle.groupContent.dividerHorizontalAlignment.label": {
-    "message": "Divider alignment",
+    "message": "Divider and caption alignment",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.captionColor.label": {
+    "message": "Caption color",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.captionColor.help_text": {
+    "message": "Uses theme caption color for the selected text color (section) when opacity is 0%. Increase opacity to use a custom color.",
     "description": "",
     "placeholders": null
   },

@@ -37,6 +37,8 @@ export type GroupContentListItem = {
 // Content group types
 export type GroupContent = RichTextContentFieldLibraryType &
   HeadingAndTextFieldLibraryType & {
+    showCaption?: BooleanFieldType['default'];
+    captionText?: TextFieldType['default'];
     showList?: BooleanFieldType['default'];
     listIcon?: IconFieldType['default'];
     groupListItems?: GroupContentListItem[];
@@ -46,6 +48,7 @@ export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
     contentBackgroundColor?: ColorFieldType['default'];
+    captionColor?: ColorFieldType['default'];
     headingUppercase?: BooleanFieldType['default'];
     showContentDivider?: BooleanFieldType['default'];
     dividerHorizontalAlignment?: AlignmentFieldType['default'];
