@@ -363,5 +363,15 @@
     "message": "Large",
     "description": "",
     "placeholders": null
+  },
+  "groupStyle.groupModule.label": {
+    "message": "Module",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupModule.showDropShadow.label": {
+    "message": "Drop shadow",
+    "description": "",
+    "placeholders": null
   }
 }

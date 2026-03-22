@@ -235,6 +235,18 @@ export const fields = (
           buttonStyleVisibility={buttonFieldVisibility}
         />
       </FieldGroup>
+      <FieldGroup
+        label='Module'
+        name='groupModule'
+        display='inline'
+      >
+        <BooleanField
+          label='Drop shadow'
+          name='showDropShadow'
+          display='toggle'
+          default={false}
+        />
+      </FieldGroup>
     </FieldGroup>
   </ModuleFields>
 );

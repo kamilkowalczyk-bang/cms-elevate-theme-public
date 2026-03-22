@@ -49,10 +49,15 @@ export type GroupContentStyle = SectionStyleFieldLibraryType &
     dividerHorizontalAlignment?: AlignmentFieldType['default'];
   };
 
+export interface GroupModuleStyle {
+  showDropShadow?: BooleanFieldType['default'];
+}
+
 // Style group types
 export interface GroupStyle {
   groupContent: GroupContentStyle;
   groupButton: GroupButtonStyle;
+  groupModule?: GroupModuleStyle;
 }
 
 // Main component props
@@ -82,5 +87,6 @@ export interface ImageAndTextOptions {
   styleOverrides?: {
     groupContent?: Partial<GroupContentStyle>;
     groupButton?: Partial<GroupButtonStyle>;
+    groupModule?: Partial<GroupModuleStyle>;
   };
 }

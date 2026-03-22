@@ -16,6 +16,10 @@
   }
 }
 
+.hs-elevate-image-and-text--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.6);
+}
+
 .hs-elevate-image-and-text__image-container {
   /* Column layout: parent align-items can be "center" (from vertical alignment field),
      which would shrink this box to content width — invisible background-only column on mobile */

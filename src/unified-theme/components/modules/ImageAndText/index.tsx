@@ -92,6 +92,7 @@ export const Component = (props: ImageAndTextProps) => {
     },
     groupButton: { showButton, buttonContentText: text, buttonContentLink: link, buttonContentShowIcon: showIcon, buttonContentIconPosition: iconPosition },
     groupStyle: {
+      groupModule,
       groupContent: {
         sectionStyleVariant,
         headingStyleVariant,
@@ -103,6 +104,8 @@ export const Component = (props: ImageAndTextProps) => {
       groupButton: { buttonStyleSize, buttonStyleVariant },
     },
   } = props;
+
+  const showDropShadow = groupModule?.showDropShadow === true;
 
   const buttonHref = getLinkFieldHref(link);
   const buttonRel = getLinkFieldRel(link);
@@ -139,7 +142,13 @@ export const Component = (props: ImageAndTextProps) => {
   };
 
   return (
-    <ImageAndText className={swm('hs-elevate-image-and-text')} style={cssVarsMap}>
+    <ImageAndText
+      className={cx(
+        swm('hs-elevate-image-and-text'),
+        showDropShadow && swm('hs-elevate-image-and-text--drop-shadow'),
+      )}
+      style={cssVarsMap}
+    >
       {showImageColumn && (
         <ImageContainer className={imageContainerClass} style={imageContainerStyle}>
           {hasMainImage && (
