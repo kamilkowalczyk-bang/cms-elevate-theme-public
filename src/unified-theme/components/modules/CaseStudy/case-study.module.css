@@ -1,0 +1,122 @@
+.hs-elevate-case-study {
+  box-sizing: border-box;
+  max-width: var(--hsElevate--container--maxWidth, 1200px);
+  margin-inline: auto;
+  margin-block: 0;
+  padding: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--32, 32px);
+}
+
+.hs-elevate-case-study__inner {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+}
+
+.hs-elevate-case-study__inner h1,
+.hs-elevate-case-study__inner h2,
+.hs-elevate-case-study__inner h3,
+.hs-elevate-case-study__inner h4,
+.hs-elevate-case-study__inner h5,
+.hs-elevate-case-study__inner h6,
+.hs-elevate-case-study__inner p,
+.hs-elevate-case-study__inner li,
+.hs-elevate-case-study__inner span,
+.hs-elevate-case-study__inner div {
+  color: var(--hsElevate--caseStudy__textColor);
+}
+
+.hs-elevate-case-study__inner a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link) {
+  color: var(--hsElevate--caseStudy__linkColor);
+  -webkit-text-decoration: var(--hsElevate--caseStudy__linkTextDecoration);
+  text-decoration: var(--hsElevate--caseStudy__linkTextDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--caseStudy__linkTextDecorationColor);
+  text-decoration-color: var(--hsElevate--caseStudy__linkTextDecorationColor);
+}
+
+.hs-elevate-case-study__inner a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link):hover,
+.hs-elevate-case-study__inner a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link):focus {
+  color: var(--hsElevate--caseStudy__linkHoverColor);
+  -webkit-text-decoration: var(--hsElevate--caseStudy__linkHoverTextDecoration);
+  text-decoration: var(--hsElevate--caseStudy__linkHoverTextDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--caseStudy__linkHoverTextDecorationColor);
+  text-decoration-color: var(--hsElevate--caseStudy__linkHoverTextDecorationColor);
+}
+
+/* Match Image and text divider treatment */
+.hs-elevate-case-study__divider {
+  border: 0 none;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(82, 186, 209, 1);
+  margin-top: 0;
+  margin-bottom: var(--hsElevate--spacing--24, 24px);
+  width: 100px;
+}
+
+.hs-elevate-case-study__divider--align-left,
+.hs-elevate-case-study__caption--align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.hs-elevate-case-study__divider--align-center,
+.hs-elevate-case-study__caption--align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hs-elevate-case-study__divider--align-right,
+.hs-elevate-case-study__caption--align-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* p + two classes beats .hs-elevate-case-study__inner p for caption color */
+.hs-elevate-case-study__inner p.hs-elevate-case-study__caption {
+  margin-top: 0;
+  margin-bottom: var(--hsElevate--spacing--24, 24px);
+  max-width: 100%;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  color: var(
+    --hsElevate--caseStudy__captionColor,
+    var(--hsElevate--captions__fontColor, var(--hsElevate--caseStudy__sectionCaptionColor))
+  );
+}
+
+.hs-elevate-case-study__heading-wrap {
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-case-study__heading-wrap h1,
+.hs-elevate-case-study__heading-wrap h2,
+.hs-elevate-case-study__heading-wrap h3,
+.hs-elevate-case-study__heading-wrap h4,
+.hs-elevate-case-study__heading-wrap h5,
+.hs-elevate-case-study__heading-wrap h6 {
+  color: var(--hsElevate--heading__textColor);
+}
+
+.hs-elevate-case-study__rich-text-wrap {
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-case-study__button-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hs-elevate-case-study__button-row--justify-start {
+  justify-content: flex-start;
+}
+
+.hs-elevate-case-study__button-row--justify-center {
+  justify-content: center;
+}
+
+.hs-elevate-case-study__button-row--justify-end {
+  justify-content: flex-end;
+}
