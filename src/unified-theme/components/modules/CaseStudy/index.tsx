@@ -199,7 +199,7 @@ export const Component = (props: CaseStudyProps) => {
 export { fields } from './fields.js';
 
 export const meta: ModuleMeta = {
-  label: 'Case study',
+  label: 'Case heading',
   content_types: ['SITE_PAGE', 'LANDING_PAGE', 'CASE_STUDY', 'BLOG_POST', 'BLOG_LISTING'],
   icon: caseStudyIconSvg,
   categories: ['text'],

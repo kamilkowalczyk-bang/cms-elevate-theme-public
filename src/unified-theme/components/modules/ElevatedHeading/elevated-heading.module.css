@@ -41,6 +41,8 @@
 .hs-elevate-elevated-heading__heading .hs-elevate-h5,
 .hs-elevate-elevated-heading__heading .hs-elevate-h6 {
   color: var(--hsElevate--heading__textColor);
+  font-weight: var(--hsElevate--heading__fontWeight, 900);
+  text-transform: var(--hsElevate--heading__textTransform, uppercase);
 }
 
 .hs-elevate-elevated-heading__introRichText {
@@ -103,7 +105,17 @@
   }
 }
 
-@media (width < 767px) {
+/* Keep two columns until the viewport cannot reasonably fit two tracks (section has 60px horizontal padding). */
+@media (width < 640px) {
+  .hs-elevate-elevated-heading {
+    padding-inline: var(--hsElevate--spacing--32, 32px);
+  }
+  .hs-elevate-elevated-heading__cards {
+    gap: var(--hsElevate--spacing--16, 16px);
+  }
+}
+
+@media (width < 400px) {
   .hs-elevate-elevated-heading__cards {
     grid-template-columns: 1fr;
   }

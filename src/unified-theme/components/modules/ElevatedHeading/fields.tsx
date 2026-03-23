@@ -154,7 +154,12 @@ export const fields = (
         />
       </FieldGroup>
 
-      <FieldGroup label="Card text" name="groupCardText" display="inline">
+      <FieldGroup
+        label="Card text"
+        name="groupCardText"
+        display="inline"
+        inlineHelpText="Use a short heading  H4 as the card label. The first heading in this field is shown in uppercase on the page."
+      >
         <RichTextContent
           label="Title"
           featureSet="text"
