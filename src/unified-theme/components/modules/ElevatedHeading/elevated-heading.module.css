@@ -18,7 +18,8 @@
   box-shadow: 0 -48px 48px -24px rgba(0, 0, 0, 0.15);
   /* background-color: set from module field (Style tab) via inline style */
   border-radius: 8px;
-  padding: 60px;
+  padding-inline: var(--hsElevate--spacing--60, 60px);
+  padding-block: var(--hsElevate--spacing--60, 60px 24px);
 }
 
 .hs-elevate-elevated-heading__heading {
