@@ -69,6 +69,7 @@ type GroupCardStyles = {
     cardOrientation: 'row' | 'column';
     showIconBorder?: BooleanFieldType['default'];
     showCardShadow?: BooleanFieldType['default'];
+    showCardBorder?: BooleanFieldType['default'];
   };
 };
 
@@ -172,7 +173,13 @@ export const Component = (props: CardProps) => {
     imageOrIcon,
     groupCards,
     groupStyle: {
-      groupCard: { cardStyleVariant, cardOrientation, showIconBorder = true, showCardShadow = false },
+      groupCard: {
+        cardStyleVariant,
+        cardOrientation,
+        showIconBorder = true,
+        showCardShadow = false,
+        showCardBorder = true,
+      },
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
@@ -220,9 +227,16 @@ export const Component = (props: CardProps) => {
           [styles['hs-elevate-card-container__card--drop-shadow']]: showCardShadow,
         });
 
-        const cardBackgroundStyles: CSSPropertiesMap | undefined = hasCardBackgroundImage
-          ? { backgroundImage: `url(${cardBackgroundSrc})` }
-          : undefined;
+        const cardSurfaceStyles: CSSPropertiesMap | undefined = (() => {
+          const stylesMap: CSSPropertiesMap = {};
+          if (hasCardBackgroundImage) {
+            stylesMap.backgroundImage = `url(${cardBackgroundSrc})`;
+          }
+          if (showCardBorder === false) {
+            stylesMap.border = 'none';
+          }
+          return Object.keys(stylesMap).length ? stylesMap : undefined;
+        })();
 
         const showRoundImageBorder = card.groupImage.showRoundImageBorder === true;
 
@@ -238,7 +252,7 @@ export const Component = (props: CardProps) => {
             key={index}
             cardStyleVariant={cardStyleVariant}
             cardOrientation={cardOrientation}
-            inlineStyles={cardBackgroundStyles}
+            inlineStyles={cardSurfaceStyles}
           >
             {isIconVisible && (
               <IconWrapper className={swm('hs-elevate-card-container__icon-wrapper')}>

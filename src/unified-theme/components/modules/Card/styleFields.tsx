@@ -51,6 +51,13 @@ export default function StyleFields() {
           default={false}
           helpText='Adds a soft drop shadow around each card.'
         />
+        <BooleanField
+          label='Show card border'
+          name='showCardBorder'
+          display='toggle'
+          default={true}
+          helpText='When off, hides the outer card border. Border color, width, and radius still follow the selected card style variant in theme settings when this is on.'
+        />
         <CardStyle cardStyleDefault='card_variant_1' />
       </FieldGroup>
       <FieldGroup
