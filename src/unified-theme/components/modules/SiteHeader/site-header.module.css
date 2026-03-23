@@ -4,8 +4,8 @@
   height: auto;
   width: 100%;
   background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
-  padding-block: var(--hsElevate--spacing--24, 24px);
-  padding-inline: var(--hsElevate--spacing--48, 48px);
+  padding-block: var(--hsElevate--spacing--20, 20px);
+  padding-inline: var(--hsElevate--spacing--32, 32px);
 
   @media (width <= 1250px) {
     padding-inline: var(--hsElevate--spacing--24, 24px);
