@@ -6,7 +6,7 @@ import { useState, useRef, useMemo } from 'react';
 import { getLanguageDisplayName, shouldDisplayLanguageSwitcher, createTranslationsArrayAsObject } from './utils.js';
 import LanguageOptions from './LanguageOptions.jsx';
 import { LanguageSwitcherProps } from '../types/language.js';
-import { useLanguageVariants, Icon } from '@hubspot/cms-components';
+import { useLanguageVariants } from '@hubspot/cms-components';
 import GlobeIcon from './assets/Globe.js';
 import { useDocumentLang } from '../hooks/useDocumentLang.js';
 import { CSSPropertiesMap } from '../types/components.js';
@@ -61,13 +61,12 @@ const MobileSiteHeaderLanguageSwitcher = (props: LanguageSwitcherProps) => {
     textColor = 'var(--hsElevate--section--lightSection--1__textColor)',
     textColorHover = 'var(--hsElevate--section--lightSection--1__textColor)',
     languageSwitcherSelectText = 'Select a language',
-    langSwitcherIconFieldPath,
   } = props;
 
   const translationsArrayAsObject = createTranslationsArrayAsObject(translations);
   const currentPageLanguageDisplayName = getLanguageDisplayName({ currentPageLanguage, translationsArrayAsObject });
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const langSwitcherIcon = langSwitcherIconFieldPath ? <Icon fieldPath={langSwitcherIconFieldPath} /> : <GlobeIcon />;
+  const langSwitcherIcon = <GlobeIcon />;
   const toggleLanguageOptions = () => {
     setIsOpen(!isOpen);
   };

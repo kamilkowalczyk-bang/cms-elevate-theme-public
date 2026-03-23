@@ -206,3 +206,18 @@
     display: block;
   }
 }
+
+/* Desktop ordering only: keep CTA button before language switcher */
+@media (width >= 1251px) {
+  .hs-elevate-site-header__main-nav {
+    order: 1;
+  }
+
+  .hs-elevate-site-header__button-container {
+    order: 2;
+  }
+
+  .hs-elevate-site-header__language-switcher-container {
+    order: 3;
+  }
+}
