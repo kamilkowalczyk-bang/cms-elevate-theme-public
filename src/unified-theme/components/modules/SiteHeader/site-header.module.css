@@ -55,7 +55,7 @@
     }
 
     @media (width >= 900px) {
-      gap: var(--hsElevate--spacing--24, 24px);
+      gap: var(--hsElevate--spacing--16, 16px);
     }
   }
 
