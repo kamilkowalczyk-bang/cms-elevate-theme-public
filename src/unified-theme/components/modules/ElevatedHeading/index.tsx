@@ -60,7 +60,8 @@ type ElevatedHeadingProps = {
   groupHeading: {
     heading: TextFieldType['default'];
     headingLevel: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-  };
+    showHeadingRichText?: boolean;
+  } & RichTextContentFieldLibraryType;
   groupStyle: GroupStyle;
   groupCards: CardItem[];
 };
@@ -68,6 +69,23 @@ type ElevatedHeadingProps = {
 function generateHeadingColorCssVars(sectionVariantField: SectionVariantType): CSSPropertiesMap {
   return {
     '--hsElevate--heading__textColor': sectionColorsMap[sectionVariantField].textColor,
+  };
+}
+
+function generateRichTextColorCssVars(sectionVariantField: SectionVariantType): CSSPropertiesMap {
+  return {
+    '--hsElevate--richText__textColor': sectionColorsMap[sectionVariantField].textColor,
+    '--hsElevate--richText__accentColor': sectionColorsMap[sectionVariantField].accentColor,
+    '--hsElevate--richText__linkColor': sectionColorsMap[sectionVariantField].linkColor,
+    '--hsElevate--richText__textDecoration': sectionColorsMap[sectionVariantField].textDecoration,
+    '--hsElevate--richText__textDecorationColor': sectionColorsMap[sectionVariantField].textDecorationColor,
+    '--hsElevate--richText__linkHoverColor': sectionColorsMap[sectionVariantField].linkHoverColor,
+    '--hsElevate--richText__linkHoverTextDecoration': sectionColorsMap[sectionVariantField].linkHoverTextDecoration,
+    '--hsElevate--richText__linkHoverTextDecorationColor':
+      sectionColorsMap[sectionVariantField].linkHoverTextDecorationColor,
+    '--hsElevate--blockquote__textColor': sectionColorsMap[sectionVariantField].blockquoteTextColor,
+    '--hsElevate--blockquote__backgroundColor': sectionColorsMap[sectionVariantField].blockquoteBackgroundColor,
+    '--hsElevate--blockquote__accentColor': sectionColorsMap[sectionVariantField].blockquoteAccentColor,
   };
 }
 
@@ -83,6 +101,7 @@ export const Component = (props: ElevatedHeadingProps) => {
     },
     groupCards,
   } = props;
+  const { showHeadingRichText = false } = groupHeading;
   const cssVarsMap: CSSPropertiesMap = generateHeadingColorCssVars(sectionStyleVariant);
   const sectionBackgroundColor = sectionBackgroundWithOpacity(
     sectionBackgroundColorField?.color ?? '#F0F0F3',
@@ -114,6 +133,14 @@ export const Component = (props: ElevatedHeadingProps) => {
           moduleName={moduleName}
           fieldPath="groupHeading.heading"
         />
+        {showHeadingRichText === true && (
+          <RichText
+            fieldPath="groupHeading.richTextContentHTML"
+            className={swm('hs-elevate-elevated-heading__introRichText')}
+            style={generateRichTextColorCssVars(sectionStyleVariant)}
+            data-hs-token={getDataHSToken(moduleName, 'groupHeading.richTextContentHTML')}
+          />
+        )}
       </HeadingWrapper>
 
       <div className={swm('hs-elevate-elevated-heading__cards')}>

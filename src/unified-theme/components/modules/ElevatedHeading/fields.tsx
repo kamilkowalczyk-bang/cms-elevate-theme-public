@@ -7,6 +7,7 @@ import {
   TextField,
   BooleanField,
   ColorField,
+  AdvancedVisibility,
 } from '@hubspot/cms-components/fields';
 import { HeadingStyle, SectionStyle, RichTextContent } from '../../fieldLibrary/index.js';
 
@@ -20,6 +21,17 @@ const headingLevelChoices: Array<[string, string]> = [
 ];
 
 const iconUrl = 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/dashboard-speed.svg';
+
+const headingRichTextVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'groupHeading.showHeadingRichText',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+};
 
 export const fields = (
   <ModuleFields>
@@ -41,6 +53,19 @@ export const fields = (
         required={true}
         helpText="This affects screen readers and how search engines understand your content."
       />
+      <BooleanField
+        label="Show text below heading"
+        name="showHeadingRichText"
+        display="toggle"
+        default={false}
+        helpText="When enabled, rich text appears under the main heading."
+      />
+      <RichTextContent
+        label="Text below heading"
+        featureSet="extended"
+        richTextDefault="<p>Lorem ipsum dolor sit amet consectetur. Non dis eget ut aliquam magna dui nec facilisi. Dui gravida aliquam nisl dis in.</p>"
+        richTextVisibility={headingRichTextVisibility}
+      />
     </FieldGroup>
 
     <FieldGroup label="Styles" name="groupStyle" tab="STYLE" display="inline">
@@ -59,7 +84,7 @@ export const fields = (
       name="groupCards"
       id="groupCards"
       occurrence={{
-        min: 1,
+        min: 0,
         max: 4,
       }}
       default={[

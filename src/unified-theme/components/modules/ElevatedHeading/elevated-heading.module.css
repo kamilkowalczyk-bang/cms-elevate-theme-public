@@ -31,6 +31,9 @@
 .hs-elevate-elevated-heading__heading h4,
 .hs-elevate-elevated-heading__heading h5,
 .hs-elevate-elevated-heading__heading h6,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-1,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-2,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-title,
 .hs-elevate-elevated-heading__heading .hs-elevate-h1,
 .hs-elevate-elevated-heading__heading .hs-elevate-h2,
 .hs-elevate-elevated-heading__heading .hs-elevate-h3,
@@ -38,6 +41,41 @@
 .hs-elevate-elevated-heading__heading .hs-elevate-h5,
 .hs-elevate-elevated-heading__heading .hs-elevate-h6 {
   color: var(--hsElevate--heading__textColor);
+}
+
+.hs-elevate-elevated-heading__introRichText {
+  margin-top: var(--hsElevate--spacing--16, 16px);
+  text-align: center;
+}
+
+.hs-elevate-elevated-heading__introRichText h1,
+.hs-elevate-elevated-heading__introRichText h2,
+.hs-elevate-elevated-heading__introRichText h3,
+.hs-elevate-elevated-heading__introRichText h4,
+.hs-elevate-elevated-heading__introRichText h5,
+.hs-elevate-elevated-heading__introRichText h6,
+.hs-elevate-elevated-heading__introRichText p,
+.hs-elevate-elevated-heading__introRichText li,
+.hs-elevate-elevated-heading__introRichText span,
+.hs-elevate-elevated-heading__introRichText div {
+  color: var(--hsElevate--richText__textColor);
+}
+
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button) {
+  color: var(--hsElevate--richText__linkColor);
+  -webkit-text-decoration: var(--hsElevate--richText__textDecoration);
+  text-decoration: var(--hsElevate--richText__textDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--richText__textDecorationColor);
+  text-decoration-color: var(--hsElevate--richText__textDecorationColor);
+}
+
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button):hover,
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button):focus {
+  color: var(--hsElevate--richText__linkHoverColor);
+  -webkit-text-decoration: var(--hsElevate--richText__linkHoverTextDecoration);
+  text-decoration: var(--hsElevate--richText__linkHoverTextDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--richText__linkHoverTextDecorationColor);
+  text-decoration-color: var(--hsElevate--richText__linkHoverTextDecorationColor);
 }
 
 .hs-elevate-elevated-heading__divider {
