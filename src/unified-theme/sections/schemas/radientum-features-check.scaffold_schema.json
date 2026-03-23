@@ -1,0 +1,33 @@
+[
+  {
+    "name": "feature_1_heading",
+    "type": "text",
+    "description": "Heading for feature card 1."
+  },
+  {
+    "name": "feature_1_description_rich_text_html",
+    "type": "text",
+    "description": "Feature card 1 rich text HTML."
+  },
+  {
+    "name": "feature_2_heading",
+    "type": "text",
+    "description": "Heading for feature card 2."
+  },
+  {
+    "name": "feature_2_description_rich_text_html",
+    "type": "text",
+    "description": "Feature card 2 rich text HTML."
+  },
+  {
+    "name": "feature_3_heading",
+    "type": "text",
+    "description": "Heading for feature card 3."
+  },
+  {
+    "name": "feature_3_description_rich_text_html",
+    "type": "text",
+    "description": "Feature card 3 rich text HTML."
+  }
+]
+

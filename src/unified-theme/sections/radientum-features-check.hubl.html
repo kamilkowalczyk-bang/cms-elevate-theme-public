@@ -1,0 +1,174 @@
+<!--
+  templateType: section
+  label: Radientum features
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-features-check.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-features-check.png
+  description: Section with features list and checkmarks
+-->
+
+{#
+  Context variables
+    - feature_1_heading / feature_2_heading / feature_3_heading
+    - feature_1_description_rich_text_html / feature_2_description_rich_text_html / feature_3_description_rich_text_html
+#}
+
+{% import "../helpers/variables.hubl.html" %}
+
+{% set feature_1_heading = context.feature_1_heading or scaffold_content.feature_1_heading or "Stability" %}
+{% set feature_2_heading = context.feature_2_heading or scaffold_content.feature_2_heading or "Efficiency" %}
+{% set feature_3_heading = context.feature_3_heading or scaffold_content.feature_3_heading or "Speed" %}
+
+{% set feature_1_description_rich_text_html = context.feature_1_description_rich_text_html or scaffold_content.feature_1_description_rich_text_html or "<p>Stable RF under metal/IP enclosures - validated with OTA chambers</p>" %}
+{% set feature_2_description_rich_text_html = context.feature_2_description_rich_text_html or scaffold_content.feature_2_description_rich_text_html or "<p>Lower power, same coverage: matching &amp; layout that protects battery KPIs</p>" %}
+{% set feature_3_description_rich_text_html = context.feature_3_description_rich_text_html or scaffold_content.feature_3_description_rich_text_html or "<p>Faster CE/FCC with band-by-band documentation for auditors</p>" %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "top" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Card",
+        offset=0,
+        width=12,
+        imageOrIcon="icon",
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : feature_1_heading,
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : feature_1_description_rich_text_html,
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : feature_2_heading,
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : feature_2_description_rich_text_html,
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : feature_3_heading,
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : feature_3_description_rich_text_html,
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        } ],
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleVariant" : "secondary",
+            "buttonStyleSize" : "small"
+          },
+          "groupCard" : {
+            "cardStyleVariant" : "card_variant_1",
+            "cardOrientation" : "column",
+            "showCardBorder" : false,
+            "showCardShadow" : false,
+            "showIconBorder" : false
+          },
+          "groupContent" : {
+            "alignment" : {
+              "horizontal_align" : "CENTER"
+            },
+            "headingStyleVariant" : "h4",
+            "headingUppercase" : true
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

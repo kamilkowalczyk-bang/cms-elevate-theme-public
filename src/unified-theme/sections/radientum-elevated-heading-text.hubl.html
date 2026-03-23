@@ -1,0 +1,54 @@
+<!--
+  templateType: section
+  label: Radientum elevated heading text only
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-elevated-heading-text.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-elevated-heading-no-grid.png
+  description: Section with elevated heading text
+-->
+
+{# Section variables #}
+{% import "../helpers/variables.hubl.html" %}
+{% set section_variant = context.section_variant or "section_variant_1" %}
+
+{# Section #}
+{% dnd_section
+  max_width={{ context.max_width or section_width_medium }}
+  padding={
+    "default" : {
+      "bottom" : spacing_0
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ElevatedHeading",
+        offset=0,
+        width=12,
+        groupCards=[],
+        groupHeading={
+          "heading": context.heading or scaffold_content.heading or "What you get",
+          "headingLevel": "h2",
+          "richTextContentHTML":
+            "<p style=\"text-align: center;\">" ~ (context.intro or scaffold_content.intro or "Lorem ipsum dolor sit amet consectetur. Non dis eget ut aliquam magna dui nec facilisi. Dui gravida aliquam nisl dis in.") ~ "</p>",
+          "showHeadingRichText": true
+        },
+        groupStyle={
+          "sectionStyleVariant": section_variant,
+          "headingStyleVariant": "h2",
+          "sectionBackgroundColor": {
+            "color": "#ffffff",
+            "opacity": 100
+          }
+        },
+        isElevated=true
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

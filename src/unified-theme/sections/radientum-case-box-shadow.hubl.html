@@ -1,0 +1,97 @@
+<!--
+  templateType: section
+  label: Radientum case card  box
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-case-box-shadow.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-case-box.png
+  description: Section with case card box
+-->
+
+{# Section #}
+{% import "../helpers/variables.hubl.html" %}
+
+{% dnd_section
+  padding={
+    "top": spacing_0,
+    "bottom": spacing_0
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Card",
+        offset=0,
+        width=12,
+        imageOrIcon="image",
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : ""
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "href" : context.button_href or scaffold_content.button_href or "#"
+              },
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : context.button_text or scaffold_content.button_text or "Read about the case",
+            "showButton" : true
+          },
+          "groupCardBackground" : {
+            "image" : {
+              "src" : ""
+            }
+          },
+          "groupContent" : {
+            "captionText" : context.caption_text or scaffold_content.caption_text or "Reference project",
+            "headingAndTextHeading" : context.heading or scaffold_content.heading or "Content Creation",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : context.description_rich_text_html or scaffold_content.description_rich_text_html or "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : true
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "play-circle"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : context.image_alt or scaffold_content.image_alt or "case-example-tools",
+              "height" : 600,
+              "loading" : "lazy",
+              "src" : context.image_src or scaffold_content.image_src or "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/case-example-tools.png",
+              "width" : 600
+            },
+            "showRoundImageBorder" : true
+          }
+        } ],
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleSize" : "small",
+            "buttonStyleVariant" : "secondary"
+          },
+          "groupCard" : {
+            "cardOrientation" : "row",
+            "cardStyleVariant" : "card_variant_2",
+            "showCardShadow" : true,
+            "showIconBorder" : true
+          },
+          "groupContent" : {
+            "alignment" : {
+              "horizontal_align" : "LEFT"
+            },
+            "headingStyleVariant" : "h4",
+            "headingUppercase" : true
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

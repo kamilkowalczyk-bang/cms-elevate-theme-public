@@ -1,0 +1,13 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Main heading shown in the elevated heading text-only section."
+  },
+  {
+    "name": "intro",
+    "type": "text",
+    "description": "Intro paragraph shown under the main heading."
+  }
+]
+

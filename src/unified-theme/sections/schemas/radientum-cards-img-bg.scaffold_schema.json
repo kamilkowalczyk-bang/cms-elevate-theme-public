@@ -1,0 +1,8 @@
+[
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "URL for the card call-to-action button."
+  }
+]
+

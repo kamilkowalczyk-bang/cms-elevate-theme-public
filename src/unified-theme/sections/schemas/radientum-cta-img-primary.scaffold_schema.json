@@ -1,0 +1,28 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "CTA heading text."
+  },
+  {
+    "name": "description_html",
+    "type": "text",
+    "description": "CTA description rich text HTML."
+  },
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "CTA button text."
+  },
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "CTA button link URL."
+  },
+  {
+    "name": "background_image_url",
+    "type": "text",
+    "description": "Background image URL for the CTA section."
+  }
+]
+

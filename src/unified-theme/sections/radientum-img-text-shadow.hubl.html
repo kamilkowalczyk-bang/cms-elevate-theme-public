@@ -1,0 +1,93 @@
+<!--
+  templateType: section
+  label: Radientum Image and text box
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-img-text-shadow.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-img-text-shadow.png
+  description: Section with image and text box
+-->
+
+{# Section variables #}
+{% set section_variant = context.section_variant or "section_variant_4" %}
+
+{% set button_text = context.button_text or scaffold_content.button_text or "Read about the case" %}
+{% set caption_text = context.caption_text or scaffold_content.caption_text or "Reference project" %}
+{% set heading_text = context.heading or scaffold_content.heading or "Parking energy – The smallest EV charger with NFC" %}
+{% set description_rich_text_html =
+  context.description_html
+  or scaffold_content.description_html
+  or "<p>Implementing NFC technology in electric car charging application</p>"
+%}
+
+{% set image_bg_src = context.image_bg_src or scaffold_content.image_bg_src or "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/parking-energy.png" %}
+{% set image_bg_alt = context.image_bg_alt or scaffold_content.image_bg_alt or "parking-energy" %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12,
+    background_color="rgba(0, 0, 0, 0)"
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ImageAndText",
+        offset=0,
+        width=12,
+        groupButton={
+          "showButton" : true,
+          "buttonContentText" : button_text,
+          "buttonContentLink": {
+            "url": {
+              "href": context.button_href or scaffold_content.button_href or "#"
+            },
+            "open_in_new_tab": true
+          },
+          "buttonContentShowIcon": false,
+          "buttonContentIconPosition": "right"
+        },
+        groupContent={
+          "captionText" : caption_text,
+          "headingAndTextHeading" : heading_text,
+          "richTextContentHTML" : description_rich_text_html,
+          "showCaption" : true
+        },
+        groupImage={
+          "imagePosition": "left",
+          "containerBackgroundImage" : {
+            "alt" : image_bg_alt,
+            "height" : 200,
+            "loading" : "lazy",
+            "src" : image_bg_src,
+            "width" : 400
+          },
+          "image" : {
+            "alt" : "",
+            "loading" : "lazy",
+            "src" : ""
+          }
+        },
+        groupStyle={
+          "groupContent" : {
+            "contentBackgroundColor" : {
+              "color" : "#161C26",
+              "opacity" : 100
+            },
+            "headingUppercase" : true,
+            "sectionStyleVariant" : section_variant,
+            "showContentDivider" : false
+          },
+          "groupButton" : {
+            "buttonStyleVariant" : "primary",
+            "buttonStyleSize" : "medium"
+          },
+          "groupModule" : {
+            "showDropShadow" : true,
+            "showRoundedCorners" : true
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

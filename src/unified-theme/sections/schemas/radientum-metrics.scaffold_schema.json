@@ -1,0 +1,33 @@
+[
+  {
+    "name": "metric_1_value",
+    "type": "text",
+    "description": "First metric value (e.g. 100)."
+  },
+  {
+    "name": "metric_1_description_rich_text_html",
+    "type": "text",
+    "description": "First metric description rich text HTML."
+  },
+  {
+    "name": "metric_2_value",
+    "type": "text",
+    "description": "Second metric value (e.g. 100)."
+  },
+  {
+    "name": "metric_2_description_rich_text_html",
+    "type": "text",
+    "description": "Second metric description rich text HTML."
+  },
+  {
+    "name": "metric_3_value",
+    "type": "text",
+    "description": "Third metric value (e.g. 100)."
+  },
+  {
+    "name": "metric_3_description_rich_text_html",
+    "type": "text",
+    "description": "Third metric description rich text HTML."
+  }
+]
+

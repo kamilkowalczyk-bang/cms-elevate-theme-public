@@ -1,0 +1,38 @@
+[
+  {
+    "name": "caption_text",
+    "type": "text",
+    "description": "Caption shown above the main heading."
+  },
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Main heading for the image and text box."
+  },
+  {
+    "name": "description_html",
+    "type": "text",
+    "description": "Rich text HTML displayed in the description area."
+  },
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "Text for the call-to-action button."
+  },
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "URL for the call-to-action button."
+  },
+  {
+    "name": "image_bg_src",
+    "type": "text",
+    "description": "Background image URL for the image column."
+  },
+  {
+    "name": "image_bg_alt",
+    "type": "text",
+    "description": "Alt text for the background image."
+  }
+]
+

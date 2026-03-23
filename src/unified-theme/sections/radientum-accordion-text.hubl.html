@@ -1,0 +1,85 @@
+<!--
+  templateType: section
+  label: Radientum accordion and text
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-accordion-text.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-accordion-text.png
+  description: Section with accordion and text
+-->
+
+{# Section variables #}
+{% import "../helpers/variables.hubl.html" %}
+{% set section_variant = context.section_variant or "section_variant_1" %}
+
+{# CaseStudy defaults are handled inside the module via its field defaults. #}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=6
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/CaseStudy",
+        offset=0,
+        width=12,
+        groupButton={
+          "showButton" : false
+        },
+        groupContent={
+          "showDivider" : false,
+          "showCaption" : false
+        },
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleVariant" : "primary"
+          },
+          "groupContent" : {
+            "headingTextAlignment" : {
+              "text_align" : "LEFT"
+            },
+            "headingUppercase" : true,
+            "richTextTextAlignment" : {
+              "text_align" : "LEFT"
+            },
+            "sectionStyleVariant" : section_variant
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+
+  {% dnd_column
+    offset=6,
+    width=6
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Accordion",
+        offset=0,
+        width=12,
+        groupAccordions=[
+          {
+            "title" : context.accordion_1_title or scaffold_content.accordion_1_title or "Harsh enclosures (metal, IP-rated) causing detuning",
+            "richTextContentHTML" : context.accordion_1_rich_text or scaffold_content.accordion_1_rich_text or "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>"
+          },
+          {
+            "title" : context.accordion_2_title or scaffold_content.accordion_2_title or "Battery-life vs. link budget under duty-cycle limits",
+            "richTextContentHTML" : context.accordion_2_rich_text or scaffold_content.accordion_2_rich_text or "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>"
+          },
+          {
+            "title" : context.accordion_3_title or scaffold_content.accordion_3_title or "Certification schedules blocking deployment",
+            "richTextContentHTML" : context.accordion_3_rich_text or scaffold_content.accordion_3_rich_text or "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>"
+          }
+        ],
+        groupStyle={
+          "cardStyleVariant" : "card_variant_3"
+        },
+        icon="plus"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

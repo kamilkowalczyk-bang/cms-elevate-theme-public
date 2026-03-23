@@ -1,0 +1,57 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Main heading shown at the top of the elevated heading section."
+  },
+  {
+    "name": "intro",
+    "type": "text",
+    "description": "Intro paragraph displayed under the main heading."
+  },
+  {
+    "name": "group_card_one",
+    "type": "group",
+    "children": [
+      {
+        "name": "title",
+        "type": "text",
+        "description": "Title for the first card."
+      }
+    ]
+  },
+  {
+    "name": "group_card_two",
+    "type": "group",
+    "children": [
+      {
+        "name": "title",
+        "type": "text",
+        "description": "Title for the second card."
+      }
+    ]
+  },
+  {
+    "name": "group_card_three",
+    "type": "group",
+    "children": [
+      {
+        "name": "title",
+        "type": "text",
+        "description": "Title for the third card."
+      }
+    ]
+  },
+  {
+    "name": "group_card_four",
+    "type": "group",
+    "children": [
+      {
+        "name": "title",
+        "type": "text",
+        "description": "Title for the fourth card."
+      }
+    ]
+  }
+]
+

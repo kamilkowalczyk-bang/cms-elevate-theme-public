@@ -1,7 +1,7 @@
 {
   "label": "Radientum Theme",
   "preview_path": "",
-  "screenshot_path": "./images/template-previews/home.png",
+  "screenshot_path": "./images/template-previews/radientum-theme-cover.png",
   "pinned_module_versions": {
     "@hubspot/divider": "1",
     "@hubspot/language_switcher": "1",

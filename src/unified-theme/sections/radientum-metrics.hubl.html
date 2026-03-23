@@ -1,0 +1,151 @@
+<!--
+  templateType: section
+  label: Radientum metrics
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-metrics.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-metrics.png
+  description: Section with metrics
+-->
+
+{% dnd_section
+  padding={
+    "default" : {
+      "top" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Card",
+        offset=0,
+        width=12,
+        imageOrIcon="image",
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : context.metric_1_value or scaffold_content.metric_1_value or "100",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : context.metric_1_description_rich_text_html or scaffold_content.metric_1_description_rich_text_html or "<p>Lorem ipsum dolor sit</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : ""
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : context.metric_2_value or scaffold_content.metric_2_value or "100",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : context.metric_2_description_rich_text_html or scaffold_content.metric_2_description_rich_text_html or "<p>Lorem ipsum dolor sit</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : ""
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : context.metric_3_value or scaffold_content.metric_3_value or "100",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : context.metric_3_description_rich_text_html or scaffold_content.metric_3_description_rich_text_html or "<p>Lorem ipsum dolor sit</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : ""
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        } ],
+        groupStyle={
+          "groupCard" : {
+            "cardOrientation" : "column",
+            "showCardBorder" : false,
+            "showCardShadow" : false,
+            "showIconBorder" : false
+          },
+          "groupContent" : {
+            "alignment" : {
+              "horizontal_align" : "CENTER"
+            },
+            "headingStyleVariant" : "h4",
+            "headingUppercase" : true
+          },
+          "groupButton" : {
+            "buttonStyleSize" : "small",
+            "buttonStyleVariant" : "secondary"
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

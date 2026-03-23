@@ -1,0 +1,33 @@
+[
+  {
+    "name": "accordion_1_title",
+    "type": "text",
+    "description": "Accordion 1 title."
+  },
+  {
+    "name": "accordion_1_rich_text",
+    "type": "text",
+    "description": "Accordion 1 rich text HTML."
+  },
+  {
+    "name": "accordion_2_title",
+    "type": "text",
+    "description": "Accordion 2 title."
+  },
+  {
+    "name": "accordion_2_rich_text",
+    "type": "text",
+    "description": "Accordion 2 rich text HTML."
+  },
+  {
+    "name": "accordion_3_title",
+    "type": "text",
+    "description": "Accordion 3 title."
+  },
+  {
+    "name": "accordion_3_rich_text",
+    "type": "text",
+    "description": "Accordion 3 rich text HTML."
+  }
+]
+

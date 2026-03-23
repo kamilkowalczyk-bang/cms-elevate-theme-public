@@ -1,0 +1,220 @@
+<!--
+  templateType: section
+  label: Radientum logo slider
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-logo-slider.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-logo-slider.png
+  description: Section with logo slider
+-->
+
+{#
+  Context variables
+    - heading: Heading shown above the logo slider.
+    - slide_1_caption ... slide_5_caption: Captions for the first five slides.
+#}
+
+{% set template_translations = load_translations("../templates/_locales", html_lang, "en") %}
+{% import "../helpers/variables.hubl.html" %}
+{% set section_variant = context.section_variant or "section_variant_1" %}
+
+{% set heading_text = context.heading or scaffold_content.heading or "They trust us" %}
+
+{% set slide_1_caption = context.slide_1_caption or scaffold_content.slide_1_caption or "<strong>1</strong> An optional caption for the image that will be added to the gallery. Enter any descriptive text for this image that you would like visitors to be able to read." %}
+{% set slide_2_caption = context.slide_2_caption or scaffold_content.slide_2_caption or "<strong>2</strong> An optional caption for the image that will be added to the gallery. Enter any descriptive text for this image that you would like visitors to be able to read." %}
+{% set slide_3_caption = context.slide_3_caption or scaffold_content.slide_3_caption or "<strong>3</strong> An optional caption for the image that will be added to the gallery. Enter any descriptive text for this image that you would like visitors to be able to read." %}
+{% set slide_4_caption = context.slide_4_caption or scaffold_content.slide_4_caption or "<strong>4</strong> An optional caption for the image that will be added to the gallery. Enter any descriptive text for this image that you would like visitors to be able to read." %}
+{% set slide_5_caption = context.slide_5_caption or scaffold_content.slide_5_caption or "<strong>5</strong> An optional caption for the image that will be added to the gallery. Enter any descriptive text for this image that you would like visitors to be able to read." %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "sectionStyleVariant": section_variant,
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true
+        },
+        headingAndTextHeading=heading_text,
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/image_slider_gallery",
+        offset=0,
+        width=12,
+        slides=[ {
+          "caption" : slide_1_caption,
+          "img" : {
+            "alt" : "image 40",
+            "height" : 85,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2040.png",
+            "width" : 169
+          }
+        }, {
+          "caption" : slide_2_caption,
+          "img" : {
+            "alt" : "image 36",
+            "height" : 85,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2036.png",
+            "width" : 169
+          }
+        }, {
+          "caption" : slide_3_caption,
+          "img" : {
+            "alt" : "image 37",
+            "height" : 66,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2037.png",
+            "width" : 169
+          }
+        }, {
+          "caption" : slide_4_caption,
+          "img" : {
+            "alt" : "image 35",
+            "height" : 85,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2035.png",
+            "width" : 169
+          }
+        }, {
+          "caption" : slide_5_caption,
+          "img" : {
+            "alt" : "image 38",
+            "height" : 85,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2038.png",
+            "width" : 169
+          }
+        }, {
+          "img" : {
+            "alt" : "image 34",
+            "height" : 85,
+            "loading" : "disabled",
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2034.png",
+            "width" : 85
+          },
+          "link_url" : {
+            "no_follow" : false,
+            "open_in_new_tab" : false,
+            "sponsored" : false,
+            "url" : {
+              "href" : "",
+              "href_with_scheme" : "",
+              "type" : "EXTERNAL"
+            },
+            "user_generated_content" : false
+          }
+        }, {
+          "img" : {
+            "alt" : "image 33",
+            "height" : 85,
+            "loading" : "disabled",
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2033.png",
+            "width" : 85
+          },
+          "link_url" : {
+            "no_follow" : false,
+            "open_in_new_tab" : false,
+            "sponsored" : false,
+            "url" : {
+              "href" : "",
+              "href_with_scheme" : "",
+              "type" : "EXTERNAL"
+            },
+            "user_generated_content" : false
+          }
+        }, {
+          "img" : {
+            "alt" : "image 39",
+            "height" : 85,
+            "loading" : "disabled",
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2039.png",
+            "width" : 85
+          },
+          "link_url" : {
+            "no_follow" : false,
+            "open_in_new_tab" : false,
+            "sponsored" : false,
+            "url" : {
+              "href" : "",
+              "href_with_scheme" : "",
+              "type" : "EXTERNAL"
+            },
+            "user_generated_content" : false
+          }
+        }, {
+          "img" : {
+            "alt" : "image 31",
+            "height" : 85,
+            "loading" : "disabled",
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2031.png",
+            "width" : 169
+          },
+          "link_url" : {
+            "no_follow" : false,
+            "open_in_new_tab" : false,
+            "sponsored" : false,
+            "url" : {
+              "href" : "",
+              "href_with_scheme" : "",
+              "type" : "EXTERNAL"
+            },
+            "user_generated_content" : false
+          }
+        }, {
+          "img" : {
+            "alt" : "image 32",
+            "height" : 85,
+            "loading" : "disabled",
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/image%2032.png",
+            "width" : 85
+          },
+          "link_url" : {
+            "no_follow" : false,
+            "open_in_new_tab" : false,
+            "sponsored" : false,
+            "url" : {
+              "href" : "",
+              "href_with_scheme" : "",
+              "type" : "EXTERNAL"
+            },
+            "user_generated_content" : false
+          }
+        } ],
+        slideshow_settings={
+          "movement" : {
+            "auto_advance" : false,
+            "loop_slides" : true
+          },
+          "navigation" : {
+            "show_dots" : true,
+            "show_main_arrows" : false
+          },
+          "slides" : {
+            "per_page" : 4
+          }
+        },
+        styles={
+          "navigation" : {
+            "dots" : {
+              "color" : {
+                "color" : "#52BAD1",
+                "opacity" : 100
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
