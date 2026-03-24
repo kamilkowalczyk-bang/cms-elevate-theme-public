@@ -1,0 +1,975 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Radientum Services
+  screenshotPath: ../images/template-previews/radientum-services.png
+  scaffoldSchemaPath: ./schemas/radientum-services.scaffold_schema.json
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area" label="Main section" %}
+{% dnd_section
+  background_image={
+    "background_position" : "BOTTOM_CENTER",
+    "background_size" : "cover",
+    "image_url" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png"
+  },
+  padding={
+    "default" : {
+      "bottom" : "150px",
+      "left" : "150px",
+      "right" : "150px",
+      "top" : "350px"
+    },
+    "mobile" : {
+      "bottom" : "60px",
+      "left" : "32px",
+      "right" : "32px",
+      "top" : "150px"
+    }
+  },
+  full_width=true
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12,
+        groupStyle={
+          "sectionStyleVariant" : "section_variant_4"
+        }
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <div style="text-align: center;">
+          <p><span style="color: {{ light_section_1_accent_color }};">Industrial IoT &amp; Smart Metering</span></p>
+          </div>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "display_title",
+          "sectionStyleVariant" : "section_variant_4"
+        },
+        headingAndTextHeading="Value proposition for this industry",
+        headingAndTextHeadingLevel="h1"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px",
+      "top" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/ElevatedHeading",
+        offset=0,
+        width=12,
+        groupCards=[],
+        groupHeading={
+          "heading" : "What you get",
+          "richTextContentHTML" : "<p style='text-align: center;'>Lorem ipsum dolor sit amet consectetur. Non dis eget ut aliquam magna dui nec facilisi. Dui gravida aliquam nisl dis in.</p>",
+          "showHeadingRichText" : true
+        },
+        groupStyle={
+          "headingStyleVariant" : "h2",
+          "sectionBackgroundColor" : {
+            "color" : light_section_1_background_color,
+            "opacity" : 100
+          }
+        },
+        isElevated=true
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "top" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Card",
+        offset=0,
+        width=12,
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : "Stability",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Stable RF under metal/IP enclosures—validated with OTA chambers</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : "Efficiency",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Lower power, same coverage: matching &amp; layout that protects battery KPIs</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : "Speed",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Faster CE/FCC with band-by-band documentation for auditors</p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "Check",
+              "type" : "SOLID",
+              "unicode" : "f00c"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/295/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        } ],
+        groupStyle={
+          "groupCard" : {
+            "cardOrientation" : "column",
+            "showCardBorder" : false,
+            "showCardShadow" : false,
+            "showIconBorder" : false
+          },
+          "groupContent" : {
+            "alignment" : {
+              "horizontal_align" : "CENTER"
+            },
+            "headingStyleVariant" : "h4",
+            "headingUppercase" : true
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/TestimonialSlider",
+        offset=0,
+        width=12,
+        groupStyle={
+          "cardStyleVariant" : "card_variant_2",
+          "showTestimonialDropShadow" : true,
+          "showTestimonialQuoteBoldUppercase" : true
+        },
+        groupTestimonial=[ {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
+          }
+        } ]
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=6
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/linked_image",
+        offset=0,
+        width=12,
+        horizontal_alignment="CENTER",
+        img={
+          "alt" : "product-process",
+          "height" : 434,
+          "loading" : "lazy",
+          "max_height" : 434,
+          "max_width" : 690,
+          "size_type" : "auto",
+          "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/product-process.png",
+          "width" : 690
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+  {% dnd_column
+    offset=6,
+    width=6
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Accordion",
+        offset=0,
+        width=12,
+        groupAccordions=[ {
+          "richTextContentHTML" : "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>",
+          "title" : "Harsh enclosures (metal, IP-rated) causing detuning"
+        }, {
+          "richTextContentHTML" : "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>",
+          "title" : "Battery-life vs. link budget under duty-cycle limits"
+        }, {
+          "richTextContentHTML" : "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam tempor arcu non commodo elementum.</p>",
+          "title" : "Certification schedules blocking deployment"
+        } ],
+        groupStyle={
+          "cardStyleVariant" : "card_variant_3"
+        },
+        icon="plus"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Card",
+        offset=0,
+        width=12,
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Read about the case",
+            "showButton" : true
+          },
+          "groupCardBackground" : {
+            "image" : {
+              "src" : ""
+            }
+          },
+          "groupContent" : {
+            "captionText" : "Reference project",
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : true
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "play-circle"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "case-example-tools",
+              "height" : 600,
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/case-example-tools.png",
+              "width" : 600
+            },
+            "showRoundImageBorder" : true
+          }
+        } ],
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleSize" : "small"
+          },
+          "groupCard" : {
+            "cardOrientation" : "row",
+            "cardStyleVariant" : "card_variant_2",
+            "showCardShadow" : true,
+            "showIconBorder" : true
+          },
+          "groupContent" : {
+            "headingUppercase" : true
+          }
+        },
+        imageOrIcon="image"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
+        },
+        headingAndTextHeading="Headline for Who we serve",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.&nbsp;</p>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  background_color="rgba(0, 0, 0, 0)"
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Card",
+        offset=0,
+        width=12,
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : true
+          },
+          "groupCardBackground" : {
+            "image" : {
+              "alt" : "hero",
+              "height" : 870,
+              "loading" : "disabled",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
+              "width" : 1600
+            }
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "play-circle"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
+            }
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : true
+          },
+          "groupCardBackground" : {
+            "image" : {
+              "alt" : "hero",
+              "height" : 870,
+              "loading" : "disabled",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
+              "width" : 1600
+            }
+          },
+          "groupContent" : {
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "play-circle"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
+            }
+          }
+        } ],
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleSize" : "small",
+            "buttonStyleVariant" : "secondary"
+          },
+          "groupCard" : {
+            "cardOrientation" : "row",
+            "cardStyleVariant" : "card_variant_4",
+            "showCardShadow" : true,
+            "showIconBorder" : false
+          },
+          "groupContent" : {
+            "headingStyleVariant" : "h5",
+            "headingUppercase" : true
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingUppercase" : true
+        },
+        headingAndTextHeading="They trust our design services"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/logo_grid",
+        offset=0,
+        width=12
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  background_image={
+    "background_position" : "MIDDLE_CENTER",
+    "background_size" : "cover",
+    "image_url" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/cta%20block.png"
+  },
+  padding={
+    "default" : {
+      "bottom" : "100px",
+      "top" : "100px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_4"
+        },
+        headingAndTextHeading="Now, LEt’s look at your business?",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12,
+        groupStyle={
+          "sectionStyleVariant" : "section_variant_4"
+        }
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Button",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "horizontal_align" : "CENTER"
+          },
+          "buttonStyleVariant" : "primary"
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px",
+      "top" : "100px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
+        },
+        headingAndTextHeading="LAtest activities",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+  {% end_dnd_area %}
+{% endblock body %}
+

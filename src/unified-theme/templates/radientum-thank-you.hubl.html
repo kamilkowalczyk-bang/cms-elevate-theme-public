@@ -1,0 +1,235 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Radientum Thank You
+  screenshotPath: ../images/template-previews/radientum-thank-you.png
+  scaffoldSchemaPath: ./schemas/radientum-thank-you.scaffold_schema.json
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+{% dnd_section
+  background_image={
+    "background_position" : "BOTTOM_CENTER",
+    "background_size" : "cover",
+    "image_url" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/cta%20block.png"
+  },
+  padding={
+    "default" : {
+      "bottom" : "150px",
+      "left" : "150px",
+      "right" : "150px",
+      "top" : "350px"
+    },
+    "mobile" : {
+      "bottom" : "60px",
+      "left" : "32px",
+      "right" : "32px",
+      "top" : "150px"
+    }
+  },
+  full_width=true
+%}
+  {% dnd_column
+    offset=0,
+    width=12,
+    padding={
+      "default" : {
+        "left" : "250px",
+        "right" : "250px"
+      }
+    }
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "display_title",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_4"
+        },
+        headingAndTextHeading="Thank you for contacting us!",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=6
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "alignment" : {
+            "alignment" : {
+              "horizontal_align" : "LEFT"
+            }
+          },
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "LEFT"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_2"
+        },
+        headingAndTextHeading="Our expert will be in touch with you soon",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p style="text-align: left;">Thank you page<br>after contact: kiitosviesti sekä jokin yhteystieto/puhelinnumero siltä varalta että haluaa nopeasti yhteyden. Logoja / social proofing lisäksi vahvistamaan hyvää fiilistä?<br>after download: vahvistus lähetyksestä sekä linkki lataukseen myös kiitossivulta (mahdollistaa, että käyttää/avaa dokumentin heti = engage)<br>after appointment: Kiitos-/vahvistusviesti sekä bulletpointit mitä tapaaminen tulee sisältämään ja mitä siitä tulee saamaan irti. Bulletpointit mikä tekee Radientumista loistavan? &nbsp;Mahdollisuus seurata tapaamaansa henkilöä linkedinissä<br><br>Here’s a short summary of what to expect from the meeting:</p>
+          <ul>
+          <li>Lorem ipsum dolor sit</li>
+          <li>Lorem ipsum dolor sit</li>
+          <li>Lorem ipsum dolor sit</li>
+          <li>Lorem ipsum dolor sit</li>
+          </ul>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+  {% dnd_column
+    offset=6,
+    width=6
+  %}
+    {% dnd_row
+      padding={
+        "default" : {
+          "bottom" : "40px",
+          "left" : "170px",
+          "right" : "170px"
+        },
+        "mobile" : {
+          "bottom" : "24px",
+          "left" : "0px",
+          "right" : "0px",
+          "top" : "24px"
+        }
+      }
+    %}
+      {% dnd_module
+        path="../components/modules/Card",
+        offset=0,
+        width=12,
+        groupCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "LinkedIn",
+              "type" : "REGULAR",
+              "unicode" : "f08c"
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Get in touch",
+            "showButton" : false
+          },
+          "groupContent" : {
+            "captionText" : "USA / Canada",
+            "headingAndTextHeading" : "Team member",
+            "headingAndTextHeadingLevel" : "h3",
+            "richTextContentHTML" : "Role here",
+            "showCaption" : false
+          },
+          "groupIcon" : {
+            "icon" : {
+              "name" : "face-smile"
+            }
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "size_type" : "auto_custom_max",
+              "src" : "//51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/public/@projects/ElevateRadientumTheme/unified-theme/images/team-member-4.png"
+            },
+            "showRoundImageBorder" : true
+          }
+        } ],
+        groupStyle={
+          "groupButton" : {
+            "buttonStyleSize" : "small",
+            "buttonStyleVariant" : "tertiary"
+          },
+          "groupCard" : {
+            "cardOrientation" : "column",
+            "cardStyleVariant" : "card_variant_1",
+            "showCardShadow" : true
+          },
+          "groupContent" : {
+            "alignment" : {
+              "horizontal_align" : "CENTER"
+            },
+            "headingStyleVariant" : "h5",
+            "headingUppercase" : true
+          }
+        },
+        imageOrIcon="image"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+  {% end_dnd_area %}
+{% endblock body %}

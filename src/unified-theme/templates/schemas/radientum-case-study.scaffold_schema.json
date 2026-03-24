@@ -1,0 +1,119 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "client_logo",
+        "type": "image",
+        "description": "Centered client or project logo above the case study headline.",
+        "width": "400",
+        "height": "95"
+      },
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Main display headline summarizing the case study outcome or partnership."
+      }
+    ]
+  },
+  {
+    "name": "group_case_detail",
+    "type": "group",
+    "children": [
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Rich narrative in the ImageAndText block: industry, challenges, results, technologies, and client link."
+      },
+      {
+        "name": "hero_image",
+        "type": "image",
+        "description": "Supporting image beside the case detail content (e.g. product or PCB).",
+        "width": "726",
+        "height": "486"
+      }
+    ]
+  },
+  {
+    "name": "group_highlight_cards",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the three stat or highlight cards (metrics, outcomes, or key figures)."
+      }
+    ]
+  },
+  {
+    "name": "group_metrics",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the metrics module (KPIs or quantitative proof)."
+      }
+    ]
+  },
+  {
+    "name": "group_testimonial",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the testimonial quote and author (executive quote, credibility)."
+      }
+    ]
+  },
+  {
+    "name": "group_about_client",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Section heading for the about-the-client blocks (e.g. company name)."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Long-form copy about the client company and relationship with your business."
+      },
+      {
+        "name": "video_note",
+        "type": "text",
+        "description": "Context for the embedded video in the final about section (topic, speaker, purpose)."
+      }
+    ]
+  },
+  {
+    "name": "group_cta_banner",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "CTA headline on the banner with background image."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph under the CTA headline."
+      }
+    ]
+  },
+  {
+    "name": "group_related",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Headline for the related case studies section."
+      }
+    ]
+  }
+]

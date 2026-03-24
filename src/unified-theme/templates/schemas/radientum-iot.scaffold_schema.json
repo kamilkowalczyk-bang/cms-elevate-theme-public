@@ -1,0 +1,133 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Short label above the hero headline (e.g. industry or product line)."
+      },
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Primary hero headline (value proposition for the industry)."
+      },
+      {
+        "name": "hero_image",
+        "type": "image",
+        "description": "Full-width hero background image behind the headline.",
+        "width": "1600",
+        "height": "870"
+      }
+    ]
+  },
+  {
+    "name": "group_what_you_get",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Section heading for the benefits or outcomes block."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Introductory paragraph under the heading, centered."
+      }
+    ]
+  },
+  {
+    "name": "group_case_accordion",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the case study and FAQ accordion two-column sections (problems solved, proof points)."
+      }
+    ]
+  },
+  {
+    "name": "group_testimonial",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the testimonial slider (customer story, industry relevance)."
+      }
+    ]
+  },
+  {
+    "name": "group_technologies",
+    "type": "group",
+    "children": [
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "CTA label on the dark band with technologies or tools imagery."
+      }
+    ]
+  },
+  {
+    "name": "group_trust",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Headline above the logo or partner image slider."
+      }
+    ]
+  },
+  {
+    "name": "group_cta_banner",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Headline on the mid-page CTA section with background image."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting copy under the CTA headline."
+      }
+    ]
+  },
+  {
+    "name": "group_who_we_serve",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Section headline for the “Who we serve” blocks."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph, centered."
+      }
+    ]
+  },
+  {
+    "name": "group_map_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Bold headline on the world-map style closing CTA."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting copy under the map CTA headline."
+      }
+    ]
+  }
+]
