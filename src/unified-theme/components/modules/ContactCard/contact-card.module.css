@@ -1,0 +1,110 @@
+.hs-elevate-contact-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+  justify-content: var(--hsElevate--contactCard__containerAlignment, center);
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-contact-card-container__card {
+  --hsElevate--card--display: flex;
+  --hsElevate--card--padding: var(--hsElevate--spacing--24, 24px);
+
+  width: 290px;
+  min-height: auto;
+  justify-content: space-between;
+  align-items: var(--hsElevate--contactCard__innerAlignment, center);
+  text-align: var(--hsElevate--contactCard__innerTextAlignment, center);
+}
+
+.hs-elevate-contact-card-container__card--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.15);
+}
+
+.hs-elevate-contact-card-container__region {
+  margin: 0 0 var(--hsElevate--spacing--20, 20px);
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--h6__fontSize);
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hs-elevate-contact-card-container__image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.hs-elevate-contact-card-container__name {
+  margin: var(--hsElevate--spacing--20, 20px) 0 var(--hsElevate--spacing--8, 8px);
+  font-family: var(--hsElevate--h6__font);
+  font-size: var(--hsElevate--h6__fontSize);
+  font-style: normal;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.hs-elevate-contact-card-container__department {
+  margin: 0 0 var(--hsElevate--spacing--20, 20px);
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body__fontSize);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.hs-elevate-contact-card-container__contacts {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: var(--hsElevate--contactCard__innerAlignment, center);
+  gap: var(--hsElevate--spacing--8, 8px);
+  margin-bottom: var(--hsElevate--spacing--16, 16px);
+}
+
+.hs-elevate-contact-card-container__contact-link {
+  display: inline-block;
+  color: var(--hsElevate--contactCard__textColor) !important;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+.hs-elevate-contact-card-container__contact-link--small {
+  font-size: var(--hsElevate--body--small__fontSize);
+}
+
+.hs-elevate-contact-card-container__contact-link:hover,
+.hs-elevate-contact-card-container__contact-link:focus {
+  color: var(--hsElevate--contactCard__textColor) !important;
+}
+
+.hs-elevate-contact-card-container__social {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: var(--hsElevate--contactCard__innerAlignment, center);
+  gap: var(--hsElevate--spacing--12, 12px);
+  margin-bottom: var(--hsElevate--spacing--20, 20px);
+}
+
+.hs-elevate-contact-card-container__social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--hsElevate--spacing--6, 6px);
+  color: var(--hsElevate--contactCard__textColor);
+  text-decoration: none;
+}
+
+.hs-elevate-contact-card-container__social-link :global(svg) {
+  width: 16px;
+  height: 16px;
+  fill: var(--hsElevate--contactCard__accentColor);
+}
+
+.hs-elevate-contact-card-container__button {
+  align-self: var(--hsElevate--contactCard__innerAlignment, center);
+  justify-content: center;
+}
