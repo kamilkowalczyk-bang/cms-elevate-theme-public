@@ -66,10 +66,10 @@
 .hs-elevate-contact-card-container__contact-link {
   display: inline-block;
   color: var(--hsElevate--contactCard__textColor) !important;
-  text-decoration: underline;
-  text-decoration-color: currentColor;
+  text-decoration-line: underline !important;
+  text-decoration-color: var(--hsElevate--contactCard__linkColor) !important;
   text-underline-offset: 5px;
-  text-decoration-thickness: 2px;
+  text-decoration-thickness: 2px !important;
 }
 
 .hs-elevate-contact-card-container__contact-link--small {
@@ -79,6 +79,9 @@
 .hs-elevate-contact-card-container__contact-link:hover,
 .hs-elevate-contact-card-container__contact-link:focus {
   color: var(--hsElevate--contactCard__textColor) !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: var(--hsElevate--contactCard__linkHoverColor) !important;
+  text-decoration-thickness: 2px !important;
 }
 
 .hs-elevate-contact-card-container__social {

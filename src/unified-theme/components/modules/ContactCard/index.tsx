@@ -24,24 +24,34 @@ function generateColorCssVars(cardVariantField: string): CSSPropertiesMap {
     card_variant_1: {
       textColor: 'var(--hsElevate--card--variant1__textColor)',
       accentColor: 'var(--hsElevate--card--variant1__iconColor)',
+      linkColor: 'var(--hsElevate--card--variant1--link__fontColor)',
+      linkHoverColor: 'var(--hsElevate--card--variant1--link__hover--fontColor)',
     },
     card_variant_2: {
       textColor: 'var(--hsElevate--card--variant2__textColor)',
       accentColor: 'var(--hsElevate--card--variant2__iconColor)',
+      linkColor: 'var(--hsElevate--card--variant2--link__fontColor)',
+      linkHoverColor: 'var(--hsElevate--card--variant2--link__hover--fontColor)',
     },
     card_variant_3: {
       textColor: 'var(--hsElevate--card--variant3__textColor)',
       accentColor: 'var(--hsElevate--card--variant3__iconColor)',
+      linkColor: 'var(--hsElevate--card--variant3--link__fontColor)',
+      linkHoverColor: 'var(--hsElevate--card--variant3--link__hover--fontColor)',
     },
     card_variant_4: {
       textColor: 'var(--hsElevate--card--variant4__textColor)',
       accentColor: 'var(--hsElevate--card--variant4__iconColor)',
+      linkColor: 'var(--hsElevate--card--variant4--link__fontColor)',
+      linkHoverColor: 'var(--hsElevate--card--variant4--link__hover--fontColor)',
     },
   };
 
   return {
     '--hsElevate--contactCard__textColor': cardColorsMap[cardVariantField].textColor,
     '--hsElevate--contactCard__accentColor': cardColorsMap[cardVariantField].accentColor,
+    '--hsElevate--contactCard__linkColor': cardColorsMap[cardVariantField].linkColor,
+    '--hsElevate--contactCard__linkHoverColor': cardColorsMap[cardVariantField].linkHoverColor,
   };
 }
 
