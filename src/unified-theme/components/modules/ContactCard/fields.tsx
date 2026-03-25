@@ -11,6 +11,7 @@ import {
 } from '@hubspot/cms-components/fields';
 import { ButtonContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
+import teamMemberUseBackgroundMed1 from '../../../images/team-member-use-background-med-1.png';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',
@@ -48,7 +49,7 @@ export const fields = (
           },
           groupIdentity: {
             contactImage: {
-              src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
+              src: teamMemberUseBackgroundMed1,
               alt: 'Team member portrait',
               loading: 'lazy',
             },
@@ -120,7 +121,7 @@ export const fields = (
           },
           groupIdentity: {
             contactImage: {
-              src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
+              src: teamMemberUseBackgroundMed1,
               alt: 'Team member portrait',
               loading: 'lazy',
             },
@@ -192,7 +193,7 @@ export const fields = (
           },
           groupIdentity: {
             contactImage: {
-              src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
+              src: teamMemberUseBackgroundMed1,
               alt: 'Team member portrait',
               loading: 'lazy',
             },
@@ -264,7 +265,7 @@ export const fields = (
           },
           groupIdentity: {
             contactImage: {
-              src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
+              src: teamMemberUseBackgroundMed1,
               alt: 'Team member portrait',
               loading: 'lazy',
             },
@@ -344,7 +345,7 @@ export const fields = (
           responsive={false}
           showLoading={true}
           default={{
-            src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
+            src: teamMemberUseBackgroundMed1,
             alt: 'Team member portrait',
             loading: 'lazy',
           }}
