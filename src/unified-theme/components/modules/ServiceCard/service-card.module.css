@@ -1,7 +1,7 @@
 .hs-elevate-service-card-container {
   display: grid;
   /* Fixed card width so cards don't stretch across all available space */
-  justify-content: var(--hsElevate--card__alignment, center);
+  justify-content: var(--hsElevate--card__containerAlignment, center);
   grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   gap: var(--hsElevate--spacing--24, 24px);
 }
@@ -77,6 +77,13 @@
   width: 330px;
 }
 
+/* Shared CardComponent article: fill grid row height and push button to bottom (see ContactCard). */
+.hs-elevate-service-card-container__card.hs-elevate-card {
+  height: 100%;
+  align-items: stretch;
+  justify-content: flex-start;
+}
+
 @media (width >= 1000px) {
   .hs-elevate-service-card-container__card--row .hs-elevate-service-card-container__image-wrapper {
     max-width: 40%;
@@ -115,6 +122,8 @@
 .hs-elevate-service-card-container__content {
   display: flex;
   flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
   align-self: var(--hsElevate--card__alignment);
 
   &:last-child {
@@ -142,12 +151,21 @@
 @media (width >= 1000px) {
   .hs-elevate-service-card-container__card--row .hs-elevate-service-card-container__content {
     flex: 1 1 auto;
-    align-self: center;
+    align-self: stretch;
   }
 }
 
 .hs-elevate-service-card-container__body {
+  flex: 1 1 auto;
+  min-height: 0;
   text-align: var(--hsElevate--card__textAlignment);
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+  @media (width < 768px) {
+    margin-block-end: var(--hsElevate--spacing--16, 16px);
+  }
+  @media (width < 480px) {
+    margin-block-end: var(--hsElevate--spacing--8, 8px);
+  }
 }
 
 .hs-elevate-service-card-container__card--no-button .hs-elevate-service-card-container__body *:last-child {
@@ -156,6 +174,7 @@
 
 .hs-elevate-service-card-container__button-wrapper {
   align-self: var(--hsElevate--card__alignment);
+  margin-top: auto;
 }
 
 /* Full-card background from Designer BackgroundImageField: cover, no-repeat, center */
@@ -183,7 +202,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--hsElevate--spacing--12, 12px);
-  margin-block-end: var(--hsElevate--spacing--24, 24px);
+  margin-block-end: var(--hsElevate--spacing--56, 56px);
+  justify-content: var(--hsElevate--card__containerAlignment, center);
 }
 
 .hs-elevate-service-card__category-tab {

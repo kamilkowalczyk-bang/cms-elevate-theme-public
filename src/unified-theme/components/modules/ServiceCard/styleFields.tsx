@@ -61,18 +61,33 @@ export default function StyleFields() {
         <CardStyle cardStyleDefault='card_variant_4' />
       </FieldGroup>
       <FieldGroup
+        label='Layout'
+        name='groupLayout'
+        display='inline'
+      >
+        <AlignmentField
+          label='Cards alignment in container'
+          name='cardsAlignment'
+          alignmentDirection='HORIZONTAL'
+          default={{
+            horizontal_align: 'CENTER',
+          }}
+        />
+      </FieldGroup>
+      <FieldGroup
         label='Content'
         name='groupContent'
         display='inline'
       >
         <HeadingStyle headingStyleAsDefault='h4' />
         <AlignmentField
-          label='Horizontal alignment'
+          label='Inner content horizontal alignment'
           name='alignment'
           alignmentDirection='HORIZONTAL'
           default={{
             horizontal_align: 'LEFT',
           }}
+          helpText='Aligns text, icon, image, and button within each card. Use Cards alignment in container to position the row of cards.'
         />
         <BooleanField
           label='Uppercase card heading'

@@ -62,9 +62,9 @@ export const fields = (
       display='select'
       choices={[
         ['service_all', 'Show all'],
-        ['Communication systems', 'Communication systems'],
-        ['Positioning & tracking systems', 'Positioning & tracking systems'],
-        ['Manufacturing technologies', 'Manufacturing technologies'],
+        ['communication_systems', 'Communication systems'],
+        ['positioning_tracking_systems', 'Positioning & tracking systems'],
+        ['manufacturing_technologies', 'Manufacturing technologies'],
       ]}
       default='service_all'
       required={false}

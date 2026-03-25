@@ -89,7 +89,13 @@ type GroupButtonStyles = {
   };
 };
 
-type GroupStyle = GroupCardStyles & GroupContentStyles & GroupButtonStyles;
+type GroupLayoutStyles = {
+  groupLayout?: {
+    cardsAlignment: AlignmentFieldType['default'];
+  };
+};
+
+type GroupStyle = GroupCardStyles & GroupLayoutStyles & GroupContentStyles & GroupButtonStyles;
 
 type HubDBServiceCard = {
   /** Raw HubDB multi-select value for filtering in React. */
@@ -149,10 +155,16 @@ type ServiceCardProps = {
 
 // Functions to generate CSS variables
 
-function generateAlignmentCssVars(alignment: AlignmentFieldType['default']): CSSPropertiesMap {
-  const textAlignment = alignment.horizontal_align?.toLowerCase() as 'left' | 'right' | 'center';
+function generateAlignmentCssVars(
+  cardsAlignment: AlignmentFieldType['default'],
+  contentAlignment: AlignmentFieldType['default'],
+): CSSPropertiesMap {
+  const cardsAlignmentCss = getAlignmentFieldCss(cardsAlignment);
+  const contentAlignmentCss = getAlignmentFieldCss(contentAlignment);
+  const textAlignment = contentAlignment.horizontal_align?.toLowerCase() as 'left' | 'right' | 'center';
   return {
-    '--hsElevate--card__alignment': getAlignmentFieldCss(alignment).justifyContent,
+    '--hsElevate--card__containerAlignment': cardsAlignmentCss.justifyContent ?? 'center',
+    '--hsElevate--card__alignment': contentAlignmentCss.justifyContent,
     '--hsElevate--card__textAlignment': textAlignment,
   };
 }
@@ -216,6 +228,10 @@ function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | {
   return undefined;
 }
 
+function normalizeCategoryLabel(category: string): string {
+  return category.trim().toLowerCase();
+}
+
 function normalizeHubDbCategories(value: unknown): string[] {
   if (!value) return [];
 
@@ -229,14 +245,14 @@ function normalizeHubDbCategories(value: unknown): string[] {
         }
         return [];
       })
-      .map((v) => (typeof v === 'string' ? v.trim() : ''))
+      .map((v) => (typeof v === 'string' ? normalizeCategoryLabel(v) : ''))
       .filter(Boolean);
   }
 
   if (typeof value === 'string') {
     return value
-      .split(',')
-      .map((v) => v.trim())
+      .split(/[,;]/)
+      .map((v) => normalizeCategoryLabel(v))
       .filter(Boolean);
   }
 
@@ -249,7 +265,8 @@ function normalizeHubDbCategories(value: unknown): string[] {
 }
 
 function isShowAllCategory(category: string | undefined): boolean {
-  return !category || category === 'service_all';
+  if (!category) return true;
+  return normalizeCategoryLabel(category) === 'service_all';
 }
 
 // Components
@@ -275,6 +292,7 @@ export const Component = (props: ServiceCardProps) => {
         showCardShadow = false,
         showCardBorder = true,
       },
+      groupLayout,
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
@@ -286,9 +304,9 @@ export const Component = (props: ServiceCardProps) => {
   const tabOptions = useMemo(
     () => [
       { value: 'service_all', label: 'Show all' },
-      { value: 'Communication systems', label: 'Communication systems' },
-      { value: 'Positioning & tracking systems', label: 'Positioning & tracking systems' },
-      { value: 'Manufacturing technologies', label: 'Manufacturing technologies' },
+      { value: 'communication_systems', label: 'Communication systems' },
+      { value: 'positioning_tracking_systems', label: 'Positioning & tracking systems' },
+      { value: 'manufacturing_technologies', label: 'Manufacturing technologies' },
     ],
     [],
   );
@@ -305,7 +323,8 @@ export const Component = (props: ServiceCardProps) => {
   const cardsToRender = useMemo(() => {
     if (!useHubDBFeed) return groupCards;
     if (isShowAllCategory(activeCategory)) return hubdbCards;
-    return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategory));
+    const activeCategoryNormalized = normalizeCategoryLabel(activeCategory);
+    return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategoryNormalized));
   }, [activeCategory, groupCards, hubdbCards, useHubDBFeed]);
 
   const isIcon = imageOrIcon === 'icon';
@@ -314,9 +333,12 @@ export const Component = (props: ServiceCardProps) => {
 
   const headingInlineStyles = { textAlign: textAlignment };
 
+  /** When groupLayout is absent (modules saved before this field), match legacy behavior: row followed inner alignment. */
+  const cardsAlignmentField = groupLayout?.cardsAlignment ?? alignment;
+
   const cssVarsMap = {
     ...generateColorCssVars(cardStyleVariant),
-    ...generateAlignmentCssVars(alignment),
+    ...generateAlignmentCssVars(cardsAlignmentField, alignment),
   };
 
   const layoutClass = renderedWithGrids
@@ -326,7 +348,7 @@ export const Component = (props: ServiceCardProps) => {
   return (
     <>
       {useHubDBFeed && (
-        <div className={swm('hs-elevate-service-card__category-tabs')}>
+        <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
           {tabOptions.map((tab) => {
             const isActive = tab.value === activeCategory;
             return (
