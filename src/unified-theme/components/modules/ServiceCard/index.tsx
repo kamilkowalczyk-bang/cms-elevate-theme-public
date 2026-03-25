@@ -326,7 +326,7 @@ export const Component = (props: ServiceCardProps) => {
   return (
     <>
       {useHubDBFeed && (
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBlockEnd: 24 }}>
+        <div className={swm('hs-elevate-service-card__category-tabs')}>
           {tabOptions.map((tab) => {
             const isActive = tab.value === activeCategory;
             return (
@@ -335,14 +335,7 @@ export const Component = (props: ServiceCardProps) => {
                 type="button"
                 onClick={() => setActiveCategory(tab.value)}
                 aria-pressed={isActive}
-                style={{
-                  borderRadius: 9999,
-                  padding: '10px 16px',
-                  border: isActive ? '1px solid #B9CDBE' : '1px solid rgba(0,0,0,0.12)',
-                  background: isActive ? '#B9CDBE' : 'transparent',
-                  color: isActive ? '#0b1a22' : '#0b1a22',
-                  cursor: 'pointer',
-                }}
+                className={swm('hs-elevate-service-card__category-tab')}
               >
                 {tab.label}
               </button>

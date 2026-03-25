@@ -39,4 +39,14 @@
 
   /* Case */
   --hsElevate--tag__case: {{ tags.case }};
+
+  /*
+   * Selected / pressed background for interactive tag controls (e.g. ServiceCard HubDB category pills).
+   * Mirrors Tag > Background: Filled uses fill color; No fill uses a light tint of the tag border color.
+   */
+  {% if tags.group_background.background == "filled" %}
+    --hsElevate--tag__selectedBackground: {{ tags.group_colors.fill_color.color }};
+  {% else %}
+    --hsElevate--tag__selectedBackground: color-mix(in srgb, {{ tags.group_colors.border_color.color }} 22%, transparent);
+  {% endif %}
 }
