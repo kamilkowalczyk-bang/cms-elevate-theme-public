@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { ModuleMeta } from '../../types/modules.js';
+import { Island } from '@hubspot/cms-components';
 import { Icon, RichText } from '@hubspot/cms-components';
 import {
   AlignmentFieldType,
@@ -26,6 +27,9 @@ import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
 import { getDataHSToken } from '../../utils/inline-editing.js';
+
+// @ts-expect-error -- ?island not typed
+import ServiceCardIsland from './islands/ServiceCardIsland.js?island';
 
 const swm = staticWithModule(styles);
 
@@ -279,7 +283,7 @@ const CardContent = createComponent('div');
 const ButtonWrapper = createComponent('div');
 const Caption = createComponent('p');
 
-export const Component = (props: ServiceCardProps) => {
+const ServiceCardServer = (props: ServiceCardProps) => {
   const {
     moduleName,
     imageOrIcon,
@@ -506,6 +510,10 @@ export const Component = (props: ServiceCardProps) => {
       </CardContainer>
     </>
   );
+};
+
+export const Component = (props: ServiceCardProps) => {
+  return <Island hydrateOn="load" module={ServiceCardIsland} {...props} />;
 };
 
 export { fields } from './fields.js';
