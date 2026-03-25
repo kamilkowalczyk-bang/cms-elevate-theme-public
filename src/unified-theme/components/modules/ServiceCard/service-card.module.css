@@ -1,0 +1,171 @@
+.hs-elevate-service-card-container {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-service-card-container--bootstrap {
+  container-type: normal;
+
+  @container (width >= 600px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+.hs-elevate-service-card-container--grids {
+  @media (width >= 600px) {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+.hs-elevate-service-card-container__icon-wrapper {
+  display: flex;
+  height: 72px;
+  width: 72px;
+  align-items: center;
+  align-self: var(--hsElevate--card__alignment);
+  justify-content: var(--hsElevate--card__alignment);
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+@media (width >= 1000px) {
+  .hs-elevate-service-card-container__card--row .hs-elevate-service-card-container__icon-wrapper {
+    align-self: center;
+    justify-content: center;
+    margin-block-end: 0;
+    margin-inline-end: var(--hsElevate--spacing--24, 24px);
+  }
+}
+
+.hs-elevate-service-card-container__icon {
+  height: 72px;
+  width: 72px;
+  padding: var(--hsElevate--spacing--16, 16px);
+  border-radius: var(--hsElevate--cardIcon__borderRadius);
+  background-color: var(--hsElevate--cardIcon__backgroundColor);
+  fill: var(--hsElevate--cardIcon__fillColor);
+}
+
+.hs-elevate-service-card-container__icon--no-frame {
+  background-color: transparent;
+  border: none;
+}
+
+.hs-elevate-service-card-container__image-wrapper {
+  display: flex;
+  overflow: hidden;
+  height: auto;
+  max-width: 100%;
+  align-self: var(--hsElevate--card__alignment);
+  justify-content: var(--hsElevate--card__alignment);
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+
+  img {
+    height: auto;
+    max-width: min(250px, 100%);
+    min-width: 80px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -o-object-position: center;
+    object-position: center;
+  }
+}
+
+@media (width >= 1000px) {
+  .hs-elevate-service-card-container__card--row .hs-elevate-service-card-container__image-wrapper {
+    max-width: 40%;
+    flex: 0 0 auto;
+    align-self: center;
+    justify-content: center;
+    margin-block-end: 0;
+    margin-inline-end: var(--hsElevate--spacing--24, 24px);
+  }
+}
+
+.hs-elevate-service-card-container__image-wrapper--use-background {
+  border-radius: var(--hsElevate-rounded--large);
+  background-color: var(--hsElevate--cardIcon__backgroundColor);
+}
+
+/* Per-card optional round frame for Cards > Image only (not icon, not card background image) */
+.hs-elevate-service-card-container__image-wrapper--round-border {
+  box-sizing: border-box;
+  border: 0.5px solid transparent;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: min(250px, 100%);
+  max-width: min(250px, 100%);
+}
+
+.hs-elevate-service-card-container__image-wrapper--round-border img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  min-width: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.hs-elevate-service-card-container__content {
+  display: flex;
+  flex-direction: column;
+  align-self: var(--hsElevate--card__alignment);
+
+  &:last-child {
+    margin-block-end: 0;
+  }
+}
+
+.hs-elevate-service-card-container__caption {
+  margin: 0 0 var(--hsElevate--spacing--16, 16px);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  color: var(--hsElevate--captions__fontColor, var(--hsElevate--section--lightSection--1__captionColor));
+}
+
+/* Card title only — does not target headings inside Rich Text body */
+.hs-elevate-service-card-container__title {
+  font-weight: 900;
+}
+
+@media (width >= 1000px) {
+  .hs-elevate-service-card-container__card--row .hs-elevate-service-card-container__content {
+    flex: 1 1 auto;
+    align-self: center;
+  }
+}
+
+.hs-elevate-service-card-container__body {
+  text-align: var(--hsElevate--card__textAlignment);
+}
+
+.hs-elevate-service-card-container__card--no-button .hs-elevate-service-card-container__body *:last-child {
+  margin-block-end: 0;
+}
+
+.hs-elevate-service-card-container__button-wrapper {
+  align-self: var(--hsElevate--card__alignment);
+}
+
+/* Full-card background from Designer BackgroundImageField: cover, no-repeat, center */
+.hs-elevate-service-card-container__card--bg-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Applied on Card module’s <article> via additionalClassArray (shared CardComponent) */
+.hs-elevate-service-card-container__card--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Explicit orientation classes (Card module’s CSS uses them in compound selectors) */
+.hs-elevate-service-card-container__card--row {}
+.hs-elevate-service-card-container__card--column {}
+
