@@ -1,0 +1,7 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Section heading displayed above the team contact cards."
+  }
+]

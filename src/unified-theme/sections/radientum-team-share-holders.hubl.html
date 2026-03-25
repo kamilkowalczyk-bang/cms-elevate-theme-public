@@ -1,0 +1,657 @@
+<!--
+  templateType: section
+  label: Radientum Team - Share holders
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-team-share-holders.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-team-share-holders.png
+  description: Section with team gallery - cards with icon 'LinkedIn'
+-->
+
+{#
+  Context variables
+    - heading: Section heading text (default "team").
+    - section_variant: Heading section style variant.
+#}
+
+{% set section_variant = context.section_variant or "section_variant_1" %}
+{% set team_heading = context.heading or scaffold_content.heading or "team" %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : "#52BAD1",
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : section_variant
+        },
+        headingAndTextHeading={{team_heading}},
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ContactCard",
+        offset=0,
+        width=12,
+        groupContactCards=[ {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "#",
+                "type" : "EXTERNAL"
+              }
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Book a meeting with me",
+            "showButton" : false
+          },
+          "groupEmail" : {
+            "emailLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "firstname.lastname@radientum.fi",
+                "type" : "EMAIL_ADDRESS"
+              }
+            },
+            "emailText" : "firstname.lastname@radientum.fi",
+            "showEmail" : false
+          },
+          "groupIdentity" : {
+            "contactImage" : {
+              "alt" : "Team member portrait",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png"
+            },
+            "department" : "CEO",
+            "fullName" : "Name Surname"
+          },
+          "groupPhone" : {
+            "phoneLink" : {
+              "url" : {
+                "content_id" : 0,
+                "href" : "+358501234567",
+                "type" : "PHONE_NUMBER"
+              }
+            },
+            "phoneText" : "+358 50 123 4567",
+            "showPhone" : false
+          },
+          "groupRegion" : {
+            "region" : "USA / Canada",
+            "showRegion" : false
+          },
+          "groupSocial" : {
+            "groupSocialLinks" : [ {
+              "socialIcon" : {
+                "name" : "linkedin"
+              },
+              "socialLabel" : "",
+              "socialLink" : {
+                "open_in_new_tab" : true,
+                "url" : {
+                  "content_id" : 0,
+                  "href" : "https://www.linkedin.com",
+                  "type" : "EXTERNAL"
+                }
+              }
+            } ],
+            "showSocialMedia" : true
+          }
+        } ],
+        groupStyle={
+          "groupCard" : {
+            "cardStyleVariant" : "card_variant_3",
+            "showCardBorder" : false,
+            "showCardShadow" : true
+          },
+          "groupLayout" : {
+            "cardsAlignment" : {
+              "horizontal_align" : "CENTER"
+            },
+            "contentAlignment" : {
+              "horizontal_align" : "CENTER"
+            }
+          },
+          "groupButton" : {
+            "buttonStyleVariant" : "primary",
+            "buttonStyleSize" : "small"
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}

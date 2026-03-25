@@ -107,6 +107,11 @@
   fill: var(--hsElevate--contactCard__accentColor);
 }
 
+.hs-elevate-contact-card-container__social-link:hover :global(svg),
+.hs-elevate-contact-card-container__social-link:focus :global(svg) {
+  fill: var(--hsElevate--contactCard__linkHoverColor);
+}
+
 .hs-elevate-contact-card-container__button {
   align-self: var(--hsElevate--contactCard__innerAlignment, center);
   justify-content: center;
