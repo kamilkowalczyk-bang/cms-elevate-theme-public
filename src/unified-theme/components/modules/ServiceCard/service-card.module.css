@@ -195,9 +195,9 @@
   line-height: 1.2;
   border-style: solid;
   border-width: var(--hsElevate--tag__borderThickness);
-  border-color: var(--hsElevate--tag__borderColor);
+  border-color: var(--hsElevate--tag__notSelectedBorderColor, var(--hsElevate--tag__borderColor));
   border-radius: var(--hsElevate--tag__borderRadius);
-  background-color: transparent;
+  background-color: var(--hsElevate--tag__notSelectedFillColor, transparent);
   color: var(--hsElevate--tag__textColor);
   font-family: var(--hsElevate--tag__font);
   font-size: var(--hsElevate--tag__fontSize);

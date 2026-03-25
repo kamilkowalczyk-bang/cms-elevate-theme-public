@@ -3857,6 +3857,43 @@
                   "color": "#063E95",
                   "opacity": 100
                 }
+              },
+              {
+                "label": "Not selected",
+                "name": "group_not_selected",
+                "type": "group",
+                "display": "inline",
+                "inline_help_text": "Colors for tag-like controls in an unselected state (e.g. filter pills). Static tags still use Fill / Border / Text above.",
+                "children": [
+                  {
+                    "label": "Fill color",
+                    "name": "fill_color",
+                    "type": "color",
+                    "visibility": {
+                      "hidden_subfields": {
+                        "opacity": true
+                      }
+                    },
+                    "default": {
+                      "color": "#F0F0F3",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "label": "Border color",
+                    "name": "border_color",
+                    "type": "color",
+                    "visibility": {
+                      "hidden_subfields": {
+                        "opacity": true
+                      }
+                    },
+                    "default": {
+                      "color": "#F0F0F3",
+                      "opacity": 100
+                    }
+                  }
+                ]
               }
             ]
           },
