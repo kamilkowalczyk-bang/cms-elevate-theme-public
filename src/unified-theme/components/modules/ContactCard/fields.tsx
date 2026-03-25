@@ -344,7 +344,7 @@ export const fields = (
           responsive={false}
           showLoading={true}
           default={{
-            src: 'https://www.hubspot.com/hubfs/default-avatar.png',
+            src: 'https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/team-member-use-background-med-1.png',
             alt: 'Team member portrait',
             loading: 'lazy',
           }}
