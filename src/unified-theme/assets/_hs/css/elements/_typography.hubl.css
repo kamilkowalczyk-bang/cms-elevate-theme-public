@@ -117,6 +117,7 @@ h1,
   font-size: calc(var(--hsElevate--h1__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h1__fontStyle);
   font-weight: var(--hsElevate--h1__fontWeight);
+  text-transform: var(--hsElevate--h1__case);
 }
 
 h2,
@@ -125,6 +126,7 @@ h2,
   font-size: calc(var(--hsElevate--h2__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h2__fontStyle);
   font-weight: var(--hsElevate--h2__fontWeight);
+  text-transform: var(--hsElevate--h2__case);
 }
 
 h3,
@@ -133,6 +135,7 @@ h3,
   font-size: calc(var(--hsElevate--h3__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h3__fontStyle);
   font-weight: var(--hsElevate--h3__fontWeight);
+  text-transform: var(--hsElevate--h3__case);
 }
 
 h4,
@@ -141,6 +144,7 @@ h4,
   font-size: calc(var(--hsElevate--h4__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h4__fontStyle);
   font-weight: var(--hsElevate--h4__fontWeight);
+  text-transform: var(--hsElevate--h4__case);
 }
 
 h5,
@@ -149,6 +153,7 @@ h5,
   font-size: calc(var(--hsElevate--h5__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h5__fontStyle);
   font-weight: var(--hsElevate--h5__fontWeight);
+  text-transform: var(--hsElevate--h5__case);
 }
 
 h6,
@@ -157,6 +162,7 @@ h6,
   font-size: calc(var(--hsElevate--h6__fontSize) * var(--hsElevate--heading__tablet-modifier));
   font-style: var(--hsElevate--h6__fontStyle);
   font-weight: var(--hsElevate--h6__fontWeight);
+  text-transform: var(--hsElevate--h6__case);
 }
 
 @media (width >= 767px) {

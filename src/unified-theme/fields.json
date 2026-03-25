@@ -84,6 +84,19 @@
                           "size": 56,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -114,6 +127,19 @@
                           "size": 42,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -144,6 +170,19 @@
                           "size": 32,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -174,6 +213,19 @@
                           "size": 24,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -205,6 +257,19 @@
                           "size": 21,
                           "variant": "500"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -236,6 +301,19 @@
                           "size": 18,
                           "variant": "700"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   }
