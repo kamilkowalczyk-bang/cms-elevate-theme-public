@@ -348,7 +348,7 @@ export const hublDataTemplate = `
 `;
 
 export const meta: ModuleMeta = {
-  label: 'ServiceCard',
+  label: 'Service Card',
   content_types: ['BLOG_LISTING', 'BLOG_POST', 'SITE_PAGE', 'LANDING_PAGE', 'CASE_STUDY'],
   icon: cardIconSvg,
   categories: ['design'],

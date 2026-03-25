@@ -1,7 +1,8 @@
 .hs-elevate-service-card-container {
   display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  /* Fixed card width so cards don't stretch across all available space */
+  justify-content: var(--hsElevate--card__alignment, center);
+  grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   gap: var(--hsElevate--spacing--24, 24px);
 }
 
@@ -9,13 +10,13 @@
   container-type: normal;
 
   @container (width >= 600px) {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   }
 }
 
 .hs-elevate-service-card-container--grids {
   @media (width >= 600px) {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   }
 }
 
@@ -70,6 +71,10 @@
     -o-object-position: center;
     object-position: center;
   }
+}
+
+.hs-elevate-service-card-container__card {
+  width: 330px;
 }
 
 @media (width >= 1000px) {

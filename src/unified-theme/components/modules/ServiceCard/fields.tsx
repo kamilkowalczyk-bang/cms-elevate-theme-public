@@ -17,6 +17,7 @@ import {
 } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import newsletterImage from './assets/newsletter.png';
+import serviceCardBackgroundImage from './assets/service-card.png';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',
@@ -56,11 +57,6 @@ export const fields = (
       }}
       default={[
         {
-          groupIcon: {
-            icon: {
-              name: 'play-circle',
-            },
-          },
           groupImage: {
             showRoundImageBorder: false,
             image: {
@@ -72,13 +68,13 @@ export const fields = (
           groupContent: {
             showCaption: false,
             captionText: '',
-            headingAndTextHeadingLevel: 'h3',
+            headingAndTextHeadingLevel: 'h4',
             headingAndTextHeading: 'Content Creation',
             richTextContentHTML:
               "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
           },
           groupButton: {
-            showButton: false,
+            showButton: true,
             buttonContentText: 'Explore more',
             buttonContentLink: {
               open_in_new_tab: true,
@@ -88,6 +84,13 @@ export const fields = (
               name: 'arrow-right',
             },
             buttonContentIconPosition: 'right',
+          },
+          groupCardBackground: {
+            image: {
+              src: serviceCardBackgroundImage,
+              alt: '',
+              loading: 'lazy',
+            },
           },
         },
       ]}
@@ -101,9 +104,6 @@ export const fields = (
             controlling_field: 'imageOrIcon',
             controlling_value_regex: 'icon',
             operator: 'EQUAL',
-          }}
-          default={{
-            name: 'wrench',
           }}
         />
       </FieldGroup>

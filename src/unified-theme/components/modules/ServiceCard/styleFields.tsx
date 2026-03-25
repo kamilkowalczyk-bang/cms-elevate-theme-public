@@ -36,7 +36,7 @@ export default function StyleFields() {
           label='Show icon border and background'
           name='showIconBorder'
           display='toggle'
-          default={true}
+          default={false}
           helpText='When off, the card icon has no border and a transparent background so full-card or image backgrounds show through.'
           visibility={{
             controlling_field: 'imageOrIcon',
@@ -48,7 +48,7 @@ export default function StyleFields() {
           label='Show card drop shadow'
           name='showCardShadow'
           display='toggle'
-          default={false}
+          default={true}
           helpText='Adds a soft drop shadow around each card.'
         />
         <BooleanField
@@ -58,14 +58,14 @@ export default function StyleFields() {
           default={true}
           helpText='When off, hides the outer card border. Border color, width, and radius still follow the selected card style variant in theme settings when this is on.'
         />
-        <CardStyle cardStyleDefault='card_variant_1' />
+        <CardStyle cardStyleDefault='card_variant_4' />
       </FieldGroup>
       <FieldGroup
         label='Content'
         name='groupContent'
         display='inline'
       >
-        <HeadingStyle headingStyleAsDefault='h3' />
+        <HeadingStyle headingStyleAsDefault='h4' />
         <AlignmentField
           label='Horizontal alignment'
           name='alignment'
@@ -87,7 +87,7 @@ export default function StyleFields() {
         display='inline'
       >
         <ButtonStyle
-          buttonStyleDefault='primary'
+          buttonStyleDefault='secondary'
           buttonSizeDefault='medium'
         />
       </FieldGroup>
