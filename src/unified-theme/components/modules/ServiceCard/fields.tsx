@@ -34,8 +34,43 @@ const captionFieldsVisibility = {
   operator: 'EQUAL',
 } as const satisfies Visibility;
 
+const manualEditVisibility = {
+  controlling_field_path: 'useHubDBFeed',
+  controlling_value_regex: 'false',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
+const hubDBFeedVisibility = {
+  controlling_field_path: 'useHubDBFeed',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
 export const fields = (
   <ModuleFields>
+    <BooleanField
+      label='Use HubDB feed'
+      name='useHubDBFeed'
+      display='toggle'
+      default={false}
+      helpText='When enabled, cards are rendered from the HubDB services table and manual card fields are hidden.'
+    />
+
+    <ChoiceField
+      label='Service category'
+      name='serviceCategory'
+      display='select'
+      choices={[
+        ['service_all', 'Show all'],
+        ['Communication systems', 'Communication systems'],
+        ['Positioning & tracking systems', 'Positioning & tracking systems'],
+        ['Manufacturing technologies', 'Manufacturing technologies'],
+      ]}
+      default='service_all'
+      required={false}
+      visibility={hubDBFeedVisibility}
+    />
+
     <ChoiceField
       label='Image or icon'
       name='imageOrIcon'
@@ -44,11 +79,13 @@ export const fields = (
         ['icon', 'Icon'],
       ]}
       default='icon'
+      visibility={manualEditVisibility}
     />
     <RepeatedFieldGroup
       label='Cards'
       name='groupCards'
       id='groupCards'
+      visibility={manualEditVisibility}
       occurrence={{
         min: 1,
         max: 4,
@@ -88,7 +125,7 @@ export const fields = (
           groupCardBackground: {
             image: {
               src: serviceCardBackgroundImage,
-              alt: '',
+              alt: 'service image background',
               loading: 'lazy',
             },
           },

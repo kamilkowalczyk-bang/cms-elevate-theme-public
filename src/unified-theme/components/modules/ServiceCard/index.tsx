@@ -1,3 +1,4 @@
+import { useEffect, useMemo, useState } from 'react';
 import { ModuleMeta } from '../../types/modules.js';
 import { Icon, RichText } from '@hubspot/cms-components';
 import {
@@ -16,6 +17,7 @@ import HeadingComponent from '../../HeadingComponent/index.js';
 import styles from './service-card.module.css';
 import { RichTextContentFieldLibraryType } from '../../fieldLibrary/RichTextContent/types.js';
 import { Button } from '../../ButtonComponent/index.js';
+import SanitizedContent from '../../SanitizeHTML/index.js';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
 import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndText/types.js';
@@ -89,13 +91,59 @@ type GroupButtonStyles = {
 
 type GroupStyle = GroupCardStyles & GroupContentStyles & GroupButtonStyles;
 
+type HubDBServiceCard = {
+  /** Raw HubDB multi-select value for filtering in React. */
+  serviceCategories?: unknown;
+  groupCardBackground: {
+    image: {
+      // In hubDB mode, this can be a URL string or an object containing `src`.
+      src?: unknown;
+      alt?: string;
+      loading?: string;
+    };
+  };
+  groupContent: {
+    showCaption?: boolean;
+    captionText?: string;
+    headingAndTextHeadingLevel: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+    headingAndTextHeading: string;
+    richTextContentHTML: string;
+  };
+  groupButton: {
+    showButton: boolean;
+    buttonContentText: string;
+    buttonContentLink: any;
+    buttonContentShowIcon: boolean;
+    buttonContentIconPosition: 'left' | 'right';
+  };
+  groupImage: {
+    showRoundImageBorder: boolean;
+    image: {
+      src?: unknown;
+      alt?: string;
+      loading?: string;
+      width?: number;
+      height?: number;
+    };
+  };
+  // Optional — if empty, icon won't render.
+  groupIcon?: {
+    icon: {
+      name?: string;
+    };
+  };
+};
+
 type ServiceCardProps = {
   moduleName?: string;
   imageOrIcon: 'icon' | 'image';
   groupCards: GroupCards[];
   groupStyle: GroupStyle;
+  useHubDBFeed?: boolean;
+  serviceCategory?: string;
   hublData: {
     renderedWithGrids: boolean;
+    hubdbCards?: HubDBServiceCard[];
   };
 };
 
@@ -149,12 +197,59 @@ function imageShouldUseBackground(imagePath: string): boolean {
   return /-use-background-/.test(imagePath);
 }
 
-function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | undefined): string | undefined {
-  const src = image?.src;
-  if (typeof src !== 'string' || !src.trim()) {
-    return undefined;
+function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | { src?: unknown } | undefined): string | undefined {
+  if (!image) return undefined;
+
+  const srcCandidate = (image as any)?.src ?? image;
+
+  if (typeof srcCandidate === 'string' && srcCandidate.trim()) {
+    return srcCandidate.trim();
   }
-  return src;
+
+  if (srcCandidate && typeof srcCandidate === 'object') {
+    const nestedCandidate = (srcCandidate as any).src ?? (srcCandidate as any).url ?? (srcCandidate as any).href;
+    if (typeof nestedCandidate === 'string' && nestedCandidate.trim()) {
+      return nestedCandidate.trim();
+    }
+  }
+
+  return undefined;
+}
+
+function normalizeHubDbCategories(value: unknown): string[] {
+  if (!value) return [];
+
+  if (Array.isArray(value)) {
+    return value
+      .flatMap((item) => {
+        if (typeof item === 'string') return item;
+        if (item && typeof item === 'object') {
+          const maybeLabel = (item as any).name ?? (item as any).label ?? (item as any).value;
+          return typeof maybeLabel === 'string' ? maybeLabel : [];
+        }
+        return [];
+      })
+      .map((v) => (typeof v === 'string' ? v.trim() : ''))
+      .filter(Boolean);
+  }
+
+  if (typeof value === 'string') {
+    return value
+      .split(',')
+      .map((v) => v.trim())
+      .filter(Boolean);
+  }
+
+  if (value && typeof value === 'object') {
+    const maybeItems = (value as any).items ?? (value as any).values;
+    return normalizeHubDbCategories(maybeItems);
+  }
+
+  return [];
+}
+
+function isShowAllCategory(category: string | undefined): boolean {
+  return !category || category === 'service_all';
 }
 
 // Components
@@ -183,8 +278,35 @@ export const Component = (props: ServiceCardProps) => {
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
-    hublData: { renderedWithGrids = false },
+    hublData: { renderedWithGrids = false, hubdbCards = [] },
+    useHubDBFeed = false,
+    serviceCategory,
   } = props;
+
+  const tabOptions = useMemo(
+    () => [
+      { value: 'service_all', label: 'Show all' },
+      { value: 'Communication systems', label: 'Communication systems' },
+      { value: 'Positioning & tracking systems', label: 'Positioning & tracking systems' },
+      { value: 'Manufacturing technologies', label: 'Manufacturing technologies' },
+    ],
+    [],
+  );
+
+  const [activeCategory, setActiveCategory] = useState(serviceCategory ?? 'service_all');
+
+  useEffect(() => {
+    if (!useHubDBFeed) return;
+    setActiveCategory(serviceCategory ?? 'service_all');
+  }, [serviceCategory, useHubDBFeed]);
+
+  const inlineModuleName = useHubDBFeed ? undefined : moduleName;
+
+  const cardsToRender = useMemo(() => {
+    if (!useHubDBFeed) return groupCards;
+    if (isShowAllCategory(activeCategory)) return hubdbCards;
+    return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategory));
+  }, [activeCategory, groupCards, hubdbCards, useHubDBFeed]);
 
   const isIcon = imageOrIcon === 'icon';
   const isImage = imageOrIcon === 'image';
@@ -202,11 +324,37 @@ export const Component = (props: ServiceCardProps) => {
     : 'hs-elevate-service-card-container--bootstrap';
 
   return (
-    <CardContainer
-      className={cx(swm('hs-elevate-service-card-container'), styles[layoutClass])}
-      style={cssVarsMap}
-    >
-      {groupCards.map((card, index) => {
+    <>
+      {useHubDBFeed && (
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBlockEnd: 24 }}>
+          {tabOptions.map((tab) => {
+            const isActive = tab.value === activeCategory;
+            return (
+              <button
+                key={tab.value}
+                type="button"
+                onClick={() => setActiveCategory(tab.value)}
+                aria-pressed={isActive}
+                style={{
+                  borderRadius: 9999,
+                  padding: '10px 16px',
+                  border: isActive ? '1px solid #B9CDBE' : '1px solid rgba(0,0,0,0.12)',
+                  background: isActive ? '#B9CDBE' : 'transparent',
+                  color: isActive ? '#0b1a22' : '#0b1a22',
+                  cursor: 'pointer',
+                }}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
+      <CardContainer
+        className={cx(swm('hs-elevate-service-card-container'), styles[layoutClass])}
+        style={cssVarsMap}
+      >
+        {cardsToRender.map((card, index) => {
         const {
           groupButton: {
             showButton,
@@ -244,7 +392,7 @@ export const Component = (props: ServiceCardProps) => {
           return Object.keys(stylesMap).length ? stylesMap : undefined;
         })();
 
-        const showRoundImageBorder = card.groupImage.showRoundImageBorder === true;
+        const showRoundImageBorder = card.groupImage?.showRoundImageBorder === true;
 
         const imageWrapperClasses = cx(swm('hs-elevate-service-card-container__image-wrapper'), {
           [styles['hs-elevate-service-card-container__image-wrapper--use-background']]: cardImageUsesBackground,
@@ -267,7 +415,7 @@ export const Component = (props: ServiceCardProps) => {
                     [styles['hs-elevate-service-card-container__icon--no-frame']]: !showIconBorder,
                   })}
                   purpose="DECORATIVE"
-                  fieldPath={`groupCards[${index}].groupIcon.icon`}
+                  fieldPath={!useHubDBFeed ? `groupCards[${index}].groupIcon.icon` : undefined}
                 />
               </IconWrapper>
             )}
@@ -280,7 +428,7 @@ export const Component = (props: ServiceCardProps) => {
                   width={card.groupImage.image.width}
                   height={card.groupImage.image.height}
                   loading={card.groupImage.image.loading !== 'disabled' ? card.groupImage.image.loading : 'eager'}
-                  data-hs-token={getDataHSToken(moduleName, `groupCards[${index}].groupImage.image`)}
+                  data-hs-token={getDataHSToken(inlineModuleName, `groupCards[${index}].groupImage.image`)}
                 />
               </ImageWrapper>
             )}
@@ -289,7 +437,7 @@ export const Component = (props: ServiceCardProps) => {
                 <Caption
                   className={swm('hs-elevate-service-card-container__caption')}
                   style={{ textAlign: textAlignment }}
-                  data-hs-token={getDataHSToken(moduleName, `groupCards[${index}].groupContent.captionText`)}
+                  data-hs-token={getDataHSToken(inlineModuleName, `groupCards[${index}].groupContent.captionText`)}
                 >
                   {card.groupContent.captionText}
                 </Caption>
@@ -302,15 +450,21 @@ export const Component = (props: ServiceCardProps) => {
                   inlineStyles={headingInlineStyles}
                   headingUppercase={headingUppercase}
                   additionalClassArray={[swm('hs-elevate-service-card-container__title')]}
-                  moduleName={moduleName}
-                  fieldPath={`groupCards[${index}].groupContent.headingAndTextHeading`}
+                  moduleName={inlineModuleName}
+                  fieldPath={!useHubDBFeed ? `groupCards[${index}].groupContent.headingAndTextHeading` : undefined}
                 />
               )}
-              <RichText
-                fieldPath={`groupCards[${index}].groupContent.richTextContentHTML`}
-                className={swm('hs-elevate-service-card-container__body')}
-                data-hs-token={getDataHSToken(moduleName, `groupCards[${index}].groupContent.richTextContentHTML`)}
-              />
+              {useHubDBFeed ? (
+                <div className={swm('hs-elevate-service-card-container__body')}>
+                  <SanitizedContent content={card.groupContent.richTextContentHTML} />
+                </div>
+              ) : (
+                <RichText
+                  fieldPath={`groupCards[${index}].groupContent.richTextContentHTML`}
+                  className={swm('hs-elevate-service-card-container__body')}
+                  data-hs-token={getDataHSToken(inlineModuleName, `groupCards[${index}].groupContent.richTextContentHTML`)}
+                />
+              )}
               {showButton && (
                 <ButtonWrapper className={swm('hs-elevate-service-card-container__button-wrapper')}>
                   <Button
@@ -319,12 +473,12 @@ export const Component = (props: ServiceCardProps) => {
                     href={getLinkFieldHref(link)}
                     rel={getLinkFieldRel(link)}
                     target={getLinkFieldTarget(link)}
-                    iconFieldPath={`groupCards[${index}].groupButton.buttonContentIcon`}
+                    iconFieldPath={!useHubDBFeed ? `groupCards[${index}].groupButton.buttonContentIcon` : undefined}
                     showIcon={showIcon}
                     iconPosition={iconPosition}
                     additionalClassArray={['hs-elevate-service-card-container__button']}
-                    moduleName={moduleName}
-                    textFieldPath={`groupCards[${index}].groupButton.buttonContentText`}
+                    moduleName={inlineModuleName}
+                    textFieldPath={!useHubDBFeed ? `groupCards[${index}].groupButton.buttonContentText` : undefined}
                   >
                     {text}
                   </Button>
@@ -333,16 +487,75 @@ export const Component = (props: ServiceCardProps) => {
             </CardContent>
           </Card>
         );
-      })}
-    </CardContainer>
+        })}
+      </CardContainer>
+    </>
   );
 };
 
 export { fields } from './fields.js';
 
 export const hublDataTemplate = `
+  {% set hubdbCards = [] %}
+  {% if module.useHubDBFeed %}
+    {% set hubdbRows = hubdb_table_rows(1756583141) %}
+
+    {% for row in hubdbRows %}
+      {% set bgImage = row.service_bg_img %}
+      {% set title = row.service_title %}
+      {% set descriptionHTML = row.service_description %}
+      {% set linkText = row.service_link_text %}
+      {% set linkUrl = row.service_link_url %}
+      {% set categories = row.service_categories %}
+
+      {% if linkUrl %}
+        {% set showButton = true %}
+      {% else %}
+        {% set showButton = false %}
+      {% endif %}
+
+      {% if showButton %}
+        {% set buttonLink = {
+          "url": { "href": linkUrl, "type": "EXTERNAL" },
+          "open_in_new_tab": true
+        } %}
+      {% else %}
+        {% set buttonLink = {} %}
+      {% endif %}
+
+      {% do hubdbCards.append({
+        "serviceCategories": categories,
+        "groupImage": {
+          "showRoundImageBorder": false,
+          "image": { "src": "", "alt": "", "loading": "disabled" }
+        },
+        "groupCardBackground": {
+          "image": { "src": bgImage, "alt": "", "loading": "lazy" }
+        },
+        "groupIcon": {
+          "icon": { "name": "" }
+        },
+        "groupContent": {
+          "showCaption": false,
+          "captionText": "",
+          "headingAndTextHeadingLevel": "h4",
+          "headingAndTextHeading": title,
+          "richTextContentHTML": descriptionHTML
+        },
+        "groupButton": {
+          "showButton": showButton,
+          "buttonContentText": linkText,
+          "buttonContentLink": buttonLink,
+          "buttonContentShowIcon": false,
+          "buttonContentIconPosition": "right"
+        }
+      }) %}
+    {% endfor %}
+  {% endif %}
+
   {% set hublData = {
       "renderedWithGrids": rendered_with_grids,
+      "hubdbCards": hubdbCards
     }
   %}
 `;
