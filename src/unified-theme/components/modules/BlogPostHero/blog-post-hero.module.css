@@ -1,0 +1,93 @@
+.hs-elevate-blog-post-hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--hsElevate-rounded--extra-large);
+}
+
+.hs-elevate-blog-post-hero__image-container {
+  width: 100%;
+  aspect-ratio: 2.2;
+  background-color: var(--hsElevate--card--variant1__iconBackgroundColor);
+}
+
+.hs-elevate-blog-post-hero__image-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hs-elevate-blog-post-hero__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--hsElevate--spacing--48, 48px);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  pointer-events: none;
+}
+
+.hs-elevate-blog-post-hero__overlay-inner {
+  width: 100%;
+}
+
+.hs-elevate-blog-post-hero__eyebrow {
+  margin-bottom: var(--hsElevate--spacing--12, 12px);
+  color: var(--hsElevate--hero__accentColor, var(--hsElevate--section--darkSection--1__accentColor));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: var(--hsElevate--body--small__fontSize, 12px);
+}
+
+.hs-elevate-blog-post-hero__subtext {
+  margin-top: var(--hsElevate--spacing--16, 16px);
+  margin-bottom: 0;
+  font-size: var(--hsElevate--body__fontSize);
+  line-height: var(--hsElevate--body__lineHeight, 1.6);
+  opacity: 0.9;
+}
+
+.hs-elevate-blog-post-hero-split {
+  width: 100%;
+  padding-block: var(--hsElevate--spacing--40, 40px);
+}
+
+.hs-elevate-blog-post-hero-split__grid {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr;
+  gap: var(--hsElevate--spacing--32, 32px);
+}
+
+@media (width >= 768px) {
+  .hs-elevate-blog-post-hero-split__grid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: var(--hsElevate--spacing--48, 48px);
+  }
+}
+
+.hs-elevate-blog-post-hero-split__text {
+  min-width: 0;
+}
+
+.hs-elevate-blog-post-hero-split__image {
+  overflow: hidden;
+  border-radius: var(--hsElevate-rounded--extra-large);
+  background-color: var(--hsElevate--card--variant1__iconBackgroundColor);
+  aspect-ratio: 1.25;
+}
+
+.hs-elevate-blog-post-hero-split__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+

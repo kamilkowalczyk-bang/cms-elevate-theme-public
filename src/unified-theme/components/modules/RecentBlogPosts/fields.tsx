@@ -17,6 +17,13 @@ const textVisibility: AdvancedVisibility = {
 export const fields = (
   <ModuleFields>
     <BlogField label="Blog" name="blog" />
+    <BooleanField
+      label="Exclude current post"
+      display="toggle"
+      name="excludeCurrentPost"
+      default={true}
+      helpText="When enabled on blog post pages, the current post will be excluded from this list."
+    />
     <BooleanField label="Filter by tag" display="toggle" name="filterByTag" default={false} />
     <TagField
       label="Tag"
