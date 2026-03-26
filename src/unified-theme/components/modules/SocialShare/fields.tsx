@@ -1,4 +1,4 @@
-import { ModuleFields, TextField, ChoiceField, IconField, FieldGroup } from '@hubspot/cms-components/fields';
+import { ModuleFields, TextField, ChoiceField, IconField, FieldGroup, RepeatedFieldGroup, ImageField } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 
 export const fields = (
@@ -95,6 +95,76 @@ export const fields = (
         default='Share us via email'
       />
     </FieldGroup>
+
+    <RepeatedFieldGroup
+      name='customPlatforms'
+      label='Custom platforms'
+      occurrence={{
+        min: 0,
+        max: 10,
+        default: 0,
+      }}
+      default={[]}
+    >
+      <TextField
+        name='platformLabel'
+        label='Label'
+        default='Custom'
+        helpText='Used for aria-label and as a fallback when aria label is empty.'
+      />
+      <TextField
+        name='urlTemplate'
+        label='URL template or full URL'
+        default=''
+        helpText='Use {{url}} as placeholder for current page URL, e.g. https://example.com/share?u={{url}}'
+      />
+      <TextField
+        name='ariaLabel'
+        label='Aria label'
+        default=''
+        helpText='Optional. If empty, defaults to "Share on <Label>".'
+      />
+      <ChoiceField
+        name='iconSource'
+        label='Icon source'
+        display='radio'
+        choices={[
+          ['icon', 'FontAwesome icon'],
+          ['image', 'Image/SVG'],
+        ]}
+        default='icon'
+      />
+      <IconField
+        name='icon'
+        label='Icon'
+        iconSet='fontawesome-6.4.2'
+        default={{
+          name: 'share-nodes',
+        }}
+        visibility={{
+          controlling_field_path: 'customPlatforms.iconSource',
+          controlling_value_regex: 'icon',
+          operator: 'EQUAL',
+        }}
+      />
+      <ImageField
+        name='image'
+        label='Image/SVG'
+        resizable={false}
+        responsive={false}
+        showLoading={false}
+        default={{
+          src: '',
+          alt: '',
+          loading: 'lazy',
+        }}
+        visibility={{
+          controlling_field_path: 'customPlatforms.iconSource',
+          controlling_value_regex: 'image',
+          operator: 'EQUAL',
+        }}
+      />
+    </RepeatedFieldGroup>
     <StyleFields />
   </ModuleFields>
 );

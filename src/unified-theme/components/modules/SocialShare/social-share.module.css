@@ -11,6 +11,12 @@
   width: var(--hsElevate--socialShareIcon__size);
 }
 
+.hs-elevate-social-share__image {
+  height: var(--hsElevate--socialShareIcon__size);
+  width: var(--hsElevate--socialShareIcon__size);
+  object-fit: contain;
+}
+
 .hs-elevate-social-share__link {
   display: flex;
   padding: var(--hsElevate--socialShareIcon__padding);

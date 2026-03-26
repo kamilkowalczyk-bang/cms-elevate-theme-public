@@ -76,8 +76,10 @@
 
       {% module "social_share" path="../components/modules/SocialShare"
         groupStyle={
-          buttonStyleVariant: "secondary",
-          spaceBetweenIcons: "small"
+          "buttonStyleSize" : "small",
+          "buttonStyleVariant" : "tertiary",
+          "iconBorder" : "none",
+          "shape" : "rounded"
         }
       %}
     </div>
@@ -229,7 +231,7 @@
       headingAndTextHeading={{ template_translations.blog_post_recent_posts_heading.message }}
       headingAndTextHeadingLevel="h3"
       groupStyle={
-        "cardStyleVariant":"card_variant_2",
+        "cardStyleVariant":"card_variant_1",
         "headingStyleVariant":"h3"
       }
     %}

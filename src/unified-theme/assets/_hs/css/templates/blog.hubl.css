@@ -110,6 +110,11 @@
   margin-block-end: var(--hsElevate--spacing--80);
 }
 
+.hs-elevate-blog-share {
+  border-top: 1px solid var(--border-default, #d2d4de);
+  border-bottom: 1px solid var(--border-default, #d2d4de);
+}
+
 .hs-elevate-blog-audio-narration .hs-audio-player {
   margin-block-end: var(--hsElevate--spacing--40);
 }
