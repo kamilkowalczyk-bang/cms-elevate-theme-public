@@ -9,30 +9,11 @@
 
 {% block body %}
 
-{% dnd_section
-  background_color="rgba(22, 28, 38, 1)"
-  padding={
-    "default" : {
-    "top" : "96px",
-      "bottom" : "32px"
-    }
-  }
-  full_width=false
-%}
-  {% dnd_column
-    offset=0
-    width=12
-  %}
-    {% dnd_row %}
-      {% dnd_module
-        path="@hubspot/horizontal_spacer"
-        offset=0
-        width=12
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-  {% end_dnd_column %}
-{% end_dnd_section %}
+<section style="background-color: rgba(22, 28, 38, 1);">
+  <div class="hs-elevate-content-wrapper" style="padding-top: 96px; padding-bottom: 32px;">
+    <div aria-hidden="true"></div>
+  </div>
+</section>
 
 <div class="hs-elevate-content-wrapper">
 
@@ -41,75 +22,33 @@
     {% set defined_word_count = content.post_body|wordcount %}
     {% set read_time_minutes = (defined_word_count / defined_words_per_minute)|round %}
 
-    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--sm">
-      {% module "blog_post_hero"
-        path="../components/modules/BlogPostHero"
-        groupLayout={
-          "layoutType": "split"
-        }
-        eyebrow={{ "Read time " ~ read_time_minutes ~ " min." }}
-        showSubtext={{ content.meta_description and content.meta_description|length > 0 ? true : false }}
-        subtext={{ content.meta_description|sanitize_html }}
-        headingAndTextHeading={{ content.name|sanitize_html }}
-        headingAndTextHeadingLevel="h1"
-        groupStyle={
-          "alignment": {
-            "text_align": "LEFT"
-          },
-          "headingStyleVariant": "display_title",
-          "headingUppercase": false,
-          "sectionStyleVariant": "section_variant_1"
-        }
-        image={
-          "src": content.featured_image|escape_url,
-          "alt": content.featured_image_alt_text|escape_attr,
-          "loading": "eager",
-          "width": content.featured_image_width|escape_attr,
-          "height": content.featured_image_height|escape_attr
-        }
-      %}
-    </div>
+    {% module "blog_post_hero"
+      path="../components/modules/BlogPostHero"
+      groupLayout={
+        "layoutType": "split"
+      }
+      eyebrow={{ "Read time " ~ read_time_minutes ~ " min." }}
+      headingAndTextHeading={{ content.name|striptags|trim }}
+      headingAndTextHeadingLevel="h1"
+      groupStyle={
+        "alignment": {
+          "text_align": "LEFT"
+        },
+        "headingStyleVariant": "display_title",
+        "headingUppercase": false,
+        "sectionStyleVariant": "section_variant_1"
+      }
+      image={
+        "src": content.featured_image|escape_url,
+        "alt": content.featured_image_alt_text|escape_attr,
+        "loading": "eager",
+        "width": content.featured_image_width|escape_attr,
+        "height": content.featured_image_height|escape_attr
+      }
+    %}
   {% endif %}
 
   <section class="hs-elevate-blog-content-container hs-elevate-content-wrapper hs-elevate-content-wrapper--sm">
-    {% if content.topic_list|length > 0 %}
-      <div class="hs-elevate-blog-tags-container">
-        {% for topic in content.topic_list %}
-          {% if loop.index <= 3 %}
-            <span class='hs-elevate-tag'>{{ topic.name|sanitize_html }}</span>
-          {% endif %}
-        {% endfor %}
-      </div>
-    {% endif %}
-
-    {% set authors_to_display = content.blog_author_list if content.blog_author_list and content.blog_author_list|length > 0 else [content.blog_author] if content.blog_author else [] %}
-    {% if authors_to_display and authors_to_display|length > 0 %}
-      <div class="hs-elevate-blog-meta">
-        <div class="hs-elevate-blog-meta__avatars">
-          {% for author in authors_to_display %}
-            <div class="hs-elevate-blog-meta__image-container">
-              <img src="{{ author.avatar or get_asset_url('../images/avatar-placeholder.jpg') }}" alt="{{ author.display_name|escape_attr }}" width="48" height="48">
-            </div>
-          {% endfor %}
-        </div>
-
-        <div class="hs-elevate-blog-meta__content">
-          <div class="hs-elevate-blog-meta__authors">
-            {% for author in authors_to_display %}
-              {% if author.display_name %}
-                {{ author.display_name|sanitize_html }}{% if not loop.last %}{% if loop.revindex == 2 %}, and {% else %}, {% endif %}{% endif %}
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-      {% if content.publish_date %}
-        <div class="hs-elevate-blog-meta__date-container">
-          <time datetime="{{ content.publish_date }}" class="hs-elevate-blog-meta__date">{{ content.publish_date|format_date('long') }}</time>
-        </div>
-      {% endif %}
-    {% endif %}
 
     <div class="hs-elevate-blog-audio-narration">
       {% module "narration"
@@ -155,122 +94,130 @@
   </section>
 {% endif %}
 
-{% dnd_section
-  background_image={
-    "background_position" : "MIDDLE_CENTER",
-    "background_size" : "cover",
-    "image_url" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/cta%20block.png"
-  }
-  padding={
-    "default" : {
-      "bottom" : "100px",
-      "top" : "100px"
-    }
-  }
-%}
-  {% dnd_column
-    offset=0
-    width=12
-  %}
-    {% dnd_row %}
-      {% dnd_module
-        path="@hubspot/divider"
-        offset=0
-        width=12
-        styles={
-          "line" : {
-            "color" : {
-              "color" : "#52BAD1",
-              "opacity" : 100
-            },
-            "thickness" : 4
+{% set blog_post_author = content.blog_post_author if content.blog_post_author else content.blog_author %}
+{% if blog_post_author and (blog_post_author.display_name or blog_post_author.bio or blog_post_author.avatar or blog_post_author.linkedin) %}
+  {% set author_posts_url = group.absolute_url ~ "/author/" ~ blog_post_author.slug if blog_post_author.slug else group.absolute_url %}
+  <section class="hs-elevate-blog-author-section">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--sm">
+      <div class="hs-elevate-blog-author-section__grid">
+        <div class="hs-elevate-blog-author-section__avatar-column">
+          {% if blog_post_author.avatar %}
+            <img
+              class="hs-elevate-blog-author-section__avatar"
+              src="{{ blog_post_author.avatar|escape_url }}"
+              alt="{{ blog_post_author.display_name|escape_attr }}"
+              loading="lazy"
+              width="120"
+              height="120"
+            >
+          {% else %}
+            <img
+              class="hs-elevate-blog-author-section__avatar"
+              src="{{ get_asset_url('../images/avatar-placeholder.jpg') }}"
+              alt="{{ blog_post_author.display_name|escape_attr }}"
+              loading="lazy"
+              width="120"
+              height="120"
+            >
+          {% endif %}
+        </div>
+        <div class="hs-elevate-blog-author-section__content-column">
+          {% if blog_post_author.display_name %}
+            <p class="hs-elevate-blog-author-section__writer">Writer: {{ blog_post_author.display_name|sanitize_html }}</p>
+          {% endif %}
+          {% if blog_post_author.bio %}
+            <p class="hs-elevate-blog-author-section__bio">{{ blog_post_author.bio|sanitize_html }}</p>
+          {% endif %}
+          <div class="hs-elevate-blog-author-section__links">
+            <a href="{{ author_posts_url|escape_url }}">See all blog posts</a>
+            {% if blog_post_author.linkedin %}
+              <a href="{{ blog_post_author.linkedin|escape_url }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+<section class="hs-elevate-blog-cta-section">
+  <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--sm hs-elevate-blog-cta-section__inner">
+    {% module "blog_cta_divider" path="@hubspot/divider"
+      styles={
+        "line" : {
+          "color" : {
+            "color" : "#52BAD1",
+            "opacity" : 100
           },
-          "size" : {
-            "width" : 10
-          },
+          "thickness" : 4
+        },
+        "size" : {
+          "width" : 10
+        },
+        "spacing" : {
           "spacing" : {
-            "spacing" : {
-              "margin" : {
-                "bottom" : {
-                  "units" : "px",
-                  "value" : 25
-                },
-                "top" : {
-                  "units" : "px",
-                  "value" : 0
-                }
+            "margin" : {
+              "bottom" : {
+                "units" : "px",
+                "value" : 25
+              },
+              "top" : {
+                "units" : "px",
+                "value" : 0
               }
             }
           }
         }
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Heading"
-        offset=0
-        width=12
-        groupStyle={
-          "alignment" : {
-            "text_align" : "CENTER"
+      }
+    %}
+
+    {% module "blog_cta_heading" path="../components/modules/Heading"
+      groupStyle={
+        "alignment" : {
+          "text_align" : "CENTER"
+        },
+        "headingStyleVariant" : "h2",
+        "headingUppercase" : true,
+        "sectionStyleVariant" : "section_variant_4"
+      },
+      headingAndTextHeading="Don’t miss a thing",
+      headingAndTextHeadingLevel="h2"
+    %}
+
+    {% module "blog_cta_text" path="../components/modules/RichText"
+      groupStyle={
+        "sectionStyleVariant" : "section_variant_4"
+      },
+      richTextContentHTML='<p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>'
+    %}
+
+    {% module "blog_cta_button" path="../components/modules/Button"
+      groupButtons=[
+        {
+          "buttonContentText": "Subscribe",
+          "buttonContentLink": {
+            "url": {
+              "href": ""
+            }
           },
-          "headingStyleVariant" : "h2",
-          "headingUppercase" : true,
-          "sectionStyleVariant" : "section_variant_4"
-        }
-        headingAndTextHeading="Don’t miss a thing"
-        headingAndTextHeadingLevel="h2"
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/RichText"
-        offset=0
-        width=12
-        groupStyle={
-          "sectionStyleVariant" : "section_variant_4"
-        }
-      %}
-        {% module_attribute "richTextContentHTML" %}
-          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>
-        {% end_module_attribute %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Button"
-        offset=0
-        width=12
-        groupButtons=[
-          {
-            "buttonContentText": "Subscribe",
-            "buttonContentLink": {
-              "url": {
-                "href": ""
-              }
-            },
-            "buttonContentShowIcon": false,
-            "buttonContentIcon": {
-              "name": "arrow-right"
-            },
-            "buttonContentIconPosition": "right"
-          }
-        ]
-        groupStyle={
-          "alignment" : {
-            "horizontal_align" : "CENTER"
+          "buttonContentShowIcon": false,
+          "buttonContentIcon": {
+            "name": "arrow-right"
           },
-          "buttonStyleVariant" : "primary",
-          "buttonStyleSize" : "medium",
-          "gap" : "medium"
+          "buttonContentIconPosition": "right"
         }
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-  {% end_dnd_column %}
-{% end_dnd_section %}
+      ],
+      groupStyle={
+        "alignment" : {
+          "horizontal_align" : "CENTER"
+        },
+        "buttonStyleVariant" : "primary",
+        "buttonStyleSize" : "medium",
+        "gap" : "medium"
+      }
+    %}
+  </div>
+</section>
 
  <section class="hs-elevate-blog-recent-posts">
   <div class="hs-elevate-content-wrapper">

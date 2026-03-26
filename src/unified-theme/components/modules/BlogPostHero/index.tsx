@@ -17,8 +17,6 @@ const swm = staticWithModule(styles);
 type BlogPostHeroProps = HeadingAndTextFieldLibraryType & {
   moduleName?: string;
   eyebrow?: string;
-  showSubtext?: boolean;
-  subtext?: string;
   groupLayout?: {
     layoutType?: ChoiceFieldType['default'];
   };
@@ -30,6 +28,9 @@ type BlogPostHeroProps = HeadingAndTextFieldLibraryType & {
   image: ImageFieldType['default'];
   hublData: {
     renderedWithGrids: boolean;
+    authorDisplayName: string;
+    publishDate: string;
+    topicNames: string[];
   };
 };
 
@@ -38,20 +39,28 @@ const SplitGrid = createComponent('div');
 const SplitText = createComponent('div');
 const SplitImage = createComponent('div');
 
+function backgroundImageStyleFromField(src: string | undefined): CSSPropertiesMap | undefined {
+  if (typeof src !== 'string' || !src.trim()) {
+    return undefined;
+  }
+  return { backgroundImage: `url(${src})` };
+}
+
 export const Component = (props: BlogPostHeroProps) => {
   const {
     moduleName,
     eyebrow,
-    showSubtext = false,
-    subtext,
     groupLayout,
     groupStyle: { sectionStyleVariant, headingStyleVariant, alignment, headingUppercase = false },
     headingAndTextHeading,
     headingAndTextHeadingLevel,
     image,
+    hublData: { authorDisplayName, publishDate, topicNames = [] },
   } = props;
 
   const layoutType = groupLayout?.layoutType || 'split';
+  const imageBackgroundStyle = backgroundImageStyleFromField(image?.src);
+  const imageAltText = image?.alt || '';
 
   const cssVarsMap = {
     '--hsElevate--hero__accentColor': sectionColorsMap[sectionStyleVariant]?.accentColor,
@@ -93,13 +102,19 @@ export const Component = (props: BlogPostHeroProps) => {
                 color: sectionColorsMap[sectionStyleVariant]?.textColor,
               }}
             />
-            {showSubtext && subtext ? (
-              <p
-                className={swm('hs-elevate-blog-post-hero__subtext')}
-                style={{ color: sectionColorsMap[sectionStyleVariant]?.textColor }}
-              >
-                {subtext}
+            {(authorDisplayName || publishDate) ? (
+              <p className={swm('hs-elevate-blog-post-hero__meta')}>
+                {authorDisplayName}
+                {authorDisplayName && publishDate ? ' / ' : ''}
+                {publishDate}
               </p>
+            ) : null}
+            {topicNames.length > 0 ? (
+              <div className={swm('hs-elevate-blog-post-hero__tags')}>
+                {topicNames.map((topicName, index) => (
+                  <span key={index} className="hs-elevate-tag">{topicName}</span>
+                ))}
+              </div>
             ) : null}
           </div>
         </div>
@@ -125,27 +140,30 @@ export const Component = (props: BlogPostHeroProps) => {
               color: sectionColorsMap[sectionStyleVariant]?.textColor,
             }}
           />
-          {showSubtext && subtext ? (
-            <p
-              className={swm('hs-elevate-blog-post-hero__subtext')}
-              style={{ color: sectionColorsMap[sectionStyleVariant]?.textColor }}
-            >
-              {subtext}
+          {(authorDisplayName || publishDate) ? (
+            <p className={swm('hs-elevate-blog-post-hero__meta')}>
+              {authorDisplayName}
+              {authorDisplayName && publishDate ? ' / ' : ''}
+              {publishDate}
             </p>
+          ) : null}
+          {topicNames.length > 0 ? (
+            <div className={swm('hs-elevate-blog-post-hero__tags')}>
+              {topicNames.map((topicName, index) => (
+                <span key={index} className="hs-elevate-tag">{topicName}</span>
+              ))}
+            </div>
           ) : null}
         </SplitText>
 
         <SplitImage className={swm('hs-elevate-blog-post-hero-split__image')}>
-          {image?.src ? (
-            <img
-              src={image.src}
-              alt={image.alt || ''}
-              width={image.width}
-              height={image.height}
-              loading={image.loading !== 'disabled' ? image.loading : 'eager'}
-              data-hs-token={moduleName ? `${moduleName}.__hero_image` : undefined}
-            />
-          ) : null}
+          <div
+            className={swm('hs-elevate-blog-post-hero-split__image-background')}
+            style={imageBackgroundStyle}
+            role={imageAltText ? 'img' : undefined}
+            aria-label={imageAltText || undefined}
+            data-hs-token={moduleName ? `${moduleName}.__hero_image` : undefined}
+          />
         </SplitImage>
       </SplitGrid>
     </BlogPostHero>
@@ -155,8 +173,45 @@ export const Component = (props: BlogPostHeroProps) => {
 export { fields } from './fields.js';
 
 export const hublDataTemplate = `
+  {% set authors_to_display = [] %}
+  {% if content.blog_post_author and content.blog_post_author.display_name %}
+    {% do authors_to_display.append(content.blog_post_author) %}
+  {% elif content.blog_author_list and content.blog_author_list|length > 0 %}
+    {% set authors_to_display = content.blog_author_list %}
+  {% elif content.blog_author %}
+    {% do authors_to_display.append(content.blog_author) %}
+  {% endif %}
+  {% set author_display_name = "" %}
+  {% if authors_to_display and authors_to_display|length > 0 %}
+    {% for author in authors_to_display %}
+      {% if author.display_name %}
+        {% set author_display_name = author_display_name ~ author.display_name %}
+        {% if not loop.last %}
+          {% if loop.revindex == 2 %}
+            {% set author_display_name = author_display_name ~ ", and " %}
+          {% else %}
+            {% set author_display_name = author_display_name ~ ", " %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% set publish_date = content.publish_date ? content.publish_date|format_date('long') : "" %}
+  {% set topic_names = [] %}
+  {% if content.topic_list and content.topic_list|length > 0 %}
+    {% for topic in content.topic_list %}
+      {% if loop.index <= 3 %}
+        {% do topic_names.append(topic.name) %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
   {% set hublData = {
     "renderedWithGrids": rendered_with_grids,
+    "authorDisplayName": author_display_name,
+    "publishDate": publish_date,
+    "topicNames": topic_names,
   } %}
 `;
 

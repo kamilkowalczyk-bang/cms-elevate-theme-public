@@ -52,25 +52,6 @@ export const fields = (
       inlineEditable={true}
     />
 
-    <BooleanField
-      name="showSubtext"
-      label="Show subtext"
-      display="toggle"
-      default={false}
-      helpText="When enabled, displays subtext under the title."
-    />
-    <TextField
-      name="subtext"
-      label="Subtext"
-      default=""
-      inlineEditable={true}
-      visibility={{
-        controlling_field_path: 'showSubtext',
-        controlling_value_regex: 'true',
-        operator: 'EQUAL',
-      }}
-    />
-
     <ImageField
       label="Hero image"
       name="image"
