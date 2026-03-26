@@ -176,6 +176,7 @@
 .hs-elevate-blog-author-section__writer {
   margin: 0 0 var(--hsElevate--spacing--12) 0;
   font-size: var(--hsElevate--body__fontSize);
+  font-weight: 700;
 }
 
 .hs-elevate-blog-author-section__bio {
@@ -185,8 +186,9 @@
 
 .hs-elevate-blog-author-section__links {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  gap: var(--hsElevate--spacing--20);
+  gap: var(--hsElevate--spacing--4);
 }
 
 .hs-elevate-blog-author-section__links a,
@@ -197,7 +199,7 @@
   text-decoration-style: solid;
   text-decoration-color: #52bad1;
   text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
+  text-underline-offset: 8px;
 }
 
 .hs-elevate-blog-recent-posts__heading {

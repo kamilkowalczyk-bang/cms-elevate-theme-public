@@ -173,28 +173,15 @@ export const Component = (props: BlogPostHeroProps) => {
 export { fields } from './fields.js';
 
 export const hublDataTemplate = `
-  {% set authors_to_display = [] %}
-  {% if content.blog_post_author and content.blog_post_author.display_name %}
-    {% do authors_to_display.append(content.blog_post_author) %}
-  {% elif content.blog_author_list and content.blog_author_list|length > 0 %}
-    {% set authors_to_display = content.blog_author_list %}
-  {% elif content.blog_author %}
-    {% do authors_to_display.append(content.blog_author) %}
-  {% endif %}
   {% set author_display_name = "" %}
-  {% if authors_to_display and authors_to_display|length > 0 %}
-    {% for author in authors_to_display %}
-      {% if author.display_name %}
-        {% set author_display_name = author_display_name ~ author.display_name %}
-        {% if not loop.last %}
-          {% if loop.revindex == 2 %}
-            {% set author_display_name = author_display_name ~ ", and " %}
-          {% else %}
-            {% set author_display_name = author_display_name ~ ", " %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
+  {% if content.blog_post_author and content.blog_post_author.display_name %}
+    {% set author_display_name = content.blog_post_author.display_name %}
+  {% elif content.blog_author and content.blog_author.display_name %}
+    {% set author_display_name = content.blog_author.display_name %}
+  {% elif content.blog_author_list and content.blog_author_list|length > 0 and content.blog_author_list[0].display_name %}
+    {% set author_display_name = content.blog_author_list[0].display_name %}
+  {% elif content.author_name %}
+    {% set author_display_name = content.author_name %}
   {% endif %}
 
   {% set publish_date = content.publish_date ? content.publish_date|format_date('long') : "" %}
