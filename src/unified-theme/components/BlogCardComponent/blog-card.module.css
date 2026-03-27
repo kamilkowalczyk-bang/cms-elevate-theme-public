@@ -61,6 +61,11 @@
   gap: var(--hsElevate--spacing--8, 8px);
 }
 
+.hs-elevate-card--blog__tag-container .hs-elevate-tag {
+  background-color: var(--hsElevate--tag__notSelectedFillColor, var(--hsElevate--tag__backgroundColor));
+  border-color: var(--hsElevate--tag__notSelectedBorderColor, var(--hsElevate--tag__borderColor));
+}
+
 .hs-elevate-card--blog__gate-icon {
   display: inline-block;
   height: 20px;

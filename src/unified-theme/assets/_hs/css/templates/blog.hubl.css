@@ -105,7 +105,7 @@
   }
 }
 
-.hs-elevate-blog-share,
+
 .hs-elevate-blog-content {
   margin-block-end: var(--hsElevate--spacing--80);
 }
@@ -113,6 +113,8 @@
 .hs-elevate-blog-share {
   border-top: 1px solid var(--border-default, #d2d4de);
   border-bottom: 1px solid var(--border-default, #d2d4de);
+  padding-block: var(--hsElevate--spacing--40);
+  margin-block: var(--hsElevate--spacing--40);
 }
 
 .hs-elevate-blog-audio-narration .hs-audio-player {

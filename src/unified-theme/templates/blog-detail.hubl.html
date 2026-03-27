@@ -62,18 +62,6 @@
     </div>
 
     <div class="hs-elevate-blog-share">
-      {% module "blog-share-heading-2" path="../components/modules/Heading"
-        headingAndTextHeadingLevel="h2",
-        headingAndTextHeading={{ template_translations.blog_post_share_post_heading.message }},
-        groupStyle={
-          "alignment": {
-            "text_align": "CENTER"
-          },
-          "headingStyleVariant": "h5",
-          "sectionStyleVariant": "section_variant_1"
-        }
-      %}
-
       {% module "social_share" path="../components/modules/SocialShare"
         groupStyle={
           "buttonStyleSize" : "small",
@@ -223,12 +211,12 @@
 
  <section class="hs-elevate-blog-recent-posts">
   <div class="hs-elevate-content-wrapper">
-    <h2 class="hs-elevate-blog-recent-posts__heading">{{ template_translations.blog_post_recent_posts_heading.message }}</h2>
+    <h2 class="hs-elevate-blog-recent-posts__heading">Read also</h2>
     {% module "recent_blog_posts_cards" path="../components/modules/RecentBlogPosts"
       blog=group.id
       filterByTag=false
       tag=""
-      headingAndTextHeading={{ template_translations.blog_post_recent_posts_heading.message }}
+      headingAndTextHeading="Read also"
       headingAndTextHeadingLevel="h3"
       groupStyle={
         "cardStyleVariant":"card_variant_1",
