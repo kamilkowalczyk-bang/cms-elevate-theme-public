@@ -104,6 +104,7 @@ A theme preset is a JSON file that defines overrides for theme customization. Th
 
 - **Base font**: Font family, font set, variants
 - **Heading fonts**: H1-H6 with sizes
+- **Heading case**: Use the `case` choice (`none` / `uppercase` / `lowercase`) for each heading level when present (same structure/preset as `group_caption.case` in `src/unified-theme/fields.json`)
 - **Body font**: Paragraph styling
 - **Other elements**: Blockquote, caption styling
 

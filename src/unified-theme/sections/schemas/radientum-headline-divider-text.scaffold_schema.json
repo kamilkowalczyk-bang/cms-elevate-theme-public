@@ -1,0 +1,13 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Heading text for the divider section."
+  },
+  {
+    "name": "content_html",
+    "type": "text",
+    "description": "Centered rich text HTML content shown below the heading."
+  }
+]
+

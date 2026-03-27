@@ -27,18 +27,56 @@ const swm = staticWithModule(styles);
 type ColorProps = {
   menuTextColor: string;
   menuTextHoverColor: string;
+  menuArrowIconFill: string;
   menuBackgroundColor: string;
   menuAccentColor: string;
+  flyoutItemHoverBackgroundColor: string;
 };
 
+function withOpacity(color: string, opacityPercent?: number): string {
+  if (opacityPercent == null) return color;
+  if (opacityPercent >= 100) return color;
+  if (opacityPercent <= 0) return 'transparent';
+
+  const trimmed = color.trim();
+  if (!trimmed.startsWith('#')) return color;
+
+  const hex = trimmed.slice(1);
+  const isShort = hex.length === 3;
+  const isLong = hex.length === 6;
+  if (!isShort && !isLong) return color;
+
+  const expanded = isShort ? hex.split('').map(ch => `${ch}${ch}`).join('') : hex;
+  const r = Number.parseInt(expanded.slice(0, 2), 16);
+  const g = Number.parseInt(expanded.slice(2, 4), 16);
+  const b = Number.parseInt(expanded.slice(4, 6), 16);
+
+  if ([r, g, b].some(n => Number.isNaN(n))) return color;
+
+  const alpha = opacityPercent / 100;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
-  const { menuTextColor, menuTextHoverColor, menuBackgroundColor, menuAccentColor } = props;
+  const {
+    menuTextColor,
+    menuTextHoverColor,
+    menuArrowIconFill,
+    menuBackgroundColor,
+    menuAccentColor,
+    flyoutItemHoverBackgroundColor,
+  } = props;
 
   return {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
+    '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
     '--hsElevate--siteHeader__menuAccentColor': menuAccentColor,
+    // Flyout background uses Accent color (including its opacity) so designers
+    // can independently control header background vs. flyout background.
+    '--hsElevate--siteHeader__flyoutBackgroundColor': menuAccentColor,
+    '--hsElevate--siteHeader__flyoutItemHoverBackgroundColor': flyoutItemHoverBackgroundColor,
   };
 }
 
@@ -94,19 +132,47 @@ export const Component = (props: MenuModulePropTypes) => {
   const {
     groupMenu: {
       menuAlignment,
-      menuBackgroundColor: { color: menuBackgroundColor } = { color: '#ffffff' },
-      menuAccentColor: { color: menuAccentColor } = { color: '#D3DAE4' },
+      menuBackgroundColor: { color: menuBackgroundColor, opacity: menuBackgroundOpacity } = { color: '#ffffff', opacity: 100 },
+      menuAccentColor: { color: menuAccentColor, opacity: menuAccentOpacity } = { color: '#D3DAE4', opacity: 100 },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
+      menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
+      menuFlyoutUseAccentOnHover = false,
     },
     groupButton: { buttonStyleVariant, buttonStyleSize },
+    groupMobileMenu,
   } = groupStyles;
 
   const translations = useLanguageVariants();
   const showLanguageSwitcher = translations?.length > 1;
   const langSwitcherIconFieldPath = 'globe_icon';
 
-  const cssVarsMap = { ...generateColorCssVars({ menuTextColor, menuTextHoverColor, menuBackgroundColor, menuAccentColor }) };
+  const menuBackgroundColorWithOpacity = withOpacity(menuBackgroundColor, menuBackgroundOpacity);
+  const menuAccentColorWithOpacity = withOpacity(menuAccentColor, menuAccentOpacity);
+  const flyoutItemHoverBackgroundColor = menuFlyoutUseAccentOnHover
+    ? menuAccentColorWithOpacity
+    : menuBackgroundColorWithOpacity;
+
+  const mobileMenuBackgroundRaw = groupMobileMenu?.mobileMenuBackgroundColor ?? { color: menuBackgroundColor, opacity: menuBackgroundOpacity };
+  const mobileMenuAccentRaw = groupMobileMenu?.mobileMenuAccentColor ?? { color: menuAccentColor, opacity: menuAccentOpacity };
+  const mobileMenuTextRaw = groupMobileMenu?.mobileMenuTextColor ?? { color: menuTextColor };
+  const mobileMenuTextHoverRaw = groupMobileMenu?.mobileMenuTextHoverColor ?? { color: menuTextHoverColor };
+
+  const mobileMenuBackgroundColor = withOpacity(mobileMenuBackgroundRaw.color, mobileMenuBackgroundRaw.opacity);
+  const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
+  const mobileMenuTextColor = mobileMenuTextRaw.color;
+  const mobileMenuTextHoverColor = mobileMenuTextHoverRaw.color;
+
+  const cssVarsMap = {
+    ...generateColorCssVars({
+      menuTextColor,
+      menuTextHoverColor,
+      menuArrowIconFill,
+      menuBackgroundColor: menuBackgroundColorWithOpacity,
+      menuAccentColor: menuAccentColorWithOpacity,
+      flyoutItemHoverBackgroundColor,
+    }),
+  };
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), { [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher });
 
@@ -148,10 +214,10 @@ export const Component = (props: MenuModulePropTypes) => {
             <LanguageSwitcherContainer className={swm('hs-elevate-site-header__language-switcher-container')}>
               <Island
                 module={LanguageSwitcherIsland}
-                menuBackgroundColor={menuBackgroundColor}
-                menuBackgroundColorHover={menuAccentColor}
-                textColor={menuTextColor}
-                textColorHover={menuTextHoverColor}
+                menuBackgroundColor={mobileMenuBackgroundColor}
+                menuBackgroundColorHover={mobileMenuAccentColor}
+                textColor={mobileMenuTextColor}
+                textColorHover={mobileMenuTextHoverColor}
                 languageSwitcherSelectText={languageSwitcherSelectText}
                 langSwitcherIconFieldPath={langSwitcherIconFieldPath}
               />
@@ -188,10 +254,10 @@ export const Component = (props: MenuModulePropTypes) => {
               menuAlignment={menuAlignment}
               navigationAriaLabel="Main mobile navigation"
               flyouts={true}
-              menuBackgroundColor={menuBackgroundColor}
-              menuAccentColor={menuAccentColor}
-              menuTextColor={menuTextColor}
-              menuTextHoverColor={menuTextHoverColor}
+              menuBackgroundColor={mobileMenuBackgroundColor}
+              menuAccentColor={mobileMenuAccentColor}
+              menuTextColor={mobileMenuTextColor}
+              menuTextHoverColor={mobileMenuTextHoverColor}
               buttonStyleVariant={buttonStyleVariant}
               buttonStyleSize={buttonStyleSize}
               groupButton={groupButton}

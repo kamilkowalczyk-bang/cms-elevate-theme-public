@@ -1,0 +1,25 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Short label above the hero heading on the blog listing page (for example: Technologies)."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Primary hero heading for the blog listing page."
+      },
+      {
+        "name": "hero_image",
+        "type": "image",
+        "description": "Hero background image for the blog listing page.",
+        "width": "1750",
+        "height": "1000"
+      }
+    ]
+  }
+]

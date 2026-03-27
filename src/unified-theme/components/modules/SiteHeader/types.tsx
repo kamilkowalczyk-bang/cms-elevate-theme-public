@@ -33,13 +33,23 @@ type GroupMenuStyle = {
   menuAlignment: AlignmentFieldType['default'];
   menuTextColor: ColorFieldType['default'];
   menuTextHoverColor: ColorFieldType['default'];
+  menuArrowIconFill: ColorFieldType['default'];
   menuAccentColor: ColorFieldType['default'];
   menuBackgroundColor: ColorFieldType['default'];
+  menuFlyoutUseAccentOnHover: BooleanFieldType['default'];
+};
+
+type GroupMobileMenuStyle = {
+  mobileMenuTextColor: ColorFieldType['default'];
+  mobileMenuTextHoverColor: ColorFieldType['default'];
+  mobileMenuAccentColor: ColorFieldType['default'];
+  mobileMenuBackgroundColor: ColorFieldType['default'];
 };
 
 type MenuModuleStyles = {
   groupMenu: GroupMenuStyle;
   groupButton: ButtonStyleFieldLibraryType;
+  groupMobileMenu?: GroupMobileMenuStyle;
 };
 
 export interface MenuModulePropTypes extends MenuModuleContentFields {

@@ -10,6 +10,8 @@ import { getDataHSToken } from '../utils/inline-editing.js';
 type HeadingInlineStyleProps = {
   inlineStyles?: CSSProperties;
   alignment?: TextAlignmentFieldType['default'];
+  /** When true, applies CSS `text-transform: uppercase` (visual only; stored heading text unchanged). */
+  headingUppercase?: boolean;
 };
 
 type HeadingProps = HeadingInlineStyleProps &
@@ -26,6 +28,7 @@ type HeadingProps = HeadingInlineStyleProps &
 const headingClasses = {
   display_1: 'hs-elevate-display-1',
   display_2: 'hs-elevate-display-2',
+  display_title: 'hs-elevate-display-title',
   h1: 'hs-elevate-h1',
   h2: 'hs-elevate-h2',
   h3: 'hs-elevate-h3',
@@ -37,12 +40,16 @@ const headingClasses = {
 // Sets inline styles used for the heading
 
 function makeHeadingStyles(styleParams: HeadingInlineStyleProps) {
-  const { inlineStyles, alignment } = styleParams;
+  const { inlineStyles, alignment, headingUppercase } = styleParams;
 
   const stylesToReturn = { ...inlineStyles };
 
   if (alignment) {
     stylesToReturn.textAlign = alignment.text_align.toLowerCase() as 'left' | 'right' | 'center' | 'justify';
+  }
+
+  if (headingUppercase) {
+    stylesToReturn.textTransform = 'uppercase';
   }
 
   return stylesToReturn;
@@ -51,7 +58,17 @@ function makeHeadingStyles(styleParams: HeadingInlineStyleProps) {
 // Component
 
 function HeadingComponent(props: HeadingProps) {
-  const { additionalClassArray, inlineStyles, headingLevel: HeadingLevel, heading, alignment, headingStyleVariant, moduleName, fieldPath } = props;
+  const {
+    additionalClassArray,
+    inlineStyles,
+    headingLevel: HeadingLevel,
+    heading,
+    alignment,
+    headingStyleVariant,
+    headingUppercase,
+    moduleName,
+    fieldPath,
+  } = props;
 
   const headingClass = headingStyleVariant ? headingClasses[headingStyleVariant] : '';
   const additionalClasses = additionalClassArray ? additionalClassArray.join(' ') : '';
@@ -59,7 +76,7 @@ function HeadingComponent(props: HeadingProps) {
   return (
     <HeadingLevel
       className={`${headingClass} ${additionalClasses}`}
-      style={makeHeadingStyles({ inlineStyles, alignment })}
+      style={makeHeadingStyles({ inlineStyles, alignment, headingUppercase })}
       data-hs-token={getDataHSToken(moduleName, fieldPath)}
     >
       <SanitizedContent content={heading} />

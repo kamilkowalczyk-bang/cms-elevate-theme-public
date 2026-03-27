@@ -19,6 +19,7 @@ export default function HeadingStyles(props: HeadingStyles) {
       choices={[
         ['display_1', 'Display 1'],
         ['display_2', 'Display 2'],
+        ['display_title', 'Display Title'],
         ['h1', 'Heading 1'],
         ['h2', 'Heading 2'],
         ['h3', 'Heading 3'],

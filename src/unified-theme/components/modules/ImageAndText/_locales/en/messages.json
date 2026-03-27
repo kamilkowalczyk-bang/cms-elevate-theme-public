@@ -14,6 +14,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupImage.containerBackgroundImage.label": {
+    "message": "Container background image",
+    "description": "",
+    "placeholders": null
+  },
   "groupImage.imagePosition.label": {
     "message": "Image position",
     "description": "",
@@ -91,6 +96,66 @@
   },
   "groupContent.richTextContentHTML.default": {
     "message": "<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature. A couple of sentences here is just right.</p>",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.showCaption.label": {
+    "message": "Show caption",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.captionText.label": {
+    "message": "Caption",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.showList.label": {
+    "message": "Show list",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.listIcon.label": {
+    "message": "List icon",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.label": {
+    "message": "List items",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.0.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.1.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.2.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.default.3.groupListContent.listItemContent": {
+    "message": "Add a list item here.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.label": {
+    "message": "List items",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.listItemContent.label": {
+    "message": "Item",
+    "description": "",
+    "placeholders": null
+  },
+  "groupContent.groupListItems.groupListContent.listItemContent.default": {
+    "message": "Add a list item here.",
     "description": "",
     "placeholders": null
   },
@@ -179,6 +244,16 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupContent.contentBackgroundColor.label": {
+    "message": "Content background",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.contentBackgroundColor.help_text": {
+    "message": "Background color and opacity for the text column only.",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupContent.headingStyleVariant.label": {
     "message": "Heading style",
     "description": "",
@@ -224,8 +299,48 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupContent.headingUppercase.label": {
+    "message": "Uppercase heading",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupContent.verticalAlignment.label": {
     "message": "Vertical alignment",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.showContentDivider.label": {
+    "message": "Show divider",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerHorizontalAlignment.label": {
+    "message": "Divider and caption alignment",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.captionColor.label": {
+    "message": "Caption color",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.captionColor.help_text": {
+    "message": "Uses theme caption color for the selected text color (section) when opacity is 0%. Increase opacity to use a custom color.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.LEFT": {
+    "message": "Left",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.CENTER": {
+    "message": "Center",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.dividerHorizontalAlignment.horizontal_align.choices.RIGHT": {
+    "message": "Right",
     "description": "",
     "placeholders": null
   },
@@ -276,6 +391,21 @@
   },
   "groupStyle.groupButton.buttonStyleSize.choices.large": {
     "message": "Large",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupModule.label": {
+    "message": "Module",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupModule.showDropShadow.label": {
+    "message": "Drop shadow",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupModule.showRoundedCorners.label": {
+    "message": "Rounded corners",
     "description": "",
     "placeholders": null
   }

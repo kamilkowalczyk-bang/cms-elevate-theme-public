@@ -11,6 +11,7 @@ export const Component = (props: TestimonialSliderProps) => {
       hydrateOn="load"
       module={TestimonialSlider}
       moduleName={props.moduleName}
+      groupLayout={props.groupLayout}
       groupTestimonial={props.groupTestimonial}
       groupStyle={props.groupStyle}
       groupDefaultText={props.groupDefaultText}

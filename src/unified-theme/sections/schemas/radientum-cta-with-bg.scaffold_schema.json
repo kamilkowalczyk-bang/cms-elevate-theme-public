@@ -1,0 +1,43 @@
+[
+  {
+    "name": "background_image_url",
+    "type": "text",
+    "description": "Background image URL for the CTA section."
+  },
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "CTA heading text."
+  },
+  {
+    "name": "description_html",
+    "type": "text",
+    "description": "Rich text HTML for the CTA description."
+  },
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "Text shown on the CTA button."
+  },
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "URL for the CTA button."
+  },
+  {
+    "name": "button_size",
+    "type": "text",
+    "description": "Button size token (small/medium/large)."
+  },
+  {
+    "name": "padding_top",
+    "type": "text",
+    "description": "Top padding for the section (e.g. 200px)."
+  },
+  {
+    "name": "padding_bottom",
+    "type": "text",
+    "description": "Bottom padding for the section (e.g. 200px)."
+  }
+]
+

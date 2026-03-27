@@ -1,0 +1,152 @@
+.hs-elevate-elevated-heading__moduleWrapper {
+  position: relative;
+}
+
+.hs-elevate-elevated-heading__moduleWrapper--is-elevated {
+  z-index: 50;
+  transform: translateY(-64px);
+}
+
+@media (width < 767px) {
+  .hs-elevate-elevated-heading__moduleWrapper--is-elevated {
+    transform: translateY(-48px);
+  }
+}
+
+.hs-elevate-elevated-heading {
+  /* Outer wrapper styling from your screenshot */
+  box-shadow: 0 -48px 48px -24px rgba(0, 0, 0, 0.15);
+  /* background-color: set from module field (Style tab) via inline style */
+  border-radius: 8px;
+  padding-inline: var(--hsElevate--spacing--60, 60px);
+  padding-block: var(--hsElevate--spacing--60, 60px 24px);
+}
+
+.hs-elevate-elevated-heading__heading {
+  text-align: center;
+}
+
+.hs-elevate-elevated-heading__heading h1,
+.hs-elevate-elevated-heading__heading h2,
+.hs-elevate-elevated-heading__heading h3,
+.hs-elevate-elevated-heading__heading h4,
+.hs-elevate-elevated-heading__heading h5,
+.hs-elevate-elevated-heading__heading h6,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-1,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-2,
+.hs-elevate-elevated-heading__heading .hs-elevate-display-title,
+.hs-elevate-elevated-heading__heading .hs-elevate-h1,
+.hs-elevate-elevated-heading__heading .hs-elevate-h2,
+.hs-elevate-elevated-heading__heading .hs-elevate-h3,
+.hs-elevate-elevated-heading__heading .hs-elevate-h4,
+.hs-elevate-elevated-heading__heading .hs-elevate-h5,
+.hs-elevate-elevated-heading__heading .hs-elevate-h6 {
+  color: var(--hsElevate--heading__textColor);
+  font-weight: var(--hsElevate--heading__fontWeight, 900);
+  text-transform: var(--hsElevate--heading__textTransform, uppercase);
+}
+
+.hs-elevate-elevated-heading__introRichText {
+  margin-top: var(--hsElevate--spacing--16, 16px);
+  text-align: center;
+}
+
+.hs-elevate-elevated-heading__introRichText h1,
+.hs-elevate-elevated-heading__introRichText h2,
+.hs-elevate-elevated-heading__introRichText h3,
+.hs-elevate-elevated-heading__introRichText h4,
+.hs-elevate-elevated-heading__introRichText h5,
+.hs-elevate-elevated-heading__introRichText h6,
+.hs-elevate-elevated-heading__introRichText p,
+.hs-elevate-elevated-heading__introRichText li,
+.hs-elevate-elevated-heading__introRichText span,
+.hs-elevate-elevated-heading__introRichText div {
+  color: var(--hsElevate--richText__textColor);
+}
+
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button) {
+  color: var(--hsElevate--richText__linkColor);
+  -webkit-text-decoration: var(--hsElevate--richText__textDecoration);
+  text-decoration: var(--hsElevate--richText__textDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--richText__textDecorationColor);
+  text-decoration-color: var(--hsElevate--richText__textDecorationColor);
+}
+
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button):hover,
+.hs-elevate-elevated-heading__introRichText a:not(.hs-elevate-button):focus {
+  color: var(--hsElevate--richText__linkHoverColor);
+  -webkit-text-decoration: var(--hsElevate--richText__linkHoverTextDecoration);
+  text-decoration: var(--hsElevate--richText__linkHoverTextDecoration);
+  -webkit-text-decoration-color: var(--hsElevate--richText__linkHoverTextDecorationColor);
+  text-decoration-color: var(--hsElevate--richText__linkHoverTextDecorationColor);
+}
+
+.hs-elevate-elevated-heading__divider {
+  border: 0 none;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(82, 186, 209, 1.0);
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0;
+  margin-bottom: 24px;
+  width: 100px;
+}
+
+.hs-elevate-elevated-heading__cards {
+  margin-top: var(--hsElevate--spacing--24, 24px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+@media (width < 1000px) {
+  .hs-elevate-elevated-heading__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Keep two columns until the viewport cannot reasonably fit two tracks (section has 60px horizontal padding). */
+@media (width < 640px) {
+  .hs-elevate-elevated-heading {
+    padding-inline: var(--hsElevate--spacing--32, 32px);
+  }
+  .hs-elevate-elevated-heading__cards {
+    gap: var(--hsElevate--spacing--16, 16px);
+  }
+}
+
+@media (width < 400px) {
+  .hs-elevate-elevated-heading__cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hs-elevate-elevated-heading__card {
+  /* Override CardComponent variant visuals for this module */
+  border: none !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+.hs-elevate-elevated-heading__cardIcon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin-bottom: var(--hsElevate--spacing--12, 12px);
+}
+
+.hs-elevate-elevated-heading__cardTitle h4 {
+  margin: 0;
+}
+
+.hs-elevate-elevated-heading__cardTitle {
+  text-align: center;
+}
+
+/* Ensure the first h4 inside the repeater card is always uppercase. */
+.hs-elevate-elevated-heading__cardTitle h4:first-of-type {
+  text-transform: uppercase;
+}
+

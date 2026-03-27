@@ -17,6 +17,16 @@ export default function StyleFields() {
         required={true}
         default="circle"
       />
+      <ChoiceField
+        label="Border"
+        name="iconBorder"
+        choices={[
+          ['default', 'Default'],
+          ['none', 'None'],
+        ]}
+        required={true}
+        default="default"
+      />
       <ButtonStyle buttonStyleDefault="primary" buttonSizeDefault="medium" />
       <ChoiceField
         label="Gap"

@@ -1,7 +1,8 @@
 import {
   ModuleFields,
   FieldGroup,
-  TextAlignmentField
+  TextAlignmentField,
+  BooleanField,
 } from '@hubspot/cms-components/fields';
 import  {
   HeadingAndText,
@@ -28,6 +29,12 @@ export const fields = (
         default={{
           "text_align": "LEFT"
         }}
+      />
+      <BooleanField
+        label="Uppercase heading"
+        name="headingUppercase"
+        display="toggle"
+        default={false}
       />
     </FieldGroup>
   </ModuleFields>

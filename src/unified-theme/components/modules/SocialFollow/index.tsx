@@ -17,6 +17,7 @@ const swm = staticWithModule(styles);
 
 type ShapeOption = 'square' | 'rounded' | 'circle';
 type SizeOption = StandardSizeType;
+type BorderOption = 'default' | 'none';
 
 type SocialLink = {
   groupLink: {
@@ -51,6 +52,7 @@ type SocialFollowProps = {
     shape: ShapeOption;
     spaceBetweenIcons: StandardSizeType;
     alignment: AlignmentFieldType['default'];
+    iconBorder?: BorderOption;
   };
 };
 
@@ -188,6 +190,22 @@ function generateButtonStyles(buttonStyleVariant: ButtonStyleType): CSSPropertie
   };
 }
 
+function generateBorderOverrideCssVars(iconBorder?: BorderOption): CSSPropertiesMap {
+  if (iconBorder !== 'none') {
+    return {};
+  }
+
+  return {
+    '--hsElevate--socialFollowIcon__borderColor': 'transparent',
+    '--hsElevate--socialFollowIcon__borderWidth': '0',
+    '--hsElevate--socialFollowIcon__hover--borderColor': 'transparent',
+    '--hsElevate--socialFollowIcon__hover--borderWidth': '0',
+    '--hsElevate--socialFollowIcon__active--borderColor': 'transparent',
+    '--hsElevate--socialFollowIcon__active--borderWidth': '0',
+    '--hsElevate--socialFollowIcon__borderStyle': 'none',
+  };
+}
+
 // Components
 
 const SocialFollowContainer = createComponent('div');
@@ -281,7 +299,7 @@ export const Component = (props: SocialFollowProps) => {
   const {
     groupSocialLinks,
     groupDefaultText,
-    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment },
+    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment, iconBorder },
   } = props;
 
   const cssVarsMap = {
@@ -290,6 +308,7 @@ export const Component = (props: SocialFollowProps) => {
     ...generateIconGapCssVars(spaceBetweenIcons),
     ...generateAlignmentCssVars(alignment),
     ...generateButtonStyles(buttonStyleVariant),
+    ...generateBorderOverrideCssVars(iconBorder),
   };
 
   return (

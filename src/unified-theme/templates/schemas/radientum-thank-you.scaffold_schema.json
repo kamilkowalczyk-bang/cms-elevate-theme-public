@@ -1,0 +1,57 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Thank-you headline over the hero background (e.g. after form submit or download)."
+      }
+    ]
+  },
+  {
+    "name": "group_next_steps",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Subheading explaining what happens next (e.g. expert will be in touch)."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Rich guidance: what to expect, contact options, bullet list of meeting or follow-up points."
+      }
+    ]
+  },
+  {
+    "name": "group_contact_card",
+    "type": "group",
+    "children": [
+      {
+        "name": "region_caption",
+        "type": "text",
+        "description": "Short label for region or office (e.g. USA / Canada)."
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "description": "Team member name or title shown on the card."
+      },
+      {
+        "name": "role",
+        "type": "text",
+        "description": "Role or one-line description under the name."
+      },
+      {
+        "name": "photo",
+        "type": "image",
+        "description": "Portrait for the contact or team card.",
+        "width": "400",
+        "height": "400"
+      }
+    ]
+  }
+]

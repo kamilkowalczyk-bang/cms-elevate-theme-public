@@ -6,7 +6,7 @@
 {% set section_width_narrow = "768" %}
 {% set section_width_medium = "1120" %}
 {# This is set as the default in theme styles - no need to apply the value #}
-{% set section_width_wide = "1296" %}
+{% set section_width_wide = "1410" %}
 
 {% set section_vertical_spacing_extra_small = "48px" %}
 {% set section_vertical_spacing_small = "64px" %}

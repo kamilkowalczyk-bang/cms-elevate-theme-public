@@ -3,10 +3,186 @@
   TODO: Remove this file and its references from main.hubl.css
 */
 
+.hs-rad-footer {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 @media (width <= 767px) {
   .hs-elevate-footer .hs-elevate-menu {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
+}
+
+
+.hs-rad-footer .hs-logo-grid,
+.hs-rad-footer .hs-logo-grid__logo-wrapper {
+  justify-content: flex-start;
+}
+
+.hs-rad-footer-top {
+  padding: var(--hsElevate--section--medium__verticalPadding) 0;
+}
+
+.hs-rad-footer-top__inner {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 20px;
+  row-gap: 30px;
+  margin: 0 auto;
+  max-width: var(--hsElevate--contentWrapper--wide__maxWidth);
+  padding: 0 var(--hsElevate--section--horizontalPadding);
+}
+
+
+.hs-rad-footer-top__col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hs-rad-footer-top__col h1,
+.hs-rad-footer-top__col h2,
+.hs-rad-footer-top__col h3,
+.hs-rad-footer-top__col h4,
+.hs-rad-footer-top__col h5 {
+  margin-block: var(--hsElevate--text--small__margin);
+}
+
+.hs-rad-footer-top__col h6 {
+  margin-block: var(--hsElevate--text--extraSmall__margin);
+  font-weight: 700;
+  font-family: var(--hsElevate--body__font);
+  
+}
+.hs-rad-footer-top__col p {
+  margin-block: var(--hsElevate--text--extraSmall__margin);
+  font-weight: 300;
+  font-size: var(--hsElevate--body--small__fontSize);
+}
+
+.hs-rad-footer-top__col h4:first-of-type {
+  text-transform: uppercase;
+}
+
+.hs-rad-footer-top__col--logos {
+  gap: 24px;
+}
+
+.hs-rad-footer-bottom {
+  padding:  0 0 var(--hsElevate--section--medium__verticalPadding) 0;
+}
+
+.hs-rad-footer-bottom__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin: 0 auto;
+  max-width: var(--hsElevate--contentWrapper--wide__maxWidth);
+  padding: 0 var(--hsElevate--section--horizontalPadding);
+}
+
+#hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+
+/* Medium screens: logo full row, cols 2+3 on second row */
+@media (width <= 1024px) {
+  .hs-rad-footer-top__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "logo logo"
+      "address newsletter";
+  }
+
+  .hs-rad-footer-top__col--logos {
+    grid-area: logo;
+  }
+
+  .hs-rad-footer-top__inner > .hs-rad-footer-top__col:nth-of-type(2) {
+    grid-area: address;
+  }
+
+  .hs-rad-footer-top__inner > .hs-rad-footer-top__col:nth-of-type(3) {
+    grid-area: newsletter;
+  }
+}
+
+/* Small screens: stack all three columns in one column */
+@media (width <= 600px) {
+  .hs-rad-footer-top__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "logo"
+      "address"
+      "newsletter";
+  }
+
+  .hs-rad-footer-bottom__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (width <= 375px) {
+  #hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.hs-rad-footer-address,
+.hs-rad-footer-newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hs-rad-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.hs-rad-footer-legal a,
+.hs-rad-footer-legal span {
+  white-space: nowrap;
+}
+
+@media (width <= 767px) {
+  .hs-rad-footer-legal {
+    justify-content: flex-start;
+  }
+}
+
+/* Footer menu styling */
+.hs-rad-footer-menu .hs-menu-wrapper,
+.hs-rad-footer-menu .hs-menu-wrapper ul,
+.hs-rad-footer-menu .hs-menu-wrapper li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper a {
+  color: var(--hsElevate--color--base--2);
+  font-size: var(--hsElevate--body--small__fontSize);
+  text-decoration: none;
+}
+
+.hs-rad-footer-menu .hs-menu-wrapper a:hover,
+.hs-rad-footer-menu .hs-menu-wrapper a:focus {
+  text-decoration: none;
 }

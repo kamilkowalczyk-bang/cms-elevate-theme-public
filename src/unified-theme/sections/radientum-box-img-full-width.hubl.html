@@ -1,0 +1,98 @@
+<!--
+  templateType: section
+  label: Radientum full width image and text
+  isAvailableForNewContent: true
+  scaffoldSchemaPath: ./schemas/radientum-box-img-full-width.scaffold_schema.json
+  screenshotPath: ../images/section-previews/radientum-box-image-full-width.png
+  description: Section with image and text full width setup
+-->
+
+{# Section variables #}
+{% import "../helpers/variables.hubl.html" %}
+
+{% set default_background_color = "rgba(22, 28, 38, 1)" %}
+{% set background_color = context.background_color or scaffold_content.background_color or default_background_color %}
+
+{# Section #}
+{% dnd_section
+  background_color={{ background_color }},
+  full_width=true,
+  padding={
+    "default" : {
+      "bottom" : spacing_0,
+      "left" : spacing_0,
+      "right" : spacing_0,
+      "top" : spacing_0
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ImageAndText",
+        offset=0,
+        width=12,
+        groupButton={
+          "showButton" : true,
+          "buttonContentText" : context.button_text or scaffold_content.button_text or "Browse technologies",
+          "buttonContentLink": {
+            "url": {
+              "href": context.button_href or scaffold_content.button_href or "#"
+            },
+            "open_in_new_tab": true
+          }
+        },
+        groupContent={
+          "showList" : true,
+          "headingAndTextHeadingLevel": context.heading_level or scaffold_content.heading_level or "h2",
+          "headingAndTextHeading": context.heading or scaffold_content.heading or "Increase reach and engagement",
+          "richTextContentHTML": context.description or scaffold_content.description or "<p>Write a description highlighting the functionality, benefits, and uniqueness of your feature.</p>",
+          "groupListItems": [
+            { "groupListContent": { "listItemContent": context.list_item_1 or scaffold_content.list_item_1 or "Discovery workshops" } },
+            { "groupListContent": { "listItemContent": context.list_item_2 or scaffold_content.list_item_2 or "Prototyping and validation" } },
+            { "groupListContent": { "listItemContent": context.list_item_3 or scaffold_content.list_item_3 or "Production-ready design" } },
+            { "groupListContent": { "listItemContent": context.list_item_4 or scaffold_content.list_item_4 or "Ongoing optimization" } }
+          ]
+        },
+        groupImage={
+          "imagePosition": "left",
+          "containerBackgroundImage" : {
+            "alt" : context.image_bg_alt or scaffold_content.image_bg_alt or "ring_rad",
+            "height" : 694,
+            "loading" : "lazy",
+            "src" : context.image_bg_src or scaffold_content.image_bg_src or "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/ring_rad.png",
+            "width" : 1800
+          },
+          "image" : {
+            "alt" : context.main_image_alt or scaffold_content.main_image_alt or "",
+            "loading" : "lazy",
+            "src" : context.main_image_src or scaffold_content.main_image_src or ""
+          }
+        },
+        groupStyle={
+          "groupContent" : {
+            "sectionStyleVariant" : "section_variant_4",
+            "headingStyleVariant" : "h2",
+            "headingUppercase" : true,
+            "showContentDivider" : true,
+            "verticalAlignment" : {
+              "vertical_align" : "MIDDLE"
+            },
+            "dividerHorizontalAlignment" : {
+              "horizontal_align" : "LEFT"
+            }
+          },
+          "groupButton" : {
+            "buttonStyleVariant" : "primary",
+            "buttonStyleSize" : "medium"
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+

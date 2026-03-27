@@ -44,8 +44,23 @@
     "description": "",
     "placeholders": null
   },
+  "groupCards.groupImage.showRoundImageBorder.label": {
+    "message": "Round border around image",
+    "description": "",
+    "placeholders": null
+  },
   "groupCards.groupContent.label": {
     "message": "Content",
+    "description": "",
+    "placeholders": null
+  },
+  "groupCards.groupContent.showCaption.label": {
+    "message": "Show caption",
+    "description": "",
+    "placeholders": null
+  },
+  "groupCards.groupContent.captionText.label": {
+    "message": "Caption",
     "description": "",
     "placeholders": null
   },
@@ -181,6 +196,26 @@
   },
   "groupStyle.groupCard.cardOrientation.choices.row": {
     "message": "Row",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showIconBorder.label": {
+    "message": "Show icon border and background",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showIconBorder.help_text": {
+    "message": "When off, the card icon has no border and a transparent background so full-card or image backgrounds show through.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showCardShadow.label": {
+    "message": "Show card drop shadow",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupCard.showCardShadow.help_text": {
+    "message": "Adds a soft drop shadow around each card (the outer article element).",
     "description": "",
     "placeholders": null
   },

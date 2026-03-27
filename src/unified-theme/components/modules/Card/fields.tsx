@@ -6,7 +6,9 @@ import {
   ImageField,
   BooleanField,
   FieldGroup,
-  AdvancedVisibility
+  AdvancedVisibility,
+  TextField,
+  Visibility,
 } from '@hubspot/cms-components/fields';
 import {
   HeadingAndText,
@@ -24,6 +26,12 @@ const buttonFieldVisibility: AdvancedVisibility = {
     operator: 'EQUAL',
   }]
 } as const;
+
+const captionFieldsVisibility = {
+  controlling_field_path: 'groupCards.groupContent.showCaption',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
 
 export const fields = (
   <ModuleFields>
@@ -54,6 +62,7 @@ export const fields = (
             },
           },
           groupImage: {
+            showRoundImageBorder: false,
             image: {
               src: newsletterImage,
               alt: '',
@@ -61,6 +70,8 @@ export const fields = (
             },
           },
           groupContent: {
+            showCaption: false,
+            captionText: '',
             headingAndTextHeadingLevel: 'h3',
             headingAndTextHeading: 'Content Creation',
             richTextContentHTML:
@@ -115,8 +126,27 @@ export const fields = (
           }}
           inlineEditable={true}
         />
+        <BooleanField
+          label='Round border around image'
+          name='showRoundImageBorder'
+          display='toggle'
+          default={false}
+          visibility={{
+            controlling_field: 'imageOrIcon',
+            controlling_value_regex: 'image',
+            operator: 'EQUAL',
+          }}
+        />
       </FieldGroup>
       <FieldGroup label='Content' name='groupContent' display='inline' id='groupContent'>
+        <BooleanField label='Show caption' name='showCaption' display='toggle' default={false} />
+        <TextField
+          label='Caption'
+          name='captionText'
+          visibility={captionFieldsVisibility}
+          default=''
+          inlineEditable={true}
+        />
         <HeadingAndText headingTextLabel='Title' headingLevelDefault='h3' textDefault='Content Creation' />
         <RichTextContent
           label='Description'
@@ -134,6 +164,16 @@ export const fields = (
           textVisibility={buttonFieldVisibility}
           linkVisibility={buttonFieldVisibility}
           showIconVisibility={buttonFieldVisibility}
+        />
+      </FieldGroup>
+      <FieldGroup label='Card background' name='groupCardBackground' display='inline'>
+        <ImageField
+          label='Card background image'
+          name='image'
+          resizable={false}
+          responsive={false}
+          showLoading={true}
+          inlineEditable={true}
         />
       </FieldGroup>
     </RepeatedFieldGroup>

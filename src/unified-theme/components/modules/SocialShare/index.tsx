@@ -1,7 +1,7 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { Icon, usePageUrl } from '@hubspot/cms-components';
 import socialIconSvg from './assets/social-follow.svg';
-import { TextFieldType, AlignmentFieldType } from '@hubspot/cms-components/fields';
+import { TextFieldType, AlignmentFieldType, IconFieldType, ImageFieldType } from '@hubspot/cms-components/fields';
 import { StandardSizeType, ButtonStyleType } from '../../types/fields.js';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
 import { ButtonStyleFieldLibraryType } from '../../fieldLibrary/ButtonStyle/types.js';
@@ -16,6 +16,7 @@ const swm = staticWithModule(styles);
 
 type ShapeOption = 'square' | 'rounded' | 'circle';
 type SizeOption = StandardSizeType;
+type BorderOption = 'default' | 'none';
 
 type DefaultTextProps = {
   twitterLinkAriaLabel: TextFieldType['default'];
@@ -27,11 +28,20 @@ type DefaultTextProps = {
 
 type SocialShareProps = {
   platforms: ('twitter' | 'facebook' | 'linkedin' | 'pinterest' | 'email')[];
+  customPlatforms?: {
+    platformLabel?: TextFieldType['default'];
+    urlTemplate?: TextFieldType['default'];
+    ariaLabel?: TextFieldType['default'];
+    iconSource?: 'icon' | 'image';
+    icon?: IconFieldType['default'];
+    image?: ImageFieldType['default'];
+  }[];
   groupDefaultText: DefaultTextProps;
   groupStyle: ButtonStyleFieldLibraryType & {
     shape: ShapeOption;
     spaceBetweenIcons: StandardSizeType;
     alignment: AlignmentFieldType['default'];
+    iconBorder?: BorderOption;
   };
 };
 
@@ -159,6 +169,22 @@ function generateButtonStyles(buttonStyleVariant: ButtonStyleType): CSSPropertie
   };
 }
 
+function generateBorderOverrideCssVars(iconBorder?: BorderOption): CSSPropertiesMap {
+  if (iconBorder !== 'none') {
+    return {};
+  }
+
+  return {
+    '--hsElevate--socialShareIcon__borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__borderWidth': '0',
+    '--hsElevate--socialShareIcon__hover--borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__hover--borderWidth': '0',
+    '--hsElevate--socialShareIcon__active--borderColor': 'transparent',
+    '--hsElevate--socialShareIcon__active--borderWidth': '0',
+    '--hsElevate--socialShareIcon__borderStyle': 'none',
+  };
+}
+
 function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default']): CSSPropertiesMap {
   const alignmentCss = getAlignmentFieldCss(alignmentField);
 
@@ -171,6 +197,7 @@ function generateAlignmentCssVars(alignmentField: AlignmentFieldType['default'])
 
 const SocialShareContainer = createComponent('div');
 const SocialLink = createComponent('a');
+const SocialImage = createComponent('img');
 
 function getPlatformMetaData(socialLink: string, defaultText: DefaultTextProps) {
   const platformMetaData = {
@@ -204,11 +231,24 @@ function getPlatformMetaData(socialLink: string, defaultText: DefaultTextProps) 
   return platformMetaData[socialLink] || {};
 }
 
+function resolveCustomUrl(urlTemplate: string, currentUrl: string): string {
+  if (!urlTemplate) {
+    return '';
+  }
+
+  if (urlTemplate.includes('{{url}}')) {
+    return urlTemplate.replaceAll('{{url}}', encodeURIComponent(currentUrl));
+  }
+
+  return urlTemplate;
+}
+
 export const Component = (props: SocialShareProps) => {
   const {
     platforms,
+    customPlatforms = [],
     groupDefaultText,
-    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment },
+    groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment, iconBorder },
   } = props;
 
   const cssVarsMap = {
@@ -217,6 +257,7 @@ export const Component = (props: SocialShareProps) => {
     ...generateIconGapCssVars(spaceBetweenIcons),
     ...generateButtonStyles(buttonStyleVariant),
     ...generateAlignmentCssVars(alignment),
+    ...generateBorderOverrideCssVars(iconBorder),
   };
 
   const currentUrl = usePageUrl().href;
@@ -238,6 +279,43 @@ export const Component = (props: SocialShareProps) => {
             aria-label={platformMetaData.aria_label}
           >
             <Icon className={swm('hs-elevate-social-share__icon')} purpose="DECORATIVE" fieldPath={iconFieldPath} />
+          </SocialLink>
+        );
+      })}
+      {customPlatforms.map((platform, index) => {
+        const href = resolveCustomUrl(platform.urlTemplate || '', currentUrl);
+
+        if (!href) {
+          return null;
+        }
+
+        const ariaLabel = platform.ariaLabel || (platform.platformLabel ? `Share on ${platform.platformLabel}` : `Custom share ${index + 1}`);
+        const iconFieldPath = `customPlatforms[${index}].icon`;
+        const imageSrc = platform.image?.src;
+        const imageAlt = platform.image?.alt || platform.platformLabel || '';
+        const useImage = platform.iconSource === 'image' && Boolean(imageSrc);
+
+        return (
+          <SocialLink
+            className={swm('hs-elevate-social-share__link')}
+            key={`custom-${index}`}
+            href={href}
+            aria-label={ariaLabel}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {useImage ? (
+              <SocialImage
+                className={swm('hs-elevate-social-share__image')}
+                src={imageSrc}
+                alt={imageAlt}
+                width={platform.image?.width}
+                height={platform.image?.height}
+                loading={platform.image?.loading !== 'disabled' ? platform.image?.loading : 'lazy'}
+              />
+            ) : (
+              <Icon className={swm('hs-elevate-social-share__icon')} purpose="DECORATIVE" fieldPath={iconFieldPath} />
+            )}
           </SocialLink>
         );
       })}

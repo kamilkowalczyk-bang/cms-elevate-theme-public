@@ -1,0 +1,63 @@
+[
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Main heading shown above the image and text content."
+  },
+  {
+    "name": "description",
+    "type": "text",
+    "description": "Body description shown in the image and text module."
+  },
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "Call-to-action button text."
+  },
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "URL for the call-to-action button."
+  },
+  {
+    "name": "image_bg_src",
+    "type": "text",
+    "description": "Background image URL shown behind the left image column."
+  },
+  {
+    "name": "image_bg_alt",
+    "type": "text",
+    "description": "Alt text for the background image."
+  },
+  {
+    "name": "main_image_src",
+    "type": "text",
+    "description": "Optional foreground image URL rendered on top of the background (leave empty to hide)."
+  },
+  {
+    "name": "main_image_alt",
+    "type": "text",
+    "description": "Alt text for the optional foreground image."
+  },
+  {
+    "name": "list_item_1",
+    "type": "text",
+    "description": "First bullet item in the list."
+  },
+  {
+    "name": "list_item_2",
+    "type": "text",
+    "description": "Second bullet item in the list."
+  },
+  {
+    "name": "list_item_3",
+    "type": "text",
+    "description": "Third bullet item in the list."
+  },
+  {
+    "name": "list_item_4",
+    "type": "text",
+    "description": "Fourth bullet item in the list."
+  }
+]
+

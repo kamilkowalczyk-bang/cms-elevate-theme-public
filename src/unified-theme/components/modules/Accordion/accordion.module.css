@@ -4,6 +4,40 @@
   gap: var(--hsElevate--accordion__gap);
 }
 
+/* Card variant classes add a full box border; accordion items use only a bottom divider
+   while keeping theme colors, thickness, background, and link styles from the variant. */
+.hs-elevate-accordion:global(.hs-elevate-card--variant-1) {
+  border: 0;
+  border-bottom-width: var(--hsElevate--card--variant1__borderThickness);
+  border-bottom-style: solid;
+  border-bottom-color: var(--hsElevate--card--variant1__borderColor);
+  border-radius: 0;
+}
+
+.hs-elevate-accordion:global(.hs-elevate-card--variant-2) {
+  border: 0;
+  border-bottom-width: var(--hsElevate--card--variant2__borderThickness);
+  border-bottom-style: solid;
+  border-bottom-color: var(--hsElevate--card--variant2__borderColor);
+  border-radius: 0;
+}
+
+.hs-elevate-accordion:global(.hs-elevate-card--variant-3) {
+  border: 0;
+  border-bottom-width: var(--hsElevate--card--variant3__borderThickness);
+  border-bottom-style: solid;
+  border-bottom-color: var(--hsElevate--card--variant3__borderColor);
+  border-radius: 0;
+}
+
+.hs-elevate-accordion:global(.hs-elevate-card--variant-4) {
+  border: 0;
+  border-bottom-width: var(--hsElevate--card--variant4__borderThickness);
+  border-bottom-style: solid;
+  border-bottom-color: var(--hsElevate--card--variant4__borderColor);
+  border-radius: 0;
+}
+
 .hs-elevate-accordion__title {
   display: flex;
   padding-block: var(--hs-elevate--spacing--24, 24px);
@@ -16,7 +50,7 @@
 
 .hs-elevate-accordion__title-text {
   font-size: var(--hsElevate--body--large__fontSize);
-  font-weight: 600;
+  font-weight: 500;
   margin-inline-end: var(--hs-elevate--spacing--32, 32px);
 }
 

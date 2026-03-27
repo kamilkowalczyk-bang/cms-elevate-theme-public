@@ -1,0 +1,214 @@
+<!--
+  templateType: global_partial
+  subtype: footer
+  screenshotPath: ../../images/template-previews/partials/footer.png
+  label: footer Radientum
+-->
+
+{# Partial variables #}
+
+{% set template_translations = load_translations('../_locales', html_lang, 'en') %}
+{% import "../../helpers/variables.hubl.html" %}
+
+{# Partial #}
+
+<footer class="hs-elevate-footer hs-rad-footer" style="background: rgba({{ footer_rad_background_color|convert_rgb }}, {{ footer_rad_background_color_opacity / 100 }}) url({{ footer_rad_background_image }});">
+
+  {# Footer top (non-DnD, flex layout) #}
+
+  <div class="hs-elevate-footer hs-rad-footer hs-rad-footer-top">
+    <div class="hs-elevate-content-wrapper hs-rad-footer-top__inner">
+
+      {# Column 1: logo + badge logos #}
+      <div class="hs-rad-footer-top__col hs-rad-footer-top__col--logos">
+        {% module "rad_footer_logo"
+          path="@hubspot/logo",
+          horizontal_alignment="LEFT",
+          img={
+            "alt" : "Logo with antenna and text",
+            "height" : 150,
+            "loading" : "lazy",
+            "override_inherited_src" : true,
+            "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Logo%20with%20antenna%20and%20text.svg",
+            "suppress_company_name" : true,
+            "width" : 327
+          }
+        %}
+
+        {% module "rad_footer_logo_grid"
+          path="@hubspot/logo_grid",
+          styles={
+            "group_logo" : {
+              "max_logo_height" : 72
+            },
+            "group_logo_grid" : {
+              "column_count" : 3,
+              "grid_gap" : 12
+            }
+          },
+          group_logos=[
+            {
+              "logo" : {
+                "alt" : "nordic-design-partner",
+                "height" : 119,
+                "loading" : "lazy",
+                "max_height" : 119,
+                "max_width" : 91,
+                "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/nordic-design-partner.png",
+                "width" : 91
+              }
+            },
+            {
+              "logo" : {
+                "alt" : "finnish-service",
+                "height" : 173,
+                "loading" : "lazy",
+                "max_height" : 173,
+                "max_width" : 165,
+                "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/finnish-service.png",
+                "width" : 165
+              }
+            },
+            {
+              "logo" : {
+                "alt" : "asiakastieto-platinum",
+                "height" : 529,
+                "loading" : "lazy",
+                "max_height" : 529,
+                "max_width" : 600,
+                "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/asiakastieto-platinum.png",
+                "width" : 600
+              }
+            }
+          ]
+        %}
+      </div>
+
+      {# Column 2: address rich text #}
+      <div class="hs-rad-footer-top__col">
+        {% module_block module "rad_footer_address"
+          path="@projects/ElevateRadientumTheme/unified-theme/components/modules/RichText",
+          groupStyle={
+            "sectionStyleVariant" : "section_variant_4"
+          }
+        %}
+          {% module_attribute "richTextContentHTML" %}
+            <h4>Radientum</h4>
+            <h6>HQ – Tampere</h6>
+            <p>
+              Visiokatu 4<br>
+              33720 Tampere, Finland<br>
+              <a href="tel:+358 40 501 3535">+358 40 501 3535</a>
+            </p>
+            <h6>Design Office – Espoo</h6>
+            <p>Innopoli 2<br>
+            Tekniikantie 14<br> 
+            02150 Espoo, Finland</p>
+          {% end_module_attribute %}
+        {% end_module_block %}
+      </div>
+
+      {# Column 3: newsletter text + button #}
+      <div class="hs-rad-footer-top__col">
+        {% module_block module "rad_footer_newsletter"
+          path="@projects/ElevateRadientumTheme/unified-theme/components/modules/RichText",
+          groupStyle={
+            "sectionStyleVariant" : "section_variant_4"
+          }
+        %}
+          {% module_attribute "richTextContentHTML" %}
+            <h4>Newsletter</h4>
+            <p>
+              By subscribing, you’ll receive insights of interesting case studies
+              about customer’s projects, updates on our technologies and services,
+              latest news and trends in antenna industry, our special offers and
+              a lot more!
+            </p>
+          {% end_module_attribute %}
+        {% end_module_block %}
+
+        {% module "rad_footer_cta"
+          path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Button",
+          groupStyle={
+            "buttonStyleSize" : "small",
+            "gap" : "small"
+          }
+        %}
+      </div>
+
+    </div>
+  </div>
+
+{# footer bottom part end #}
+
+    {# Footer bottom #}
+
+    <div class="hs-elevate-footer hs-rad-footer hs-rad-footer-bottom">
+      <div class="hs-elevate-content-wrapper hs-rad-footer-bottom__inner">
+        <div class="hs-rad-footer-legal hs-rad-footer-menu">
+          {% module "rad_footer_menu"
+            path="@hubspot/menu",
+            id=208276805447,
+            flow="horizontal",
+            flyouts=false,
+            label="Footer Menu"
+          %}
+        </div>
+
+        {% module "rad_footer_social"
+          path="../../components/modules/SocialFollow",
+          groupSocialLinks=[
+            {
+              "groupLink": {
+                "link": {
+                  "url": {
+                    "href": "https://www.linkedin.com"
+                  },
+                  "open_in_new_window": true
+                }
+              },
+              "groupIcon": {
+                "customizeIcon": false,
+              }
+            },
+            {
+              "groupLink": {
+                "link": {
+                  "url": {
+                    "href": "https://www.facebook.com"
+                  },
+                  "open_in_new_window": true
+                }
+              },
+              "groupIcon": {
+                "customizeIcon": false,
+              }
+            },
+            {
+              "groupLink": {
+                "link": {
+                  "url": {
+                    "href": "https://www.twitter.com"
+                  },
+                  "open_in_new_window": true
+                }
+              },
+              "groupIcon": {
+                "customizeIcon": false,
+              }
+            }
+          ],
+          groupStyle={
+            "buttonStyleVariant": "secondary",
+            "iconBorder" : "none",
+            "shape" : "rounded",
+            "buttonStyleSize": "small",
+            "spaceBetweenIcons": "small",
+            "alignment": {
+              "horizontal_align": "CENTER"
+            }
+          }
+        %}
+      </div>
+    </div>
+</footer>

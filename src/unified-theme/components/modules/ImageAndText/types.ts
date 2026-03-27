@@ -1,4 +1,11 @@
-import { ImageFieldType, BooleanFieldType, AlignmentFieldType } from '@hubspot/cms-components/fields';
+import {
+  ImageFieldType,
+  BooleanFieldType,
+  AlignmentFieldType,
+  ColorFieldType,
+  IconFieldType,
+  TextFieldType,
+} from '@hubspot/cms-components/fields';
 import { ElementPositionType } from '../../types/fields.js';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
 import { ButtonStyleFieldLibraryType } from '../../fieldLibrary/ButtonStyle/types.js';
@@ -11,6 +18,7 @@ import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndTex
 export interface GroupImage {
   image?: ImageFieldType['default'];
   imagePosition: ElementPositionType;
+  containerBackgroundImage?: ImageFieldType['default'];
 }
 
 // Button group types
@@ -20,18 +28,42 @@ export interface GroupButton extends ButtonContentType {
 
 export type GroupButtonStyle = ButtonStyleFieldLibraryType;
 
+export type GroupContentListItem = {
+  groupListContent: {
+    listItemContent: TextFieldType['default'];
+  };
+};
+
 // Content group types
-export type GroupContent = RichTextContentFieldLibraryType & HeadingAndTextFieldLibraryType;
+export type GroupContent = RichTextContentFieldLibraryType &
+  HeadingAndTextFieldLibraryType & {
+    showCaption?: BooleanFieldType['default'];
+    captionText?: TextFieldType['default'];
+    showList?: BooleanFieldType['default'];
+    listIcon?: IconFieldType['default'];
+    groupListItems?: GroupContentListItem[];
+  };
 
 export type GroupContentStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     verticalAlignment: AlignmentFieldType['default'];
+    contentBackgroundColor?: ColorFieldType['default'];
+    captionColor?: ColorFieldType['default'];
+    headingUppercase?: BooleanFieldType['default'];
+    showContentDivider?: BooleanFieldType['default'];
+    dividerHorizontalAlignment?: AlignmentFieldType['default'];
   };
+
+export interface GroupModuleStyle {
+  showDropShadow?: BooleanFieldType['default'];
+  showRoundedCorners?: BooleanFieldType['default'];
+}
 
 // Style group types
 export interface GroupStyle {
   groupContent: GroupContentStyle;
   groupButton: GroupButtonStyle;
+  groupModule?: GroupModuleStyle;
 }
 
 // Main component props
@@ -61,5 +93,6 @@ export interface ImageAndTextOptions {
   styleOverrides?: {
     groupContent?: Partial<GroupContentStyle>;
     groupButton?: Partial<GroupButtonStyle>;
+    groupModule?: Partial<GroupModuleStyle>;
   };
 }

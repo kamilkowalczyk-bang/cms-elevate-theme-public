@@ -4,17 +4,17 @@
   height: auto;
   width: 100%;
   background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
-  padding-block: var(--hsElevate--spacing--24, 24px);
-  padding-inline: var(--hsElevate--spacing--48, 48px);
+  padding-block: var(--hsElevate--spacing--20, 20px);
+  padding-inline: var(--hsElevate--spacing--32, 32px);
 
-  @media (width <= 1100px) {
-    padding-inline: var(--hsElevate--spacing--32, 32px);
+  @media (width <= 1250px) {
+    padding-inline: var(--hsElevate--spacing--24, 24px);
   }
 }
 
 .hs-elevate-site-header--has-language-switcher {
-  @media (width <= 1215px) {
-    padding-inline: var(--hsElevate--spacing--32, 32px);
+  @media (width <= 1250px) {
+    padding-inline: var(--hsElevate--spacing--24, 24px);
   }
 }
 
@@ -27,7 +27,7 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--hsElevate--spacing--24, 24px);
+  gap: var(--hsElevate--spacing--16, 16px);
 }
 
 .hs-elevate-site-header__logo-container {
@@ -55,7 +55,7 @@
     }
 
     @media (width >= 900px) {
-      gap: var(--hsElevate--spacing--32, 32px);
+      gap: var(--hsElevate--spacing--16, 16px);
     }
   }
 
@@ -71,7 +71,9 @@
       text-decoration: none;
     }
 
-    a:hover {
+    a:hover,
+    :global(.hs-elevate-menu__menu-item-span:hover) {
+      /* stylelint-disable-line selector-pseudo-class-no-unknown */
       color: var(--hsElevate--siteHeader__hover--menuTextColor);
       text-decoration: none;
     }
@@ -96,7 +98,7 @@
 
       :global(.hs-elevate-menu__arrow-path) {
         /* stylelint-disable-line selector-pseudo-class-no-unknown */
-        fill: var(--hsElevate--siteHeader__menuTextColor);
+        fill: var(--hsElevate--siteHeader__menuArrowIconFill, var(--hsElevate--siteHeader__menuTextColor));
       }
     }
   }
@@ -111,6 +113,17 @@
     background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
   }
 
+  :global(.hs-elevate-menu__submenu.hs-elevate-menu__flyout-submenu) {
+    /* stylelint-disable-line selector-pseudo-class-no-unknown */
+    border-color: var(--hsElevate--siteHeader__menuAccentColor);
+    background-color: var(--hsElevate--siteHeader__flyoutBackgroundColor, var(--hsElevate--siteHeader__menuBackgroundColor));
+  }
+
+  :global(.hs-elevate-menu__submenu.hs-elevate-menu__flyout-submenu .hs-elevate-menu__menu-item-link-container) {
+    /* stylelint-disable-line selector-pseudo-class-no-unknown */
+    background-color: var(--hsElevate--siteHeader__menuBackgroundColor);
+  }
+
   [data-hs-elevate-menuitem-depth='1'] {
     > :global(.hs-elevate-menu__menu-item-link-container):hover {
       /* stylelint-disable-line selector-pseudo-class-no-unknown */
@@ -119,7 +132,7 @@
 
     li :global(.hs-elevate-menu__menu-item-link-container):hover {
       /* stylelint-disable-line selector-pseudo-class-no-unknown */
-      background-color: var(--hsElevate--siteHeader__menuAccentColor);
+      background-color: var(--hsElevate--siteHeader__flyoutItemHoverBackgroundColor, var(--hsElevate--siteHeader__menuAccentColor));
     }
 
     > ul {
@@ -134,7 +147,7 @@
       }
     }
 
-    @media (width <= 1100px) {
+    @media (width <= 1250px) {
       &:last-of-type {
         > ul {
           right: 0;
@@ -149,19 +162,19 @@
     }
   }
 
-  @media (width <= 1100px) {
+  @media (width <= 1250px) {
     display: none;
   }
 }
 
 .hs-elevate-site-header--has-language-switcher .hs-elevate-site-header__main-nav {
-  @media (width <= 1215px) {
+  @media (width <= 1250px) {
     display: none;
   }
 }
 
 .hs-elevate-site-header__language-switcher-container {
-  @media (width <= 1215px) {
+  @media (width <= 1250px) {
     display: none;
   }
 }
@@ -183,13 +196,28 @@
 .hs-elevate-site-header__mobile-menu-container {
   display: none;
 
-  @media (width <= 1100px) {
+  @media (width <= 1250px) {
     display: block;
   }
 }
 
 .hs-elevate-site-header--has-language-switcher .hs-elevate-site-header__mobile-menu-container {
-  @media (width <= 1215px) {
+  @media (width <= 1250px) {
     display: block;
+  }
+}
+
+/* Desktop ordering only: keep CTA button before language switcher */
+@media (width >= 1251px) {
+  .hs-elevate-site-header__main-nav {
+    order: 1;
+  }
+
+  .hs-elevate-site-header__button-container {
+    order: 2;
+  }
+
+  .hs-elevate-site-header__language-switcher-container {
+    order: 3;
   }
 }

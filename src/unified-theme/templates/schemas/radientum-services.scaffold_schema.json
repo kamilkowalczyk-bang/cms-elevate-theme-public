@@ -1,0 +1,140 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Small label in the hero (above the main hero heading)."
+      },
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Main hero headline (value proposition)."
+      }
+    ]
+  },
+  {
+    "name": "group_what_you_get",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the “What you get” block."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph for the “What you get” block."
+      }
+    ]
+  },
+  {
+    "name": "group_features",
+    "type": "group",
+    "children": [
+      {
+        "name": "feature_1_heading",
+        "type": "text",
+        "description": "First feature card heading."
+      },
+      {
+        "name": "feature_1_body",
+        "type": "text",
+        "description": "First feature card supporting text."
+      },
+      {
+        "name": "feature_2_heading",
+        "type": "text",
+        "description": "Second feature card heading."
+      },
+      {
+        "name": "feature_2_body",
+        "type": "text",
+        "description": "Second feature card supporting text."
+      },
+      {
+        "name": "feature_3_heading",
+        "type": "text",
+        "description": "Third feature card heading."
+      },
+      {
+        "name": "feature_3_body",
+        "type": "text",
+        "description": "Third feature card supporting text."
+      }
+    ]
+  },
+  {
+    "name": "group_testimonial",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the testimonial slider content (industry + credibility)."
+      }
+    ]
+  },
+  {
+    "name": "group_who_we_serve",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the “Who we serve” block."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph for the “Who we serve” block."
+      }
+    ]
+  },
+  {
+    "name": "group_trust",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the logo grid (credibility/trust)."
+      }
+    ]
+  },
+  {
+    "name": "group_cta_banner",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "CTA headline in the mid-page banner."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "CTA supporting copy."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "CTA button label."
+      }
+    ]
+  },
+  {
+    "name": "group_latest_activities",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the “Latest activities” section."
+      }
+    ]
+  }
+]

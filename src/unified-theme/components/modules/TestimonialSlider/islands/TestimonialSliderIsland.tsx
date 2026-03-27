@@ -1,14 +1,17 @@
 import { Splide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
+import { RichText } from '@hubspot/cms-components';
 import styles from '../testimonial-slider.module.css';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { createComponent } from '../../../utils/create-component.js';
 import { TestimonialLinkProps, TestimonialMetaProps, TestimonialProps, TestimonialSliderProps } from '../types.js';
-import { CardVariantType } from '../../../types/fields.js';
+import { CardVariantType, ElementPositionType } from '../../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../../utils/content-fields.js';
+import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { useEffect, useId, useState } from 'react';
 import { getCardVariantClassName } from '../../../utils/card-variants.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
+import { Button } from '../../../ButtonComponent/index.js';
 
 const swm = staticWithModule(styles);
 
@@ -168,7 +171,7 @@ const TestimonialMeta = (props: TestimonialMetaProps) => {
 
 // Testimonial slide content
 
-const SlideContainer = createComponent('blockquote');
+const SlideContainer = createComponent('div');
 const ImageContainer = createComponent('div');
 const TestimonialImage = createComponent('img');
 const ContentContainer = createComponent('div');
@@ -218,6 +221,78 @@ const Testimonial = (props: TestimonialProps) => {
   );
 };
 
+// Info slide content (rich text)
+
+const InfoContentWrapper = createComponent('div');
+const InfoButtonContainer = createComponent('div');
+
+type InfoContentProps = {
+  moduleName?: string;
+  index: number;
+  richTextContentHTML?: string;
+};
+
+const InfoContent = ({ moduleName, index, richTextContentHTML }: InfoContentProps) => {
+  const cssVarsMap = generateAlignmentCSSVars(true);
+  const fieldPath = `groupTestimonial[${index}].groupInfoContent.richTextContentHTML`;
+
+  return (
+    <InfoContentWrapper
+      className={swm('hs-elevate-testimonial-slider__info-content')}
+      style={cssVarsMap}
+    >
+      {richTextContentHTML && (
+        <RichText
+          fieldPath={fieldPath}
+          className={swm('hs-elevate-testimonial-slider__info-rich-text')}
+          data-hs-token={getDataHSToken(moduleName, fieldPath)}
+        />
+      )}
+    </InfoContentWrapper>
+  );
+};
+
+type InfoButtonProps = {
+  moduleName?: string;
+  index: number;
+  button?: {
+    showButton?: boolean;
+    buttonContentText?: TestimonialLinkProps['linkText'];
+    buttonContentLink?: TestimonialLinkProps['link'];
+    buttonContentShowIcon?: boolean;
+    buttonContentIconPosition?: ElementPositionType;
+  };
+};
+
+const InfoButton = ({ moduleName, index, button }: InfoButtonProps) => {
+  if (!button?.showButton) {
+    return null;
+  }
+
+  const href = getLinkFieldHref(button.buttonContentLink);
+  const rel = getLinkFieldRel(button.buttonContentLink);
+  const target = getLinkFieldTarget(button.buttonContentLink);
+
+  return (
+    <InfoButtonContainer className={swm('hs-elevate-testimonial-slider__info-button-container')}>
+      <Button
+        buttonStyle="primary"
+        buttonSize="medium"
+        href={href}
+        rel={rel}
+        target={target}
+        showIcon={button.buttonContentShowIcon}
+        iconFieldPath={`groupTestimonial[${index}].groupInfoButton.buttonContentIcon`}
+        iconPosition={button.buttonContentIconPosition}
+        moduleName={moduleName}
+        textFieldPath={`groupTestimonial[${index}].groupInfoButton.buttonContentText`}
+      >
+        {button.buttonContentText}
+      </Button>
+    </InfoButtonContainer>
+  );
+};
+
 // Testimonial slider component
 
 // Function to generate CSS variables for colors
@@ -264,10 +339,13 @@ const TestimonialSliderContainer = createComponent('div');
 const TestimonialSlider = (props: TestimonialSliderProps) => {
   const {
     moduleName,
+    groupLayout,
     groupTestimonial,
-    groupStyle: { cardStyleVariant },
+    groupStyle: { cardStyleVariant, showTestimonialDropShadow, showTestimonialQuoteBoldUppercase },
     groupDefaultText,
   } = props;
+
+  const layoutType = groupLayout?.layoutType ?? 'testimonial';
 
   const cssVarsMap = {
     ...generateIconColorCssVar(cardStyleVariant),
@@ -284,9 +362,21 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
 
   const hasMultipleTestimonials = groupTestimonial.length > 1;
   const cardVariantClassName = getCardVariantClassName({ cardVariant: cardStyleVariant, fallbackCardVariant: 'card_variant_1' });
+  const isInfoLayout = layoutType === 'info';
+  const showArrows =
+    hasMultipleTestimonials && (!isInfoLayout || groupLayout?.showInfoArrows !== false);
 
   return (
-    <TestimonialSliderContainer style={cssVarsMap} className={cx(swm('hs-elevate-testimonial-slider'), cardVariantClassName)}>
+    <TestimonialSliderContainer
+      style={cssVarsMap}
+      className={cx(swm('hs-elevate-testimonial-slider'), cardVariantClassName, {
+        [styles['hs-elevate-testimonial-slider--info']]: isInfoLayout,
+        [styles['hs-elevate-testimonial-slider--drop-shadow']]:
+          !isInfoLayout && showTestimonialDropShadow === true,
+        [styles['hs-elevate-testimonial-slider--quote-bold-uppercase']]:
+          !isInfoLayout && showTestimonialQuoteBoldUppercase === true,
+      })}
+    >
       <Splide
         className={swm('hs-elevate-testimonial-slider__slider')}
         hasTrack={false}
@@ -294,7 +384,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           lazyLoad: true,
           rewind: true,
           direction: htmlDirection,
-          arrows: hasMultipleTestimonials,
+          arrows: showArrows,
           pagination: hasMultipleTestimonials,
           i18n: {
             // https://splidejs.com/guides/i18n/
@@ -312,22 +402,52 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
       >
         <div className="splide__track hs-elevate-testimonial-slider__track">
           <div className="splide__list hs-elevate-testimonial-slider__list">
-            {groupTestimonial.map((testimonial, index) => (
-              <div className="splide__slide hs-elevate-testimonial-slider__slide" key={testimonial.groupQuote.quote}>
-                <Testimonial
-                  moduleName={moduleName}
-                  testimonialIndex={index}
-                  quote={testimonial.groupQuote.quote}
-                  authorName={testimonial.groupAuthor.authorName}
-                  authorTitle={testimonial.groupAuthor.authorTitle}
-                  authorImage={testimonial.groupAuthor.authorImage}
-                  showImage={testimonial.groupImage.showImage}
-                  image={testimonial.groupImage.image}
-                  linkText={testimonial.groupLink.linkText}
-                  link={testimonial.groupLink.link}
-                />
-              </div>
-            ))}
+            {groupTestimonial.map((testimonial, index) => {
+              const infoImage = layoutType === 'info' ? testimonial.groupInfoImage?.image : undefined;
+              const hasInfoBackground = layoutType === 'info' && Boolean(infoImage?.src);
+              const slideStyle =
+                hasInfoBackground
+                  ? {
+                      backgroundImage: `url(${infoImage.src})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }
+                  : undefined;
+
+              return (
+                <div
+                  className={cx('splide__slide', 'hs-elevate-testimonial-slider__slide', {
+                    [styles['hs-elevate-testimonial-slider__slide--info-has-bg']]: hasInfoBackground,
+                  })}
+                  style={slideStyle}
+                  key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
+                >
+                  {layoutType === 'info' ? (
+                    <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
+                      <InfoContent
+                        moduleName={moduleName}
+                        index={index}
+                        richTextContentHTML={testimonial.groupInfoContent?.richTextContentHTML}
+                      />
+                      <InfoButton moduleName={moduleName} index={index} button={testimonial.groupInfoButton} />
+                    </ContentContainer>
+                  ) : (
+                    <Testimonial
+                      moduleName={moduleName}
+                      testimonialIndex={index}
+                      quote={testimonial.groupQuote.quote}
+                      authorName={testimonial.groupAuthor?.authorName}
+                      authorTitle={testimonial.groupAuthor?.authorTitle}
+                      authorImage={testimonial.groupAuthor?.authorImage}
+                      showImage={testimonial.groupImage?.showImage}
+                      image={testimonial.groupImage?.image}
+                      linkText={testimonial.groupLink?.linkText}
+                      link={testimonial.groupLink?.link}
+                    />
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
         {hasMultipleTestimonials && <Navigation previousAltText={groupDefaultText.previousArrowAltText} nextAltText={groupDefaultText.nextArrowAltText} />}

@@ -1,6 +1,12 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { Icon, RichText } from '@hubspot/cms-components';
-import { AlignmentFieldType, BooleanFieldType, IconFieldType, ImageFieldType } from '@hubspot/cms-components/fields';
+import {
+  AlignmentFieldType,
+  BooleanFieldType,
+  IconFieldType,
+  ImageFieldType,
+  TextFieldType,
+} from '@hubspot/cms-components/fields';
 import { ButtonStyleType, StandardSizeType } from '../../types/fields.js';
 import cardIconSvg from './assets/card-icon-temp.svg';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
@@ -32,11 +38,16 @@ type IconGroup = {
 type ImageGroup = {
   groupImage: {
     image: ImageFieldType['default'];
+    showRoundImageBorder?: BooleanFieldType['default'];
   };
 };
 
 type ContentGroup = {
-  groupContent: RichTextContentFieldLibraryType & HeadingAndTextFieldLibraryType;
+  groupContent: RichTextContentFieldLibraryType &
+    HeadingAndTextFieldLibraryType & {
+      showCaption?: BooleanFieldType['default'];
+      captionText?: TextFieldType['default'];
+    };
 };
 
 type ButtonGroup = {
@@ -45,17 +56,27 @@ type ButtonGroup = {
   };
 };
 
-type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup;
+type CardBackgroundGroup = {
+  groupCardBackground: {
+    image: ImageFieldType['default'];
+  };
+};
+
+type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup & Partial<CardBackgroundGroup>;
 
 type GroupCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
     cardOrientation: 'row' | 'column';
+    showIconBorder?: BooleanFieldType['default'];
+    showCardShadow?: BooleanFieldType['default'];
+    showCardBorder?: BooleanFieldType['default'];
   };
 };
 
 type GroupContentStyles = {
   groupContent: HeadingStyleFieldLibraryType & {
     alignment: AlignmentFieldType['default'];
+    headingUppercase?: BooleanFieldType['default'];
   };
 };
 
@@ -128,6 +149,14 @@ function imageShouldUseBackground(imagePath: string): boolean {
   return /-use-background-/.test(imagePath);
 }
 
+function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | undefined): string | undefined {
+  const src = image?.src;
+  if (typeof src !== 'string' || !src.trim()) {
+    return undefined;
+  }
+  return src;
+}
+
 // Components
 
 const CardContainer = createComponent('div');
@@ -136,6 +165,7 @@ const ImageWrapper = createComponent('div');
 const Image = createComponent('img');
 const CardContent = createComponent('div');
 const ButtonWrapper = createComponent('div');
+const Caption = createComponent('p');
 
 export const Component = (props: CardProps) => {
   const {
@@ -143,8 +173,14 @@ export const Component = (props: CardProps) => {
     imageOrIcon,
     groupCards,
     groupStyle: {
-      groupCard: { cardStyleVariant, cardOrientation },
-      groupContent: { alignment, headingStyleVariant },
+      groupCard: {
+        cardStyleVariant,
+        cardOrientation,
+        showIconBorder = true,
+        showCardShadow = false,
+        showCardBorder = true,
+      },
+      groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
     hublData: { renderedWithGrids = false },
@@ -182,19 +218,51 @@ export const Component = (props: CardProps) => {
         const hasValidIconName = card?.groupIcon?.icon?.name;
         const isIconVisible = isIcon && hasValidIconName;
 
+        const cardBackgroundSrc = getCardBackgroundImageSrc(card.groupCardBackground?.image);
+        const hasCardBackgroundImage = Boolean(cardBackgroundSrc);
+
         const cardClasses = cx('hs-elevate-card-container__card', styles[`hs-elevate-card-container__card--${cardOrientation}`], {
           [styles['hs-elevate-card-container__card--no-button']]: !showButton,
+          [styles['hs-elevate-card-container__card--bg-image']]: hasCardBackgroundImage,
+          [styles['hs-elevate-card-container__card--drop-shadow']]: showCardShadow,
         });
+
+        const cardSurfaceStyles: CSSPropertiesMap | undefined = (() => {
+          const stylesMap: CSSPropertiesMap = {};
+          if (hasCardBackgroundImage) {
+            stylesMap.backgroundImage = `url(${cardBackgroundSrc})`;
+          }
+          if (showCardBorder === false) {
+            stylesMap.border = 'none';
+          }
+          return Object.keys(stylesMap).length ? stylesMap : undefined;
+        })();
+
+        const showRoundImageBorder = card.groupImage.showRoundImageBorder === true;
 
         const imageWrapperClasses = cx(swm('hs-elevate-card-container__image-wrapper'), {
           [styles['hs-elevate-card-container__image-wrapper--use-background']]: cardImageUsesBackground,
+          [styles['hs-elevate-card-container__image-wrapper--round-border']]:
+            isImageVisible && showRoundImageBorder,
         });
 
         return (
-          <Card additionalClassArray={[cardClasses]} key={index} cardStyleVariant={cardStyleVariant} cardOrientation={cardOrientation}>
+          <Card
+            additionalClassArray={[cardClasses]}
+            key={index}
+            cardStyleVariant={cardStyleVariant}
+            cardOrientation={cardOrientation}
+            inlineStyles={cardSurfaceStyles}
+          >
             {isIconVisible && (
               <IconWrapper className={swm('hs-elevate-card-container__icon-wrapper')}>
-                <Icon className={swm('hs-elevate-card-container__icon')} purpose="DECORATIVE" fieldPath={`groupCards[${index}].groupIcon.icon`} />
+                <Icon
+                  className={cx(swm('hs-elevate-card-container__icon'), {
+                    [styles['hs-elevate-card-container__icon--no-frame']]: !showIconBorder,
+                  })}
+                  purpose="DECORATIVE"
+                  fieldPath={`groupCards[${index}].groupIcon.icon`}
+                />
               </IconWrapper>
             )}
             {isImageVisible && (
@@ -211,13 +279,23 @@ export const Component = (props: CardProps) => {
               </ImageWrapper>
             )}
             <CardContent className={swm('hs-elevate-card-container__content')}>
+              {card.groupContent.showCaption === true && Boolean(card.groupContent.captionText?.trim()) && (
+                <Caption
+                  className={swm('hs-elevate-card-container__caption')}
+                  style={{ textAlign: textAlignment }}
+                  data-hs-token={getDataHSToken(moduleName, `groupCards[${index}].groupContent.captionText`)}
+                >
+                  {card.groupContent.captionText}
+                </Caption>
+              )}
               {card.groupContent.headingAndTextHeading && (
                 <HeadingComponent
                   headingLevel={card.groupContent.headingAndTextHeadingLevel}
                   heading={card.groupContent.headingAndTextHeading}
                   headingStyleVariant={headingStyleVariant}
                   inlineStyles={headingInlineStyles}
-                  additionalClassArray={['hs-elevate-card-container__title']}
+                  headingUppercase={headingUppercase}
+                  additionalClassArray={[swm('hs-elevate-card-container__title')]}
                   moduleName={moduleName}
                   fieldPath={`groupCards[${index}].groupContent.headingAndTextHeading`}
                 />

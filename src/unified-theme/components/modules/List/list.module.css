@@ -18,10 +18,11 @@
   margin-block-end: 0;
 }
 
-.hs-elevate-list-container__icon-container {
+/* dont want this - list with icon only */
+/* .hs-elevate-list-container__icon-container {
   border-radius: 100%;
   background: var(--hsElevate--list__accentColor);
-}
+} */
 
 .hs-elevate-list-container__icon {
   display: block;
@@ -29,5 +30,5 @@
   width: 1.75rem;
   padding: var(--hsElevate--spacing--8, 8px);
   flex: 0 0 1.75rem;
-  fill: var(--hsElevate--list__sectionBackgroundColor);
+  fill: var(--hsElevate--list__accentColor);
 }

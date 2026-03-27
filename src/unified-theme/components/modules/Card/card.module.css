@@ -47,6 +47,11 @@
   fill: var(--hsElevate--cardIcon__fillColor);
 }
 
+.hs-elevate-card-container__icon--no-frame {
+  background-color: transparent;
+  border: none;
+}
+
 .hs-elevate-card-container__image-wrapper {
   display: flex;
   overflow: hidden;
@@ -83,6 +88,25 @@
   background-color: var(--hsElevate--cardIcon__backgroundColor);
 }
 
+/* Per-card optional round frame for Cards > Image only (not icon, not card background image) */
+.hs-elevate-card-container__image-wrapper--round-border {
+  box-sizing: border-box;
+  border: 0.5px solid transparent;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: min(250px, 100%);
+  max-width: min(250px, 100%);
+}
+
+.hs-elevate-card-container__image-wrapper--round-border img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  min-width: 0;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
 .hs-elevate-card-container__content {
   display: flex;
   flex-direction: column;
@@ -91,6 +115,22 @@
   &:last-child {
     margin-block-end: 0;
   }
+}
+.hs-elevate-card-container__caption {
+  margin: 0 0 var(--hsElevate--spacing--16, 16px);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  color: var(--hsElevate--captions__fontColor, var(--hsElevate--section--lightSection--1__captionColor));
+}
+
+/* Card title only — does not target headings inside Rich Text body */
+.hs-elevate-card-container__title {
+  font-weight: 900;
 }
 
 @media (width >= 1000px) {
@@ -110,4 +150,16 @@
 
 .hs-elevate-card-container__button-wrapper {
   align-self: var(--hsElevate--card__alignment);
+}
+
+/* Full-card background from Designer BackgroundImageField: cover, no-repeat, center */
+.hs-elevate-card-container__card--bg-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Applied on Card module’s <article> via additionalClassArray (shared CardComponent) */
+.hs-elevate-card-container__card--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.6);
 }

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "button_text",
+    "type": "text",
+    "description": "CTA button text."
+  },
+  {
+    "name": "button_href",
+    "type": "text",
+    "description": "CTA button URL."
+  },
+  {
+    "name": "caption_text",
+    "type": "text",
+    "description": "Card caption text."
+  },
+  {
+    "name": "heading",
+    "type": "text",
+    "description": "Card heading text."
+  },
+  {
+    "name": "description_rich_text_html",
+    "type": "text",
+    "description": "Card description rich text HTML."
+  },
+  {
+    "name": "image_alt",
+    "type": "text",
+    "description": "Image alt text."
+  },
+  {
+    "name": "image_src",
+    "type": "text",
+    "description": "Image URL."
+  }
+]
+

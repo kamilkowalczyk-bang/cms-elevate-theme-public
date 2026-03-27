@@ -93,35 +93,42 @@
   --hsElevate--display2__font: {{ base_font.font }};
   --hsElevate--display2__fontSize: 4.75rem;
 
+
   --hsElevate--h1__font: {{ headings.group_heading_1.font.font }};
   --hsElevate--h1__fontSize: {{ headings.group_heading_1.font.size / base_size ~ "rem" }};
   --hsElevate--h1__fontWeight: {{ headings.group_heading_1.font.styles["font-weight"] }};
   --hsElevate--h1__fontStyle: {{ headings.group_heading_1.font.styles["font-style"] }};
+  --hsElevate--h1__case: {{ headings.group_heading_1.case }};
 
   --hsElevate--h2__font: {{ headings.group_heading_2.font.font }};
   --hsElevate--h2__fontSize: {{ headings.group_heading_2.font.size / base_size ~ "rem" }};
   --hsElevate--h2__fontWeight: {{ headings.group_heading_2.font.styles["font-weight"] }};
   --hsElevate--h2__fontStyle: {{ headings.group_heading_2.font.styles["font-style"] }};
+  --hsElevate--h2__case: {{ headings.group_heading_2.case }};
 
   --hsElevate--h3__font: {{ headings.group_heading_3.font.font }};
   --hsElevate--h3__fontSize: {{ headings.group_heading_3.font.size / base_size ~ "rem" }};
   --hsElevate--h3__fontWeight: {{ headings.group_heading_3.font.styles["font-weight"] }};
   --hsElevate--h3__fontStyle: {{ headings.group_heading_3.font.styles["font-style"] }};
+  --hsElevate--h3__case: {{ headings.group_heading_3.case }};
 
   --hsElevate--h4__font: {{ headings.group_heading_4.font.font }};
   --hsElevate--h4__fontSize: {{ headings.group_heading_4.font.size / base_size ~ "rem" }};
   --hsElevate--h4__fontWeight: {{ headings.group_heading_4.font.styles["font-weight"] }};
   --hsElevate--h4__fontStyle: {{ headings.group_heading_4.font.styles["font-style"] }};
+  --hsElevate--h4__case: {{ headings.group_heading_4.case }};
 
   --hsElevate--h5__font: {{ headings.group_heading_5.font.font }};
   --hsElevate--h5__fontSize: {{ headings.group_heading_5.font.size / base_size ~ "rem" }};
   --hsElevate--h5__fontWeight: {{ headings.group_heading_5.font.styles["font-weight"] }};
   --hsElevate--h5__fontStyle: {{ headings.group_heading_5.font.styles["font-style"] }};
+  --hsElevate--h5__case: {{ headings.group_heading_5.case }};
 
   --hsElevate--h6__font: {{ headings.group_heading_6.font.font }};
   --hsElevate--h6__fontSize: {{ headings.group_heading_6.font.size / base_size ~ "rem" }};
   --hsElevate--h6__fontWeight: {{ headings.group_heading_6.font.styles["font-weight"] }};
   --hsElevate--h6__fontStyle: {{ headings.group_heading_6.font.styles["font-style"] }};
+  --hsElevate--h6__case: {{ headings.group_heading_6.case }};
 
 
   /* Quotes */
@@ -143,7 +150,6 @@
     /* Display titles */
 
   --hsElevate--displayTitles__font: {{ display_titles.font.font }};
-  --hsElevate--displayTitles__fontColor: {{ display_titles.font.color }};
   --hsElevate--displayTitles__fontSize: {{ display_titles.font.size / base_size ~ "rem" }};
   --hsElevate--displayTitles__fontWeight: {{ display_titles.font.styles["font-weight"] }};
   --hsElevate--displayTitles__fontStyle: {{ display_titles.font.styles["font-style"] }};

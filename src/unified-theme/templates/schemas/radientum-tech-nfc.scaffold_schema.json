@@ -1,0 +1,134 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Short label above the hero headline (e.g. technology or product line)."
+      },
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Primary hero headline (value proposition for NFC or related technology)."
+      },
+      {
+        "name": "hero_image",
+        "type": "image",
+        "description": "Full-width hero background image.",
+        "width": "1600",
+        "height": "870"
+      }
+    ]
+  },
+  {
+    "name": "group_what_you_get",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Section heading for the benefits or outcomes block."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Introductory paragraph under the heading, centered."
+      }
+    ]
+  },
+  {
+    "name": "group_nfc_layout",
+    "type": "group",
+    "children": [
+      {
+        "name": "intro",
+        "type": "text",
+        "description": "Left column copy introducing NFC design services (headline and body in RichText module)."
+      },
+      {
+        "name": "features_note",
+        "type": "text",
+        "description": "Context for the feature list items in the right column (benefits, capabilities)."
+      }
+    ]
+  },
+  {
+    "name": "group_case_accordion",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for repeated case study + accordion two-column sections (problems, proof, FAQs)."
+      }
+    ]
+  },
+  {
+    "name": "group_cta_banner",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Headline on the mid-page CTA with background image."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting copy under the CTA headline."
+      }
+    ]
+  },
+  {
+    "name": "group_case_highlight",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Case study or reference project title in the ImageAndText card."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Short description of the reference project."
+      },
+      {
+        "name": "case_image",
+        "type": "image",
+        "description": "Visual for the parking / NFC case study card.",
+        "width": "400",
+        "height": "200"
+      }
+    ]
+  },
+  {
+    "name": "group_who_we_serve",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Section headline for the “Who we serve” blocks."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph, centered."
+      }
+    ]
+  },
+  {
+    "name": "group_card_rows",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for card grid sections (services, industries, or offers shown as cards)."
+      }
+    ]
+  }
+]

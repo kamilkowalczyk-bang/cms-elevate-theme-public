@@ -95,3 +95,9 @@
   opacity: 1;
   visibility: visible;
 }
+
+@media (width >= 1000px) {
+  :global(.hs-elevate-language-switcher__current-language) {
+    display: none;
+  }
+}

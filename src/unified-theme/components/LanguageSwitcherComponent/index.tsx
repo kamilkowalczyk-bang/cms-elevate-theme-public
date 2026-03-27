@@ -10,7 +10,7 @@ import { shouldDisplayLanguageSwitcher, getLanguageDisplayName, createTranslatio
 import LanguageOptions from './LanguageOptions.jsx';
 import { LanguageSwitcherProps } from '../types/language.js';
 import { useState, MouseEvent as ReactMouseEvent, useMemo } from 'react';
-import { useLanguageVariants, Icon } from '@hubspot/cms-components';
+import { useLanguageVariants } from '@hubspot/cms-components';
 import { useIsInEditor } from '../hooks/useIsInEditor.js';
 import GlobeIcon from './assets/Globe.js';
 import useDocumentLang from '../hooks/useDocumentLang.js';
@@ -65,11 +65,10 @@ const LanguageSwitcherIsland = (props: LanguageSwitcherProps) => {
     textColor = 'var(--hsElevate--section--lightSection--1__textColor)',
     textColorHover = 'var(--hsElevate--section--lightSection--1__textColor)',
     languageSwitcherSelectText = 'Select a language',
-    langSwitcherIconFieldPath,
   } = props;
   const isInEditor = useIsInEditor();
 
-  const langSwitcherIcon = langSwitcherIconFieldPath ? <Icon fieldPath={langSwitcherIconFieldPath} /> : <GlobeIcon />;
+  const langSwitcherIcon = <GlobeIcon />;
 
   const handleContainerClick = (e: ReactMouseEvent<HTMLElement>) => {
     e.stopPropagation();

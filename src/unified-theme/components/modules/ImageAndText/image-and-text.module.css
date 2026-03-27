@@ -2,23 +2,58 @@
   display: flex;
   flex-direction: column;
   align-items: var(--hsElevate--imageAndText__alignItems, center);
-  justify-content: space-between;
-  -moz-column-gap: var(--hsElevate--spacing--80, 80px);
-  column-gap: var(--hsElevate--spacing--80, 80px);
+  /* space-between can separate image + text when a parent stretches the module vertically */
+  justify-content: flex-start;
+  -moz-column-gap: 0;
+  column-gap: 0;
 
   @media (width >= 767px) {
-    flex-direction: row;
+    /* Equal-width columns; flex + rich text min-content was skewing the content track */
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+    column-gap: 0;
+    row-gap: 0;
   }
 }
 
+.hs-elevate-image-and-text--drop-shadow {
+  box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.6);
+}
+
+/* Match Card-style rounding: theme token + clip children + hairline border for clean edges */
+.hs-elevate-image-and-text--rounded-corners {
+  box-sizing: border-box;
+  border: 0.5px solid transparent;
+  border-radius: var(--hsElevate-rounded, 16px);
+  overflow: hidden;
+}
+
 .hs-elevate-image-and-text__image-container {
-  margin-block-end: var(--hsElevate--spacing--32, 32px);
+  /* Column layout: parent align-items can be "center" (from vertical alignment field),
+     which would shrink this box to content width — invisible background-only column on mobile */
+  align-self: stretch;
+  width: 100%;
+  /* No gutter below image on stacked layout (parent column-gap is 0) */
+  margin-block-end: 0;
 
   @media (width >= 767px) {
-    width: 55%;
+    min-width: 0;
+    width: auto;
+    max-width: 100%;
     order: var(--hsElevate--imageAndText__order, 0);
     margin-block-end: 0;
   }
+}
+
+.hs-elevate-image-and-text__image-container--bg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.hs-elevate-image-and-text__image-container--bg-only {
+  min-height: 375px;
 }
 
 .hs-elevate-image-and-text__image {
@@ -26,7 +61,30 @@
   width: 100%;
 }
 
+@media (width >= 767px) {
+  .hs-elevate-image-and-text__image-container--bg {
+    align-self: stretch;
+    min-height: 0;
+  }
+
+  .hs-elevate-image-and-text__image-container--bg-only {
+    min-height: 0;
+  }
+
+  .hs-elevate-image-and-text__image-container--bg .hs-elevate-image-and-text__image {
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
 .hs-elevate-image-and-text__content-container {
+  box-sizing: border-box;
+  align-self: stretch;
+  min-width: 0;
+  width: 100%;
+  /* Theme has no --spacing--25; fixed mobile inset per design */
+  padding: 25px;
+
   h1,
   h2,
   h3,
@@ -40,7 +98,90 @@
     color: var(--hsElevate--imageAndText__textColor);
   }
 
-  @media (width >= 767px) {
-    width: 45%;
+  /* Tight subheading rhythm inside this module only (theme headings use --hsElevate--text__margin) */
+  h4,
+  .hs-elevate-h4 {
+    margin-block-end: var(--hsElevate--spacing--8, 8px);
   }
+
+  @media (width >= 767px) {
+    min-width: 0;
+    max-width: 100%;
+    width: auto;
+    padding: var(--hsElevate--spacing--80, 80px);
+  }
+}
+
+.hs-elevate-image-and-text__divider {
+  border: 0 none;
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(82, 186, 209, 1);
+  margin-top: 0;
+  margin-bottom: 25px;
+  width: 100px;
+}
+
+.hs-elevate-image-and-text__divider--align-left,
+.hs-elevate-image-and-text__caption--align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.hs-elevate-image-and-text__divider--align-center,
+.hs-elevate-image-and-text__caption--align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hs-elevate-image-and-text__divider--align-right,
+.hs-elevate-image-and-text__caption--align-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* p + two classes beats .content-container p for color */
+.hs-elevate-image-and-text__content-container p.hs-elevate-image-and-text__caption {
+  margin-top: 0;
+  margin-bottom: 25px;
+  max-width: 100%;
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+  text-transform: var(--hsElevate--captions__case);
+  /* Match .hs-elevate-caption: module override → theme caption token → section caption color */
+  color: var(
+    --hsElevate--imageAndText__captionColor,
+    var(--hsElevate--captions__fontColor, var(--hsElevate--imageAndText__sectionCaptionColor))
+  );
+}
+
+.hs-elevate-image-and-text__list {
+  padding-left: 0;
+  margin-block: 0;
+  margin-block-start: var(--hsElevate--spacing--24, 24px);
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+  list-style: none;
+}
+
+.hs-elevate-image-and-text__list-item {
+  display: flex;
+  margin-bottom: var(--hsElevate--spacing--16, 16px);
+  align-items: flex-start;
+  color: var(--hsElevate--imageAndText__textColor);
+  gap: var(--hsElevate--spacing--8, 8px);
+}
+
+.hs-elevate-image-and-text__list-item:last-child {
+  margin-bottom: 0;
+}
+
+.hs-elevate-image-and-text__list-icon {
+  display: block;
+  height: 1.75rem;
+  width: 1.75rem;
+  padding: var(--hsElevate--spacing--8, 8px);
+  flex: 0 0 1.75rem;
+  fill: var(--hsElevate--imageAndText__accentColor);
 }

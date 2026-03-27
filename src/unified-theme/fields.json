@@ -84,6 +84,19 @@
                           "size": 56,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -114,6 +127,19 @@
                           "size": 42,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -144,6 +170,19 @@
                           "size": 32,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -174,6 +213,19 @@
                           "size": 24,
                           "variant": "900"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -205,6 +257,19 @@
                           "size": 21,
                           "variant": "500"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   },
@@ -236,6 +301,19 @@
                           "size": 18,
                           "variant": "700"
                         }
+                      },
+                      {
+                        "label": "Case",
+                        "name": "case",
+                        "type": "choice",
+                        "choices": [
+                          ["none", "None"],
+                          ["uppercase", "Upper"],
+                          ["lowercase", "Lower"]
+                        ],
+                        "display": "buttons",
+                        "preset": "case",
+                        "default": "uppercase"
                       }
                     ]
                   }
@@ -355,8 +433,7 @@
                         },
                         "default": {
                           "variant": "900",
-                          "size": 68,
-                          "color": "#2B2D3A"
+                          "size": 68
                         }
                       },
                       {
@@ -467,7 +544,7 @@
                   }
                 },
                 "default": {
-                  "color": "#F7F9FC"
+                  "color": "#F0F0F3"
                 }
               },
               {
@@ -481,7 +558,7 @@
                 },
                 "alternate_names": ["primary_color"],
                 "default": {
-                  "color": "#09152B"
+                  "color": "#2B2D3A"
                 }
               }
             ]
@@ -517,7 +594,7 @@
                   }
                 },
                 "default": {
-                  "color": "#D2CAFF",
+                  "color": "#52BAD1",
                   "opacity": 100
                 }
               },
@@ -531,7 +608,7 @@
                   }
                 },
                 "default": {
-                  "color": "#4F38E0",
+                  "color": "#FFFFFF",
                   "opacity": 100
                 }
               }
@@ -653,7 +730,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -826,7 +903,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -999,7 +1076,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -1172,7 +1249,7 @@
                           },
                           {
                             "label": "Display title text color",
-                            "name": "display_title_text_color",
+                            "name": "display_title_color",
                             "type": "color",
                             "visibility": {
                               "hidden_subfields": {
@@ -1180,7 +1257,7 @@
                               }
                             },
                             "default": {
-                              "color": "#7D8CA5",
+                              "color": "#F0F0F3",
                               "opacity": 100
                             }
                           }
@@ -3780,6 +3857,43 @@
                   "color": "#063E95",
                   "opacity": 100
                 }
+              },
+              {
+                "label": "Not selected",
+                "name": "group_not_selected",
+                "type": "group",
+                "display": "inline",
+                "inline_help_text": "Colors for tag-like controls in an unselected state (e.g. filter pills). Static tags still use Fill / Border / Text above.",
+                "children": [
+                  {
+                    "label": "Fill color",
+                    "name": "fill_color",
+                    "type": "color",
+                    "visibility": {
+                      "hidden_subfields": {
+                        "opacity": true
+                      }
+                    },
+                    "default": {
+                      "color": "#F0F0F3",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "label": "Border color",
+                    "name": "border_color",
+                    "type": "color",
+                    "visibility": {
+                      "hidden_subfields": {
+                        "opacity": true
+                      }
+                    },
+                    "default": {
+                      "color": "#F0F0F3",
+                      "opacity": 100
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3829,5 +3943,50 @@
         ]
       }
     ]
-  }
+  },
+  {
+  "name": "group_footer_rad",
+  "label": "Footer RAD",
+  "required": false,
+  "locked": false,
+  "children": [
+    {
+    "name": "footer_rad_background_color",
+    "label": "Footer RAD background color",
+    "required": false,
+    "locked": false,
+    "inline_help_text": "",
+    "help_text": "",
+    "type": "color",
+    "default": {
+      "color": "#2B2D3A",
+      "opacity": 100 } 
+    },{
+      "name": "footer_rad_background_image",
+      "label": "Footer RAD background image",
+      "required": false,
+      "type": "backgroundimage",
+      "default": {
+        "src": "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Footer_rad.png",
+        "background_position": "MIDDLE_CENTER",
+        "background_size": "cover"
+      }
+    }
+  ],
+  "type": "group",
+  "inline_help_text": "",
+  "help_text": "",
+  "default": {   
+    "footer_rad_background_color": {
+      "color": "#2B2D3A",
+      "opacity": 100
+    },
+    "footer_rad_background_image": {
+      "src": "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Footer_rad.png",
+      "background_position": "MIDDLE_CENTER",
+      "background_size": "cover"
+    }
+  } 
+}
+
 ]

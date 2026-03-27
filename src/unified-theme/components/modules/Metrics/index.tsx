@@ -43,6 +43,7 @@ function generateMetricCssVars(headingStyleAs: HeadingStyleVariant): CSSProperti
   const metricCssVarsMap = {
     display_1: 'var(--hsElevate--display1__fontSize)',
     display_2: 'var(--hsElevate--display2__fontSize)',
+    display_title: 'var(--hsElevate--displayTitles__fontSize)',
     h1: 'var(--hsElevate--h1__fontSize)',
     h2: 'var(--hsElevate--h2__fontSize)',
     h3: 'var(--hsElevate--h3__fontSize)',

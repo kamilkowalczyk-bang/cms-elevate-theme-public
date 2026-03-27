@@ -31,6 +31,7 @@ type RecentBlogPostsProps = {
     renderedWithGrids: boolean;
   };
   fieldValues: {
+    excludeCurrentPost: boolean;
     headingAndTextHeadingLevel: HeadingLevelType;
     groupStyle: CardStyleFieldLibraryType & HeadingStyleFieldLibraryType;
     groupPlaceholderText: {
@@ -100,29 +101,33 @@ export const hublDataTemplate = `
 
   {% set blog_post_ids = [] %}
   {% set blog_posts = [] %}
+  {% set post_limit = 3 %}
+  {% set fetch_limit = module.excludeCurrentPost and content and content.id ? post_limit + 1 : post_limit %}
 
   {# Check if tag filter is enabled and a tag is selected #}
   {% if module.filterByTag and module.tag %}
-    {% set posts = blog_recent_tag_posts(blog, module.tag, 3) %}
+    {% set posts = blog_recent_tag_posts(blog, module.tag, fetch_limit) %}
   {% else %}
-    {% set posts = blog_recent_posts(blog, 3) %}
+    {% set posts = blog_recent_posts(blog, fetch_limit) %}
   {% endif %}
 
   {% for post in posts %}
-    {% do blog_post_ids.append(post.id) %}
+    {% if not (module.excludeCurrentPost and content and content.id and post.id == content.id) and blog_posts|length < post_limit %}
+      {% do blog_post_ids.append(post.id) %}
 
-    {% set temp_post = {
-        id: post.id,
-        absoluteUrl: post.absoluteUrl|escape_url,
-        featuredImage: post.featuredImage,
-        featuredImageAltText: post.featuredImageAltText,
-        featuredImageWidth: post.featuredImageWidth,
-        featuredImageHeight: post.featuredImageHeight,
-        title: post.label,
-        topicNames: post.topicNames
-      }
-    %}
-    {% do blog_posts.append(temp_post) %}
+      {% set temp_post = {
+          id: post.id,
+          absoluteUrl: post.absoluteUrl|escape_url,
+          featuredImage: post.featuredImage,
+          featuredImageAltText: post.featuredImageAltText,
+          featuredImageWidth: post.featuredImageWidth,
+          featuredImageHeight: post.featuredImageHeight,
+          title: post.label,
+          topicNames: post.topicNames
+        }
+      %}
+      {% do blog_posts.append(temp_post) %}
+    {% endif %}
   {% endfor %}
 
   {% set hublData = {

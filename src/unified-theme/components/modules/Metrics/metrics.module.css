@@ -65,6 +65,7 @@
   max-width: 100%;
   color: var(--hsElevate--metrics__accentColor);
   font-size: clamp(var(--hsElevate--metrics__minFontSize), calc(1vw + var(--hsElevate--metrics__minFontSize)), var(--hsElevate--metrics__maxFontSize));
+  font-weight: var(--hsElevate--metrics__fontWeight, 900);
   line-height: var(--hsElevate--heading__lineHeight);
   text-align: center;
 }
