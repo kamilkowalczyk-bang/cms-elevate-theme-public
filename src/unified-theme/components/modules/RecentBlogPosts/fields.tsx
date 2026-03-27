@@ -35,7 +35,8 @@ export const fields = (
         operator: 'EQUAL',
       }}
     />
-    <HeadingAndText headingLevelDefault="h3" textVisibility={textVisibility} />
+    <TextField label="Read article link label" name="readArticleLabel" default="Read the article" />
+    <HeadingAndText headingLevelDefault="h5" textVisibility={textVisibility} />
     <StyleFields />
     <FieldGroup label="Placeholder text" name="groupPlaceholderText" locked={true}>
       <TextField label="Title" name="placeholderTitle" default="No posts found" />
