@@ -278,13 +278,11 @@ blockquote {
   text-transform: var(--hsElevate--tag__case);
 }
 
-/* Divider module (rounded pill) */
+/* Divider module (rounded ends only; keep module width/color) */
+hr,
 .hs_cos_wrapper_type_divider hr,
 .hs_cos_wrapper_type_divider :is(.hs-divider, .divider) {
-  border: 0;
-  height: 4px;
-  border-radius: 999px;
-  background-color: var(--hsElevate--section--lightSection--1__accentColor);
+  border-radius: 999px !important;
   overflow: hidden;
 }
 
