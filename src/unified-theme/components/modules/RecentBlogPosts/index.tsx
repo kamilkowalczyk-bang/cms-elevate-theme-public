@@ -41,6 +41,7 @@ type RecentBlogPostsProps = {
   };
   fieldValues: {
     excludeCurrentPost: boolean;
+    postLimit: number;
     headingAndTextHeadingLevel: HeadingLevelType;
     groupStyle: CardStyleFieldLibraryType & HeadingStyleFieldLibraryType;
     groupPlaceholderText: {
@@ -213,7 +214,7 @@ export const hublDataTemplate = `
 
   {% set blog_post_ids = [] %}
   {% set blog_posts = [] %}
-  {% set post_limit = 3 %}
+  {% set post_limit = module.postLimit or 3 %}
   {% set fetch_limit = module.excludeCurrentPost and content and content.id ? post_limit + 1 : post_limit %}
 
   {# Check if tag filter is enabled and a tag is selected #}

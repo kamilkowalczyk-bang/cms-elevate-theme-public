@@ -1,4 +1,4 @@
-import { ModuleFields, BlogField, BooleanField, TagField, FieldGroup, TextField } from '@hubspot/cms-components/fields';
+import { ModuleFields, BlogField, BooleanField, TagField, FieldGroup, TextField, NumberField } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 import { HeadingAndText } from '../../fieldLibrary/index.js';
 import { AdvancedVisibility } from '@hubspot/cms-components/fields';
@@ -34,6 +34,16 @@ export const fields = (
         controlling_value_regex: 'true',
         operator: 'EQUAL',
       }}
+    />
+    <NumberField
+      label="Number of posts"
+      name="postLimit"
+      display="slider"
+      min={1}
+      max={9}
+      default={3}
+      step={1}
+      helpText="Set how many recent posts to show."
     />
     <TextField label="Read article link label" name="readArticleLabel" default="Read the article" />
     <HeadingAndText headingLevelDefault="h5" textVisibility={textVisibility} />
