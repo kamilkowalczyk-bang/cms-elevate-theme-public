@@ -130,7 +130,7 @@
 /* Blog post recent posts */
 
 .hs-elevate-blog-recent-posts {
-  background-color: var(--hsElevate--section--lightSection--2__backgroundColor);
+  background-color: var(--hsElevate--section--lightSection--1__backgroundColor);
   padding-block: var(--hsElevate--spacing--80);
 }
 

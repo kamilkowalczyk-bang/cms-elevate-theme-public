@@ -58,7 +58,7 @@
   gap: var(--hsElevate--spacing--8, 8px);
 }
 
-.hs-elevate-blog-post-hero__tags .hs-elevate-tag {
+.hs-elevate-blog-post-hero__tags :global(.hs-elevate-tag) {
   background-color: var(--hsElevate--tag__notSelectedFillColor, var(--hsElevate--tag__backgroundColor));
   border-color: var(--hsElevate--tag__notSelectedBorderColor, var(--hsElevate--tag__borderColor));
 }
