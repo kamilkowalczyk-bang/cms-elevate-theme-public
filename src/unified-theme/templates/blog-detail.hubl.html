@@ -211,6 +211,39 @@
 
  <section class="hs-elevate-blog-recent-posts">
   <div class="hs-elevate-content-wrapper">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--sm">
+    {% module "blog_recent_posts_divider" path="@hubspot/divider"
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+    </div>
     <h2 class="hs-elevate-blog-recent-posts__heading">Read also</h2>
     {% module "recent_blog_posts_cards" path="../components/modules/RecentBlogPosts"
       blog=group.id
