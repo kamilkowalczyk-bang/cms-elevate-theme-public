@@ -104,6 +104,8 @@ type GroupStyle = GroupCardStyles & GroupLayoutStyles & GroupContentStyles & Gro
 type HubDBServiceCard = {
   /** Raw HubDB multi-select value for filtering in React. */
   serviceCategories?: unknown;
+  /** HubDB checkbox value for featured cards. */
+  isFeatured?: unknown;
   groupCardBackground: {
     image: {
       // In hubDB mode, this can be a URL string or an object containing `src`.
@@ -151,6 +153,8 @@ type ServiceCardProps = {
   groupStyle: GroupStyle;
   useHubDBFeed?: boolean;
   serviceCategory?: string;
+  showFeaturedCards?: boolean;
+  hideCategoryTabs?: boolean;
   hublData: {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
@@ -303,6 +307,8 @@ const ServiceCardServer = (props: ServiceCardProps) => {
     hublData: { renderedWithGrids = false, hubdbCards = [] },
     useHubDBFeed = false,
     serviceCategory,
+    showFeaturedCards = false,
+    hideCategoryTabs = false,
   } = props;
 
   const tabOptions = useMemo(
@@ -326,10 +332,20 @@ const ServiceCardServer = (props: ServiceCardProps) => {
 
   const cardsToRender = useMemo(() => {
     if (!useHubDBFeed) return groupCards;
+    if (showFeaturedCards) {
+      return hubdbCards.filter(
+        (card) =>
+          card.isFeatured === true ||
+          card.isFeatured === 'true' ||
+          card.isFeatured === 'on' ||
+          card.isFeatured === 1 ||
+          card.isFeatured === '1',
+      );
+    }
     if (isShowAllCategory(activeCategory)) return hubdbCards;
     const activeCategoryNormalized = normalizeCategoryLabel(activeCategory);
     return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategoryNormalized));
-  }, [activeCategory, groupCards, hubdbCards, useHubDBFeed]);
+  }, [activeCategory, groupCards, hubdbCards, useHubDBFeed, showFeaturedCards]);
 
   const isIcon = imageOrIcon === 'icon';
   const isImage = imageOrIcon === 'image';
@@ -351,7 +367,7 @@ const ServiceCardServer = (props: ServiceCardProps) => {
 
   return (
     <>
-      {useHubDBFeed && (
+      {useHubDBFeed && !hideCategoryTabs && (
         <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
           {tabOptions.map((tab) => {
             const isActive = tab.value === activeCategory;
@@ -530,6 +546,7 @@ export const hublDataTemplate = `
       {% set linkText = row.service_link_text %}
       {% set linkUrl = row.service_link_url %}
       {% set categories = row.service_categories %}
+      {% set featured = row.featured_service %}
 
       {% if linkUrl %}
         {% set showButton = true %}
@@ -548,6 +565,7 @@ export const hublDataTemplate = `
 
       {% do hubdbCards.append({
         "serviceCategories": categories,
+        "isFeatured": featured,
         "groupImage": {
           "showRoundImageBorder": false,
           "image": { "src": "", "alt": "", "loading": "disabled" }

@@ -71,6 +71,24 @@ export const fields = (
       visibility={hubDBFeedVisibility}
     />
 
+    <BooleanField
+      label='Featured cards'
+      name='showFeaturedCards'
+      display='toggle'
+      default={false}
+      helpText="When enabled, only HubDB cards with the 'Featured' checkbox are shown."
+      visibility={hubDBFeedVisibility}
+    />
+
+    <BooleanField
+      label='Hide category filter bar'
+      name='hideCategoryTabs'
+      display='toggle'
+      default={false}
+      helpText="When enabled, hides the category pill filter bar (tag pills)."
+      visibility={hubDBFeedVisibility}
+    />
+
     <ChoiceField
       label='Image or icon'
       name='imageOrIcon'
