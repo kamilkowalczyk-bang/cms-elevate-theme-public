@@ -33,8 +33,7 @@
     left: 50%;
     height: 44px;
     width: 44px;
-    border: 2px solid var(--hsElevate--section--lightSection--1--link__fontColor);
-    border-radius: 50%;
+    border-bottom: 2px solid var(--hsElevate--section--lightSection--1--link__fontColor);
     content: '';
     transform: translate(-50%, -50%);
   }
