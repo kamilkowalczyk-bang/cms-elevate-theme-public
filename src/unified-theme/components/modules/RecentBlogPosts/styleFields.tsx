@@ -4,7 +4,7 @@ import HeadingStyles from '../../fieldLibrary/HeadingStyle/index.js';
 
 const StyleFields = () => (
   <FieldGroup name="groupStyle" label="Styles" tab="STYLE">
-    <CardStyle cardStyleDefault="card_variant_1" />
+    <CardStyle cardStyleDefault="card_variant_2" />
     <HeadingStyles headingStyleAsDefault="h3" />
   </FieldGroup>
 );

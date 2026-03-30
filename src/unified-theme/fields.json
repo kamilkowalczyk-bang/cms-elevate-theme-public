@@ -3875,7 +3875,7 @@
                       }
                     },
                     "default": {
-                      "color": "#F0F0F3",
+                      "color": "#EBEBEB",
                       "opacity": 100
                     }
                   },
@@ -3889,7 +3889,7 @@
                       }
                     },
                     "default": {
-                      "color": "#F0F0F3",
+                      "color": "#EBEBEB",
                       "opacity": 100
                     }
                   }

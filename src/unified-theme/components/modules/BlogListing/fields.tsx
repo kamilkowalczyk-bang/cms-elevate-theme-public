@@ -6,7 +6,7 @@ import { CardStyle } from '../../fieldLibrary/index.js';
 export const fields = (
   <ModuleFields>
     <HeadingAndText
-      headingLevelDefault="h2"
+      headingLevelDefault="h5"
       textVisibility={{
         boolean_operator: 'AND',
         criteria: [
@@ -27,9 +27,16 @@ export const fields = (
       <TextField name="previousPage" label="Previous page" default="Previous page" locked={true} />
     </FieldGroup>
 
+    <TextField
+      label="Read article link label"
+      name="readArticleLabel"
+      default="Read the article"
+      helpText="Shown on each blog card (inside the card link)."
+    />
+
     <FieldGroup name="groupStyle" label="Style" tab="STYLE">
       <CardStyle cardStyleDefault="card_variant_2" />
-      <HeadingStyle headingStyleAsDefault="h4" />
+      <HeadingStyle headingStyleAsDefault="h5" />
     </FieldGroup>
   </ModuleFields>
 );

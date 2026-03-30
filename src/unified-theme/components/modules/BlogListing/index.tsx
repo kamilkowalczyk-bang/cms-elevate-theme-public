@@ -16,6 +16,7 @@ const swm = staticWithModule(styles);
 // Types
 
 type BlogListingProps = HeadingAndTextFieldLibraryType & {
+  readArticleLabel?: string;
   hublData: {
     blogPosts: {
       id: number;
@@ -26,6 +27,9 @@ type BlogListingProps = HeadingAndTextFieldLibraryType & {
       featuredImageHeight: number;
       topicNames: string[];
       absoluteUrl: string;
+      publishDate?: string;
+      authorName?: string;
+      readTimeMinutes?: number;
     }[];
     currentPageNumber: number;
     nextPageNumber: number;
@@ -58,6 +62,7 @@ export const Component = (props: BlogListingProps) => {
     groupStyle: { headingStyleVariant, cardStyleVariant } = {}, // Provide default empty object
     headingAndTextHeadingLevel,
     defaultContent,
+    readArticleLabel,
   } = props;
 
   const blogListingClasses = cx(swm('hs-elevate-blog-listing'), {
@@ -80,6 +85,7 @@ export const Component = (props: BlogListingProps) => {
               cardStyleVariant={cardStyleVariant}
               gatedContentIds={gatedContentIds.map(id => id.toString())}
               additionalClassArray={[swm('hs-elevate-blog-listing__blog-card')]}
+              readArticleLabel={readArticleLabel}
             />
           );
         })}
