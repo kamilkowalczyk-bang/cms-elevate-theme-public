@@ -102,7 +102,8 @@ export const fields = (
       display='toggle'
       default={false}
       helpText="When enabled, hides the category pill filter bar (tag pills)."
-      visibility={hideCategoryTabsVisibility as unknown as Visibility}
+      visibilityRules="ADVANCED"
+      advancedVisibility={hideCategoryTabsVisibility}
     />
 
     <ChoiceField
