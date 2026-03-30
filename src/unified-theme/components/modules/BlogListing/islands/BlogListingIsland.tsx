@@ -42,9 +42,12 @@ type BlogListingProps = HeadingAndTextFieldLibraryType & {
 };
 
 const BlogListingRoot = createComponent('div');
-const BlogCardsContainer = createComponent('div');
+const FiltersRow = createComponent('div');
 const TagFilterBar = createComponent('div');
 const TagFilterButton = createComponent<'button'>('button');
+const SearchContainer = createComponent('div');
+const SearchInput = createComponent<'input'>('input');
+const BlogCardsContainer = createComponent('div');
 
 const normalizeTag = (tag: string): string => tag.trim().toLowerCase();
 
@@ -63,6 +66,7 @@ function BlogListingIsland(props: BlogListingProps) {
   } = props;
 
   const [activeTag, setActiveTag] = useState<'__all__' | string>('__all__');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const tagOptions = useMemo(() => {
     const seen = new Map<string, string>();
@@ -80,42 +84,62 @@ function BlogListingIsland(props: BlogListingProps) {
   }, [blogPosts]);
 
   const filteredPosts = useMemo(() => {
-    if (activeTag === '__all__') {
-      return blogPosts;
+    const byTag =
+      activeTag === '__all__'
+        ? blogPosts
+        : blogPosts.filter(post =>
+            (post.topicNames || []).some(tag => normalizeTag(tag) === activeTag),
+          );
+
+    const query = searchQuery.trim().toLowerCase();
+    if (!query) {
+      return byTag;
     }
 
-    return blogPosts.filter(post =>
-      (post.topicNames || []).some(tag => normalizeTag(tag) === activeTag),
-    );
-  }, [activeTag, blogPosts]);
+    return byTag.filter(post => post.title.toLowerCase().includes(query));
+  }, [activeTag, blogPosts, searchQuery]);
 
   const blogListingClasses = swm('hs-elevate-blog-listing');
 
   return (
     <BlogListingRoot className={blogListingClasses}>
-      {tagOptions.length > 0 && (
-        <TagFilterBar className={swm('hs-elevate-blog-listing__tag-tabs')}>
-          <TagFilterButton
-            type="button"
-            className={swm('hs-elevate-blog-listing__tag-tab')}
-            aria-pressed={activeTag === '__all__'}
-            onClick={() => setActiveTag('__all__')}
-          >
-            Show all
-          </TagFilterButton>
-          {tagOptions.map(option => (
+      <FiltersRow className={swm('hs-elevate-blog-listing__filters')}>
+        {tagOptions.length > 0 && (
+          <TagFilterBar className={swm('hs-elevate-blog-listing__tag-tabs')}>
             <TagFilterButton
-              key={option.value}
               type="button"
               className={swm('hs-elevate-blog-listing__tag-tab')}
-              aria-pressed={activeTag === option.value}
-              onClick={() => setActiveTag(option.value)}
+              aria-pressed={activeTag === '__all__'}
+              onClick={() => setActiveTag('__all__')}
             >
-              {option.label}
+              Show all
             </TagFilterButton>
-          ))}
-        </TagFilterBar>
-      )}
+            {tagOptions.map(option => (
+              <TagFilterButton
+                key={option.value}
+                type="button"
+                className={swm('hs-elevate-blog-listing__tag-tab')}
+                aria-pressed={activeTag === option.value}
+                onClick={() => setActiveTag(option.value)}
+              >
+                {option.label}
+              </TagFilterButton>
+            ))}
+          </TagFilterBar>
+        )}
+
+        <SearchContainer className={swm('hs-elevate-blog-listing__search')}>
+          <SearchInput
+            id="hs-elevate-blog-listing-search"
+            type="search"
+            className={swm('hs-elevate-blog-listing__search-input')}
+            placeholder="Find…"
+            aria-label="Find blog posts"
+            value={searchQuery}
+            onChange={event => setSearchQuery(event.target.value)}
+          />
+        </SearchContainer>
+      </FiltersRow>
 
       <BlogCardsContainer className={swm('hs-elevate-blog-listing__blog-card-container')}>
         {filteredPosts.map(post => (
