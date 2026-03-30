@@ -98,6 +98,8 @@ type GroupStyle = GroupCardStyles & GroupLayoutStyles & GroupContentStyles & Gro
 type HubDBServiceCard = {
   /** Raw HubDB multi-select value for filtering in React. */
   serviceCategories?: unknown;
+  /** HubDB checkbox value for featured cards. */
+  isFeatured?: unknown;
   groupCardBackground: {
     image: {
       // In hubDB mode, this can be a URL string or an object containing `src`.
@@ -145,6 +147,8 @@ type ServiceCardProps = {
   groupStyle: GroupStyle;
   useHubDBFeed?: boolean;
   serviceCategory?: string;
+  showFeaturedCards?: boolean;
+  hideCategoryTabs?: boolean;
   hublData: {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
@@ -297,6 +301,8 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
     hublData: { renderedWithGrids = false, hubdbCards = [] },
     useHubDBFeed = false,
     serviceCategory,
+    showFeaturedCards = false,
+    hideCategoryTabs = false,
   } = props;
 
   const tabOptions = useMemo(
@@ -320,10 +326,20 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
 
   const cardsToRender = useMemo(() => {
     if (!useHubDBFeed) return groupCards;
+    if (showFeaturedCards) {
+      return hubdbCards.filter(
+        (card) =>
+          card.isFeatured === true ||
+          card.isFeatured === 'true' ||
+          card.isFeatured === 'on' ||
+          card.isFeatured === 1 ||
+          card.isFeatured === '1',
+      );
+    }
     if (isShowAllCategory(activeCategory)) return hubdbCards;
     const activeCategoryNormalized = normalizeCategoryLabel(activeCategory);
     return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategoryNormalized));
-  }, [activeCategory, groupCards, hubdbCards, useHubDBFeed]);
+  }, [activeCategory, groupCards, hubdbCards, useHubDBFeed, showFeaturedCards]);
 
   const isIcon = imageOrIcon === 'icon';
   const isImage = imageOrIcon === 'image';
@@ -343,7 +359,7 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
 
   return (
     <>
-      {useHubDBFeed && (
+      {useHubDBFeed && !showFeaturedCards && !hideCategoryTabs && (
         <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
           {tabOptions.map((tab) => {
             const isActive = tab.value === activeCategory;

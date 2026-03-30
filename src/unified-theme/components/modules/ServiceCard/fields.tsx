@@ -46,6 +46,22 @@ const hubDBFeedVisibility = {
   operator: 'EQUAL',
 } as const satisfies Visibility;
 
+const hideCategoryTabsVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'useHubDBFeed',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+    {
+      controlling_field_path: 'showFeaturedCards',
+      controlling_value_regex: 'false',
+      operator: 'EQUAL',
+    },
+  ],
+} as const satisfies AdvancedVisibility;
+
 export const fields = (
   <ModuleFields>
     <BooleanField
@@ -69,6 +85,25 @@ export const fields = (
       default='service_all'
       required={false}
       visibility={hubDBFeedVisibility}
+    />
+
+    <BooleanField
+      label='Featured cards'
+      name='showFeaturedCards'
+      display='toggle'
+      default={false}
+      helpText="When enabled, only HubDB cards with the 'Featured' checkbox are shown."
+      visibility={hubDBFeedVisibility}
+    />
+
+    <BooleanField
+      label='Hide category filter bar'
+      name='hideCategoryTabs'
+      display='toggle'
+      default={false}
+      helpText="When enabled, hides the category pill filter bar (tag pills)."
+      visibilityRules="ADVANCED"
+      advancedVisibility={hideCategoryTabsVisibility}
     />
 
     <ChoiceField
