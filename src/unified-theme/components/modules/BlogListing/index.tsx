@@ -1,19 +1,12 @@
 import { ModuleMeta } from '../../types/modules.js';
-import styles from './blog-listing.module.css';
-import cx, { staticWithModule } from '../../utils/classnames.js';
-import { createComponent } from '../../utils/create-component.js';
 import blogSVG from './assets/blog.svg';
-import { withUrlPath } from '@hubspot/cms-components';
-import BlogCardComponent from '../../BlogCardComponent/index.js';
-import Pagination from './pagination.js';
+import { withUrlPath, Island } from '@hubspot/cms-components';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
 import { CardStyleFieldLibraryType } from '../../fieldLibrary/CardStyle/types.js';
 import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndText/types.js';
 import fetchGatedPosts from '../../utils/ServerSideProps/fetchGatedBlogPosts.js';
-
-const swm = staticWithModule(styles);
-
-// Types
+// @ts-expect-error -- ?island modules are resolved at build time
+import BlogListingIsland from './islands/BlogListingIsland.js?island';
 
 type BlogListingProps = HeadingAndTextFieldLibraryType & {
   readArticleLabel?: string;
@@ -46,51 +39,8 @@ type BlogListingProps = HeadingAndTextFieldLibraryType & {
   };
 };
 
-// Components
-
-const BlogListing = createComponent('div');
-const BlogCardsContainer = createComponent('div');
-
 export const Component = (props: BlogListingProps) => {
-  if (!props?.hublData?.blogPosts) {
-    return null; // or return an error message component
-  }
-
-  const {
-    hublData: { blogPosts, currentPageNumber, nextPageNumber, totalPageCount, use_featured_image_in_summary },
-    serverSideProps: { gatedContentIds = [] }, // Provide default empty array
-    groupStyle: { headingStyleVariant, cardStyleVariant } = {}, // Provide default empty object
-    headingAndTextHeadingLevel,
-    defaultContent,
-    readArticleLabel,
-  } = props;
-
-  const blogListingClasses = swm('hs-elevate-blog-listing');
-
-  return (
-    <BlogListing className={blogListingClasses}>
-      <BlogCardsContainer className={swm('hs-elevate-blog-listing__blog-card-container')}>
-        {blogPosts.map(post => {
-          return (
-            <BlogCardComponent
-              key={post.id}
-              post={{
-                ...post,
-                id: post.id.toString(),
-              }}
-              headingAndTextHeadingLevel={headingAndTextHeadingLevel}
-              headingStyleVariant={headingStyleVariant}
-              cardStyleVariant={cardStyleVariant}
-              gatedContentIds={gatedContentIds.map(id => id.toString())}
-              additionalClassArray={[swm('hs-elevate-blog-listing__blog-card')]}
-              readArticleLabel={readArticleLabel}
-            />
-          );
-        })}
-      </BlogCardsContainer>
-      <Pagination currentPageNumber={currentPageNumber} nextPageNumber={nextPageNumber} totalPageCount={totalPageCount} defaultContent={defaultContent} />
-    </BlogListing>
-  );
+  return <Island hydrateOn="load" module={BlogListingIsland} {...props} />;
 };
 
 export { fields } from './fields.js';
