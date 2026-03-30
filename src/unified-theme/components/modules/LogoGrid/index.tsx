@@ -1,6 +1,6 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { TextFieldType } from '@hubspot/cms-components/fields';
-import headingIconSvg from '../Heading/assets/heading.svg';
+import logoGridIconSvg from './assets/card-icon-grid.svg';
 import styles from './logo-grid.module.css';
 import { SectionVariantType } from '../../types/fields.js';
 import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/types.js';
@@ -177,7 +177,7 @@ export const hublDataTemplate = `
 export const meta: ModuleMeta = {
   label: 'Logo Grid HubDB',
   content_types: ['SITE_PAGE', 'LANDING_PAGE', 'BLOG_LISTING', 'BLOG_POST'],
-  icon: headingIconSvg,
+  icon: logoGridIconSvg,
   categories: ['design'],
 };
 

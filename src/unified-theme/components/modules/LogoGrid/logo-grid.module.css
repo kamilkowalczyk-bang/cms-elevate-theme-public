@@ -11,7 +11,7 @@
 
 .hs-elevate-logo-grid-react__header {
   text-align: center;
-  margin-block-end: var(--hsElevate--spacing--56, 56px);
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
 }
 
 .hs-elevate-logo-grid-react__title {

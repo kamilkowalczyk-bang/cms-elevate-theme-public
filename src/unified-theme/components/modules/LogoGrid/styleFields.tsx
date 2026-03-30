@@ -12,6 +12,7 @@ export default function StyleFields() {
         label="Layout"
         name="groupLayout"
         display="inline"
+        expanded={true}
       >
         <NumberField
           label="Logos per row (desktop)"
