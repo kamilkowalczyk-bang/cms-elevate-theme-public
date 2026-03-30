@@ -367,7 +367,7 @@ const ServiceCardServer = (props: ServiceCardProps) => {
 
   return (
     <>
-      {useHubDBFeed && !hideCategoryTabs && (
+      {useHubDBFeed && !showFeaturedCards && !hideCategoryTabs && (
         <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
           {tabOptions.map((tab) => {
             const isActive = tab.value === activeCategory;
