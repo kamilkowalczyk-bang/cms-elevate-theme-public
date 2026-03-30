@@ -65,9 +65,7 @@ export const Component = (props: BlogListingProps) => {
     readArticleLabel,
   } = props;
 
-  const blogListingClasses = cx(swm('hs-elevate-blog-listing'), {
-    [styles['hs-elevate-blog-listing--has-featured-post']]: (currentPageNumber === 1 || currentPageNumber === undefined) && use_featured_image_in_summary,
-  });
+  const blogListingClasses = swm('hs-elevate-blog-listing');
 
   return (
     <BlogListing className={blogListingClasses}>
