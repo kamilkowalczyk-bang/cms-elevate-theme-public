@@ -12,7 +12,10 @@
       featuredImageWidth: post.featuredImageWidth,
       featuredImageHeight: post.featuredImageHeight,
       title: post.label,
-      topicNames: post.topicNames
+      topicNames: post.topicNames,
+      publishDate: post.publishDate or post.publish_date,
+      authorName: post.blog_post_author.display_name or post.blog_author.display_name,
+      readTimeMinutes: (((post.post_body or '')|wordcount / 265)|round) or 1
     }
   %}
   {% do blog_posts.append(temp_post) %}

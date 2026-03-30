@@ -23,12 +23,16 @@ interface BlogCardComponentProps {
     featuredImageHeight?: number;
     title: string;
     topicNames?: string[];
+    publishDate?: string;
+    authorName?: string;
+    readTimeMinutes?: number;
   };
   headingAndTextHeadingLevel: HeadingLevelType;
   headingStyleVariant: HeadingStyleVariant;
   cardStyleVariant: CardVariantType;
   gatedContentIds?: string[];
   additionalClassArray?: string[];
+  readArticleLabel?: string;
 }
 
 // Components
@@ -87,12 +91,46 @@ const CardWrapper = createComponent('div');
 const ImageContainer = createComponent('div');
 const Image = createComponent('img');
 const CardContentContainer = createComponent('div');
+const CardContentTop = createComponent('div');
 const CardHeadingContainer = createComponent('div');
 const CardLink = createComponent('a');
 const GateIconImage = createComponent('div');
+const ReadTime = createComponent('p');
+const BlogMeta = createComponent('p');
+const ReadMoreText = createComponent('span');
+
+const formatBlogMeta = (publishDate?: string, authorName?: string): string => {
+  const fallbackDate = publishDate || '';
+  let formattedDate = fallbackDate;
+
+  if (publishDate) {
+    const date = new Date(publishDate);
+    if (!Number.isNaN(date.getTime())) {
+      formattedDate = date.toLocaleDateString('en-US', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+      });
+    }
+  }
+
+  if (formattedDate && authorName) {
+    return `${formattedDate} / ${authorName}`;
+  }
+
+  return formattedDate || authorName || '';
+};
 
 function BlogCardComponent(props: BlogCardComponentProps) {
-  const { post, headingAndTextHeadingLevel, headingStyleVariant, cardStyleVariant = 'card_variant_2', gatedContentIds = [], additionalClassArray } = props;
+  const {
+    post,
+    headingAndTextHeadingLevel,
+    headingStyleVariant,
+    cardStyleVariant = 'card_variant_2',
+    gatedContentIds = [],
+    additionalClassArray,
+    readArticleLabel,
+  } = props;
 
   const additionalClasses = additionalClassArray ? additionalClassArray.join(' ') : '';
 
@@ -114,18 +152,25 @@ function BlogCardComponent(props: BlogCardComponentProps) {
             )}
           </ImageContainer>
           <CardContentContainer className={swm('hs-elevate-card--blog__content-container')}>
-            <TagList tags={post?.topicNames || []} />
-            <CardHeadingContainer>
-              <HeadingComponent
-                heading={post.title}
-                headingLevel={headingAndTextHeadingLevel}
-                headingStyleVariant={headingStyleVariant}
-                additionalClassArray={[swm('hs-elevate-card--blog__heading')]}
-              />
-              {gatedContentIds.includes(post.id) && (
-                <GateIconImage className={swm('hs-elevate-card--blog__gate-icon')} aria-label="Gated content" role="presentation" />
-              )}
-            </CardHeadingContainer>
+            <CardContentTop className={swm('hs-elevate-card--blog__content-top')}>
+              <ReadTime className={swm('hs-elevate-card--blog__read-time')}>
+                Read time {post.readTimeMinutes ?? 1} min
+              </ReadTime>
+              <CardHeadingContainer>
+                <HeadingComponent
+                  heading={post.title}
+                  headingLevel={headingAndTextHeadingLevel}
+                  headingStyleVariant={headingStyleVariant}
+                  additionalClassArray={[swm('hs-elevate-card--blog__heading'), swm('hs-elevate-card--blog__title')]}
+                />
+                {gatedContentIds.includes(post.id) && (
+                  <GateIconImage className={swm('hs-elevate-card--blog__gate-icon')} aria-label="Gated content" role="presentation" />
+                )}
+              </CardHeadingContainer>
+              <BlogMeta className={swm('hs-elevate-card--blog__meta')}>{formatBlogMeta(post.publishDate, post.authorName)}</BlogMeta>
+              <TagList tags={post?.topicNames || []} />
+            </CardContentTop>
+            <ReadMoreText className={swm('hs-elevate-card--blog__read-link')}>{readArticleLabel || 'Read the article'}</ReadMoreText>
           </CardContentContainer>
         </CardLink>
       </Card>
