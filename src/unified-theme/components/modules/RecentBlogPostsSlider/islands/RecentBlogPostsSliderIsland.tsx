@@ -80,6 +80,20 @@ function generateCardColorCssVars(cardStyleVariant: string): CSSPropertiesMap {
   };
 }
 
+function generatePaginationColorCssVar(cardStyleVariant: string): CSSPropertiesMap {
+  const iconColorsMap = {
+    card_variant_1: 'var(--hsElevate--card--variant1__iconColor)',
+    card_variant_2: 'var(--hsElevate--card--variant2__iconColor)',
+    card_variant_3: 'var(--hsElevate--card--variant3__iconColor)',
+    card_variant_4: 'var(--hsElevate--card--variant4__iconColor)',
+  };
+
+  const color =
+    iconColorsMap[cardStyleVariant as keyof typeof iconColorsMap] || iconColorsMap.card_variant_1;
+
+  return { '--hsElevate--recentBlogSlider__paginationColor': color };
+}
+
 export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSliderIslandProps) {
   const {
     posts,
@@ -96,6 +110,8 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
   const cardColorCssVars = generateCardColorCssVars(cardStyleVariant);
   const gatedSet = new Set((gatedContentIds || []).map(id => String(id)));
   const enableAutoplay = postsToUse.length > 1;
+  const showPagination = postsToUse.length > 1;
+  const rootStyle = generatePaginationColorCssVar(cardStyleVariant);
 
   if (postsToUse.length === 0 && isInEditor) {
     return (
@@ -110,9 +126,10 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
   }
 
   return (
-    <Root className={swm('hs-elevate-recent-blog-posts-slider')}>
+    <Root className={swm('hs-elevate-recent-blog-posts-slider')} style={rootStyle}>
       <Splide
         className={cx('splide', swm('hs-elevate-recent-blog-posts-slider__splide'))}
+        style={rootStyle}
         hasTrack={false}
         options={{
           type: 'slide',
@@ -121,7 +138,7 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
           perMove: 1,
           gap: 32,
           arrows: false,
-          pagination: false,
+          pagination: showPagination,
           autoplay: enableAutoplay,
           interval: 5000,
           pauseOnHover: true,
@@ -136,6 +153,12 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
               perPage: 1,
               gap: 16,
             },
+          },
+          i18n: {
+            carousel: 'Recent blog posts',
+            slide: 'Blog post',
+            slideX: 'Go to slide %s',
+            select: 'Select a slide to show',
           },
         }}
         aria-label="Recent blog posts"
