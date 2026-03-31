@@ -1,0 +1,534 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Full-width hero background behind the About us heading (wide brand or team imagery).",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "intro_richtext",
+        "type": "text",
+        "description": "Short optional intro line or label above the main hero heading (plain text or a single short phrase)."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Main hero heading for the About us page (large display title)."
+      }
+    ]
+  },
+  {
+    "name": "group_story",
+    "type": "group",
+    "children": [
+      {
+        "name": "company_overview",
+        "type": "text",
+        "description": "Elevated company story: positioning, expertise, and value proposition (use HTML paragraphs and line breaks as needed)."
+      }
+    ]
+  },
+  {
+    "name": "group_key_numbers",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the three stat cards (e.g. Key numbers)."
+      },
+      {
+        "name": "card_1_stat",
+        "type": "text",
+        "description": "Primary figure or metric for the first key number card (e.g. 100)."
+      },
+      {
+        "name": "card_1_description",
+        "type": "text",
+        "description": "Supporting line under the first stat."
+      },
+      {
+        "name": "card_2_stat",
+        "type": "text",
+        "description": "Primary figure or metric for the second key number card."
+      },
+      {
+        "name": "card_2_description",
+        "type": "text",
+        "description": "Supporting line under the second stat."
+      },
+      {
+        "name": "card_3_stat",
+        "type": "text",
+        "description": "Primary figure or metric for the third key number card."
+      },
+      {
+        "name": "card_3_description",
+        "type": "text",
+        "description": "Supporting line under the third stat."
+      }
+    ]
+  },
+  {
+    "name": "group_timeline",
+    "type": "group",
+    "children": [
+      {
+        "name": "note",
+        "type": "text",
+        "description": "Context for the company history timeline (milestones, eras, tone) when AI generates or remixes this page."
+      }
+    ]
+  },
+  {
+    "name": "group_shareholders",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Section heading above shareholder contact cards."
+      },
+      {
+        "name": "card_1",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the first shareholder card."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role or title (e.g. CEO)."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait photo for the first shareholder.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address shown or linked on the card."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number for display."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region or market label (e.g. USA / Canada)."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn profile URL for the first shareholder."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Label for the meeting CTA button when shown."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "URL for the meeting CTA when the button is enabled."
+          }
+        ]
+      },
+      {
+        "name": "card_2",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the second shareholder card."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role or title."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait photo for the second shareholder.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn profile URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting CTA URL."
+          }
+        ]
+      },
+      {
+        "name": "card_3",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the third shareholder card."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role or title."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait photo for the third shareholder.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn profile URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting CTA URL."
+          }
+        ]
+      },
+      {
+        "name": "card_4",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the fourth shareholder card."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role or title."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait photo for the fourth shareholder.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn profile URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting CTA URL."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "group_sales",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Section heading above the sales contact cards."
+      },
+      {
+        "name": "card_1",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the first sales contact."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role (e.g. Sales)."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait for the first sales contact.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA button label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting booking URL."
+          }
+        ]
+      },
+      {
+        "name": "card_2",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the second sales contact."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait for the second sales contact.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting booking URL."
+          }
+        ]
+      },
+      {
+        "name": "card_3",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the third sales contact."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait for the third sales contact.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting booking URL."
+          }
+        ]
+      },
+      {
+        "name": "card_4",
+        "type": "group",
+        "children": [
+          {
+            "name": "full_name",
+            "type": "text",
+            "description": "Full name for the fourth sales contact."
+          },
+          {
+            "name": "department",
+            "type": "text",
+            "description": "Role."
+          },
+          {
+            "name": "portrait",
+            "type": "image",
+            "description": "Portrait for the fourth sales contact.",
+            "width": "400",
+            "height": "400"
+          },
+          {
+            "name": "email",
+            "type": "text",
+            "description": "Email address."
+          },
+          {
+            "name": "phone",
+            "type": "text",
+            "description": "Phone number."
+          },
+          {
+            "name": "region",
+            "type": "text",
+            "description": "Region label."
+          },
+          {
+            "name": "linkedin",
+            "type": "link",
+            "description": "LinkedIn URL."
+          },
+          {
+            "name": "meeting_button_text",
+            "type": "text",
+            "description": "Meeting CTA label."
+          },
+          {
+            "name": "meeting_button_link",
+            "type": "link",
+            "description": "Meeting booking URL."
+          }
+        ]
+      }
+    ]
+  }
+]
