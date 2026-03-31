@@ -31,8 +31,8 @@
   block-size: 120px;
   border-radius: 1000px;
   background: var(--hsElevate--timeline__accentColor);
-  color: #09152b;
-  font-size: 30px;
+  color: #161C26;
+  font-size: var(--hsElevate--body__fontSize);
   font-style: normal;
   font-weight: 300;
   line-height: 1;
@@ -108,7 +108,7 @@
   white-space: nowrap;
 }
 
-/* Theme card variant classes supply border, radius, background, color on this node */
+/* Theme card variant classes supply border, background, color on this node */
 .hs-elevate-timeline__cardSurface {
   position: relative;
   z-index: 1;
@@ -118,6 +118,14 @@
   width: 100%;
   padding: var(--hsElevate--spacing--16, 16px) var(--hsElevate--spacing--20, 20px);
   overflow: visible;
+}
+
+/* Tighter radius than default theme card tokens so notches meet a nearly square corner */
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-1),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-2),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-3),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-4) {
+  border-radius: 4px;
 }
 
 .hs-elevate-timeline__cardBody {
@@ -183,7 +191,7 @@
     margin-inline-start: calc(var(--hsElevate--timeline__mobileAxisX) - 46px);
     inline-size: 92px;
     block-size: 92px;
-    font-size: 22px;
+    font-size: var(--hsElevate--body__fontSize);
   }
 
   .hs-elevate-timeline__entries {
