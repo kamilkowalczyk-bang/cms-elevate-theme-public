@@ -1,0 +1,298 @@
+.hs-elevate-timeline {
+  --hsElevate--timeline__lineColor: #cdd2d8;
+  --hsElevate--timeline__accentColor: #52bad1;
+  --hsElevate--timeline__dotColor: #20293a;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--hsElevate--spacing--32, 32px);
+}
+
+.hs-elevate-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: var(--hsElevate--timeline__lineColor);
+}
+
+.hs-elevate-timeline__capsule {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 120px;
+  block-size: 120px;
+  border-radius: 1000px;
+  background: var(--hsElevate--timeline__accentColor);
+  color: #161C26;
+  font-size: var(--hsElevate--body__fontSize);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1;
+  text-align: center;
+  padding: 8px;
+}
+
+.hs-elevate-timeline__entries {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: var(--hsElevate--spacing--20, 20px);
+}
+
+/* track-a | center | track-b — DOM order; mobile swaps columns when card is on the left */
+.hs-elevate-timeline__entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--hsElevate--spacing--20, 20px);
+}
+
+.hs-elevate-timeline__track-a,
+.hs-elevate-timeline__track-b {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__track-a {
+  justify-content: flex-end;
+}
+
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__track-b {
+  justify-content: flex-start;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__track-a {
+  justify-content: flex-end;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__track-b {
+  justify-content: flex-start;
+}
+
+.hs-elevate-timeline__center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 12px;
+}
+
+.hs-elevate-timeline__dot {
+  inline-size: 12px;
+  block-size: 12px;
+  border-radius: 999px;
+  background: var(--hsElevate--timeline__dotColor);
+}
+
+/* Date-only column: matches selected card variant text token on section */
+.hs-elevate-timeline__dateStrip {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--hsElevate--timeline__stripText, #20293a);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Theme card variant classes supply border, background, color on this node */
+.hs-elevate-timeline__cardSurface {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  padding: var(--hsElevate--spacing--16, 16px) var(--hsElevate--spacing--20, 20px);
+  overflow: visible;
+}
+
+/* Tighter radius than default theme card tokens so notches meet a nearly square corner */
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-1),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-2),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-3),
+.hs-elevate-timeline__cardSurface:global(.hs-elevate-card--variant-4) {
+  border-radius: 4px;
+}
+
+.hs-elevate-timeline__cardBody {
+  margin: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1.6;
+  color: inherit;
+}
+
+.hs-elevate-timeline__cardSurface--notchLeft::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: -6px;
+  width: 10px;
+  height: 10px;
+  background: var(--hsElevate--timeline__notchBg, #fff);
+  border-left: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  border-bottom: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.hs-elevate-timeline__cardSurface--notchRight::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -6px;
+  width: 10px;
+  height: 10px;
+  background: var(--hsElevate--timeline__notchBg, #fff);
+  border-top: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  border-right: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+@media (width <= 900px) {
+  .hs-elevate-timeline {
+    --hsElevate--timeline__mobileYearCol: 48px;
+    --hsElevate--timeline__mobileColGap: 10px;
+    --hsElevate--timeline__mobileDotCol: 12px;
+    --hsElevate--timeline__mobileAxisX: calc(
+      var(--hsElevate--timeline__mobileYearCol) + var(--hsElevate--timeline__mobileColGap) +
+        var(--hsElevate--timeline__mobileDotCol) / 2
+    );
+
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hs-elevate-timeline::before {
+    left: var(--hsElevate--timeline__mobileAxisX);
+    transform: translateX(-50%);
+  }
+
+  .hs-elevate-timeline__capsule {
+    align-self: flex-start;
+    margin-inline-start: calc(var(--hsElevate--timeline__mobileAxisX) - 46px);
+    inline-size: 92px;
+    block-size: 92px;
+    font-size: var(--hsElevate--body__fontSize);
+  }
+
+  .hs-elevate-timeline__entries {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  /*
+   * One horizontal row: year | dot | card. DOM for "left" entries is still
+   * track-a (card) | center | track-b (date). Grid column reassignment can
+   * break row placement in some engines (card row vs date/dot row). Flex +
+   * order keeps a single flex line and align-items: center reliably lines up
+   * the year, dot, and card on the same vertical axis.
+   */
+  .hs-elevate-timeline__entry {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: var(--hsElevate--timeline__mobileColGap);
+    width: 100%;
+  }
+
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__track-a {
+    flex: 0 0 var(--hsElevate--timeline__mobileYearCol);
+    justify-content: flex-end;
+  }
+
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__center {
+    flex: 0 0 var(--hsElevate--timeline__mobileDotCol);
+  }
+
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__track-b {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__track-b {
+    order: 1;
+    flex: 0 0 var(--hsElevate--timeline__mobileYearCol);
+    justify-content: flex-end;
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
+    order: 2;
+    flex: 0 0 var(--hsElevate--timeline__mobileDotCol);
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__track-a {
+    order: 3;
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: flex-start;
+  }
+
+  .hs-elevate-timeline__track-a,
+  .hs-elevate-timeline__track-b {
+    min-width: 0;
+    overflow: visible;
+  }
+
+  .hs-elevate-timeline__center {
+    inline-size: var(--hsElevate--timeline__mobileDotCol);
+  }
+
+  .hs-elevate-timeline__dateStrip {
+    display: inline-flex;
+    align-items: center;
+    text-align: end;
+    max-width: 100%;
+  }
+
+  /*
+   * Mobile visual order is always date | dot | card (flex `order` for entry--left).
+   * The card is always to the RIGHT of the dot, so the notch must always sit on the
+   * card’s LEFT edge toward the dot. Desktop entry--left uses notchRight (::after)
+   * because the card sits left of the dot — that triangle points the wrong way on mobile.
+   */
+  .hs-elevate-timeline__cardSurface--notchRight::after {
+    content: none;
+    display: none;
+  }
+
+  .hs-elevate-timeline__cardSurface--notchRight::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--hsElevate--timeline__notchBg, #fff);
+    border-left: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+    border-bottom: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .hs-elevate-timeline__cardSurface {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
