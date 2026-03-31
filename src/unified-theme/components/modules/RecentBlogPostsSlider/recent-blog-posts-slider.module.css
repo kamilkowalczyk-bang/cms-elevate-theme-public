@@ -1,0 +1,157 @@
+/* Root: Splide overrides stay under this module’s Splide root */
+.hs-elevate-recent-blog-posts-slider {
+  container: recent-blog-slider / inline-size;
+}
+
+.hs-elevate-recent-blog-posts-slider__read-time {
+  margin: 0 0 var(--hsElevate--spacing--16, 16px);
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--body--small__fontSize, 14px);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.hs-elevate-recent-blog-posts-slider__title {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.hs-elevate-recent-blog-posts-slider__meta {
+  margin: var(--hsElevate--spacing--12, 12px) 0 var(--hsElevate--spacing--20, 20px);
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--body--small__fontSize, 14px);
+  font-style: normal;
+  font-weight: 300;
+}
+
+/* Match RecentBlogPosts: column flex so “Read the article” sits at the bottom */
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog__content-container) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider__content-top {
+  display: block;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog__link) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog__image-container) {
+  flex-shrink: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider__read-link {
+  display: inline-block;
+  margin-top: auto;
+  flex-shrink: 0;
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--h5__fontSize);
+  font-style: normal;
+  font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #52bad1;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Splide: equal-height slides (stretch on cross-axis, same as grid + align-items: stretch) */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__track) {
+  overflow: hidden;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__list) {
+  display: flex;
+  align-items: stretch;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__slide) {
+  display: flex;
+  flex-shrink: 0;
+  height: auto;
+  align-self: stretch;
+  list-style: none;
+}
+
+.hs-elevate-recent-blog-posts-slider__slide-inner {
+  display: flex;
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider__blog-card {
+  flex: 1 1 auto;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  align-self: stretch;
+}
+
+.hs-elevate-recent-blog-posts-slider__slide-inner :global(.hs-elevate-card--blog__card-wrapper) {
+  display: flex;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Slider chrome: padding + dot nav (TestimonialSlider-style, scoped to this Splide root only) */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
+  padding-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows),
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow) {
+  display: none !important;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination) {
+  bottom: 0;
+  gap: 0;
+}
+
+/*
+ * Splide renders pagination as <button class="splide__pagination__page">. Theme button rules
+ * (often dark background) and Splide’s .is-active rule can win without button + !important.
+ * Single-level var() fallback avoids invalid nested var() when theme tokens aren’t in scope.
+ */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(button.splide__pagination__page) {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  height: 4px;
+  width: 48px;
+  border: none !important;
+  border-radius: 20px;
+  margin: 0 6px;
+  background-color: var(--hsElevate--recentBlogSlider__paginationColor, #52bad1) !important;
+  opacity: 0.3;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(button.splide__pagination__page.is-active) {
+  /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+  background-color: var(--hsElevate--recentBlogSlider__paginationColor, #52bad1) !important;
+  opacity: 1;
+  transform: none;
+}
+
+.hs-elevate-recent-blog-posts-slider__placeholder-wrap {
+  margin-block-end: var(--hsElevate--spacing--48, 48px);
+}
