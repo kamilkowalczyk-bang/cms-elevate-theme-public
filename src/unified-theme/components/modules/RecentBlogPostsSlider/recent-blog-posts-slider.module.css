@@ -1,0 +1,101 @@
+/* Root: all Splide overrides are descendants of this block (avoids clashing with TestimonialSlider etc.) */
+.hs-elevate-recent-blog-posts-slider {
+  container: recent-blog-slider / inline-size;
+}
+
+.hs-elevate-recent-blog-posts-slider__read-time {
+  margin: 0 0 var(--hsElevate--spacing--16, 16px);
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--body--small__fontSize, 14px);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.hs-elevate-recent-blog-posts-slider__title {
+  font-style: normal;
+  font-weight: 500;
+}
+
+.hs-elevate-recent-blog-posts-slider__meta {
+  margin: var(--hsElevate--spacing--12, 12px) 0 var(--hsElevate--spacing--20, 20px);
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--body--small__fontSize, 14px);
+  font-style: normal;
+  font-weight: 300;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog__content-container) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.hs-elevate-recent-blog-posts-slider__content-top {
+  display: block;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog) {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hs-elevate-recent-blog-posts-slider :global(.hs-elevate-card--blog__link) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.hs-elevate-recent-blog-posts-slider__read-link {
+  display: inline-block;
+  margin-top: auto;
+  color: var(--hsElevate--blogCard__textColor);
+  font-size: var(--hsElevate--h5__fontSize);
+  font-style: normal;
+  font-weight: 500;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: #52bad1;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* Splide layout: anchor on module Splide root (.splide + BEM) so rules beat generic .splide__* and stay out of TestimonialSlider */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__track) {
+  overflow: hidden;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__list) {
+  display: flex;
+  align-items: stretch;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__slide) {
+  display: flex;
+  flex-shrink: 0;
+  height: auto;
+  list-style: none;
+}
+
+.hs-elevate-recent-blog-posts-slider__slide-inner {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider__slide-inner :global(.hs-elevate-card--blog__card-wrapper) {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+
+/* No arrows / dots — enforce even if Splide defaults change */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows),
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow),
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination) {
+  display: none !important;
+}
+
+.hs-elevate-recent-blog-posts-slider__placeholder-wrap {
+  margin-block-end: var(--hsElevate--spacing--48, 48px);
+}
