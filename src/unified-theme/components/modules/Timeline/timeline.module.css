@@ -47,6 +47,7 @@
   gap: var(--hsElevate--spacing--20, 20px);
 }
 
+/* track-a | center | track-b — DOM order; mobile swaps columns when card is on the left */
 .hs-elevate-timeline__entry {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -54,36 +55,27 @@
   gap: var(--hsElevate--spacing--20, 20px);
 }
 
-.hs-elevate-timeline__side {
-  min-width: 0;
+.hs-elevate-timeline__track-a,
+.hs-elevate-timeline__track-b {
   display: flex;
+  min-width: 0;
   align-items: center;
-  gap: 12px;
 }
 
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left {
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__track-a {
   justify-content: flex-end;
 }
 
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__track-b {
   justify-content: flex-start;
 }
 
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__year,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__year {
-  display: none;
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__track-a {
+  justify-content: flex-end;
 }
 
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right .hs-elevate-timeline__card,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left .hs-elevate-timeline__card {
-  display: none;
-}
-
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
-  display: flex;
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__track-b {
+  justify-content: flex-start;
 }
 
 .hs-elevate-timeline__center {
@@ -95,15 +87,6 @@
   inline-size: 12px;
 }
 
-.hs-elevate-timeline__year {
-  color: #20293a;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
 .hs-elevate-timeline__dot {
   inline-size: 12px;
   block-size: 12px;
@@ -111,50 +94,70 @@
   background: var(--hsElevate--timeline__dotColor);
 }
 
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
-  flex-direction: row-reverse;
+/* Date-only column: matches selected card variant text token on section */
+.hs-elevate-timeline__dateStrip {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--hsElevate--timeline__stripText, #20293a);
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
 }
 
-.hs-elevate-timeline__card {
+/* Theme card variant classes supply border, radius, background, color on this node */
+.hs-elevate-timeline__cardSurface {
   position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  padding: var(--hsElevate--spacing--16, 16px) var(--hsElevate--spacing--20, 20px);
+  overflow: visible;
+}
+
+.hs-elevate-timeline__cardBody {
   margin: 0;
-  padding: 18px 20px;
-  border: 1px solid #d6dce4;
-  border-radius: 4px;
-  background: #f8f9fb;
-  color: #3a4658;
   font-size: 14px;
   font-style: normal;
   font-weight: 300;
   line-height: 1.6;
+  color: inherit;
 }
 
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__card::before,
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+.hs-elevate-timeline__cardSurface--notchLeft::before {
   content: '';
   position: absolute;
+  z-index: 2;
   top: 50%;
+  left: -6px;
   width: 10px;
   height: 10px;
-  background: #f8f9fb;
+  background: var(--hsElevate--timeline__notchBg, #fff);
+  border-left: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  border-bottom: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
   transform: translateY(-50%) rotate(45deg);
 }
 
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__card::before {
-  left: -6px;
-  border-left: 1px solid #d6dce4;
-  border-bottom: 1px solid #d6dce4;
-}
-
-.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+.hs-elevate-timeline__cardSurface--notchRight::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 50%;
   right: -6px;
-  border-top: 1px solid #d6dce4;
-  border-right: 1px solid #d6dce4;
+  width: 10px;
+  height: 10px;
+  background: var(--hsElevate--timeline__notchBg, #fff);
+  border-top: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  border-right: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+  transform: translateY(-50%) rotate(45deg);
 }
 
-/* Mobile: always year (left) — dot — paragraph card (right), regardless of desktop contentSide */
 @media (width <= 900px) {
-  /* Fixed tracks so axis position matches dot column (line + pointers stay aligned) */
   .hs-elevate-timeline {
     --hsElevate--timeline__mobileYearCol: 48px;
     --hsElevate--timeline__mobileColGap: 10px;
@@ -175,7 +178,6 @@
     transform: translateX(-50%);
   }
 
-  /* Align teal caps with the same vertical axis as the dots */
   .hs-elevate-timeline__capsule {
     align-self: flex-start;
     margin-inline-start: calc(var(--hsElevate--timeline__mobileAxisX) - 46px);
@@ -189,81 +191,100 @@
     width: 100%;
   }
 
+  /*
+   * One horizontal row: year | dot | card. DOM for "left" entries is still
+   * track-a (card) | center | track-b (date). Grid column reassignment can
+   * break row placement in some engines (card row vs date/dot row). Flex +
+   * order keeps a single flex line and align-items: center reliably lines up
+   * the year, dot, and card on the same vertical axis.
+   */
   .hs-elevate-timeline__entry {
-    grid-template-columns:
-      var(--hsElevate--timeline__mobileYearCol) var(--hsElevate--timeline__mobileDotCol) minmax(0, 1fr);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    column-gap: var(--hsElevate--timeline__mobileColGap);
-    row-gap: 0;
+    gap: var(--hsElevate--timeline__mobileColGap);
+    width: 100%;
   }
 
-  .hs-elevate-timeline__side {
-    gap: 0;
-  }
-
-  /* Dot column: stretch with row so the marker stays vertically centered next to tall cards */
-  .hs-elevate-timeline__center {
-    inline-size: var(--hsElevate--timeline__mobileDotCol);
-    align-self: stretch;
-    flex-direction: row;
-  }
-
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
-    flex-direction: row;
-  }
-
-  /* --right: DOM order is already year | dot | card */
-  .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left {
-    grid-column: 1;
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__track-a {
+    flex: 0 0 var(--hsElevate--timeline__mobileYearCol);
     justify-content: flex-end;
   }
 
   .hs-elevate-timeline__entry--right .hs-elevate-timeline__center {
-    grid-column: 2;
+    flex: 0 0 var(--hsElevate--timeline__mobileDotCol);
   }
 
-  .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
-    grid-column: 3;
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__track-b {
+    flex: 1 1 0;
+    min-width: 0;
     justify-content: flex-start;
   }
 
-  /* --left: DOM is card | dot | year — swap outer columns so year stays left of the axis */
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right {
-    grid-column: 1;
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__track-b {
+    order: 1;
+    flex: 0 0 var(--hsElevate--timeline__mobileYearCol);
     justify-content: flex-end;
   }
 
   .hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
-    grid-column: 2;
+    order: 2;
+    flex: 0 0 var(--hsElevate--timeline__mobileDotCol);
   }
 
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left {
-    grid-column: 3;
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__track-a {
+    order: 3;
+    flex: 1 1 0;
+    min-width: 0;
     justify-content: flex-start;
   }
 
-  .hs-elevate-timeline__side--left .hs-elevate-timeline__year,
-  .hs-elevate-timeline__side--right .hs-elevate-timeline__year {
-    display: block;
-    inline-size: 100%;
-    text-align: end;
+  .hs-elevate-timeline__track-a,
+  .hs-elevate-timeline__track-b {
+    min-width: 0;
+    overflow: visible;
   }
 
-  /* Card moved to the right column on mobile: use left-pointing notch (same as desktop right-side card) */
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+  .hs-elevate-timeline__center {
+    inline-size: var(--hsElevate--timeline__mobileDotCol);
+  }
+
+  .hs-elevate-timeline__dateStrip {
+    display: inline-flex;
+    align-items: center;
+    text-align: end;
+    max-width: 100%;
+  }
+
+  /*
+   * Mobile visual order is always date | dot | card (flex `order` for entry--left).
+   * The card is always to the RIGHT of the dot, so the notch must always sit on the
+   * card’s LEFT edge toward the dot. Desktop entry--left uses notchRight (::after)
+   * because the card sits left of the dot — that triangle points the wrong way on mobile.
+   */
+  .hs-elevate-timeline__cardSurface--notchRight::after {
+    content: none;
     display: none;
   }
 
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::before {
+  .hs-elevate-timeline__cardSurface--notchRight::before {
     content: '';
     position: absolute;
+    z-index: 2;
     top: 50%;
     left: -6px;
     width: 10px;
     height: 10px;
-    background: #f8f9fb;
-    border-left: 1px solid #d6dce4;
-    border-bottom: 1px solid #d6dce4;
+    background: var(--hsElevate--timeline__notchBg, #fff);
+    border-left: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
+    border-bottom: 1px solid var(--hsElevate--timeline__notchBorder, #d6dce4);
     transform: translateY(-50%) rotate(45deg);
+  }
+
+  .hs-elevate-timeline__cardSurface {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
   }
 }

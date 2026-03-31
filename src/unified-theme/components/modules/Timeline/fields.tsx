@@ -1,9 +1,11 @@
 import {
   ChoiceField,
+  FieldGroup,
   ModuleFields,
   RepeatedFieldGroup,
   TextField,
 } from '@hubspot/cms-components/fields';
+import { CardStyle } from '../../fieldLibrary/index.js';
 
 export const fields = (
   <ModuleFields>
@@ -62,12 +64,13 @@ export const fields = (
         inlineEditable={true}
       />
       <ChoiceField
-        label="Card side"
+        label="Paragraph card side"
         name="contentSide"
         display="radio"
+        helpText="Right: styled card with paragraph on the right, notch points left toward the line. Left: styled card on the left, notch points right. The other side shows the year only (bold, no card frame)."
         choices={[
-          ['left', 'Left'],
           ['right', 'Right'],
+          ['left', 'Left'],
         ]}
         default="right"
       />
@@ -78,5 +81,8 @@ export const fields = (
       default="Now"
       inlineEditable={true}
     />
+    <FieldGroup label="Styles" name="groupStyle" tab="STYLE">
+      <CardStyle cardStyleDefault="card_variant_1" />
+    </FieldGroup>
   </ModuleFields>
 );
