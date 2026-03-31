@@ -56,24 +56,43 @@
 
 .hs-elevate-timeline__side {
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left,
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left {
+  justify-content: flex-end;
 }
 
 .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right,
-.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left {
-  visibility: hidden;
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
+  justify-content: flex-start;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__year,
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__year {
+  display: none;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right .hs-elevate-timeline__card,
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left .hs-elevate-timeline__card {
+  display: none;
 }
 
 .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left,
 .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
-  visibility: visible;
+  display: flex;
 }
 
 .hs-elevate-timeline__center {
   position: relative;
   z-index: 1;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  inline-size: 12px;
 }
 
 .hs-elevate-timeline__year {
@@ -97,6 +116,7 @@
 }
 
 .hs-elevate-timeline__card {
+  position: relative;
   margin: 0;
   padding: 18px 20px;
   border: 1px solid #d6dce4;
@@ -109,37 +129,141 @@
   line-height: 1.6;
 }
 
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__card::before,
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: #f8f9fb;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right .hs-elevate-timeline__card::before {
+  left: -6px;
+  border-left: 1px solid #d6dce4;
+  border-bottom: 1px solid #d6dce4;
+}
+
+.hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+  right: -6px;
+  border-top: 1px solid #d6dce4;
+  border-right: 1px solid #d6dce4;
+}
+
+/* Mobile: always year (left) — dot — paragraph card (right), regardless of desktop contentSide */
 @media (width <= 900px) {
-  .hs-elevate-timeline__entry {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 12px;
-  }
+  /* Fixed tracks so axis position matches dot column (line + pointers stay aligned) */
+  .hs-elevate-timeline {
+    --hsElevate--timeline__mobileYearCol: 48px;
+    --hsElevate--timeline__mobileColGap: 10px;
+    --hsElevate--timeline__mobileDotCol: 12px;
+    --hsElevate--timeline__mobileAxisX: calc(
+      var(--hsElevate--timeline__mobileYearCol) + var(--hsElevate--timeline__mobileColGap) +
+        var(--hsElevate--timeline__mobileDotCol) / 2
+    );
 
-  .hs-elevate-timeline__side--left {
-    display: none;
-  }
-
-  .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right,
-  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right {
-    visibility: visible;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .hs-elevate-timeline::before {
-    left: 8px;
-    transform: none;
+    left: var(--hsElevate--timeline__mobileAxisX);
+    transform: translateX(-50%);
   }
 
+  /* Align teal caps with the same vertical axis as the dots */
+  .hs-elevate-timeline__capsule {
+    align-self: flex-start;
+    margin-inline-start: calc(var(--hsElevate--timeline__mobileAxisX) - 46px);
+    inline-size: 92px;
+    block-size: 92px;
+    font-size: 22px;
+  }
+
+  .hs-elevate-timeline__entries {
+    align-self: stretch;
+    width: 100%;
+  }
+
+  .hs-elevate-timeline__entry {
+    grid-template-columns:
+      var(--hsElevate--timeline__mobileYearCol) var(--hsElevate--timeline__mobileDotCol) minmax(0, 1fr);
+    align-items: center;
+    column-gap: var(--hsElevate--timeline__mobileColGap);
+    row-gap: 0;
+  }
+
+  .hs-elevate-timeline__side {
+    gap: 0;
+  }
+
+  /* Dot column: stretch with row so the marker stays vertically centered next to tall cards */
   .hs-elevate-timeline__center {
-    gap: 6px;
+    inline-size: var(--hsElevate--timeline__mobileDotCol);
+    align-self: stretch;
+    flex-direction: row;
   }
 
   .hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
     flex-direction: row;
   }
 
-  .hs-elevate-timeline__capsule {
-    inline-size: 92px;
-    block-size: 92px;
-    font-size: 22px;
+  /* --right: DOM order is already year | dot | card */
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--left {
+    grid-column: 1;
+    justify-content: flex-end;
+  }
+
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__center {
+    grid-column: 2;
+  }
+
+  .hs-elevate-timeline__entry--right .hs-elevate-timeline__side--right {
+    grid-column: 3;
+    justify-content: flex-start;
+  }
+
+  /* --left: DOM is card | dot | year — swap outer columns so year stays left of the axis */
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--right {
+    grid-column: 1;
+    justify-content: flex-end;
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__center {
+    grid-column: 2;
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left {
+    grid-column: 3;
+    justify-content: flex-start;
+  }
+
+  .hs-elevate-timeline__side--left .hs-elevate-timeline__year,
+  .hs-elevate-timeline__side--right .hs-elevate-timeline__year {
+    display: block;
+    inline-size: 100%;
+    text-align: end;
+  }
+
+  /* Card moved to the right column on mobile: use left-pointing notch (same as desktop right-side card) */
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::after {
+    display: none;
+  }
+
+  .hs-elevate-timeline__entry--left .hs-elevate-timeline__side--left .hs-elevate-timeline__card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    width: 10px;
+    height: 10px;
+    background: #f8f9fb;
+    border-left: 1px solid #d6dce4;
+    border-bottom: 1px solid #d6dce4;
+    transform: translateY(-50%) rotate(45deg);
   }
 }

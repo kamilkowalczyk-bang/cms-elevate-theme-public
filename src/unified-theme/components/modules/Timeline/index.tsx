@@ -48,6 +48,12 @@ export const Component = (props: TimelineProps) => {
               )}
             >
               <TimelineSide className={cx(swm('hs-elevate-timeline__side'), swm('hs-elevate-timeline__side--left'))}>
+                <TimelineYear
+                  className={swm('hs-elevate-timeline__year')}
+                  data-hs-token={getDataHSToken(moduleName, `groupTimelineEntries[${index}].year`)}
+                >
+                  {entry.year}
+                </TimelineYear>
                 <TimelineCard
                   className={swm('hs-elevate-timeline__card')}
                   data-hs-token={getDataHSToken(moduleName, `groupTimelineEntries[${index}].content`)}
@@ -57,16 +63,16 @@ export const Component = (props: TimelineProps) => {
               </TimelineSide>
 
               <TimelineCenter className={swm('hs-elevate-timeline__center')}>
+                <TimelineDot className={swm('hs-elevate-timeline__dot')} aria-hidden={true} />
+              </TimelineCenter>
+
+              <TimelineSide className={cx(swm('hs-elevate-timeline__side'), swm('hs-elevate-timeline__side--right'))}>
                 <TimelineYear
                   className={swm('hs-elevate-timeline__year')}
                   data-hs-token={getDataHSToken(moduleName, `groupTimelineEntries[${index}].year`)}
                 >
                   {entry.year}
                 </TimelineYear>
-                <TimelineDot className={swm('hs-elevate-timeline__dot')} aria-hidden={true} />
-              </TimelineCenter>
-
-              <TimelineSide className={cx(swm('hs-elevate-timeline__side'), swm('hs-elevate-timeline__side--right'))}>
                 <TimelineCard
                   className={swm('hs-elevate-timeline__card')}
                   data-hs-token={getDataHSToken(moduleName, `groupTimelineEntries[${index}].content`)}
