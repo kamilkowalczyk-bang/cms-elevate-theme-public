@@ -62,7 +62,21 @@ type CardBackgroundGroup = {
   };
 };
 
+type HubDBRowSelection = {
+  id?: unknown;
+  service_title?: unknown;
+  service_description?: unknown;
+  service_link_text?: unknown;
+  service_link_url?: unknown;
+  service_bg_img?: unknown;
+  /** HubDB IMAGE column name `image` — cell is `{ url, ... }` in HubL. */
+  image?: unknown;
+};
+
 type GroupCards = IconGroup & ImageGroup & ContentGroup & ButtonGroup & Partial<CardBackgroundGroup>;
+type GroupCardsWithHubdbRow = GroupCards & {
+  groupHubdbRow?: HubDBRowSelection;
+};
 
 type GroupCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
@@ -140,6 +154,16 @@ type HubDBServiceCard = {
   };
 };
 
+/** Server-resolved HubDB row for manual card mode (`hubdb_table_row` in hublDataTemplate). */
+export type ManualHubDbRowSnapshot = {
+  service_title?: string;
+  service_description?: string;
+  service_link_text?: string;
+  service_link_url?: string;
+  /** Resolved IMAGE `service_bg_img.url` (or string cell) for CSS background. */
+  bgSrc?: string;
+};
+
 type ServiceCardProps = {
   moduleName?: string;
   imageOrIcon: 'icon' | 'image';
@@ -152,6 +176,8 @@ type ServiceCardProps = {
   hublData: {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
+    /** One entry per `groupCards` index when Use HubDB feed is off; from `hubdb_table_row(tableId, rowId)`. */
+    manualHubDbRows?: (ManualHubDbRowSnapshot | null)[];
   };
 };
 
@@ -230,6 +256,268 @@ function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | {
   return undefined;
 }
 
+/**
+ * HubDB rows expose cells in a `values` map (column name → cell value). Names are case-insensitive in HubL.
+ * @see https://developers.hubspot.com/docs/cms/start-building/features/storage/hubdb#getting-rows
+ * @see https://developers.hubspot.com/docs/api-reference/legacy/cms/hubdb/guide
+ */
+function getHubDbValuesObject(row: any): Record<string, unknown> | undefined {
+  if (!row || typeof row !== 'object') return undefined;
+  const candidates = [
+    row.values,
+    row.row?.values,
+    row.selectedRow?.values,
+    row.selectedRow?.row?.values,
+    row.data?.values,
+    row.hubdbRow?.values,
+    row.rowData?.values,
+  ];
+  for (const bag of candidates) {
+    if (bag && typeof bag === 'object' && !Array.isArray(bag)) {
+      return bag as Record<string, unknown>;
+    }
+  }
+  return undefined;
+}
+
+function lookupColumnInHubDbValues(values: Record<string, unknown>, columnName: string): unknown {
+  if (Object.prototype.hasOwnProperty.call(values, columnName)) return values[columnName];
+  const lower = columnName.toLowerCase();
+  for (const key of Object.keys(values)) {
+    if (key.toLowerCase() === lower) return values[key];
+  }
+  return undefined;
+}
+
+/** Some serialized cells wrap the payload in `{ value }` (e.g. rich text in certain shapes). */
+function unwrapHubDbCell(cell: unknown): unknown {
+  if (cell && typeof cell === 'object' && !Array.isArray(cell) && 'value' in cell) {
+    const v = (cell as { value?: unknown }).value;
+    if (v !== undefined) return v;
+  }
+  return cell;
+}
+
+function getHubDbRowValue(row: any, columnName: string): unknown {
+  if (!row || typeof row !== 'object') return undefined;
+
+  const top = row[columnName];
+  if (top !== undefined) return unwrapHubDbCell(top);
+
+  const valuesBag = getHubDbValuesObject(row);
+  if (valuesBag) {
+    const fromBag = lookupColumnInHubDbValues(valuesBag, columnName);
+    if (fromBag !== undefined) return unwrapHubDbCell(fromBag);
+  }
+
+  return (
+    row?.values?.[columnName] ??
+    row?.value?.[columnName] ??
+    row?.cells?.[columnName] ??
+    row?.row?.values?.[columnName] ??
+    row?.data?.values?.[columnName] ??
+    row?.row?.[columnName] ??
+    unwrapHubDbCell(row?.values?.[columnName] as unknown)
+  );
+}
+
+function getHubDbRowString(rowValue: unknown): string | undefined {
+  if (typeof rowValue === 'string') {
+    const trimmed = rowValue.trim();
+    return trimmed ? trimmed : undefined;
+  }
+  if (rowValue && typeof rowValue === 'object') {
+    const hrefLike = (rowValue as any).href ?? (rowValue as any).url ?? (rowValue as any).value;
+    if (typeof hrefLike === 'string') {
+      const trimmed = hrefLike.trim();
+      return trimmed ? trimmed : undefined;
+    }
+  }
+  return undefined;
+}
+
+/** HubDB LINK column: string or `{ url: { href } }` / `{ url: string }`. */
+function getHubDbLinkUrl(rowValue: unknown): string | undefined {
+  const flat = getHubDbRowString(rowValue);
+  if (flat) return flat;
+  if (!rowValue || typeof rowValue !== 'object') return undefined;
+  const o = rowValue as Record<string, unknown>;
+  const u = o.url;
+  if (typeof u === 'string' && u.trim()) return u.trim();
+  if (u && typeof u === 'object') {
+    const inner = (u as { href?: string }).href;
+    if (typeof inner === 'string' && inner.trim()) return inner.trim();
+  }
+  return undefined;
+}
+
+/**
+ * HubDB IMAGE / FILE cells are usually `{ url, width, height, type: "image" }` (API) or similar in HubL.
+ * @see https://developers.hubspot.com/docs/api-reference/legacy/cms/hubdb/guide
+ */
+function getHubDbImageUrl(raw: unknown): string | undefined {
+  if (raw == null) return undefined;
+  let cell: unknown = raw;
+  if (cell && typeof cell === 'object' && 'value' in (cell as object)) {
+    const v = (cell as { value?: unknown }).value;
+    if (v !== undefined && v !== null) cell = v;
+  }
+  if (typeof cell === 'string') {
+    const t = cell.trim();
+    return t ? t : undefined;
+  }
+  if (typeof cell === 'object') {
+    const o = cell as Record<string, unknown>;
+    const fileObj = o.file;
+    const fromFile =
+      fileObj && typeof fileObj === 'object' ? (fileObj as Record<string, unknown>).url : undefined;
+    const meta = o.meta && typeof o.meta === 'object' ? (o.meta as Record<string, unknown>) : undefined;
+    const direct =
+      o.url ??
+      o.src ??
+      o.href ??
+      (typeof fromFile === 'string' ? fromFile : undefined) ??
+      (meta?.url as string | undefined);
+    if (typeof direct === 'string' && direct.trim()) {
+      return direct.trim();
+    }
+    // HubL / HubDB: `row.image.url` or cell shaped as `{ image: { url } }`
+    const nestedImage = o.image;
+    if (nestedImage && typeof nestedImage === 'object') {
+      const fromNested = getHubDbImageUrl(nestedImage);
+      if (fromNested) return fromNested;
+    }
+    const nested = o.value;
+    if (nested && typeof nested === 'object' && nested !== cell) {
+      return getHubDbImageUrl(nested);
+    }
+  }
+  return undefined;
+}
+
+/** Prefer known names, then any `values` key that looks like a background image column. */
+function getHubDbBackgroundImageCell(row: unknown): unknown {
+  if (!row) return undefined;
+  const preferred = [
+    'service_bg_img',
+    'image',
+    'bg_image',
+    'card_bg_image',
+    'background_image',
+    'card_background_image',
+  ] as const;
+  for (const col of preferred) {
+    const v = getHubDbRowValue(row, col);
+    if (v !== undefined && v !== null && v !== '') return v;
+  }
+  const bag = getHubDbValuesObject(row as any);
+  if (bag) {
+    for (const key of Object.keys(bag)) {
+      if (!/(bg|background|image|img)/i.test(key)) continue;
+      const v = unwrapHubDbCell(bag[key]);
+      if (v !== undefined && v !== null && v !== '') return v;
+    }
+  }
+  return undefined;
+}
+
+/** Resolves CSS `background-image` URL from module image field and/or HubDB IMAGE cells. */
+function resolveCardBackgroundImageSrc(
+  groupCardBackground: { image?: unknown } | undefined,
+  hubdbRow: unknown | undefined,
+  preferHubDbRowCell: boolean,
+  prefetchedBgSrc?: string,
+): string | undefined {
+  // Must not gate on "raw !== undefined": row id alone can mean HubDB mode while cells load under `values`.
+  if (preferHubDbRowCell && hubdbRow) {
+    if (prefetchedBgSrc !== undefined && prefetchedBgSrc !== null && String(prefetchedBgSrc).trim() !== '') {
+      return String(prefetchedBgSrc).trim();
+    }
+    const raw = getHubDbBackgroundImageCell(hubdbRow);
+    const u = getHubDbImageUrl(raw);
+    if (u) return u;
+  }
+  const fromModule = getCardBackgroundImageSrc(groupCardBackground?.image as any);
+  if (fromModule) return fromModule;
+  const img = groupCardBackground?.image as Record<string, unknown> | undefined;
+  if (img?.src != null) {
+    const u = getHubDbImageUrl(img.src);
+    if (u) return u;
+  }
+  if (img != null) {
+    return getHubDbImageUrl(img);
+  }
+  return undefined;
+}
+
+/** HubDB RICHTEXT / long text: HTML string or `{ html, value }`. */
+function getHubDbDescriptionHtml(value: unknown): string | undefined {
+  if (value == null) return undefined;
+  if (typeof value === 'string') {
+    const t = value.trim();
+    return t ? t : undefined;
+  }
+  if (typeof value === 'object') {
+    const o = value as Record<string, unknown>;
+    const html = o.html ?? o.value;
+    if (typeof html === 'string' && html.trim()) {
+      return html.trim();
+    }
+  }
+  return undefined;
+}
+
+/** HubDbRowField may use `id`, `rowId`, or column `hs_id`. */
+function getHubDbRowId(row: unknown): number | undefined {
+  if (!row || typeof row !== 'object') return undefined;
+  const r = row as Record<string, unknown>;
+  const candidates = [
+    r.id,
+    r.rowId,
+    r.row_id,
+    r.hs_row_id,
+    r.hs_id,
+    getHubDbRowValue(row, 'hs_id'),
+  ];
+  for (const raw of candidates) {
+    const n = typeof raw === 'number' ? raw : typeof raw === 'string' ? parseInt(raw, 10) : NaN;
+    if (Number.isFinite(n) && n > 0) return n;
+  }
+  return undefined;
+}
+
+/** True when a HubDB row is selected or column values were fetched (id may be omitted in some payloads). */
+function hasHubDbManualRowData(row: unknown): boolean {
+  if (getHubDbRowId(row) !== undefined) return true;
+  if (!row || typeof row !== 'object') return false;
+  const vals = getHubDbValuesObject(row as any);
+  if (vals && Object.keys(vals).length > 0) return true;
+  const columnKeys = ['service_title', 'service_description', 'service_link_text', 'service_link_url', 'service_bg_img', 'image'];
+  for (const k of columnKeys) {
+    const v = getHubDbRowValue(row, k);
+    if (v !== undefined && v !== null && v !== '') return true;
+  }
+  return false;
+}
+
+function manualSnapshotHasContent(s: ManualHubDbRowSnapshot | null | undefined): boolean {
+  if (!s) return false;
+  return [s.service_title, s.service_description, s.service_link_text, s.service_link_url, s.bgSrc].some(
+    (v) => v !== undefined && v !== null && String(v).trim() !== '',
+  );
+}
+
+/** Prefer HubL `hubdb_table_row` snapshot over HubDbRowField JSON (picker may omit `values` on publish). */
+function preferSnapshotString(snap: string | undefined | null, fromPicker: unknown): unknown {
+  if (snap !== undefined && snap !== null && String(snap).trim() !== '') return snap;
+  return fromPicker;
+}
+
+function hasHubDbManualRowForCard(hubdbRow: unknown, snapshot: ManualHubDbRowSnapshot | null | undefined): boolean {
+  if (manualSnapshotHasContent(snapshot)) return true;
+  return hasHubDbManualRowData(hubdbRow);
+}
+
 function normalizeCategoryLabel(category: string): string {
   return category.trim().toLowerCase();
 }
@@ -298,7 +586,7 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
-    hublData: { renderedWithGrids = false, hubdbCards = [] },
+    hublData: { renderedWithGrids = false, hubdbCards = [], manualHubDbRows = [] },
     useHubDBFeed = false,
     serviceCategory,
     showFeaturedCards = false,
@@ -379,15 +667,47 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
       )}
       <CardContainer className={cx(swm('hs-elevate-service-card-container'), styles[layoutClass])} style={cssVarsMap}>
         {cardsToRender.map((card, index) => {
-          const {
-            groupButton: {
-              showButton,
-              buttonContentText: text,
-              buttonContentLink: link = {},
-              buttonContentShowIcon: showIcon,
-              buttonContentIconPosition: iconPosition,
-            },
-          } = card;
+        const {
+          groupButton: {
+            showButton,
+            buttonContentText: text,
+            buttonContentLink: link = {},
+            buttonContentShowIcon: showIcon,
+            buttonContentIconPosition: iconPosition,
+          },
+        } = card;
+
+        const hubdbRow = (card as GroupCardsWithHubdbRow).groupHubdbRow;
+        const hubDbSnapshot = !useHubDBFeed ? manualHubDbRows[index] ?? null : null;
+        const isHubdbRowMode = hasHubDbManualRowForCard(hubdbRow, hubDbSnapshot);
+
+        const derivedTitle = preferSnapshotString(hubDbSnapshot?.service_title, getHubDbRowValue(hubdbRow, 'service_title'));
+        const derivedDescriptionRaw = preferSnapshotString(
+          hubDbSnapshot?.service_description,
+          getHubDbRowValue(hubdbRow, 'service_description'),
+        );
+        const derivedButtonText = preferSnapshotString(hubDbSnapshot?.service_link_text, getHubDbRowValue(hubdbRow, 'service_link_text'));
+        const derivedButtonUrl = preferSnapshotString(hubDbSnapshot?.service_link_url, getHubDbRowValue(hubdbRow, 'service_link_url'));
+        const derivedTitleString = getHubDbRowString(derivedTitle);
+        const effectiveHeading = derivedTitleString ?? card.groupContent.headingAndTextHeading;
+
+        const derivedDescriptionHTML =
+          getHubDbDescriptionHtml(derivedDescriptionRaw) ?? getHubDbRowString(derivedDescriptionRaw);
+        const effectiveDescriptionHTML = derivedDescriptionHTML ?? card.groupContent.richTextContentHTML;
+
+        const effectiveButtonText = getHubDbRowString(derivedButtonText) ?? text;
+
+        const derivedButtonUrlHref = getHubDbLinkUrl(derivedButtonUrl);
+        const effectiveLink =
+          derivedButtonUrlHref
+            ? {
+                url: { href: derivedButtonUrlHref, type: 'EXTERNAL' },
+                open_in_new_tab: true,
+              }
+            : link;
+
+        // Preserve existing behavior: `groupButton.showButton` controls visibility.
+        const effectiveShowButton = showButton;
 
           const hasValidImageSrc = card?.groupImage?.image?.src;
           const isCardImageWithBackground = hasValidImageSrc && imageShouldUseBackground(card.groupImage.image.src);
@@ -396,11 +716,16 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
           const hasValidIconName = card?.groupIcon?.icon?.name;
           const isIconVisible = isIcon && hasValidIconName;
 
-          const cardBackgroundSrc = getCardBackgroundImageSrc(card.groupCardBackground?.image);
+          const cardBackgroundSrc = resolveCardBackgroundImageSrc(
+            card.groupCardBackground,
+            hubdbRow,
+            isHubdbRowMode,
+            hubDbSnapshot?.bgSrc,
+          );
           const hasCardBackgroundImage = Boolean(cardBackgroundSrc);
 
           const cardClasses = cx('hs-elevate-service-card-container__card', styles[`hs-elevate-service-card-container__card--${cardOrientation}`], {
-            [styles['hs-elevate-service-card-container__card--no-button']]: !showButton,
+            [styles['hs-elevate-service-card-container__card--no-button']]: !effectiveShowButton,
             [styles['hs-elevate-service-card-container__card--bg-image']]: hasCardBackgroundImage,
             [styles['hs-elevate-service-card-container__card--drop-shadow']]: showCardShadow,
           });
@@ -465,21 +790,21 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
                     {card.groupContent.captionText}
                   </Caption>
                 )}
-                {card.groupContent.headingAndTextHeading && (
+              {effectiveHeading && (
                   <HeadingComponent
                     headingLevel={card.groupContent.headingAndTextHeadingLevel}
-                    heading={card.groupContent.headingAndTextHeading}
+                  heading={effectiveHeading}
                     headingStyleVariant={headingStyleVariant}
                     inlineStyles={headingInlineStyles}
                     headingUppercase={headingUppercase}
                     additionalClassArray={[swm('hs-elevate-service-card-container__title')]}
-                    moduleName={inlineModuleName}
-                    fieldPath={!useHubDBFeed ? `groupCards[${index}].groupContent.headingAndTextHeading` : undefined}
+                  moduleName={!useHubDBFeed && !isHubdbRowMode ? inlineModuleName : undefined}
+                  fieldPath={!useHubDBFeed && !isHubdbRowMode ? `groupCards[${index}].groupContent.headingAndTextHeading` : undefined}
                   />
                 )}
-                {useHubDBFeed ? (
+              {useHubDBFeed || isHubdbRowMode ? (
                   <div className={swm('hs-elevate-service-card-container__body')}>
-                    <SanitizedContent content={card.groupContent.richTextContentHTML} />
+                  <SanitizedContent content={effectiveDescriptionHTML} />
                   </div>
                 ) : (
                   <RichText
@@ -488,22 +813,22 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
                     data-hs-token={getDataHSToken(inlineModuleName, `groupCards[${index}].groupContent.richTextContentHTML`)}
                   />
                 )}
-                {showButton && (
+              {effectiveShowButton && (
                   <ButtonWrapper className={swm('hs-elevate-service-card-container__button-wrapper')}>
                     <Button
                       buttonSize={buttonStyleSize}
                       buttonStyle={buttonStyleVariant}
-                      href={getLinkFieldHref(link)}
-                      rel={getLinkFieldRel(link)}
-                      target={getLinkFieldTarget(link)}
+                    href={getLinkFieldHref(effectiveLink)}
+                    rel={getLinkFieldRel(effectiveLink as any)}
+                    target={getLinkFieldTarget(effectiveLink as any)}
                       iconFieldPath={!useHubDBFeed ? `groupCards[${index}].groupButton.buttonContentIcon` : undefined}
                       showIcon={showIcon}
                       iconPosition={iconPosition}
                       additionalClassArray={['hs-elevate-service-card-container__button']}
                       moduleName={inlineModuleName}
-                      textFieldPath={!useHubDBFeed ? `groupCards[${index}].groupButton.buttonContentText` : undefined}
+                    textFieldPath={!useHubDBFeed && !isHubdbRowMode ? `groupCards[${index}].groupButton.buttonContentText` : undefined}
                     >
-                      {text}
+                    {effectiveButtonText}
                     </Button>
                   </ButtonWrapper>
                 )}

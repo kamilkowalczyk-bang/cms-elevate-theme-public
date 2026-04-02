@@ -3,6 +3,7 @@ import {
   RepeatedFieldGroup,
   IconField,
   ChoiceField,
+  HubDbRowField,
   ImageField,
   BooleanField,
   FieldGroup,
@@ -167,6 +168,25 @@ export const fields = (
         },
       ]}
     >
+      <HubDbRowField
+        label='HubDB row'
+        name='groupHubdbRow'
+        required={false}
+        locked={false}
+        tableNameOrId={234247952}
+        columnsToFetch={[
+          'hs_id',
+          'service_title',
+          'service_description',
+          'service_link_text',
+          'service_link_url',
+          'service_bg_img',
+          'image',
+        ]}
+        displayColumns={['service_title']}
+        displayFormat='%0'
+        helpText='When a row is selected, HubDB data is used for the card. List every HubDB column you need here (including IMAGE columns for the card background — URL is read from the cell’s `.url`). Unknown column names may be ignored. Publish the HubDB table so live pages use the latest row data.'
+      />
       <FieldGroup label='Icon' name='groupIcon' display='inline'>
         <IconField
           label='Icon'

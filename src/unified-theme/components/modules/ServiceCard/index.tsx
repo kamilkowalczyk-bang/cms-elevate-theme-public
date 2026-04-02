@@ -146,6 +146,15 @@ type HubDBServiceCard = {
   };
 };
 
+/** See ServiceCardIsland — server-filled via `hubdb_table_row` when manual HubDB row is selected. */
+type ManualHubDbRowSnapshot = {
+  service_title?: string;
+  service_description?: string;
+  service_link_text?: string;
+  service_link_url?: string;
+  bgSrc?: string;
+};
+
 type ServiceCardProps = {
   moduleName?: string;
   imageOrIcon: 'icon' | 'image';
@@ -158,6 +167,7 @@ type ServiceCardProps = {
   hublData: {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
+    manualHubDbRows?: (ManualHubDbRowSnapshot | null)[];
   };
 };
 
@@ -536,11 +546,78 @@ export { fields } from './fields.js';
 
 export const hublDataTemplate = `
   {% set hubdbCards = [] %}
+  {% set manualHubDbRows = [] %}
+  {% unless module.useHubDBFeed %}
+    {% for card in module.groupCards %}
+      {% set picker = card.groupHubdbRow %}
+      {% set rid = none %}
+      {% if picker %}
+        {% if picker.id is not none %}
+          {% set rid = picker.id %}
+        {% elif picker.rowId is not none %}
+          {% set rid = picker.rowId %}
+        {% elif picker.row_id is not none %}
+          {% set rid = picker.row_id %}
+        {% elif picker.values and picker.values.hs_id is not none %}
+          {% set rid = picker.values.hs_id %}
+        {% endif %}
+      {% endif %}
+      {% if rid %}
+        {% set dbrow = hubdb_table_row(234247952, rid|int) %}
+        {% set bgRaw = dbrow.service_bg_img %}
+        {% if bgRaw %}
+          {% if bgRaw.url %}
+            {% set bgSrcSnap = bgRaw.url %}
+          {% else %}
+            {% set bgSrcSnap = bgRaw %}
+          {% endif %}
+        {% else %}
+          {% set bgSrcSnap = "" %}
+        {% endif %}
+        {% set lu = dbrow.service_link_url %}
+        {% if lu %}
+          {% if lu.href %}
+            {% set linkStr = lu.href %}
+          {% elif lu.url %}
+            {% set linkStr = lu.url %}
+          {% else %}
+            {% set linkStr = lu %}
+          {% endif %}
+        {% else %}
+          {% set linkStr = "" %}
+        {% endif %}
+        {% do manualHubDbRows.append({
+          "service_title": dbrow.service_title,
+          "service_description": dbrow.service_description,
+          "service_link_text": dbrow.service_link_text,
+          "service_link_url": linkStr,
+          "bgSrc": bgSrcSnap
+        }) %}
+      {% else %}
+        {% do manualHubDbRows.append(none) %}
+      {% endif %}
+    {% endfor %}
+  {% endunless %}
   {% if module.useHubDBFeed %}
-    {% set hubdbRows = hubdb_table_rows(1756583141) %}
+    {% set hubdbRows = hubdb_table_rows(234247952) %}
 
     {% for row in hubdbRows %}
-      {% set bgImage = row.service_bg_img %}
+      {% if row.service_bg_img %}
+        {% set bgRaw = row.service_bg_img %}
+      {% elif row.image %}
+        {% set bgRaw = row.image %}
+      {% else %}
+        {% set bgRaw = none %}
+      {% endif %}
+      {% if bgRaw %}
+        {% if bgRaw.url %}
+          {% set bgSrc = bgRaw.url %}
+        {% else %}
+          {% set bgSrc = bgRaw %}
+        {% endif %}
+      {% else %}
+        {% set bgSrc = "" %}
+      {% endif %}
       {% set title = row.service_title %}
       {% set descriptionHTML = row.service_description %}
       {% set linkText = row.service_link_text %}
@@ -571,7 +648,7 @@ export const hublDataTemplate = `
           "image": { "src": "", "alt": "", "loading": "disabled" }
         },
         "groupCardBackground": {
-          "image": { "src": bgImage, "alt": "", "loading": "lazy" }
+          "image": { "src": bgSrc, "alt": "", "loading": "lazy" }
         },
         "groupIcon": {
           "icon": { "name": "" }
@@ -596,7 +673,8 @@ export const hublDataTemplate = `
 
   {% set hublData = {
       "renderedWithGrids": rendered_with_grids,
-      "hubdbCards": hubdbCards
+      "hubdbCards": hubdbCards,
+      "manualHubDbRows": manualHubDbRows
     }
   %}
 `;
