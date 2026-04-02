@@ -152,7 +152,9 @@ type ManualHubDbRowSnapshot = {
   service_description?: string;
   service_link_text?: string;
   service_link_url?: string;
-  bgSrc?: string;
+  bgSrc?: string | unknown;
+  /** Raw HubDB IMAGE cell when present; used if `bgSrc` is empty or not a usable string. */
+  service_bg_img?: unknown;
 };
 
 type ServiceCardProps = {
@@ -565,9 +567,26 @@ export const hublDataTemplate = `
       {% if rid %}
         {% set dbrow = hubdb_table_row(234247952, rid|int) %}
         {% set bgRaw = dbrow.service_bg_img %}
+        {% if not bgRaw and dbrow.values and dbrow.values.service_bg_img %}
+          {% set bgRaw = dbrow.values.service_bg_img %}
+        {% endif %}
         {% if bgRaw %}
           {% if bgRaw.url %}
             {% set bgSrcSnap = bgRaw.url %}
+          {% elif bgRaw.full_url %}
+            {% set bgSrcSnap = bgRaw.full_url %}
+          {% elif bgRaw.image and bgRaw.image.url %}
+            {% set bgSrcSnap = bgRaw.image.url %}
+          {% elif bgRaw.image and bgRaw.image.default and bgRaw.image.default.url %}
+            {% set bgSrcSnap = bgRaw.image.default.url %}
+          {% elif bgRaw.default and bgRaw.default.url %}
+            {% set bgSrcSnap = bgRaw.default.url %}
+          {% elif bgRaw.src %}
+            {% set bgSrcSnap = bgRaw.src %}
+          {% elif bgRaw.href %}
+            {% set bgSrcSnap = bgRaw.href %}
+          {% elif bgRaw.file_url %}
+            {% set bgSrcSnap = bgRaw.file_url %}
           {% else %}
             {% set bgSrcSnap = bgRaw %}
           {% endif %}
@@ -591,7 +610,8 @@ export const hublDataTemplate = `
           "service_description": dbrow.service_description,
           "service_link_text": dbrow.service_link_text,
           "service_link_url": linkStr,
-          "bgSrc": bgSrcSnap
+          "bgSrc": bgSrcSnap,
+          "service_bg_img": bgRaw
         }) %}
       {% else %}
         {% do manualHubDbRows.append(none) %}
@@ -612,6 +632,20 @@ export const hublDataTemplate = `
       {% if bgRaw %}
         {% if bgRaw.url %}
           {% set bgSrc = bgRaw.url %}
+        {% elif bgRaw.full_url %}
+          {% set bgSrc = bgRaw.full_url %}
+        {% elif bgRaw.image and bgRaw.image.url %}
+          {% set bgSrc = bgRaw.image.url %}
+        {% elif bgRaw.image and bgRaw.image.default and bgRaw.image.default.url %}
+          {% set bgSrc = bgRaw.image.default.url %}
+        {% elif bgRaw.default and bgRaw.default.url %}
+          {% set bgSrc = bgRaw.default.url %}
+        {% elif bgRaw.src %}
+          {% set bgSrc = bgRaw.src %}
+        {% elif bgRaw.href %}
+          {% set bgSrc = bgRaw.href %}
+        {% elif bgRaw.file_url %}
+          {% set bgSrc = bgRaw.file_url %}
         {% else %}
           {% set bgSrc = bgRaw %}
         {% endif %}

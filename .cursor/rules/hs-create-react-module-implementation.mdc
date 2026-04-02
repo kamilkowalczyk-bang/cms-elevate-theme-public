@@ -342,6 +342,20 @@ Key patterns demonstrated:
 - Use CSS variables for theming
 - Implement proper TypeScript types
 
+### HubDB IMAGE columns → React modules (URL shape)
+
+1. **What HubDB stores** — An IMAGE column is **not** a plain string in the HubDB API or in HubL. It is typically an object like `{ url, width, height, type: "image" }`. Some responses also use `full_url`, `file_url`, nested `image.url`, or CMS-style `default` / `image.default` for URLs.
+
+2. **What a card background needs** — The Elevate **ImageField** (`groupCardBackground.image`) resolves to **`{ src: string }`** (or similar) for `<img>` and for CSS. For **`background-image`**, the module must end up with a **single string URL** (absolute `https://…` or a site-relative path) passed to `url("…")` in a style object.
+
+3. **How to wire HubDB → UI** — Typical pattern (see **Service Card**):
+   - List the column in **`HubDbRowField` `columnsToFetch`** (e.g. `service_bg_img`).
+   - In **`hublDataTemplate`**, use **`hubdb_table_row(tableId, rowId)`** (manual row) or **`hubdb_table_rows`** (feed), read the IMAGE cell, and normalize to a string with fallbacks: **`.url`**, **`.full_url`**, **`.image.url`**, **`.src`**, etc.; pass that string in JSON (e.g. `manualHubDbRows[].bgSrc`) and optionally pass the **raw cell** as **`service_bg_img`** for client-side `getHubDbImageUrl`-style parsing.
+   - In the island, **merge** HubL snapshot + **`HubDbRowField`** JSON: normalize any object through one **`getHubDbImageUrl`** helper before applying **`backgroundImage: url(JSON.stringify(url))`**.
+   - Prefer HubDB URL **whenever** a HubL snapshot exists for that card (`manualHubDbRows[i] != null`), not only when other “row mode” heuristics pass, so the background does not fall back to the static ImageField asset by mistake.
+
+4. **Design Manager visibility** — When manual cards can pick a **`HubDbRowField`**, hide duplicate fields with **`visibilityRules="ADVANCED"`** and **`AdvancedVisibility`**: **`boolean_operator: 'AND'`** with **`useHubDBFeed`** `false` and **`groupCards.<hubDbRowFieldName>`** using **`property: 'id'`** (and **`rowId`** / **`row_id`**) **`operator: 'EMPTY'`** so editors only see HubDB-driven inputs after a row is selected. Keep **heading level**, **icon/image**, **show button**, and **button icon** fields visible when still controlled locally.
+
 ## Final Checklist
 - [ ] All props are properly typed
 - [ ] Components use CSS Modules with CSS custom properties for theming

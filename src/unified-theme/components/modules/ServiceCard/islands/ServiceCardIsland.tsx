@@ -160,8 +160,13 @@ export type ManualHubDbRowSnapshot = {
   service_description?: string;
   service_link_text?: string;
   service_link_url?: string;
-  /** Resolved IMAGE `service_bg_img.url` (or string cell) for CSS background. */
-  bgSrc?: string;
+  /**
+   * HubL-normalized URL for the card background (see `hublDataTemplate` in `index.tsx`).
+   * HubDB IMAGE columns in HubL/API are usually `{ url, width, height, type: "image" }`; we coerce to a string for CSS.
+   */
+  bgSrc?: string | unknown;
+  /** Same column as `bgSrc` if ever emitted separately (raw IMAGE cell); `getHubDbImageUrl` accepts both. */
+  service_bg_img?: unknown;
 };
 
 type ServiceCardProps = {
@@ -353,6 +358,7 @@ function getHubDbLinkUrl(rowValue: unknown): string | undefined {
 
 /**
  * HubDB IMAGE / FILE cells are usually `{ url, width, height, type: "image" }` (API) or similar in HubL.
+ * HubSpot may also use `full_url`, nested `image.url` / `image.default`, or CMS-style `default` objects.
  * @see https://developers.hubspot.com/docs/api-reference/legacy/cms/hubdb/guide
  */
 function getHubDbImageUrl(raw: unknown): string | undefined {
@@ -376,10 +382,18 @@ function getHubDbImageUrl(raw: unknown): string | undefined {
       o.url ??
       o.src ??
       o.href ??
+      o.full_url ??
+      o.file_url ??
       (typeof fromFile === 'string' ? fromFile : undefined) ??
       (meta?.url as string | undefined);
     if (typeof direct === 'string' && direct.trim()) {
       return direct.trim();
+    }
+    // CMS image field shape: `{ default: { url | src } }`
+    const def = o.default;
+    if (def && typeof def === 'object') {
+      const fromDef = getHubDbImageUrl(def);
+      if (fromDef) return fromDef;
     }
     // HubL / HubDB: `row.image.url` or cell shaped as `{ image: { url } }`
     const nestedImage = o.image;
@@ -421,18 +435,25 @@ function getHubDbBackgroundImageCell(row: unknown): unknown {
   return undefined;
 }
 
-/** Resolves CSS `background-image` URL from module image field and/or HubDB IMAGE cells. */
+/**
+ * Resolves a single URL string for `background-image: url("...")`.
+ * The module **ImageField** (`groupCardBackground.image`) supplies `{ src: string }` (or nested url/href); HubDB IMAGE cells are objects — we normalize with `getHubDbImageUrl`.
+ */
 function resolveCardBackgroundImageSrc(
   groupCardBackground: { image?: unknown } | undefined,
   hubdbRow: unknown | undefined,
   preferHubDbRowCell: boolean,
-  prefetchedBgSrc?: string,
+  prefetchedBgSrc?: string | unknown,
 ): string | undefined {
-  // Must not gate on "raw !== undefined": row id alone can mean HubDB mode while cells load under `values`.
+  // HubL `manualHubDbRows[].bgSrc` may be a string URL or still an IMAGE cell object; do not require `hubdbRow` to use it.
+  if (preferHubDbRowCell && prefetchedBgSrc !== undefined && prefetchedBgSrc !== null) {
+    const fromPre =
+      typeof prefetchedBgSrc === 'string'
+        ? prefetchedBgSrc.trim() || undefined
+        : getHubDbImageUrl(prefetchedBgSrc);
+    if (fromPre) return fromPre;
+  }
   if (preferHubDbRowCell && hubdbRow) {
-    if (prefetchedBgSrc !== undefined && prefetchedBgSrc !== null && String(prefetchedBgSrc).trim() !== '') {
-      return String(prefetchedBgSrc).trim();
-    }
     const raw = getHubDbBackgroundImageCell(hubdbRow);
     const u = getHubDbImageUrl(raw);
     if (u) return u;
@@ -680,6 +701,21 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
         const hubdbRow = (card as GroupCardsWithHubdbRow).groupHubdbRow;
         const hubDbSnapshot = !useHubDBFeed ? manualHubDbRows[index] ?? null : null;
         const isHubdbRowMode = hasHubDbManualRowForCard(hubdbRow, hubDbSnapshot);
+        /** HubL appends one snapshot per card when a row id resolves; prefer HubDB bg whenever that exists (not only when picker JSON looks populated). */
+        const preferHubDbBackground = !useHubDBFeed && hubDbSnapshot != null;
+        const hubDbBackgroundRaw =
+          hubDbSnapshot == null
+            ? undefined
+            : (() => {
+                const snap = hubDbSnapshot;
+                const fromBg = snap.bgSrc;
+                const hasUsableBg =
+                  fromBg !== undefined &&
+                  fromBg !== null &&
+                  (typeof fromBg !== 'string' || fromBg.trim() !== '');
+                if (hasUsableBg) return fromBg;
+                return snap.service_bg_img ?? fromBg;
+              })();
 
         const derivedTitle = preferSnapshotString(hubDbSnapshot?.service_title, getHubDbRowValue(hubdbRow, 'service_title'));
         const derivedDescriptionRaw = preferSnapshotString(
@@ -719,8 +755,8 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
           const cardBackgroundSrc = resolveCardBackgroundImageSrc(
             card.groupCardBackground,
             hubdbRow,
-            isHubdbRowMode,
-            hubDbSnapshot?.bgSrc,
+            preferHubDbBackground,
+            hubDbBackgroundRaw,
           );
           const hasCardBackgroundImage = Boolean(cardBackgroundSrc);
 
@@ -733,7 +769,7 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
           const cardSurfaceStyles: CSSPropertiesMap | undefined = (() => {
             const stylesMap: CSSPropertiesMap = {};
             if (hasCardBackgroundImage) {
-              stylesMap.backgroundImage = `url(${cardBackgroundSrc})`;
+              stylesMap.backgroundImage = `url(${JSON.stringify(cardBackgroundSrc)})`;
             }
             if (showCardBorder === false) {
               stylesMap.border = 'none';
