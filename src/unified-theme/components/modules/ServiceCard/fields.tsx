@@ -135,19 +135,14 @@ export const fields = (
       helpText='When enabled, cards are rendered from the HubDB services table and manual card fields are hidden.'
     />
 
-    <ChoiceField
-      label='Service category'
+    <TextField
+      label='Default category filter'
       name='serviceCategory'
-      display='select'
-      choices={[
-        ['service_all', 'Show all'],
-        ['communication_systems', 'Communication systems'],
-        ['positioning_tracking_systems', 'Positioning & tracking systems'],
-        ['manufacturing_technologies', 'Manufacturing technologies'],
-      ]}
-      default='service_all'
+      default='show_all_categories'
       required={false}
       visibility={hubDBFeedVisibility}
+      helpText="Initial tab when the page loads. Use a Service categories internal name from HubDB (for example: show_all_categories)."
+      inlineHelpText='Use a HubDB Service categories internal name (example: show_all_categories).'
     />
 
     <BooleanField

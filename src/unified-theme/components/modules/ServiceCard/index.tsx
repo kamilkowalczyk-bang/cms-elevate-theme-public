@@ -27,6 +27,12 @@ import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
 import { getDataHSToken } from '../../utils/inline-editing.js';
+import {
+  buildHubDbCategoryTabList,
+  normalizeCategoryLabel,
+  normalizeHubDbCategories,
+  resolveActiveServiceCategory,
+} from './hubdb-category-tabs.js';
 
 // @ts-expect-error -- ?island not typed
 import ServiceCardIsland from './islands/ServiceCardIsland.js?island';
@@ -170,6 +176,8 @@ type ServiceCardProps = {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
     manualHubDbRows?: (ManualHubDbRowSnapshot | null)[];
+    /** From HubL `hubdb_table_column` → `service_categories.options` when Use HubDB feed is on. */
+    hubdbCategoryTabOptions?: unknown;
   };
 };
 
@@ -248,47 +256,6 @@ function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | {
   return undefined;
 }
 
-function normalizeCategoryLabel(category: string): string {
-  return category.trim().toLowerCase();
-}
-
-function normalizeHubDbCategories(value: unknown): string[] {
-  if (!value) return [];
-
-  if (Array.isArray(value)) {
-    return value
-      .flatMap((item) => {
-        if (typeof item === 'string') return item;
-        if (item && typeof item === 'object') {
-          const maybeLabel = (item as any).name ?? (item as any).label ?? (item as any).value;
-          return typeof maybeLabel === 'string' ? maybeLabel : [];
-        }
-        return [];
-      })
-      .map((v) => (typeof v === 'string' ? normalizeCategoryLabel(v) : ''))
-      .filter(Boolean);
-  }
-
-  if (typeof value === 'string') {
-    return value
-      .split(/[,;]/)
-      .map((v) => normalizeCategoryLabel(v))
-      .filter(Boolean);
-  }
-
-  if (value && typeof value === 'object') {
-    const maybeItems = (value as any).items ?? (value as any).values;
-    return normalizeHubDbCategories(maybeItems);
-  }
-
-  return [];
-}
-
-function isShowAllCategory(category: string | undefined): boolean {
-  if (!category) return true;
-  return normalizeCategoryLabel(category) === 'service_all';
-}
-
 // Components
 
 const CardContainer = createComponent('div');
@@ -316,29 +283,27 @@ const ServiceCardServer = (props: ServiceCardProps) => {
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
-    hublData: { renderedWithGrids = false, hubdbCards = [] },
+    hublData: { renderedWithGrids = false, hubdbCards = [], hubdbCategoryTabOptions },
     useHubDBFeed = false,
     serviceCategory,
     showFeaturedCards = false,
     hideCategoryTabs = false,
   } = props;
 
-  const tabOptions = useMemo(
-    () => [
-      { value: 'service_all', label: 'Show all' },
-      { value: 'communication_systems', label: 'Communication systems' },
-      { value: 'positioning_tracking_systems', label: 'Positioning & tracking systems' },
-      { value: 'manufacturing_technologies', label: 'Manufacturing technologies' },
-    ],
-    [],
+  const categoryTabs = useMemo(
+    () =>
+      useHubDBFeed
+        ? buildHubDbCategoryTabList(hubdbCategoryTabOptions, hubdbCards)
+        : [],
+    [useHubDBFeed, hubdbCategoryTabOptions, hubdbCards],
   );
 
-  const [activeCategory, setActiveCategory] = useState(serviceCategory ?? 'service_all');
+  const [activeCategory, setActiveCategory] = useState(serviceCategory ?? 'show_all_categories');
 
   useEffect(() => {
     if (!useHubDBFeed) return;
-    setActiveCategory(serviceCategory ?? 'service_all');
-  }, [serviceCategory, useHubDBFeed]);
+    setActiveCategory(resolveActiveServiceCategory(serviceCategory, categoryTabs));
+  }, [serviceCategory, useHubDBFeed, categoryTabs]);
 
   const inlineModuleName = useHubDBFeed ? undefined : moduleName;
 
@@ -354,7 +319,6 @@ const ServiceCardServer = (props: ServiceCardProps) => {
           card.isFeatured === '1',
       );
     }
-    if (isShowAllCategory(activeCategory)) return hubdbCards;
     const activeCategoryNormalized = normalizeCategoryLabel(activeCategory);
     return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategoryNormalized));
   }, [activeCategory, groupCards, hubdbCards, useHubDBFeed, showFeaturedCards]);
@@ -381,7 +345,7 @@ const ServiceCardServer = (props: ServiceCardProps) => {
     <>
       {useHubDBFeed && !showFeaturedCards && !hideCategoryTabs && (
         <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
-          {tabOptions.map((tab) => {
+          {categoryTabs.map((tab) => {
             const isActive = tab.value === activeCategory;
             return (
               <button
@@ -549,6 +513,7 @@ export { fields } from './fields.js';
 export const hublDataTemplate = `
   {% set hubdbCards = [] %}
   {% set manualHubDbRows = [] %}
+  {% set hubdb_category_tab_options = [] %}
   {% unless module.useHubDBFeed %}
     {% for card in module.groupCards %}
       {% set picker = card.groupHubdbRow %}
@@ -619,7 +584,28 @@ export const hublDataTemplate = `
     {% endfor %}
   {% endunless %}
   {% if module.useHubDBFeed %}
-    {% set hubdbRows = hubdb_table_rows(234247952) %}
+    {% set hubdb_svc_table_id = 234247952 %}
+    {% set hubdb_cat_col = hubdb_table_column(hubdb_svc_table_id, "service_categories") %}
+    {% if hubdb_cat_col and hubdb_cat_col.options %}
+      {% if hubdb_cat_col.options is mapping %}
+        {% for opt_key in hubdb_cat_col.options %}
+          {% set opt = hubdb_cat_col.options[opt_key] %}
+          {% do hubdb_category_tab_options.append({
+            "id": opt_key,
+            "name": opt.name,
+            "label": opt.label|default(opt.name)
+          }) %}
+        {% endfor %}
+      {% else %}
+        {% for opt in hubdb_cat_col.options %}
+          {% do hubdb_category_tab_options.append({
+            "name": opt.name,
+            "label": opt.label|default(opt.name)
+          }) %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+    {% set hubdbRows = hubdb_table_rows(hubdb_svc_table_id) %}
 
     {% for row in hubdbRows %}
       {% if row.service_bg_img %}
@@ -708,7 +694,8 @@ export const hublDataTemplate = `
   {% set hublData = {
       "renderedWithGrids": rendered_with_grids,
       "hubdbCards": hubdbCards,
-      "manualHubDbRows": manualHubDbRows
+      "manualHubDbRows": manualHubDbRows,
+      "hubdbCategoryTabOptions": hubdb_category_tab_options
     }
   %}
 `;
