@@ -35,6 +35,7 @@ type GroupStyle = SectionStyleFieldLibraryType &
     columnsDesktop?: number;
     columnsTablet?: number;
     columnsMobile?: number;
+    logoMaxHeight?: number;
   };
 
 type LogoGridProps = {
@@ -61,12 +62,19 @@ function generateLayoutCssVars(groupStyle: GroupStyle): CSSPropertiesMap {
     columnsDesktop = 5,
     columnsTablet = 4,
     columnsMobile = 2,
+    logoMaxHeight,
   } = groupStyle;
+
+  const clampedLogoMaxHeight =
+    typeof logoMaxHeight === 'number'
+      ? Math.min(150, Math.max(50, logoMaxHeight))
+      : 72;
 
   return {
     '--hsElevate--logoGrid__columnsDesktop': `${columnsDesktop}`,
     '--hsElevate--logoGrid__columnsTablet': `${columnsTablet}`,
     '--hsElevate--logoGrid__columnsMobile': `${columnsMobile}`,
+    '--hsElevate--logoGrid__logoMaxHeight': `${clampedLogoMaxHeight}px`,
   };
 }
 
