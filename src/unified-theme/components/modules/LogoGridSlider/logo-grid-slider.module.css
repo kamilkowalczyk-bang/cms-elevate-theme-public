@@ -26,7 +26,7 @@
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) {
-  padding-block-end: var(--hsElevate--spacing--24, 24px);
+  padding-block-end: var(--hsElevate--spacing--56, 56px);
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__track) {
