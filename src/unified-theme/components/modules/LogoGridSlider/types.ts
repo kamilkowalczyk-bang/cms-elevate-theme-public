@@ -18,6 +18,7 @@ export type LogoSliderItem = {
 
 export type LogoGridSliderGroupContent = HeadingAndTextFieldLibraryType & {
   description?: TextFieldType['default'];
+  slidesPerPage?: number;
 };
 
 export type LogoGridSliderGroupLayout = {
@@ -32,7 +33,6 @@ export type LogoGridSliderGroupStyle = SectionStyleFieldLibraryType &
 export type LogoGridSliderProps = {
   moduleName?: string;
   groupContent: LogoGridSliderGroupContent;
-  slidesPerPage?: number;
   groupStyle: LogoGridSliderGroupStyle;
   hublData: {
     renderedWithGrids: boolean;
