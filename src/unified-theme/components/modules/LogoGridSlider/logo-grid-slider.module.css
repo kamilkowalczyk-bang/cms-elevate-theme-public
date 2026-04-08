@@ -31,6 +31,7 @@
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__track) {
   overflow: hidden;
+  margin: 0 0 var(--hsElevate--spacing--56, 56px);
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__list) {
