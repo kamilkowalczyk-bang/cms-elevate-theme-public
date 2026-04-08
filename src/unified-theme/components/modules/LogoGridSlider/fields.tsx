@@ -2,6 +2,7 @@ import {
   ModuleFields,
   FieldGroup,
   TextField,
+  NumberField,
   RepeatedFieldGroup,
   HubDbRowField,
 } from '@hubspot/cms-components/fields';
@@ -19,6 +20,16 @@ export const fields = (
         label="Description"
         name="description"
         inlineEditable={true}
+      />
+      <NumberField
+        label="Slides per page"
+        name="slidesPerPage"
+        display="slider"
+        min={1}
+        max={6}
+        step={1}
+        default={6}
+        helpText="Controls how many logos are visible per slide on desktop."
       />
       <RepeatedFieldGroup
         label="Logos"

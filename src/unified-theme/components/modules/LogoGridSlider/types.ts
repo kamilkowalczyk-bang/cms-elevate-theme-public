@@ -2,6 +2,7 @@ import { TextFieldType } from '@hubspot/cms-components/fields';
 import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/types.js';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
 import { HeadingAndTextFieldLibraryType } from '../../fieldLibrary/HeadingAndText/types.js';
+import { HeadingLevelType } from '../../types/fields.js';
 
 export type LogoSliderItem = {
   id: number;
@@ -31,6 +32,7 @@ export type LogoGridSliderGroupStyle = SectionStyleFieldLibraryType &
 export type LogoGridSliderProps = {
   moduleName?: string;
   groupContent: LogoGridSliderGroupContent;
+  slidesPerPage?: number;
   groupStyle: LogoGridSliderGroupStyle;
   hublData: {
     renderedWithGrids: boolean;
@@ -40,8 +42,9 @@ export type LogoGridSliderProps = {
 
 export type LogoGridSliderIslandProps = {
   heading?: string;
-  headingLevel?: string;
+  headingLevel?: HeadingLevelType;
   description?: TextFieldType['default'];
+  slidesPerPage?: number;
   groupStyle: LogoGridSliderGroupStyle;
   renderedWithGrids?: boolean;
   logoRows?: LogoSliderItem[];

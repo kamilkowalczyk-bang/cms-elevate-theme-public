@@ -25,27 +25,27 @@
   margin-inline: auto;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) {
   padding-block-end: var(--hsElevate--spacing--24, 24px);
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__track) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__track) {
   overflow: hidden;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__list) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__list) {
   display: flex;
   align-items: center;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__slide) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__slide) {
   display: flex;
   justify-content: center;
   align-items: center;
   list-style: none;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__arrow) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__arrow) {
   display: none !important;
 }
 
@@ -64,7 +64,7 @@
   object-fit: contain;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(button.splide__pagination__page) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(button.splide__pagination__page) {
   height: 4px;
   width: 48px;
   border: none !important;
@@ -74,7 +74,7 @@
   opacity: 0.3;
 }
 
-.hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(button.splide__pagination__page.is-active) {
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(button.splide__pagination__page.is-active) {
   background-color: var(--hsElevate--logoGridSlider__paginationColor, #52bad1) !important;
   opacity: 1;
   transform: none;

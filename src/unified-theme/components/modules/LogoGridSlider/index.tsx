@@ -8,6 +8,7 @@ import { LogoGridSliderProps } from './types.js';
 export const Component = (props: LogoGridSliderProps) => {
   const {
     groupContent: { headingAndTextHeading, headingAndTextHeadingLevel, description },
+    slidesPerPage = 6,
     groupStyle,
     hublData: { renderedWithGrids = false, logoRows = [] },
   } = props;
@@ -19,6 +20,7 @@ export const Component = (props: LogoGridSliderProps) => {
       heading={headingAndTextHeading}
       headingLevel={headingAndTextHeadingLevel}
       description={description}
+      slidesPerPage={slidesPerPage}
       groupStyle={groupStyle}
       renderedWithGrids={renderedWithGrids}
       logoRows={logoRows}

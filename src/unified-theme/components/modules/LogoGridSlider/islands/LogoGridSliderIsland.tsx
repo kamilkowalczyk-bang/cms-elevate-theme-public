@@ -43,9 +43,15 @@ export default function LogoGridSliderIsland(props: LogoGridSliderIslandProps) {
     heading,
     headingLevel = 'h2',
     description,
+    slidesPerPage = 6,
     groupStyle,
     logoRows = [],
   } = props;
+
+  const normalizedSlidesPerPage =
+    typeof slidesPerPage === 'number'
+      ? Math.min(6, Math.max(1, slidesPerPage))
+      : 6;
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars(groupStyle.sectionStyleVariant),
@@ -83,7 +89,7 @@ export default function LogoGridSliderIsland(props: LogoGridSliderIslandProps) {
           options={{
             type: 'slide',
             rewind: true,
-            perPage: 6,
+            perPage: normalizedSlidesPerPage,
             perMove: 1,
             gap: 24,
             arrows: false,
@@ -95,15 +101,15 @@ export default function LogoGridSliderIsland(props: LogoGridSliderIslandProps) {
             speed: 600,
             breakpoints: {
               1200: {
-                perPage: 4,
+                perPage: Math.min(normalizedSlidesPerPage, 4),
                 gap: 20,
               },
               900: {
-                perPage: 3,
+                perPage: Math.min(normalizedSlidesPerPage, 3),
                 gap: 16,
               },
               640: {
-                perPage: 2,
+                perPage: Math.min(normalizedSlidesPerPage, 2),
                 gap: 12,
               },
             },
