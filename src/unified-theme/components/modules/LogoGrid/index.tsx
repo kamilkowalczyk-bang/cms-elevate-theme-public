@@ -30,12 +30,16 @@ type GroupContent = HeadingAndTextFieldLibraryType & {
   description?: TextFieldType['default'];
 };
 
-type GroupStyle = SectionStyleFieldLibraryType &
-  HeadingStyleFieldLibraryType & {
+type GroupLayout = {
     columnsDesktop?: number;
     columnsTablet?: number;
     columnsMobile?: number;
     logoMaxHeight?: number;
+  };
+
+type GroupStyle = SectionStyleFieldLibraryType &
+  HeadingStyleFieldLibraryType & {
+    groupLayout?: GroupLayout;
   };
 
 type LogoGridProps = {
@@ -57,13 +61,25 @@ function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPrope
   };
 }
 
-function generateLayoutCssVars(groupStyle: GroupStyle): CSSPropertiesMap {
+function generateLayoutCssVars(groupLayout?: GroupLayout): CSSPropertiesMap {
+  const fallbackLayout: GroupLayout = {
+    columnsDesktop: 5,
+    columnsTablet: 4,
+    columnsMobile: 2,
+    logoMaxHeight: 72,
+  };
+
+  const layout = {
+    ...fallbackLayout,
+    ...(groupLayout || {}),
+  };
+
   const {
-    columnsDesktop = 5,
-    columnsTablet = 4,
-    columnsMobile = 2,
+    columnsDesktop,
+    columnsTablet,
+    columnsMobile,
     logoMaxHeight,
-  } = groupStyle;
+  } = layout;
 
   const clampedLogoMaxHeight =
     typeof logoMaxHeight === 'number'
@@ -95,7 +111,7 @@ export const Component = (props: LogoGridProps) => {
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars(groupStyle.sectionStyleVariant),
-    ...generateLayoutCssVars(groupStyle),
+    ...generateLayoutCssVars(groupStyle.groupLayout),
   };
 
   const layoutClass = renderedWithGrids
