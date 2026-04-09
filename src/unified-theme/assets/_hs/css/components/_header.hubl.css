@@ -32,6 +32,27 @@
   
 }
 
+/* Desktop sticky nav behavior (class-driven by StickyNavIsland). */
+@media (width >= 1251px) {
+  .hs-elevate-header.hs-elevate-header--sticky-fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 20;
+    transform: translateY(0);
+    transition: transform 220ms ease;
+  }
+
+  .hs-elevate-header.hs-elevate-header--sticky-fixed.hs-elevate-header--scrolling-down {
+    transform: translateY(-100%);
+  }
+
+  .hs-elevate-header.hs-elevate-header--sticky-fixed.hs-elevate-header--scrolling-up {
+    transform: translateY(0);
+  }
+}
+
 .hs-elevate-header-slider {
   position: relative;
   z-index: 1;
