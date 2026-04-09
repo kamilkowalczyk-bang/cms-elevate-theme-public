@@ -2,6 +2,7 @@ import {
   ModuleFields,
   FieldGroup,
   TextField,
+  NumberField,
   RepeatedFieldGroup,
   HubDbRowField,
 } from '@hubspot/cms-components/fields';
@@ -10,10 +11,7 @@ import StyleFields from './styleFields.js';
 
 export const fields = (
   <ModuleFields>
-    <FieldGroup
-      label="Content"
-      name="groupContent"
-    >
+    <FieldGroup label="Content" name="groupContent">
       <HeadingAndText
         headingLevelDefault="h2"
         textDefault="We have helped them"
@@ -22,6 +20,16 @@ export const fields = (
         label="Description"
         name="description"
         inlineEditable={true}
+      />
+      <NumberField
+        label="Slides per page"
+        name="slidesPerPage"
+        display="slider"
+        min={1}
+        max={6}
+        step={1}
+        default={6}
+        helpText="Controls how many logos are visible per slide on desktop."
       />
       <RepeatedFieldGroup
         label="Logos"
@@ -38,18 +46,13 @@ export const fields = (
           required={false}
           locked={false}
           tableNameOrId={231586389}
-          columnsToFetch={[
-            'hs_id',
-            'logo',
-            'company_name',
-          ]}
+          columnsToFetch={['hs_id', 'logo', 'company_name']}
           displayColumns={['company_name']}
           displayFormat="%0"
-          helpText="Select a row to render its logo in the grid. If logo alt text is empty, company_name is used."
+          helpText="Select a row to render its logo in the slider. If logo alt text is empty, company_name is used."
         />
       </RepeatedFieldGroup>
     </FieldGroup>
     <StyleFields />
   </ModuleFields>
 );
-

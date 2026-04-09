@@ -18,6 +18,8 @@ import { MenuModulePropTypes } from './types.js';
 import { PlaceholderEmptyContent } from '../../PlaceholderComponent/PlaceholderEmptyContent.js';
 // @ts-expect-error -- ?island not typed
 import LanguageSwitcherIsland from '../../LanguageSwitcherComponent/index.js?island';
+// @ts-expect-error -- ?island not typed
+import StickyNavIsland from './islands/StickyNavIsland.js?island';
 import { CSSPropertiesMap } from '../../types/components.js';
 
 const swm = staticWithModule(styles);
@@ -138,6 +140,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
       menuFlyoutUseAccentOnHover = false,
+      stickyNavigation = false,
     },
     groupButton: { buttonStyleVariant, buttonStyleSize },
     groupMobileMenu,
@@ -174,11 +177,15 @@ export const Component = (props: MenuModulePropTypes) => {
     }),
   };
 
-  const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), { [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher });
+  const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), {
+    [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher,
+    'hs-elevate-site-header--sticky-navigation-desktop': stickyNavigation,
+  });
 
   return (
     <SiteHeader className={siteHeaderClassNames} style={cssVarsMap}>
       <SharedIslandState value={[]}>
+        {stickyNavigation && <Island module={StickyNavIsland} />}
         {/* Controls back button when mobile nav is open */}
         <SiteHeaderContainer className={swm('hs-elevate-site-header__header-container')}>
           <LogoButtonContainer className={swm('hs-elevate-site-header__logo-container')}>

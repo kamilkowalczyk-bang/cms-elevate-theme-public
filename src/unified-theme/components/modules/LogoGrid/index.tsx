@@ -30,11 +30,16 @@ type GroupContent = HeadingAndTextFieldLibraryType & {
   description?: TextFieldType['default'];
 };
 
-type GroupStyle = SectionStyleFieldLibraryType &
-  HeadingStyleFieldLibraryType & {
+type GroupLayout = {
     columnsDesktop?: number;
     columnsTablet?: number;
     columnsMobile?: number;
+    logoMaxHeight?: number;
+  };
+
+type GroupStyle = SectionStyleFieldLibraryType &
+  HeadingStyleFieldLibraryType & {
+    groupLayout?: GroupLayout;
   };
 
 type LogoGridProps = {
@@ -56,17 +61,36 @@ function generateColorCssVars(sectionVariantField: SectionVariantType): CSSPrope
   };
 }
 
-function generateLayoutCssVars(groupStyle: GroupStyle): CSSPropertiesMap {
+function generateLayoutCssVars(groupLayout?: GroupLayout): CSSPropertiesMap {
+  const fallbackLayout: GroupLayout = {
+    columnsDesktop: 5,
+    columnsTablet: 4,
+    columnsMobile: 2,
+    logoMaxHeight: 72,
+  };
+
+  const layout = {
+    ...fallbackLayout,
+    ...(groupLayout || {}),
+  };
+
   const {
-    columnsDesktop = 5,
-    columnsTablet = 4,
-    columnsMobile = 2,
-  } = groupStyle;
+    columnsDesktop,
+    columnsTablet,
+    columnsMobile,
+    logoMaxHeight,
+  } = layout;
+
+  const clampedLogoMaxHeight =
+    typeof logoMaxHeight === 'number'
+      ? Math.min(150, Math.max(50, logoMaxHeight))
+      : 72;
 
   return {
     '--hsElevate--logoGrid__columnsDesktop': `${columnsDesktop}`,
     '--hsElevate--logoGrid__columnsTablet': `${columnsTablet}`,
     '--hsElevate--logoGrid__columnsMobile': `${columnsMobile}`,
+    '--hsElevate--logoGrid__logoMaxHeight': `${clampedLogoMaxHeight}px`,
   };
 }
 
@@ -87,7 +111,7 @@ export const Component = (props: LogoGridProps) => {
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars(groupStyle.sectionStyleVariant),
-    ...generateLayoutCssVars(groupStyle),
+    ...generateLayoutCssVars(groupStyle.groupLayout),
   };
 
   const layoutClass = renderedWithGrids
@@ -149,22 +173,64 @@ export { fields } from './fields.js';
 
 export const hublDataTemplate = `
   {% set logoRows = [] %}
-  {% set hubdbRows = hubdb_table_rows(1822813372) %}
-
-  {% for row in hubdbRows %}
-    {% set logoSrc = row.logo.url %}
-    {% set name = row.name %}
-    {% set alt = row.company_name %}
-
-    {% do logoRows.append({
-      "id": row.id,
-      "name": name,
-      "logo": {
-        "src": logoSrc,
-        "alt": alt or name,
-        "loading": "lazy"
-      }
-    }) %}
+  {% for logoCard in module.groupContent.groupLogos %}
+    {% set picker = logoCard.groupHubdbRow %}
+    {% set rid = none %}
+    {% if picker %}
+      {% if picker.id is not none %}
+        {% set rid = picker.id %}
+      {% elif picker.rowId is not none %}
+        {% set rid = picker.rowId %}
+      {% elif picker.row_id is not none %}
+        {% set rid = picker.row_id %}
+      {% elif picker.values and picker.values.hs_id is not none %}
+        {% set rid = picker.values.hs_id %}
+      {% endif %}
+    {% endif %}
+    {% if rid %}
+      {% set row = hubdb_table_row(231586389, rid|int) %}
+      {% set logoRaw = row.logo %}
+      {% if logoRaw %}
+        {% if logoRaw.url %}
+          {% set logoSrc = logoRaw.url %}
+        {% elif logoRaw.full_url %}
+          {% set logoSrc = logoRaw.full_url %}
+        {% elif logoRaw.image and logoRaw.image.url %}
+          {% set logoSrc = logoRaw.image.url %}
+        {% elif logoRaw.image and logoRaw.image.default and logoRaw.image.default.url %}
+          {% set logoSrc = logoRaw.image.default.url %}
+        {% elif logoRaw.default and logoRaw.default.url %}
+          {% set logoSrc = logoRaw.default.url %}
+        {% elif logoRaw.src %}
+          {% set logoSrc = logoRaw.src %}
+        {% elif logoRaw.href %}
+          {% set logoSrc = logoRaw.href %}
+        {% elif logoRaw.file_url %}
+          {% set logoSrc = logoRaw.file_url %}
+        {% else %}
+          {% set logoSrc = logoRaw %}
+        {% endif %}
+      {% else %}
+        {% set logoSrc = "" %}
+      {% endif %}
+      {% set companyName = row.company_name %}
+      {% if logoRaw and logoRaw.alt %}
+        {% set logoAlt = logoRaw.alt %}
+      {% else %}
+        {% set logoAlt = companyName %}
+      {% endif %}
+      {% if logoSrc %}
+        {% do logoRows.append({
+          "id": rid|int,
+          "name": companyName,
+          "logo": {
+            "src": logoSrc,
+            "alt": logoAlt or "",
+            "loading": "lazy"
+          }
+        }) %}
+      {% endif %}
+    {% endif %}
   {% endfor %}
 
   {% set hublData = {

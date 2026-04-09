@@ -27,6 +27,12 @@ import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
 import { getDataHSToken } from '../../utils/inline-editing.js';
+import {
+  buildHubDbCategoryTabList,
+  normalizeCategoryLabel,
+  normalizeHubDbCategories,
+  resolveActiveServiceCategory,
+} from './hubdb-category-tabs.js';
 
 // @ts-expect-error -- ?island not typed
 import ServiceCardIsland from './islands/ServiceCardIsland.js?island';
@@ -146,6 +152,17 @@ type HubDBServiceCard = {
   };
 };
 
+/** See ServiceCardIsland — server-filled via `hubdb_table_row` when manual HubDB row is selected. */
+type ManualHubDbRowSnapshot = {
+  service_title?: string;
+  service_description?: string;
+  service_link_text?: string;
+  service_link_url?: string;
+  bgSrc?: string | unknown;
+  /** Raw HubDB IMAGE cell when present; used if `bgSrc` is empty or not a usable string. */
+  service_bg_img?: unknown;
+};
+
 type ServiceCardProps = {
   moduleName?: string;
   imageOrIcon: 'icon' | 'image';
@@ -158,6 +175,9 @@ type ServiceCardProps = {
   hublData: {
     renderedWithGrids: boolean;
     hubdbCards?: HubDBServiceCard[];
+    manualHubDbRows?: (ManualHubDbRowSnapshot | null)[];
+    /** From HubL `hubdb_table_column` → `service_categories.options` when Use HubDB feed is on. */
+    hubdbCategoryTabOptions?: unknown;
   };
 };
 
@@ -236,47 +256,6 @@ function getCardBackgroundImageSrc(image: Partial<ImageFieldType['default']> | {
   return undefined;
 }
 
-function normalizeCategoryLabel(category: string): string {
-  return category.trim().toLowerCase();
-}
-
-function normalizeHubDbCategories(value: unknown): string[] {
-  if (!value) return [];
-
-  if (Array.isArray(value)) {
-    return value
-      .flatMap((item) => {
-        if (typeof item === 'string') return item;
-        if (item && typeof item === 'object') {
-          const maybeLabel = (item as any).name ?? (item as any).label ?? (item as any).value;
-          return typeof maybeLabel === 'string' ? maybeLabel : [];
-        }
-        return [];
-      })
-      .map((v) => (typeof v === 'string' ? normalizeCategoryLabel(v) : ''))
-      .filter(Boolean);
-  }
-
-  if (typeof value === 'string') {
-    return value
-      .split(/[,;]/)
-      .map((v) => normalizeCategoryLabel(v))
-      .filter(Boolean);
-  }
-
-  if (value && typeof value === 'object') {
-    const maybeItems = (value as any).items ?? (value as any).values;
-    return normalizeHubDbCategories(maybeItems);
-  }
-
-  return [];
-}
-
-function isShowAllCategory(category: string | undefined): boolean {
-  if (!category) return true;
-  return normalizeCategoryLabel(category) === 'service_all';
-}
-
 // Components
 
 const CardContainer = createComponent('div');
@@ -304,29 +283,27 @@ const ServiceCardServer = (props: ServiceCardProps) => {
       groupContent: { alignment, headingStyleVariant, headingUppercase = false },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
-    hublData: { renderedWithGrids = false, hubdbCards = [] },
+    hublData: { renderedWithGrids = false, hubdbCards = [], hubdbCategoryTabOptions },
     useHubDBFeed = false,
     serviceCategory,
     showFeaturedCards = false,
     hideCategoryTabs = false,
   } = props;
 
-  const tabOptions = useMemo(
-    () => [
-      { value: 'service_all', label: 'Show all' },
-      { value: 'communication_systems', label: 'Communication systems' },
-      { value: 'positioning_tracking_systems', label: 'Positioning & tracking systems' },
-      { value: 'manufacturing_technologies', label: 'Manufacturing technologies' },
-    ],
-    [],
+  const categoryTabs = useMemo(
+    () =>
+      useHubDBFeed
+        ? buildHubDbCategoryTabList(hubdbCategoryTabOptions, hubdbCards)
+        : [],
+    [useHubDBFeed, hubdbCategoryTabOptions, hubdbCards],
   );
 
-  const [activeCategory, setActiveCategory] = useState(serviceCategory ?? 'service_all');
+  const [activeCategory, setActiveCategory] = useState(serviceCategory ?? 'show_all_categories');
 
   useEffect(() => {
     if (!useHubDBFeed) return;
-    setActiveCategory(serviceCategory ?? 'service_all');
-  }, [serviceCategory, useHubDBFeed]);
+    setActiveCategory(resolveActiveServiceCategory(serviceCategory, categoryTabs));
+  }, [serviceCategory, useHubDBFeed, categoryTabs]);
 
   const inlineModuleName = useHubDBFeed ? undefined : moduleName;
 
@@ -342,7 +319,6 @@ const ServiceCardServer = (props: ServiceCardProps) => {
           card.isFeatured === '1',
       );
     }
-    if (isShowAllCategory(activeCategory)) return hubdbCards;
     const activeCategoryNormalized = normalizeCategoryLabel(activeCategory);
     return hubdbCards.filter((card) => normalizeHubDbCategories(card.serviceCategories).includes(activeCategoryNormalized));
   }, [activeCategory, groupCards, hubdbCards, useHubDBFeed, showFeaturedCards]);
@@ -369,7 +345,7 @@ const ServiceCardServer = (props: ServiceCardProps) => {
     <>
       {useHubDBFeed && !showFeaturedCards && !hideCategoryTabs && (
         <div className={swm('hs-elevate-service-card__category-tabs')} style={cssVarsMap}>
-          {tabOptions.map((tab) => {
+          {categoryTabs.map((tab) => {
             const isActive = tab.value === activeCategory;
             return (
               <button
@@ -536,11 +512,132 @@ export { fields } from './fields.js';
 
 export const hublDataTemplate = `
   {% set hubdbCards = [] %}
+  {% set manualHubDbRows = [] %}
+  {% set hubdb_category_tab_options = [] %}
+  {% unless module.useHubDBFeed %}
+    {% for card in module.groupCards %}
+      {% set picker = card.groupHubdbRow %}
+      {% set rid = none %}
+      {% if picker %}
+        {% if picker.id is not none %}
+          {% set rid = picker.id %}
+        {% elif picker.rowId is not none %}
+          {% set rid = picker.rowId %}
+        {% elif picker.row_id is not none %}
+          {% set rid = picker.row_id %}
+        {% elif picker.values and picker.values.hs_id is not none %}
+          {% set rid = picker.values.hs_id %}
+        {% endif %}
+      {% endif %}
+      {% if rid %}
+        {% set dbrow = hubdb_table_row(234247952, rid|int) %}
+        {% set bgRaw = dbrow.service_bg_img %}
+        {% if not bgRaw and dbrow.values and dbrow.values.service_bg_img %}
+          {% set bgRaw = dbrow.values.service_bg_img %}
+        {% endif %}
+        {% if bgRaw %}
+          {% if bgRaw.url %}
+            {% set bgSrcSnap = bgRaw.url %}
+          {% elif bgRaw.full_url %}
+            {% set bgSrcSnap = bgRaw.full_url %}
+          {% elif bgRaw.image and bgRaw.image.url %}
+            {% set bgSrcSnap = bgRaw.image.url %}
+          {% elif bgRaw.image and bgRaw.image.default and bgRaw.image.default.url %}
+            {% set bgSrcSnap = bgRaw.image.default.url %}
+          {% elif bgRaw.default and bgRaw.default.url %}
+            {% set bgSrcSnap = bgRaw.default.url %}
+          {% elif bgRaw.src %}
+            {% set bgSrcSnap = bgRaw.src %}
+          {% elif bgRaw.href %}
+            {% set bgSrcSnap = bgRaw.href %}
+          {% elif bgRaw.file_url %}
+            {% set bgSrcSnap = bgRaw.file_url %}
+          {% else %}
+            {% set bgSrcSnap = bgRaw %}
+          {% endif %}
+        {% else %}
+          {% set bgSrcSnap = "" %}
+        {% endif %}
+        {% set lu = dbrow.service_link_url %}
+        {% if lu %}
+          {% if lu.href %}
+            {% set linkStr = lu.href %}
+          {% elif lu.url %}
+            {% set linkStr = lu.url %}
+          {% else %}
+            {% set linkStr = lu %}
+          {% endif %}
+        {% else %}
+          {% set linkStr = "" %}
+        {% endif %}
+        {% do manualHubDbRows.append({
+          "service_title": dbrow.service_title,
+          "service_description": dbrow.service_description,
+          "service_link_text": dbrow.service_link_text,
+          "service_link_url": linkStr,
+          "bgSrc": bgSrcSnap,
+          "service_bg_img": bgRaw
+        }) %}
+      {% else %}
+        {% do manualHubDbRows.append(none) %}
+      {% endif %}
+    {% endfor %}
+  {% endunless %}
   {% if module.useHubDBFeed %}
-    {% set hubdbRows = hubdb_table_rows(1756583141) %}
+    {% set hubdb_svc_table_id = 234247952 %}
+    {% set hubdb_cat_col = hubdb_table_column(hubdb_svc_table_id, "service_categories") %}
+    {% if hubdb_cat_col and hubdb_cat_col.options %}
+      {% if hubdb_cat_col.options is mapping %}
+        {% for opt_key in hubdb_cat_col.options %}
+          {% set opt = hubdb_cat_col.options[opt_key] %}
+          {% do hubdb_category_tab_options.append({
+            "id": opt_key,
+            "name": opt.name,
+            "label": opt.label|default(opt.name)
+          }) %}
+        {% endfor %}
+      {% else %}
+        {% for opt in hubdb_cat_col.options %}
+          {% do hubdb_category_tab_options.append({
+            "name": opt.name,
+            "label": opt.label|default(opt.name)
+          }) %}
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+    {% set hubdbRows = hubdb_table_rows(hubdb_svc_table_id) %}
 
     {% for row in hubdbRows %}
-      {% set bgImage = row.service_bg_img %}
+      {% if row.service_bg_img %}
+        {% set bgRaw = row.service_bg_img %}
+      {% elif row.image %}
+        {% set bgRaw = row.image %}
+      {% else %}
+        {% set bgRaw = none %}
+      {% endif %}
+      {% if bgRaw %}
+        {% if bgRaw.url %}
+          {% set bgSrc = bgRaw.url %}
+        {% elif bgRaw.full_url %}
+          {% set bgSrc = bgRaw.full_url %}
+        {% elif bgRaw.image and bgRaw.image.url %}
+          {% set bgSrc = bgRaw.image.url %}
+        {% elif bgRaw.image and bgRaw.image.default and bgRaw.image.default.url %}
+          {% set bgSrc = bgRaw.image.default.url %}
+        {% elif bgRaw.default and bgRaw.default.url %}
+          {% set bgSrc = bgRaw.default.url %}
+        {% elif bgRaw.src %}
+          {% set bgSrc = bgRaw.src %}
+        {% elif bgRaw.href %}
+          {% set bgSrc = bgRaw.href %}
+        {% elif bgRaw.file_url %}
+          {% set bgSrc = bgRaw.file_url %}
+        {% else %}
+          {% set bgSrc = bgRaw %}
+        {% endif %}
+      {% else %}
+        {% set bgSrc = "" %}
+      {% endif %}
       {% set title = row.service_title %}
       {% set descriptionHTML = row.service_description %}
       {% set linkText = row.service_link_text %}
@@ -571,7 +668,7 @@ export const hublDataTemplate = `
           "image": { "src": "", "alt": "", "loading": "disabled" }
         },
         "groupCardBackground": {
-          "image": { "src": bgImage, "alt": "", "loading": "lazy" }
+          "image": { "src": bgSrc, "alt": "", "loading": "lazy" }
         },
         "groupIcon": {
           "icon": { "name": "" }
@@ -596,7 +693,9 @@ export const hublDataTemplate = `
 
   {% set hublData = {
       "renderedWithGrids": rendered_with_grids,
-      "hubdbCards": hubdbCards
+      "hubdbCards": hubdbCards,
+      "manualHubDbRows": manualHubDbRows,
+      "hubdbCategoryTabOptions": hubdb_category_tab_options
     }
   %}
 `;

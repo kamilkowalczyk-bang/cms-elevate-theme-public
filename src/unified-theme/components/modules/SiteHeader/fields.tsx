@@ -149,6 +149,13 @@ export const fields = (
           alignmentDirection="HORIZONTAL"
           default={{ horizontal_align: 'CENTER' }}
         />
+        <BooleanField
+          label="Sticky navigation (desktop)"
+          name="stickyNavigation"
+          display="toggle"
+          default={false}
+          helpText="On wide screens only, keeps this header bar at the top while scrolling. Mobile and tablet (hamburger menu) layout is unchanged. The header can still overlap the hero below."
+        />
       </FieldGroup>
       <FieldGroup label="Mobile menu" name="groupMobileMenu" display="inline">
         <ColorField

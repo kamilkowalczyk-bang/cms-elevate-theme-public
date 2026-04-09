@@ -3,6 +3,7 @@ import {
   RepeatedFieldGroup,
   IconField,
   ChoiceField,
+  HubDbRowField,
   ImageField,
   BooleanField,
   FieldGroup,
@@ -62,6 +63,68 @@ const hideCategoryTabsVisibility = {
   ],
 } as const satisfies AdvancedVisibility;
 
+/**
+ * Manual fields that mirror HubDB columns (title, description, button copy/link, card background)
+ * stay hidden in the Design Manager when a HubDB row is selected for this card.
+ * `HubDbRowField` may populate `id`, `rowId`, or `row_id` depending on payload — all must be empty.
+ */
+const manualOnlyWhenNoHubDbRowSelected: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'useHubDBFeed',
+      controlling_value_regex: 'false',
+      operator: 'EQUAL',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'id',
+      operator: 'EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'rowId',
+      operator: 'EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'row_id',
+      operator: 'EMPTY',
+    },
+  ],
+} as const satisfies AdvancedVisibility;
+
+const hubDbButtonTextLinkVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'useHubDBFeed',
+      controlling_value_regex: 'false',
+      operator: 'EQUAL',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'id',
+      operator: 'EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'rowId',
+      operator: 'EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'row_id',
+      operator: 'EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupButton.showButton',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+} as const satisfies AdvancedVisibility;
+
 export const fields = (
   <ModuleFields>
     <BooleanField
@@ -72,19 +135,14 @@ export const fields = (
       helpText='When enabled, cards are rendered from the HubDB services table and manual card fields are hidden.'
     />
 
-    <ChoiceField
-      label='Service category'
+    <TextField
+      label='Default category filter'
       name='serviceCategory'
-      display='select'
-      choices={[
-        ['service_all', 'Show all'],
-        ['communication_systems', 'Communication systems'],
-        ['positioning_tracking_systems', 'Positioning & tracking systems'],
-        ['manufacturing_technologies', 'Manufacturing technologies'],
-      ]}
-      default='service_all'
+      default='show_all_categories'
       required={false}
       visibility={hubDBFeedVisibility}
+      helpText="Initial tab when the page loads. Use a Service categories internal name from HubDB (for example: show_all_categories)."
+      inlineHelpText='Use a HubDB Service categories internal name (example: show_all_categories).'
     />
 
     <BooleanField
@@ -167,6 +225,25 @@ export const fields = (
         },
       ]}
     >
+      <HubDbRowField
+        label='HubDB row'
+        name='groupHubdbRow'
+        required={false}
+        locked={false}
+        tableNameOrId={234247952}
+        columnsToFetch={[
+          'hs_id',
+          'service_title',
+          'service_description',
+          'service_link_text',
+          'service_link_url',
+          'service_bg_img',
+          'image',
+        ]}
+        displayColumns={['service_title']}
+        displayFormat='%0'
+        helpText='When a row is selected, HubDB data is used for the card. List every HubDB column you need here (including IMAGE columns for the card background — URL is read from the cell’s `.url`). Unknown column names may be ignored. Publish the HubDB table so live pages use the latest row data.'
+      />
       <FieldGroup label='Icon' name='groupIcon' display='inline'>
         <IconField
           label='Icon'
@@ -219,11 +296,17 @@ export const fields = (
           default=''
           inlineEditable={true}
         />
-        <HeadingAndText headingTextLabel='Title' headingLevelDefault='h3' textDefault='Content Creation' />
+        <HeadingAndText
+          headingTextLabel='Title'
+          headingLevelDefault='h3'
+          textDefault='Content Creation'
+          textVisibility={manualOnlyWhenNoHubDbRowSelected}
+        />
         <RichTextContent
           label='Description'
           richTextDefault="<p>Stand out with our captivating content creation services, tailored to engage today's digital audience</p>"
           featureSet='text'
+          richTextVisibility={manualOnlyWhenNoHubDbRowSelected}
         />
       </FieldGroup>
       <FieldGroup label='Button' name='groupButton' display='inline'>
@@ -233,8 +316,8 @@ export const fields = (
           linkDefault={{
             open_in_new_tab: true,
           }}
-          textVisibility={buttonFieldVisibility}
-          linkVisibility={buttonFieldVisibility}
+          textVisibility={hubDbButtonTextLinkVisibility}
+          linkVisibility={hubDbButtonTextLinkVisibility}
           showIconVisibility={buttonFieldVisibility}
         />
       </FieldGroup>
@@ -246,6 +329,8 @@ export const fields = (
           responsive={false}
           showLoading={true}
           inlineEditable={true}
+          visibilityRules='ADVANCED'
+          advancedVisibility={manualOnlyWhenNoHubDbRowSelected}
         />
       </FieldGroup>
     </RepeatedFieldGroup>
