@@ -33,7 +33,7 @@
 }
 
 /* Desktop sticky nav behavior (class-driven by StickyNavIsland). */
-@media (width >= 1251px) {
+@media (width >= 1101px) {
   .hs-elevate-header.hs-elevate-header--sticky-fixed {
     position: fixed;
     top: 0;

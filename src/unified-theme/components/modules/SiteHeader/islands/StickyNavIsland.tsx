@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const MOBILE_BREAKPOINT = 1250;
+const MOBILE_BREAKPOINT = 1100;
 const SCROLL_UP_THRESHOLD = 40;
 
 export default function StickyNavIsland() {
