@@ -115,6 +115,22 @@ export const fields = (
           default={{ color: '#52BAD1' }}
         />
         <ColorField
+          label="Text color (default, top level items)"
+          name="menuTopLevelTextColor"
+          helpText="Top level items: primary desktop navigation row only (not flyout submenu links)."
+          visibility={{ hidden_subfields: { opacity: true } }}
+          limitedOptions={limitedOptionsColorsSet}
+          default={{ color: '#FFFFFF' }}
+        />
+        <ColorField
+          label="Text color (hover, top level items)"
+          name="menuTopLevelTextHoverColor"
+          helpText="Hover for top-level desktop navigation items only."
+          visibility={{ hidden_subfields: { opacity: true } }}
+          limitedOptions={limitedOptionsColorsSet}
+          default={{ color: '#52BAD1' }}
+        />
+        <ColorField
           label="Arrow icon fill"
           name="menuArrowIconFill"
           visibility={{ hidden_subfields: { opacity: true } }}

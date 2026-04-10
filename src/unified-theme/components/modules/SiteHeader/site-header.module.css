@@ -108,6 +108,22 @@
     }
   }
 
+  li[data-hs-elevate-menuitem-depth='1'] {
+    color: var(--hsElevate--siteHeader__menuTopLevelTextColor);
+
+    > :global(.hs-elevate-menu__menu-item-link-container) > a,
+    > :global(.hs-elevate-menu__menu-item-link-container) > :global(.hs-elevate-menu__menu-item-span) {
+      /* stylelint-disable-line selector-pseudo-class-no-unknown */
+      color: var(--hsElevate--siteHeader__menuTopLevelTextColor);
+    }
+
+    > :global(.hs-elevate-menu__menu-item-link-container) > a:hover,
+    > :global(.hs-elevate-menu__menu-item-link-container) > :global(.hs-elevate-menu__menu-item-span:hover) {
+      /* stylelint-disable-line selector-pseudo-class-no-unknown */
+      color: var(--hsElevate--siteHeader__hover--menuTopLevelTextColor);
+    }
+  }
+
   ul {
     border-color: var(--hsElevate--siteHeader__menuAccentColor);
     background-color: var(--hsElevate--siteHeader__menuBackgroundColor);

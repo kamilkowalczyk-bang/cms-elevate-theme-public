@@ -29,6 +29,8 @@ const swm = staticWithModule(styles);
 type ColorProps = {
   menuTextColor: string;
   menuTextHoverColor: string;
+  menuTopLevelTextColor: string;
+  menuTopLevelTextHoverColor: string;
   menuArrowIconFill: string;
   menuArrowIconFillHover: string;
   menuBackgroundColor: string;
@@ -64,6 +66,8 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
   const {
     menuTextColor,
     menuTextHoverColor,
+    menuTopLevelTextColor,
+    menuTopLevelTextHoverColor,
     menuArrowIconFill,
     menuArrowIconFillHover,
     menuBackgroundColor,
@@ -74,6 +78,8 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
   return {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
+    '--hsElevate--siteHeader__menuTopLevelTextColor': menuTopLevelTextColor,
+    '--hsElevate--siteHeader__hover--menuTopLevelTextColor': menuTopLevelTextHoverColor,
     '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
     '--hsElevate--siteHeader__menuArrowIconFillHover': menuArrowIconFillHover,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
@@ -141,6 +147,8 @@ export const Component = (props: MenuModulePropTypes) => {
       menuAccentColor: { color: menuAccentColor, opacity: menuAccentOpacity } = { color: '#D3DAE4', opacity: 100 },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
+      menuTopLevelTextColor: menuTopLevelTextColorField,
+      menuTopLevelTextHoverColor: menuTopLevelTextHoverColorField,
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
       menuArrowIconFillHover: { color: menuArrowIconFillHover } = { color: '#FFFFFF' },
       menuFlyoutUseAccentOnHover = false,
@@ -165,6 +173,9 @@ export const Component = (props: MenuModulePropTypes) => {
   const mobileMenuTextRaw = groupMobileMenu?.mobileMenuTextColor ?? { color: menuTextColor };
   const mobileMenuTextHoverRaw = groupMobileMenu?.mobileMenuTextHoverColor ?? { color: menuTextHoverColor };
 
+  const menuTopLevelTextColor = menuTopLevelTextColorField?.color ?? menuTextColor;
+  const menuTopLevelTextHoverColor = menuTopLevelTextHoverColorField?.color ?? menuTextHoverColor;
+
   const mobileMenuBackgroundColor = withOpacity(mobileMenuBackgroundRaw.color, mobileMenuBackgroundRaw.opacity);
   const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
   const mobileMenuTextColor = mobileMenuTextRaw.color;
@@ -174,6 +185,8 @@ export const Component = (props: MenuModulePropTypes) => {
     ...generateColorCssVars({
       menuTextColor,
       menuTextHoverColor,
+      menuTopLevelTextColor,
+      menuTopLevelTextHoverColor,
       menuArrowIconFill,
       menuArrowIconFillHover,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
