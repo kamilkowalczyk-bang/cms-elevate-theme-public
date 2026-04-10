@@ -122,9 +122,16 @@ export const fields = (
           default={{ color: '#52BAD1' }}
         />
         <ColorField
+          label="Arrow icon fill (hover)"
+          name="menuArrowIconFillHover"
+          visibility={{ hidden_subfields: { opacity: true } }}
+          limitedOptions={limitedOptionsColorsSet}
+          default={{ color: '#FFFFFF' }}
+        />
+        <ColorField
           label="Accent color"
           name="menuAccentColor"
-          helpText="Controls the color of menu item hover states and the border color of flyout menus."
+          helpText="Controls the color of menu item background hover states and the border color of flyout menus."
           limitedOptions={limitedOptionsColorsSet}
           default={{ color: '#161C26', opacity: 50 }}
         />

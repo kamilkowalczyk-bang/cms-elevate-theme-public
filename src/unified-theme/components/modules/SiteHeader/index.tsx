@@ -30,6 +30,7 @@ type ColorProps = {
   menuTextColor: string;
   menuTextHoverColor: string;
   menuArrowIconFill: string;
+  menuArrowIconFillHover: string;
   menuBackgroundColor: string;
   menuAccentColor: string;
   flyoutItemHoverBackgroundColor: string;
@@ -64,6 +65,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     menuTextColor,
     menuTextHoverColor,
     menuArrowIconFill,
+    menuArrowIconFillHover,
     menuBackgroundColor,
     menuAccentColor,
     flyoutItemHoverBackgroundColor,
@@ -73,6 +75,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
     '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
+    '--hsElevate--siteHeader__menuArrowIconFillHover': menuArrowIconFillHover,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
     '--hsElevate--siteHeader__menuAccentColor': menuAccentColor,
     // Flyout background uses Accent color (including its opacity) so designers
@@ -139,6 +142,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
+      menuArrowIconFillHover: { color: menuArrowIconFillHover } = { color: '#FFFFFF' },
       menuFlyoutUseAccentOnHover = false,
       stickyNavigation = false,
     },
@@ -171,6 +175,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextColor,
       menuTextHoverColor,
       menuArrowIconFill,
+      menuArrowIconFillHover,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
       menuAccentColor: menuAccentColorWithOpacity,
       flyoutItemHoverBackgroundColor,

@@ -34,6 +34,7 @@ type GroupMenuStyle = {
   menuTextColor: ColorFieldType['default'];
   menuTextHoverColor: ColorFieldType['default'];
   menuArrowIconFill: ColorFieldType['default'];
+  menuArrowIconFillHover: ColorFieldType['default'];
   menuAccentColor: ColorFieldType['default'];
   menuBackgroundColor: ColorFieldType['default'];
   menuFlyoutUseAccentOnHover: BooleanFieldType['default'];
