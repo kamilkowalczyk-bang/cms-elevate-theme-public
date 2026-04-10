@@ -130,6 +130,25 @@ export const fields = (
           limitedOptions={limitedOptionsColorsSet}
           default={{ color: '#52BAD1' }}
         />
+        <BooleanField
+          label="Top level nav underline (desktop)"
+          name="menuTopLevelUnderlineEnabled"
+          display="toggle"
+          default={true}
+          helpText="underline on hover for top-level menu items."
+        />
+        <ColorField
+          label="Underline color (top level items)"
+          name="menuTopLevelUnderlineColor"
+          visibility={{
+            controlling_field_path: 'styles.groupMenu.menuTopLevelUnderlineEnabled',
+            controlling_value_regex: 'true',
+            operator: 'EQUAL',
+            hidden_subfields: { opacity: true },
+          }}
+          limitedOptions={limitedOptionsColorsSet}
+          default={{ color: '#52BAD1' }}
+        />
         <ColorField
           label="Arrow icon fill"
           name="menuArrowIconFill"

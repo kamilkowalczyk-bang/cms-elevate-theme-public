@@ -31,6 +31,7 @@ type ColorProps = {
   menuTextHoverColor: string;
   menuTopLevelTextColor: string;
   menuTopLevelTextHoverColor: string;
+  menuTopLevelUnderlineColor: string;
   menuArrowIconFill: string;
   menuArrowIconFillHover: string;
   menuBackgroundColor: string;
@@ -68,6 +69,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     menuTextHoverColor,
     menuTopLevelTextColor,
     menuTopLevelTextHoverColor,
+    menuTopLevelUnderlineColor,
     menuArrowIconFill,
     menuArrowIconFillHover,
     menuBackgroundColor,
@@ -80,6 +82,7 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
     '--hsElevate--siteHeader__menuTopLevelTextColor': menuTopLevelTextColor,
     '--hsElevate--siteHeader__hover--menuTopLevelTextColor': menuTopLevelTextHoverColor,
+    '--hsElevate--siteHeader__menuTopLevelUnderlineColor': menuTopLevelUnderlineColor,
     '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
     '--hsElevate--siteHeader__menuArrowIconFillHover': menuArrowIconFillHover,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
@@ -149,6 +152,8 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
       menuTopLevelTextColor: menuTopLevelTextColorField,
       menuTopLevelTextHoverColor: menuTopLevelTextHoverColorField,
+      menuTopLevelUnderlineEnabled = true,
+      menuTopLevelUnderlineColor: menuTopLevelUnderlineColorField,
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
       menuArrowIconFillHover: { color: menuArrowIconFillHover } = { color: '#FFFFFF' },
       menuFlyoutUseAccentOnHover = false,
@@ -175,6 +180,7 @@ export const Component = (props: MenuModulePropTypes) => {
 
   const menuTopLevelTextColor = menuTopLevelTextColorField?.color ?? menuTextColor;
   const menuTopLevelTextHoverColor = menuTopLevelTextHoverColorField?.color ?? menuTextHoverColor;
+  const menuTopLevelUnderlineColor = menuTopLevelUnderlineColorField?.color ?? '#52BAD1';
 
   const mobileMenuBackgroundColor = withOpacity(mobileMenuBackgroundRaw.color, mobileMenuBackgroundRaw.opacity);
   const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
@@ -187,6 +193,7 @@ export const Component = (props: MenuModulePropTypes) => {
       menuTextHoverColor,
       menuTopLevelTextColor,
       menuTopLevelTextHoverColor,
+      menuTopLevelUnderlineColor,
       menuArrowIconFill,
       menuArrowIconFillHover,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
@@ -197,6 +204,7 @@ export const Component = (props: MenuModulePropTypes) => {
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), {
     [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher,
+    [styles['hs-elevate-site-header--top-level-underline']]: menuTopLevelUnderlineEnabled,
     'hs-elevate-site-header--sticky-navigation-desktop': stickyNavigation,
   });
 

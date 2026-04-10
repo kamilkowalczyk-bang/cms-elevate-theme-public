@@ -35,6 +35,8 @@ type GroupMenuStyle = {
   menuTextHoverColor: ColorFieldType['default'];
   menuTopLevelTextColor?: ColorFieldType['default'];
   menuTopLevelTextHoverColor?: ColorFieldType['default'];
+  menuTopLevelUnderlineEnabled?: BooleanFieldType['default'];
+  menuTopLevelUnderlineColor?: ColorFieldType['default'];
   menuArrowIconFill: ColorFieldType['default'];
   menuArrowIconFillHover: ColorFieldType['default'];
   menuAccentColor: ColorFieldType['default'];
