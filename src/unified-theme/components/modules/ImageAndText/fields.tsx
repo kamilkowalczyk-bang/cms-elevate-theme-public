@@ -144,13 +144,13 @@ export const fields = (
         featureSet='text'
       />
       <BooleanField
-        label='Show caption'
+        label='Show intro label'
         name='showCaption'
         display='toggle'
         default={false}
       />
       <TextField
-        label='Caption'
+        label='Intro label'
         name='captionText'
         visibility={captionFieldsVisibility}
         default=''
@@ -250,7 +250,7 @@ export const fields = (
           default={false}
         />
         <AlignmentField
-          label='Divider and caption alignment'
+          label='Divider and intro label alignment'
           name='dividerHorizontalAlignment'
           visibility={dividerOrCaptionHorizontalAlignmentVisibility as unknown as Visibility}
           alignmentDirection='HORIZONTAL'
@@ -259,7 +259,7 @@ export const fields = (
           }}
         />
         <ColorField
-          label='Caption color'
+          label='Intro label color'
           name='captionColor'
           visibility={captionFieldsVisibility}
           helpText='Uses theme caption color for the selected text color (section) when opacity is 0%. Increase opacity to use a custom color.'
