@@ -32,3 +32,11 @@
   flex: 0 0 1.75rem;
   fill: var(--hsElevate--list__accentColor);
 }
+
+.hs-elevate-list-container__text {
+  color: inherit;
+
+  p {
+    margin-block: 0;
+  }
+}
