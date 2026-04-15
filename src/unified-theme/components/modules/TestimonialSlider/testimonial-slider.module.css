@@ -35,6 +35,12 @@
   margin-block-end: var(--hsElevate--spacing--24, 24px);
 }
 
+/* Testimonial layout only — Info slides never render __author-container; :global matches staticWithModule root */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__author-container {
+  gap: var(--hsElevate--gap--extraSmall, 8px);
+}
+
 .hs-elevate-testimonial-slider__author-image-container {
   overflow: hidden;
   height: 80px;
@@ -74,7 +80,7 @@
   display: flex;
   padding: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--12, 12px);
   border-left: 0;
-  margin: 0 0 var(--hsElevate--spacing--32, 32px);
+  margin: 0 0 var(--hsElevate--spacing--4, 4px);
   flex-direction: column;
   align-items: flex-start;
   gap: var(--hsElevate--text--large__margin, 0 40px);
@@ -133,6 +139,38 @@
   text-align: var(--hsElevate--testimonial__textAlign);
   padding-inline: var(--hsElevate--spacing--40, 40px);
   margin: 0 var(--hsElevate--spacing--40, 40px) var(--hsElevate--spacing--32, 32px);
+}
+
+/* Testimonial only, <1000px; :global root; --spacing--4 = smallest :root spacing */
+@media (width < 1000px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__content-container {
+    padding-inline: 0;
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__slider {
+    padding-inline: 0;
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__footer {
+    margin-block: var(--hsElevate--spacing--4, 4px);
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__image-container {
+    display: none;
+  }
+}
+
+/* Testimonial only, >=1000px: :global(ancestor) matches staticWithModule BEM on DOM; child selectors stay scoped */
+@media (width >= 1000px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__content-container {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 
 .hs-elevate-testimonial-slider__quote-text {
