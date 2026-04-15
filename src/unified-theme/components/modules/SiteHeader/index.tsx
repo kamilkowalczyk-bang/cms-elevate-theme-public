@@ -186,8 +186,9 @@ export const Component = (props: MenuModulePropTypes) => {
   const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
   const mobileMenuTextColor = mobileMenuTextRaw.color;
   const mobileMenuTextHoverColor = mobileMenuTextHoverRaw.color;
+  const menuBackgroundColorStickyFixed = withOpacity(menuBackgroundColor, 85);
 
-  const cssVarsMap = {
+  const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars({
       menuTextColor,
       menuTextHoverColor,
@@ -200,6 +201,11 @@ export const Component = (props: MenuModulePropTypes) => {
       menuAccentColor: menuAccentColorWithOpacity,
       flyoutItemHoverBackgroundColor,
     }),
+    ...(stickyNavigation
+      ? {
+          '--hsElevate--siteHeader__menuBackgroundColorStickyFixed': menuBackgroundColorStickyFixed,
+        }
+      : {}),
   };
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), {

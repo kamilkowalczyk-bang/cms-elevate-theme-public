@@ -44,6 +44,15 @@
     transition: transform 220ms ease;
   }
 
+  .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop {
+    background-color: var(
+      --hsElevate--siteHeader__menuBackgroundColorStickyFixed,
+      var(--hsElevate--siteHeader__menuBackgroundColor)
+    );
+    box-shadow: 0 2px 10px rgb(0 0 0 / 8%);
+    transition: background-color 220ms ease, box-shadow 220ms ease;
+  }
+
   .hs-elevate-header.hs-elevate-header--sticky-fixed.hs-elevate-header--scrolling-down {
     transform: translateY(-100%);
   }
