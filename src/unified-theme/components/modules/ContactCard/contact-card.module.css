@@ -84,6 +84,61 @@
   text-decoration-thickness: 2px !important;
 }
 
+.hs-elevate-contact-card-container__contact-link--email {
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.hs-elevate-contact-card-container__contact-link--email:hover,
+.hs-elevate-contact-card-container__contact-link--email:focus {
+  text-decoration: none !important;
+}
+
+.hs-elevate-contact-card-container__email-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hs-elevate-contact-card-container__copy-email-button {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  margin-left: 2px;
+  background: transparent;
+  color: var(--hsElevate--contactCard__linkColor, #52BAD1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hs-elevate-contact-card-container__copy-email-button::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask-image: url('./assets/copy-email.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url('./assets/copy-email.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.hs-elevate-contact-card-container__copy-email-button:hover,
+.hs-elevate-contact-card-container__copy-email-button:focus-visible {
+  color: var(--hsElevate--contactCard__linkHoverColor);
+}
+
+.hs-elevate-contact-card-container__copy-email-button:focus-visible {
+  outline: 2px solid var(--hsElevate--contactCard__linkHoverColor);
+  outline-offset: 2px;
+}
+
 .hs-elevate-contact-card-container__social {
   display: flex;
   flex-wrap: wrap;
