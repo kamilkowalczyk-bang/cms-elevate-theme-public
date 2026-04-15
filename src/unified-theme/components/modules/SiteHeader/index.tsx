@@ -186,7 +186,8 @@ export const Component = (props: MenuModulePropTypes) => {
   const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
   const mobileMenuTextColor = mobileMenuTextRaw.color;
   const mobileMenuTextHoverColor = mobileMenuTextHoverRaw.color;
-  const menuBackgroundColorStickyFixed = withOpacity(menuBackgroundColor, 85);
+  const menuBackgroundColorStickyBase = menuBackgroundColor;
+  const menuBackgroundOpacitySticky = '0.85';
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars({
@@ -203,7 +204,11 @@ export const Component = (props: MenuModulePropTypes) => {
     }),
     ...(stickyNavigation
       ? {
-          '--hsElevate--siteHeader__menuBackgroundColorStickyFixed': menuBackgroundColorStickyFixed,
+          '--hsElevate--siteHeader__menuBackgroundColorStickyBase': menuBackgroundColorStickyBase,
+          '--hsElevate--siteHeader__menuBackgroundOpacitySticky': menuBackgroundOpacitySticky,
+          '--hsElevate--siteHeader__menuTextColorSticky': menuTopLevelTextColor,
+          '--hsElevate--siteHeader__menuTextHoverColorSticky': menuTopLevelTextHoverColor,
+          '--hsElevate--siteHeader__menuArrowIconFillHoverSticky': menuArrowIconFillHover,
         }
       : {}),
   };
