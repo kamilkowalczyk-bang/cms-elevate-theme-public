@@ -115,6 +115,12 @@
 
 /* Small screens: stack all three columns in one column */
 @media (width <= 600px) {
+  .hs-rad-footer {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
   .hs-rad-footer-top__inner {
     grid-template-columns: 1fr;
     grid-template-areas:

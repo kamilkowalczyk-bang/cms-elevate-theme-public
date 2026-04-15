@@ -9,10 +9,12 @@
 
 {% set template_translations = load_translations('../_locales', html_lang, 'en') %}
 {% import "../../helpers/variables.hubl.html" %}
+{% set footer_rad_background_position = footer_rad_background_image_position|default("MIDDLE_CENTER")|lower|replace("middle", "center")|replace("_", " ") %}
+{% set footer_rad_background_size = footer_rad_background_image_size|default("cover")|lower %}
 
 {# Partial #}
 
-<footer class="hs-elevate-footer hs-rad-footer" style="background: rgba({{ footer_rad_background_color|convert_rgb }}, {{ footer_rad_background_color_opacity / 100 }}) url({{ footer_rad_background_image }});">
+<footer class="hs-elevate-footer hs-rad-footer" style="background-color: rgba({{ footer_rad_background_color|convert_rgb }}, {{ footer_rad_background_color_opacity / 100 }}); background-image: {% if footer_rad_background_image_src %}url({{ footer_rad_background_image_src }}){% else %}none{% endif %}; background-position: {{ footer_rad_background_position }}; background-size: {{ footer_rad_background_size }}; background-repeat: no-repeat;">
 
   {# Footer top (non-DnD, flex layout) #}
 
