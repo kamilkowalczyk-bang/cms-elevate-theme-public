@@ -2,68 +2,9 @@
   templateType: section
   label: Radientum testimonial slider
   isAvailableForNewContent: true
-  scaffoldSchemaPath: ./schemas/radientum-testimonial-slider.scaffold_schema.json
   screenshotPath: ../images/section-previews/radientum-testimonial-slider.png
   description: Section with testimonial slider
 -->
-
-{# Section variables #}
-{% set testimonial_quote = context.quote or scaffold_content.quote or "We have been able to put our focus where it needs to be because of radientum's awesome service!" %}
-{% set testimonial_author_name = context.author_name or scaffold_content.author_name or "Firstname Lastname" %}
-{% set testimonial_author_title = context.author_title or scaffold_content.author_title or "Title and Company" %}
-{% set testimonial_info_button_text = context.info_button_text or scaffold_content.info_button_text or "Industrial IoT & smart metering" %}
-{% set testimonial_info_rich_text_html = context.info_rich_text_html or scaffold_content.info_rich_text_html or "<h4 style=\"text-transform: uppercase;\">Wireless performance matters</h4><p class=\"hs-elevate-display-title\">in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>" %}
-{% set testimonial_info_image_src = context.info_image.src or context.info_image_src or scaffold_content.info_image.src or scaffold_content.info_image_src or "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png" %}
-{% set testimonial_info_image_alt = context.info_image.alt or scaffold_content.info_image.alt or "" %}
-{% set testimonial_info_image_height = context.info_image.height or scaffold_content.info_image.height or 315 %}
-{% set testimonial_info_image_width = context.info_image.width or scaffold_content.info_image.width or 315 %}
-{% set testimonial_author_image_src = context.author_image.src or scaffold_content.author_image.src or "" %}
-{% set testimonial_item = {
-  "groupAuthor" : {
-    "authorImage" : {
-      "src" : testimonial_author_image_src
-    },
-    "authorName" : testimonial_author_name,
-    "authorTitle" : testimonial_author_title
-  },
-  "groupImage" : {
-    "image" : {
-      "src" : ""
-    },
-    "showImage" : false
-  },
-  "groupInfoButton" : {
-    "buttonContentIconPosition" : "right",
-    "buttonContentLink" : {
-      "open_in_new_tab" : false
-    },
-    "buttonContentShowIcon" : false,
-    "buttonContentText" : testimonial_info_button_text,
-    "showButton" : true
-  },
-  "groupInfoContent" : {
-    "richTextContentHTML" : testimonial_info_rich_text_html
-  },
-  "groupInfoImage" : {
-    "image" : {
-      "alt" : testimonial_info_image_alt,
-      "max_height" : testimonial_info_image_height,
-      "max_width" : testimonial_info_image_width,
-      "size_type" : "auto_custom_max",
-      "src" : testimonial_info_image_src
-    },
-    "showImage" : true
-  },
-  "groupLink" : {
-    "link" : {
-      "open_in_new_tab" : true
-    },
-    "linkText" : ""
-  },
-  "groupQuote" : {
-    "quote" : testimonial_quote
-  }
-} %}
 
 {% dnd_section %}
   {% dnd_column
@@ -75,18 +16,195 @@
         path="@projects/ElevateRadientumTheme/unified-theme/components/modules/TestimonialSlider",
         offset=0,
         width=12,
-        groupLayout={ "layoutType" : "info" },
         groupStyle={
           "cardStyleVariant" : "card_variant_2",
           "showTestimonialDropShadow" : true,
           "showTestimonialQuoteBoldUppercase" : true
         },
-        groupTestimonial=[
-          testimonial_item,
-          testimonial_item,
-          testimonial_item,
-          testimonial_item
-        ]
+        groupTestimonial=[ {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!”"
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!”"
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!”"
+          }
+        }, {
+          "groupAuthor" : {
+            "authorImage" : {
+              "src" : ""
+            },
+            "authorName" : "Firstname Lastname",
+            "authorTitle" : "Title and Company"
+          },
+          "groupImage" : {
+            "image" : {
+              "src" : ""
+            },
+            "showImage" : false
+          },
+          "groupInfoButton" : {
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : false
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Industrial IoT & smart metering",
+            "showButton" : true
+          },
+          "groupInfoContent" : {
+            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
+          },
+          "groupInfoImage" : {
+            "image" : {
+              "alt" : "",
+              "max_height" : 315,
+              "max_width" : 315,
+              "size_type" : "auto_custom_max",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
+            },
+            "showImage" : true
+          },
+          "groupLink" : {
+            "link" : {
+              "open_in_new_tab" : true
+            },
+            "linkText" : ""
+          },
+          "groupQuote" : {
+            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!”"
+          }
+        } ],
+        groupLayout={
+          "layoutType" : "testimonial"
+        }
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
