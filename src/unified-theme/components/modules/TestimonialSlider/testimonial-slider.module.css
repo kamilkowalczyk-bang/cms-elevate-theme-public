@@ -41,6 +41,13 @@
   gap: var(--hsElevate--gap--extraSmall, 8px);
 }
 
+@media (width < 500px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__author-container {
+    flex-direction: column;
+  }
+}
+
 .hs-elevate-testimonial-slider__author-image-container {
   overflow: hidden;
   height: 80px;
