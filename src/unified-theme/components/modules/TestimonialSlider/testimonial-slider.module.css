@@ -273,6 +273,105 @@
   margin-block: var(--hsElevate--spacing--24, 24px);
 }
 
+/* Splide track/list/slide — same pattern as LogoGridSlider / RecentBlogPostsSlider. Ensures the
+   carousel clips and lays out horizontally when @splidejs/react-splide/css is emitted as a
+   separate asset or loads after paint (island builds); avoids relying on another Splide module. */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__track) {
+  overflow: hidden;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__list) {
+  display: flex;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__slide) {
+  flex-shrink: 0;
+  list-style: none;
+}
+
+/* Splide theme chrome (arrows + dot row): normally from @splidejs/react-splide/css; duplicated here
+   so island-only pages still match Splide + RecentBlogPostsSlider behavior when that file is absent or late. */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) {
+  position: relative;
+}
+
+.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info)
+  .hs-elevate-testimonial-slider__slider:global(.splide) {
+  padding-block-end: var(--hsElevate--spacing--48, 48px);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow:disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--prev) {
+  left: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--next) {
+  right: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--prev svg) {
+  transform: scaleX(-1);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--prev) {
+  left: auto;
+  right: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--prev svg) {
+  transform: scaleX(1);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--next) {
+  left: 1em;
+  right: auto;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--next svg) {
+  transform: scaleX(-1);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__pagination) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1em;
+  list-style: none;
+  gap: 0;
+  pointer-events: none;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__pagination li) {
+  margin: 0;
+  list-style: none;
+  line-height: 1;
+  pointer-events: auto;
+}
+
 .hs-elevate-testimonial-slider__slider {
   padding-inline: var(--hsElevate--spacing--48, 48px);
 }
