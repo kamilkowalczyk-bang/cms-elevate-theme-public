@@ -6,12 +6,19 @@
       {
         "name": "eyebrow",
         "type": "text",
-        "description": "Small label in the hero (above the main hero heading)."
+        "description": "Short label above the hero headline (e.g. industry or product line)."
       },
       {
         "name": "headline",
         "type": "text",
-        "description": "Main hero headline (value proposition)."
+        "description": "Primary hero headline (value proposition for the industry)."
+      },
+      {
+        "name": "hero_image",
+        "type": "image",
+        "description": "Full-width hero background image behind the headline.",
+        "width": "1600",
+        "height": "870"
       }
     ]
   },
@@ -22,48 +29,23 @@
       {
         "name": "heading",
         "type": "text",
-        "description": "Heading for the “What you get” block."
+        "description": "Section heading for the benefits or outcomes block."
       },
       {
         "name": "body",
         "type": "text",
-        "description": "Supporting paragraph for the “What you get” block."
+        "description": "Introductory paragraph under the heading, centered."
       }
     ]
   },
   {
-    "name": "group_features",
+    "name": "group_case_accordion",
     "type": "group",
     "children": [
       {
-        "name": "feature_1_heading",
+        "name": "note",
         "type": "text",
-        "description": "First feature card heading."
-      },
-      {
-        "name": "feature_1_body",
-        "type": "text",
-        "description": "First feature card supporting text."
-      },
-      {
-        "name": "feature_2_heading",
-        "type": "text",
-        "description": "Second feature card heading."
-      },
-      {
-        "name": "feature_2_body",
-        "type": "text",
-        "description": "Second feature card supporting text."
-      },
-      {
-        "name": "feature_3_heading",
-        "type": "text",
-        "description": "Third feature card heading."
-      },
-      {
-        "name": "feature_3_body",
-        "type": "text",
-        "description": "Third feature card supporting text."
+        "description": "Context for the case study and FAQ accordion two-column sections (problems solved, proof points)."
       }
     ]
   },
@@ -74,23 +56,18 @@
       {
         "name": "note",
         "type": "text",
-        "description": "Context for the testimonial slider content (industry + credibility)."
+        "description": "Context for the testimonial slider (customer story, industry relevance)."
       }
     ]
   },
   {
-    "name": "group_who_we_serve",
+    "name": "group_technologies",
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "button_text",
         "type": "text",
-        "description": "Heading for the “Who we serve” block."
-      },
-      {
-        "name": "body",
-        "type": "text",
-        "description": "Supporting paragraph for the “Who we serve” block."
+        "description": "CTA label on the dark band with technologies or tools imagery."
       }
     ]
   },
@@ -99,9 +76,9 @@
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "headline",
         "type": "text",
-        "description": "Heading above the logo grid (credibility/trust)."
+        "description": "Headline above the logo or partner image slider."
       }
     ]
   },
@@ -110,30 +87,46 @@
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "headline",
         "type": "text",
-        "description": "CTA headline in the mid-page banner."
+        "description": "Headline on the mid-page CTA section with background image."
       },
       {
         "name": "body",
         "type": "text",
-        "description": "CTA supporting copy."
-      },
-      {
-        "name": "button_text",
-        "type": "text",
-        "description": "CTA button label."
+        "description": "Supporting copy under the CTA headline."
       }
     ]
   },
   {
-    "name": "group_latest_activities",
+    "name": "group_who_we_serve",
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "headline",
         "type": "text",
-        "description": "Heading for the “Latest activities” section."
+        "description": "Section headline for the “Who we serve” blocks."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting paragraph, centered."
+      }
+    ]
+  },
+  {
+    "name": "group_map_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "headline",
+        "type": "text",
+        "description": "Bold headline on the world-map style closing CTA."
+      },
+      {
+        "name": "body",
+        "type": "text",
+        "description": "Supporting copy under the map CTA headline."
       }
     ]
   }
