@@ -419,7 +419,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
                     [styles['hs-elevate-testimonial-slider__slide--info-has-bg']]: hasInfoBackground,
                   })}
                   style={slideStyle}
-                  key={layoutType === 'info' ? index : testimonial.groupQuote.quote}
+                  key={index}
                 >
                   {layoutType === 'info' ? (
                     <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
