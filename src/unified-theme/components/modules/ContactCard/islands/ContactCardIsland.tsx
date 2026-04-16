@@ -124,6 +124,9 @@ const ContactsWrapper = createComponent('div');
 const ContactLink = createComponent('a');
 const SocialLinksWrapper = createComponent('div');
 const SocialLink = createComponent('a');
+const CardTop = createComponent('div');
+const CardBottom = createComponent('div');
+const CardRow = createComponent('div');
 
 export default function ContactCardIsland(props: ContactCardProps) {
   const {
@@ -177,7 +180,7 @@ export default function ContactCardIsland(props: ContactCardProps) {
               showCardShadow ? swm('hs-elevate-contact-card-container__card--drop-shadow') : '',
             ]}
           >
-            <div>
+            <CardTop className={swm('hs-elevate-contact-card-container__card-top')}>
               {groupRegion?.showRegion && groupRegion?.region && (
                 <Region
                   className={swm('hs-elevate-contact-card-container__region')}
@@ -216,86 +219,97 @@ export default function ContactCardIsland(props: ContactCardProps) {
                   {groupIdentity.department}
                 </Department>
               )}
-            </div>
+            </CardTop>
 
-            <div>
-              <ContactsWrapper className={swm('hs-elevate-contact-card-container__contacts')}>
+            <CardBottom className={swm('hs-elevate-contact-card-container__card-bottom')}>
+              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--phone')}>
                 {groupPhone?.showPhone && groupPhone?.phoneText && (
-                  <ContactLink
-                    className={swm('hs-elevate-contact-card-container__contact-link')}
-                    href={phoneHref}
-                    rel={getLinkFieldRel(groupPhone.phoneLink)}
-                    target={getLinkFieldTarget(groupPhone.phoneLink)}
-                    data-hs-token={getDataHSToken(moduleName, `groupContactCards[${index}].groupPhone.phoneText`)}
-                  >
-                    {groupPhone.phoneText}
-                  </ContactLink>
-                )}
-                {groupEmail?.showEmail && groupEmail?.emailText && (
-                  <div className={swm('hs-elevate-contact-card-container__email-row')}>
+                  <ContactsWrapper className={swm('hs-elevate-contact-card-container__contacts')}>
                     <ContactLink
-                      className={cx(
-                        swm('hs-elevate-contact-card-container__contact-link'),
-                        swm('hs-elevate-contact-card-container__contact-link--small'),
-                        swm('hs-elevate-contact-card-container__contact-link--email'),
-                      )}
-                      href={emailHref}
-                      rel={getLinkFieldRel(groupEmail.emailLink)}
-                      target={getLinkFieldTarget(groupEmail.emailLink)}
-                      data-hs-token={getDataHSToken(moduleName, `groupContactCards[${index}].groupEmail.emailText`)}
+                      className={swm('hs-elevate-contact-card-container__contact-link')}
+                      href={phoneHref}
+                      rel={getLinkFieldRel(groupPhone.phoneLink)}
+                      target={getLinkFieldTarget(groupPhone.phoneLink)}
+                      data-hs-token={getDataHSToken(moduleName, `groupContactCards[${index}].groupPhone.phoneText`)}
                     >
-                      {groupEmail.emailText}
+                      {groupPhone.phoneText}
                     </ContactLink>
-                    <button
-                      type="button"
-                      className={swm('hs-elevate-contact-card-container__copy-email-button')}
-                      onClick={() => {
-                        void copyTextToClipboard(groupEmail.emailText);
-                      }}
-                      aria-label={`Copy email ${groupEmail.emailText}`}
-                    />
-                  </div>
+                  </ContactsWrapper>
                 )}
-              </ContactsWrapper>
+              </CardRow>
 
-              {groupSocial?.showSocialMedia && groupSocial?.groupSocialLinks?.length > 0 && (
-                <SocialLinksWrapper className={swm('hs-elevate-contact-card-container__social')}>
-                  {groupSocial.groupSocialLinks.map((socialLink, socialIndex) => (
-                    <SocialLink
-                      key={socialIndex}
-                      className={swm('hs-elevate-contact-card-container__social-link')}
-                      href={getLinkFieldHref(socialLink.socialLink)}
-                      rel={getLinkFieldRel(socialLink.socialLink)}
-                      target={getLinkFieldTarget(socialLink.socialLink)}
-                    >
-                      <Icon
-                        purpose='DECORATIVE'
-                        fieldPath={`groupContactCards[${index}].groupSocial.groupSocialLinks[${socialIndex}].socialIcon`}
+              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--email')}>
+                {groupEmail?.showEmail && groupEmail?.emailText && (
+                  <ContactsWrapper className={swm('hs-elevate-contact-card-container__contacts')}>
+                    <div className={swm('hs-elevate-contact-card-container__email-row')}>
+                      <ContactLink
+                        className={cx(
+                          swm('hs-elevate-contact-card-container__contact-link'),
+                          swm('hs-elevate-contact-card-container__contact-link--small'),
+                          swm('hs-elevate-contact-card-container__contact-link--email'),
+                        )}
+                        href={emailHref}
+                        rel={getLinkFieldRel(groupEmail.emailLink)}
+                        target={getLinkFieldTarget(groupEmail.emailLink)}
+                        data-hs-token={getDataHSToken(moduleName, `groupContactCards[${index}].groupEmail.emailText`)}
+                      >
+                        {groupEmail.emailText}
+                      </ContactLink>
+                      <button
+                        type="button"
+                        className={swm('hs-elevate-contact-card-container__copy-email-button')}
+                        onClick={() => {
+                          void copyTextToClipboard(groupEmail.emailText);
+                        }}
+                        aria-label={`Copy email ${groupEmail.emailText}`}
                       />
-                      {socialLink.socialLabel}
-                    </SocialLink>
-                  ))}
-                </SocialLinksWrapper>
-              )}
+                    </div>
+                  </ContactsWrapper>
+                )}
+              </CardRow>
 
-              {groupButton.showButton && (
-                <Button
-                  additionalClassArray={[swm('hs-elevate-contact-card-container__button')]}
-                  buttonStyle={buttonStyleVariant}
-                  buttonSize={buttonStyleSize}
-                  href={getLinkFieldHref(groupButton.buttonContentLink)}
-                  rel={getLinkFieldRel(groupButton.buttonContentLink)}
-                  target={getLinkFieldTarget(groupButton.buttonContentLink)}
-                  iconFieldPath={`groupContactCards[${index}].groupButton.buttonContentIcon`}
-                  showIcon={groupButton.buttonContentShowIcon}
-                  iconPosition={groupButton.buttonContentIconPosition}
-                  moduleName={moduleName}
-                  textFieldPath={`groupContactCards[${index}].groupButton.buttonContentText`}
-                >
-                  {groupButton.buttonContentText}
-                </Button>
-              )}
-            </div>
+              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--social')}>
+                {groupSocial?.showSocialMedia && groupSocial?.groupSocialLinks?.length > 0 && (
+                  <SocialLinksWrapper className={swm('hs-elevate-contact-card-container__social')}>
+                    {groupSocial.groupSocialLinks.map((socialLink, socialIndex) => (
+                      <SocialLink
+                        key={socialIndex}
+                        className={swm('hs-elevate-contact-card-container__social-link')}
+                        href={getLinkFieldHref(socialLink.socialLink)}
+                        rel={getLinkFieldRel(socialLink.socialLink)}
+                        target={getLinkFieldTarget(socialLink.socialLink)}
+                      >
+                        <Icon
+                          purpose='DECORATIVE'
+                          fieldPath={`groupContactCards[${index}].groupSocial.groupSocialLinks[${socialIndex}].socialIcon`}
+                        />
+                        {socialLink.socialLabel}
+                      </SocialLink>
+                    ))}
+                  </SocialLinksWrapper>
+                )}
+              </CardRow>
+
+              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--button')}>
+                {groupButton.showButton && (
+                  <Button
+                    additionalClassArray={[swm('hs-elevate-contact-card-container__button')]}
+                    buttonStyle={buttonStyleVariant}
+                    buttonSize={buttonStyleSize}
+                    href={getLinkFieldHref(groupButton.buttonContentLink)}
+                    rel={getLinkFieldRel(groupButton.buttonContentLink)}
+                    target={getLinkFieldTarget(groupButton.buttonContentLink)}
+                    iconFieldPath={`groupContactCards[${index}].groupButton.buttonContentIcon`}
+                    showIcon={groupButton.buttonContentShowIcon}
+                    iconPosition={groupButton.buttonContentIconPosition}
+                    moduleName={moduleName}
+                    textFieldPath={`groupContactCards[${index}].groupButton.buttonContentText`}
+                  >
+                    {groupButton.buttonContentText}
+                  </Button>
+                )}
+              </CardRow>
+            </CardBottom>
           </Card>
         );
       })}
