@@ -173,8 +173,8 @@
 }
 
 .hs-elevate-contact-card-container__social-link :global(svg) {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   fill: var(--hsElevate--contactCard__accentColor);
 }
 
