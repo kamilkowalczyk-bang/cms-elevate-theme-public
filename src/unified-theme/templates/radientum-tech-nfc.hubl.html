@@ -3,7 +3,6 @@
   isAvailableForNewContent: true
   label: Radientum Tech NFC
   screenshotPath: ../images/template-previews/radientum-tech-nfc.png
-  scaffoldSchemaPath: ./schemas/radientum-tech-nfc.scaffold_schema.json
 -->
 {% extends "./layouts/base.hubl.html" %}
 
@@ -619,6 +618,95 @@
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section %}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RecentBlogPostsSlider",
+        offset=0,
+        width=12,
+        blog="default",
+        filterByTag=false,
+        groupStyle={
+          "cardStyleVariant" : "card_variant_2"
+        },
+        postLimit=6,
+        tag=""
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
+        },
+        headingAndTextHeading="Headline for Who we serve",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
     {% dnd_row %}
       {% dnd_module
         path="../components/modules/RichText",
@@ -633,16 +721,14 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section
-  background_color="rgba(0, 0, 0, 0)"
-%}
+{% dnd_section %}
   {% dnd_column
     offset=0,
     width=12
   %}
     {% dnd_row %}
       {% dnd_module
-        path="../components/modules/Card",
+        path="../components/modules/ServiceCard",
         offset=0,
         width=12,
         groupCards=[ {
@@ -660,31 +746,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
             "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
+            "headingAndTextHeadingLevel" : "h4",
             "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
             "showCaption" : false
           },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
-          },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -701,29 +781,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
+            "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -740,29 +816,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
+            "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -779,47 +851,28 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
+            "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         } ],
-        groupStyle={
-          "groupButton" : {
-            "buttonStyleSize" : "small",
-            "buttonStyleVariant" : "secondary"
-          },
-          "groupCard" : {
-            "cardOrientation" : "column",
-            "cardStyleVariant" : "card_variant_4",
-            "showCardShadow" : true,
-            "showIconBorder" : false
-          },
-          "groupContent" : {
-            "headingStyleVariant" : "h5",
-            "headingUppercase" : true
-          }
-        }
+        useHubDBFeed=false
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
@@ -933,16 +986,14 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section
-  background_color="rgba(0, 0, 0, 0)"
-%}
+{% dnd_section %}
   {% dnd_column
     offset=0,
     width=12
   %}
     {% dnd_row %}
       {% dnd_module
-        path="../components/modules/Card",
+        path="../components/modules/ServiceCard",
         offset=0,
         width=12,
         groupCards=[ {
@@ -960,31 +1011,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
             "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
+            "headingAndTextHeadingLevel" : "h4",
             "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
             "showCaption" : false
           },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
-          },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -1001,183 +1046,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
-            }
-          },
-          "groupContent" : {
-            "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
-          },
-          "groupImage" : {
-            "image" : {
-              "alt" : "",
+              "alt" : "service image background",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
-          }
-        }, {
-          "groupButton" : {
-            "buttonContentIcon" : {
-              "name" : "arrow-right"
-            },
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : true
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Explore more",
-            "showButton" : true
-          },
-          "groupCardBackground" : {
-            "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
-            }
-          },
-          "groupContent" : {
-            "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
-          },
-          "groupImage" : {
-            "image" : {
-              "alt" : "",
-              "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
-          }
-        }, {
-          "groupButton" : {
-            "buttonContentIcon" : {
-              "name" : "arrow-right"
-            },
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : true
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Explore more",
-            "showButton" : true
-          },
-          "groupCardBackground" : {
-            "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
-            }
-          },
-          "groupContent" : {
-            "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
-          },
-          "groupImage" : {
-            "image" : {
-              "alt" : "",
-              "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
-          }
-        } ],
-        groupStyle={
-          "groupButton" : {
-            "buttonStyleSize" : "small",
-            "buttonStyleVariant" : "secondary"
-          },
-          "groupCard" : {
-            "cardOrientation" : "column",
-            "cardStyleVariant" : "card_variant_4",
-            "showCardShadow" : true,
-            "showIconBorder" : false
-          },
-          "groupContent" : {
-            "headingStyleVariant" : "h5",
-            "headingUppercase" : true
-          }
-        }
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-  {% end_dnd_column %}
-{% end_dnd_section %}
-
-{% dnd_section
-  background_color="rgba(0, 0, 0, 0)"
-%}
-  {% dnd_column
-    offset=0,
-    width=12
-  %}
-    {% dnd_row %}
-      {% dnd_module
-        path="../components/modules/Card",
-        offset=0,
-        width=12,
-        groupCards=[ {
-          "groupButton" : {
-            "buttonContentIcon" : {
-              "name" : "arrow-right"
-            },
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : true
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Explore more",
-            "showButton" : true
-          },
-          "groupCardBackground" : {
-            "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
             "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
+            "headingAndTextHeadingLevel" : "h4",
             "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
             "showCaption" : false
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -1194,50 +1081,63 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
+            "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
-        } ],
-        groupStyle={
+        }, {
           "groupButton" : {
-            "buttonStyleSize" : "small",
-            "buttonStyleVariant" : "secondary"
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : true
           },
-          "groupCard" : {
-            "cardOrientation" : "column",
-            "cardStyleVariant" : "card_variant_4",
-            "showCardShadow" : true,
-            "showIconBorder" : false
+          "groupCardBackground" : {
+            "image" : {
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
+            }
           },
           "groupContent" : {
-            "alignment" : {
-              "horizontal_align" : "LEFT"
+            "captionText" : "",
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
             },
-            "headingStyleVariant" : "h5",
-            "headingUppercase" : true
+            "showRoundImageBorder" : false
           }
-        }
+        } ],
+        useHubDBFeed=false
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
