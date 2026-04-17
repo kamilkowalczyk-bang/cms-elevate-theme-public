@@ -47,7 +47,7 @@ export const hublDataTemplate = `
       {% endif %}
     {% endif %}
     {% if rid %}
-      {% set row = hubdb_table_row(1822813372, rid|int) %}
+      {% set row = hubdb_table_row(231586389, rid|int) %}
       {% set logoRaw = row.logo %}
       {% if logoRaw %}
         {% if logoRaw.url %}
