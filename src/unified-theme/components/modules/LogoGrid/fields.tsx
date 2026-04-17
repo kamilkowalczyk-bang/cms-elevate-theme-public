@@ -37,7 +37,7 @@ export const fields = (
           name="groupHubdbRow"
           required={false}
           locked={false}
-          tableNameOrId={231586389}
+          tableNameOrId={1822813372}
           columnsToFetch={[
             'hs_id',
             'logo',

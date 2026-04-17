@@ -530,7 +530,7 @@ export const hublDataTemplate = `
         {% endif %}
       {% endif %}
       {% if rid %}
-        {% set dbrow = hubdb_table_row(234247952, rid|int) %}
+        {% set dbrow = hubdb_table_row(1756583141, rid|int) %}
         {% set bgRaw = dbrow.service_bg_img %}
         {% if not bgRaw and dbrow.values and dbrow.values.service_bg_img %}
           {% set bgRaw = dbrow.values.service_bg_img %}
@@ -584,7 +584,7 @@ export const hublDataTemplate = `
     {% endfor %}
   {% endunless %}
   {% if module.useHubDBFeed %}
-    {% set hubdb_svc_table_id = 234247952 %}
+    {% set hubdb_svc_table_id = 1756583141 %}
     {% set hubdb_cat_col = hubdb_table_column(hubdb_svc_table_id, "service_categories") %}
     {% if hubdb_cat_col and hubdb_cat_col.options %}
       {% if hubdb_cat_col.options is mapping %}
