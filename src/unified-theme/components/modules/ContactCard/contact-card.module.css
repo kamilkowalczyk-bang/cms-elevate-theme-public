@@ -10,6 +10,7 @@
   --hsElevate--card--padding: var(--hsElevate--spacing--24, 24px);
 
   width: 290px;
+  height: 100%;
   min-height: auto;
   justify-content: flex-start;
   align-items: var(--hsElevate--contactCard__innerAlignment, center);
@@ -22,16 +23,25 @@
 
 .hs-elevate-contact-card-container__card-bottom {
   width: 100%;
-  display: grid;
-  grid-template-rows: auto auto auto auto;
-  row-gap: var(--hsElevate--spacing--8, 8px);
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--hsElevate--spacing--8, 8px);
   margin-top: var(--hsElevate--spacing--20, 20px);
+}
+
+.hs-elevate-contact-card-container__card-bottom--single-info-row {
+  justify-content: space-evenly;
 }
 
 .hs-elevate-contact-card-container__row {
   width: 100%;
   display: flex;
   justify-content: var(--hsElevate--contactCard__innerAlignment, center);
+}
+
+.hs-elevate-contact-card-container__row--button {
+  margin-top: auto;
 }
 
 .hs-elevate-contact-card-container__card--drop-shadow {

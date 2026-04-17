@@ -168,6 +168,13 @@ export default function ContactCardIsland(props: ContactCardProps) {
         );
 
         const cardInlineStyles: CSSPropertiesMap | undefined = showCardBorder ? undefined : { border: 'none' };
+        const hasPhone = Boolean(groupPhone?.showPhone && groupPhone?.phoneText);
+        const hasEmail = Boolean(groupEmail?.showEmail && groupEmail?.emailText);
+        const hasSocial = Boolean(groupSocial?.showSocialMedia && groupSocial?.groupSocialLinks?.length > 0);
+        const hasButton = Boolean(groupButton?.showButton);
+        const visibleInfoRowsCount = Number(hasPhone) + Number(hasEmail) + Number(hasSocial);
+        const shouldEvenlyDistributeSingleInfoRow = !hasButton && visibleInfoRowsCount === 1;
+        const shouldRenderCardBottom = hasPhone || hasEmail || hasSocial || hasButton;
 
         return (
           <Card
@@ -221,9 +228,18 @@ export default function ContactCardIsland(props: ContactCardProps) {
               )}
             </CardTop>
 
-            <CardBottom className={swm('hs-elevate-contact-card-container__card-bottom')}>
-              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--phone')}>
-                {groupPhone?.showPhone && groupPhone?.phoneText && (
+            {shouldRenderCardBottom && (
+              <CardBottom
+                className={cx(
+                  swm('hs-elevate-contact-card-container__card-bottom'),
+                  {
+                    [swm('hs-elevate-contact-card-container__card-bottom--single-info-row')]:
+                      shouldEvenlyDistributeSingleInfoRow,
+                  },
+                )}
+              >
+                {hasPhone && (
+                  <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--phone')}>
                   <ContactsWrapper className={swm('hs-elevate-contact-card-container__contacts')}>
                     <ContactLink
                       className={swm('hs-elevate-contact-card-container__contact-link')}
@@ -235,11 +251,11 @@ export default function ContactCardIsland(props: ContactCardProps) {
                       {groupPhone.phoneText}
                     </ContactLink>
                   </ContactsWrapper>
+                  </CardRow>
                 )}
-              </CardRow>
 
-              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--email')}>
-                {groupEmail?.showEmail && groupEmail?.emailText && (
+                {hasEmail && (
+                  <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--email')}>
                   <ContactsWrapper className={swm('hs-elevate-contact-card-container__contacts')}>
                     <div className={swm('hs-elevate-contact-card-container__email-row')}>
                       <ContactLink
@@ -265,11 +281,11 @@ export default function ContactCardIsland(props: ContactCardProps) {
                       />
                     </div>
                   </ContactsWrapper>
+                  </CardRow>
                 )}
-              </CardRow>
 
-              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--social')}>
-                {groupSocial?.showSocialMedia && groupSocial?.groupSocialLinks?.length > 0 && (
+                {hasSocial && (
+                  <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--social')}>
                   <SocialLinksWrapper className={swm('hs-elevate-contact-card-container__social')}>
                     {groupSocial.groupSocialLinks.map((socialLink, socialIndex) => (
                       <SocialLink
@@ -287,29 +303,30 @@ export default function ContactCardIsland(props: ContactCardProps) {
                       </SocialLink>
                     ))}
                   </SocialLinksWrapper>
+                  </CardRow>
                 )}
-              </CardRow>
 
-              <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--button')}>
-                {groupButton.showButton && (
-                  <Button
-                    additionalClassArray={[swm('hs-elevate-contact-card-container__button')]}
-                    buttonStyle={buttonStyleVariant}
-                    buttonSize={buttonStyleSize}
-                    href={getLinkFieldHref(groupButton.buttonContentLink)}
-                    rel={getLinkFieldRel(groupButton.buttonContentLink)}
-                    target={getLinkFieldTarget(groupButton.buttonContentLink)}
-                    iconFieldPath={`groupContactCards[${index}].groupButton.buttonContentIcon`}
-                    showIcon={groupButton.buttonContentShowIcon}
-                    iconPosition={groupButton.buttonContentIconPosition}
-                    moduleName={moduleName}
-                    textFieldPath={`groupContactCards[${index}].groupButton.buttonContentText`}
-                  >
-                    {groupButton.buttonContentText}
-                  </Button>
+                {hasButton && (
+                  <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--button')}>
+                    <Button
+                      additionalClassArray={[swm('hs-elevate-contact-card-container__button')]}
+                      buttonStyle={buttonStyleVariant}
+                      buttonSize={buttonStyleSize}
+                      href={getLinkFieldHref(groupButton.buttonContentLink)}
+                      rel={getLinkFieldRel(groupButton.buttonContentLink)}
+                      target={getLinkFieldTarget(groupButton.buttonContentLink)}
+                      iconFieldPath={`groupContactCards[${index}].groupButton.buttonContentIcon`}
+                      showIcon={groupButton.buttonContentShowIcon}
+                      iconPosition={groupButton.buttonContentIconPosition}
+                      moduleName={moduleName}
+                      textFieldPath={`groupContactCards[${index}].groupButton.buttonContentText`}
+                    >
+                      {groupButton.buttonContentText}
+                    </Button>
+                  </CardRow>
                 )}
-              </CardRow>
-            </CardBottom>
+              </CardBottom>
+            )}
           </Card>
         );
       })}
