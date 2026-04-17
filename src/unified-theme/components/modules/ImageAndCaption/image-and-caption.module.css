@@ -1,0 +1,41 @@
+/* Outer section: default HubSpot–style block, centered, no vertical margin. */
+.hs-elevate-image-and-caption__section {
+  margin-block: 0;
+  margin-inline: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Let HubSpot ImageField width/height (and srcset/sizes) control layout; do not override with width: 100%. */
+.hs-elevate-image-and-caption {
+  margin: 0;
+}
+
+.hs-elevate-image-and-caption__image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.hs-elevate-image-and-caption__caption {
+  margin: 0;
+  padding: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--16, 16px);
+  background-color: var(--hsElevate--imageAndCaption__captionBackgroundColor);
+  color: var(--hsElevate--imageAndCaption__captionTextColor);
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+}
+
+.hs-elevate-image-and-caption__caption--left {
+  text-align: left;
+}
+
+.hs-elevate-image-and-caption__caption--center {
+  text-align: center;
+}
+
+.hs-elevate-image-and-caption__caption--right {
+  text-align: right;
+}
