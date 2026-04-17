@@ -1,0 +1,67 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the top section of the section consolidation template.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Short label text shown above the main hero heading."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Main hero heading introducing Radientum technologies."
+      }
+    ]
+  },
+  {
+    "name": "group_content",
+    "type": "group",
+    "children": [
+      {
+        "name": "section_heading",
+        "type": "text",
+        "description": "Heading for the core technologies content section."
+      },
+      {
+        "name": "section_description",
+        "type": "text",
+        "description": "Supporting rich text content for the core technologies section."
+      }
+    ]
+  },
+  {
+    "name": "group_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the closing call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting description for the closing call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the closing call-to-action."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Destination URL for the closing call-to-action button."
+      }
+    ]
+  }
+]

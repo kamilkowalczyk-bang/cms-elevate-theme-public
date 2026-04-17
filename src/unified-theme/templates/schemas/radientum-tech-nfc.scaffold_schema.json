@@ -1,0 +1,77 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the top section of the technologies template.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "eyebrow",
+        "type": "text",
+        "description": "Short eyebrow line above the hero heading describing the technology focus."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Main hero heading that states the value proposition for this technology page."
+      },
+      {
+        "name": "cta_text",
+        "type": "text",
+        "description": "Primary hero call-to-action button label."
+      },
+      {
+        "name": "cta_link",
+        "type": "link",
+        "description": "Primary hero call-to-action destination URL."
+      }
+    ]
+  },
+  {
+    "name": "group_content",
+    "type": "group",
+    "children": [
+      {
+        "name": "what_you_get_heading",
+        "type": "text",
+        "description": "Heading for the key benefits section."
+      },
+      {
+        "name": "what_you_get_description",
+        "type": "text",
+        "description": "Supporting description text for the key benefits section."
+      }
+    ]
+  },
+  {
+    "name": "group_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading text for the call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph text for the call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label shown in the call-to-action section."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Destination URL for the call-to-action section button."
+      }
+    ]
+  }
+]
