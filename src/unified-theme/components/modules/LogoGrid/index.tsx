@@ -11,7 +11,7 @@ import { sectionColorsMap } from '../../utils/section-color-map.js';
 import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
-import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 const swm = staticWithModule(styles);
 

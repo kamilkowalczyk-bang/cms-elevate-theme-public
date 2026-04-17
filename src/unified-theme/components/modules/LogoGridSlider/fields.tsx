@@ -8,7 +8,7 @@ import {
 } from '@hubspot/cms-components/fields';
 import { HeadingAndText } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
-import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 export const fields = (
   <ModuleFields>

@@ -19,7 +19,7 @@ import {
 import StyleFields from './styleFields.js';
 import newsletterImage from './assets/newsletter.png';
 import serviceCardBackgroundImage from './assets/service-card.png';
-import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',

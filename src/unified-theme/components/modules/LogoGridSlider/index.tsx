@@ -4,7 +4,7 @@ import logoGridIconSvg from './assets/card-icon-grid.svg';
 // @ts-expect-error -- ?island not typed
 import LogoGridSliderIsland from './islands/LogoGridSliderIsland.js?island';
 import { LogoGridSliderProps } from './types.js';
-import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 export const Component = (props: LogoGridSliderProps) => {
   const {

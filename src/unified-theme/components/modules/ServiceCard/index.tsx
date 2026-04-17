@@ -33,7 +33,7 @@ import {
   normalizeHubDbCategories,
   resolveActiveServiceCategory,
 } from './hubdb-category-tabs.js';
-import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 // @ts-expect-error -- ?island not typed
 import ServiceCardIsland from './islands/ServiceCardIsland.js?island';
