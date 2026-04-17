@@ -2,7 +2,12 @@
   {
     "name": "heading",
     "type": "text",
-    "description": "Heading shown above the logo grid."
+    "description": "A heading displayed above the logo grid."
+  },
+  {
+    "name": "description",
+    "type": "text",
+    "description": "A short description shown below the heading in the logo grid section."
   }
 ]
 

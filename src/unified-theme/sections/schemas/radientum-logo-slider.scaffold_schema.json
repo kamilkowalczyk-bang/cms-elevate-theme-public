@@ -2,32 +2,12 @@
   {
     "name": "heading",
     "type": "text",
-    "description": "Heading displayed above the logo slider."
+    "description": "A heading displayed above the logo slider."
   },
   {
-    "name": "slide_1_caption",
+    "name": "description",
     "type": "text",
-    "description": "Caption for slide 1."
-  },
-  {
-    "name": "slide_2_caption",
-    "type": "text",
-    "description": "Caption for slide 2."
-  },
-  {
-    "name": "slide_3_caption",
-    "type": "text",
-    "description": "Caption for slide 3."
-  },
-  {
-    "name": "slide_4_caption",
-    "type": "text",
-    "description": "Caption for slide 4."
-  },
-  {
-    "name": "slide_5_caption",
-    "type": "text",
-    "description": "Caption for slide 5."
+    "description": "A short description shown below the heading in the logo slider section."
   }
 ]
 
