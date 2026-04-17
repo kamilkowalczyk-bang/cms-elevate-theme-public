@@ -4,13 +4,16 @@ import imageAndCaptionIconSvg from './assets/image.svg';
 import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
-import { ImageAndCaptionProps } from './types.js';
+import { ImageAndCaptionProps, ImageAspectRatioChoice } from './types.js';
 import { getDataHSToken } from '../../utils/inline-editing.js';
+import type { CSSProperties } from 'react';
+import type { AlignmentFieldType } from '@hubspot/cms-components/fields';
 
 const swm = staticWithModule(styles);
 
 const ImageAndCaptionSection = createComponent('section');
 const ImageAndCaptionContainer = createComponent('figure');
+const ImageAndCaptionMedia = createComponent('div');
 const Image = createComponent('img');
 const Caption = createComponent('figcaption');
 
@@ -51,6 +54,37 @@ function getAlignmentClass(alignment: ImageAndCaptionProps['captionAlignment']):
   return swm('hs-elevate-image-and-caption__caption--left');
 }
 
+function alignmentToObjectPosition(
+  pos: AlignmentFieldType['default'] | undefined,
+): string {
+  const h = pos?.horizontal_align ?? 'CENTER';
+  const v = pos?.vertical_align ?? 'MIDDLE';
+  const hMap: Record<string, string> = {
+    LEFT: 'left',
+    CENTER: 'center',
+    RIGHT: 'right',
+  };
+  const vMap: Record<string, string> = {
+    TOP: 'top',
+    MIDDLE: 'center',
+    BOTTOM: 'bottom',
+  };
+  return `${hMap[h] ?? 'center'} ${vMap[v] ?? 'center'}`;
+}
+
+function aspectRatioMediaClass(ratio: ImageAspectRatioChoice | undefined): string | undefined {
+  if (ratio === 'ratio_16_9') {
+    return swm('hs-elevate-image-and-caption__media--ratio-16-9');
+  }
+  if (ratio === 'ratio_4_3') {
+    return swm('hs-elevate-image-and-caption__media--ratio-4-3');
+  }
+  if (ratio === 'ratio_3_2') {
+    return swm('hs-elevate-image-and-caption__media--ratio-3-2');
+  }
+  return undefined;
+}
+
 export const Component = (props: ImageAndCaptionProps) => {
   const {
     moduleName,
@@ -58,6 +92,10 @@ export const Component = (props: ImageAndCaptionProps) => {
     addCaption = false,
     img_caption = '',
     captionAlignment,
+    useAdvancedImageEditing = false,
+    imageAspectRatio = 'original',
+    imageObjectFitCover = false,
+    imageObjectPosition,
     groupStyle: {
       captionBackgroundColor = { color: '#FFFFFF', opacity: 100 },
       captionTextColor = { color: '#2B2D3A', opacity: 100 },
@@ -67,6 +105,12 @@ export const Component = (props: ImageAndCaptionProps) => {
   const hasImage = Boolean(image?.src);
   const captionText = img_caption?.trim() || '';
   const showCaption = addCaption === true && captionText.length > 0;
+
+  const aspectChoice = (imageAspectRatio ?? 'original') as ImageAspectRatioChoice;
+  const needsMediaFrame =
+    hasImage &&
+    useAdvancedImageEditing === true &&
+    (aspectChoice !== 'original' || imageObjectFitCover === true);
 
   const cssVarsMap: CSSPropertiesMap = {
     '--hsElevate--imageAndCaption__captionBackgroundColor': colorWithOpacity(
@@ -79,22 +123,61 @@ export const Component = (props: ImageAndCaptionProps) => {
     ),
   };
 
+  const imageWidth = typeof image?.width === 'number' ? image.width : undefined;
+  const imageHeight = typeof image?.height === 'number' ? image.height : undefined;
+
+  const mediaStyle: CSSProperties = {
+    maxWidth: '100%',
+    ...(imageWidth != null
+      ? { width: `${imageWidth}px` }
+      : { width: 'min(100%, 960px)' }),
+    ...(aspectChoice === 'original' &&
+    imageObjectFitCover === true &&
+    imageHeight != null &&
+    imageWidth != null
+      ? { height: `${imageHeight}px` }
+      : {}),
+  };
+
+  const framedImageStyle: CSSProperties | undefined = needsMediaFrame
+    ? {
+        objectPosition: imageObjectFitCover
+          ? alignmentToObjectPosition(imageObjectPosition)
+          : 'center center',
+      }
+    : undefined;
+
+  const renderImage = () => (
+    <Image
+      className={swm('hs-elevate-image-and-caption__image')}
+      src={image?.src}
+      alt={image?.alt}
+      width={needsMediaFrame ? undefined : image?.width}
+      height={needsMediaFrame ? undefined : image?.height}
+      loading={image?.loading && image.loading !== 'disabled' ? image.loading : 'lazy'}
+      data-hs-token={getDataHSToken(moduleName, 'image')}
+      style={framedImageStyle}
+    />
+  );
+
   return (
     <ImageAndCaptionSection
       className={swm('hs-elevate-image-and-caption__section')}
       style={cssVarsMap}
     >
       <ImageAndCaptionContainer className={swm('hs-elevate-image-and-caption')}>
-        {hasImage && (
-          <Image
-            className={swm('hs-elevate-image-and-caption__image')}
-            src={image?.src}
-            alt={image?.alt}
-            width={image?.width}
-            height={image?.height}
-            loading={image?.loading && image.loading !== 'disabled' ? image.loading : 'lazy'}
-            data-hs-token={getDataHSToken(moduleName, 'image')}
-          />
+        {hasImage && !needsMediaFrame && renderImage()}
+        {hasImage && needsMediaFrame && (
+          <ImageAndCaptionMedia
+            className={cx(
+              swm('hs-elevate-image-and-caption__media'),
+              aspectRatioMediaClass(aspectChoice),
+              imageObjectFitCover === true && swm('hs-elevate-image-and-caption__media--cover'),
+            )}
+            style={mediaStyle}
+          >
+            {renderImage()}
+          </ImageAndCaptionMedia>
         )}
         {showCaption && (
           <Caption
