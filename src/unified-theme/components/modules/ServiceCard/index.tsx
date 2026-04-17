@@ -33,6 +33,7 @@ import {
   normalizeHubDbCategories,
   resolveActiveServiceCategory,
 } from './hubdb-category-tabs.js';
+import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
 
 // @ts-expect-error -- ?island not typed
 import ServiceCardIsland from './islands/ServiceCardIsland.js?island';
@@ -530,7 +531,7 @@ export const hublDataTemplate = `
         {% endif %}
       {% endif %}
       {% if rid %}
-        {% set dbrow = hubdb_table_row(234247952, rid|int) %}
+        {% set dbrow = hubdb_table_row("${HUBDB_TABLE_NAMES.serviceCard}", rid|int) %}
         {% set bgRaw = dbrow.service_bg_img %}
         {% if not bgRaw and dbrow.values and dbrow.values.service_bg_img %}
           {% set bgRaw = dbrow.values.service_bg_img %}
@@ -584,7 +585,7 @@ export const hublDataTemplate = `
     {% endfor %}
   {% endunless %}
   {% if module.useHubDBFeed %}
-    {% set hubdb_svc_table_id = 234247952 %}
+    {% set hubdb_svc_table_id = "${HUBDB_TABLE_NAMES.serviceCard}" %}
     {% set hubdb_cat_col = hubdb_table_column(hubdb_svc_table_id, "service_categories") %}
     {% if hubdb_cat_col and hubdb_cat_col.options %}
       {% if hubdb_cat_col.options is mapping %}

@@ -19,6 +19,7 @@ import {
 import StyleFields from './styleFields.js';
 import newsletterImage from './assets/newsletter.png';
 import serviceCardBackgroundImage from './assets/service-card.png';
+import { HUBDB_TABLE_NAMES } from '../hubdb-table-names.js';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',
@@ -230,7 +231,7 @@ export const fields = (
         name='groupHubdbRow'
         required={false}
         locked={false}
-        tableNameOrId={234247952}
+        tableNameOrId={HUBDB_TABLE_NAMES.serviceCard}
         columnsToFetch={[
           'hs_id',
           'service_title',

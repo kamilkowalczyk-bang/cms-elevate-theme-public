@@ -5,7 +5,11 @@
   "scripts": {
     "build": "vite build",
     "upload": "hs project upload",
+    "upload:dev": "npm run upload -- --account=dev-radientum",
+    "upload:prod": "npm run upload -- --account=rad-prod",
     "build-upload": "vite build && hs project upload",
+    "build-upload:dev": "npm run build-upload -- --account=dev-radientum",
+    "build-upload:prod": "npm run build-upload -- --account=rad-prod",
     "yarn-start": "cd src/unified-theme && yarn start",
     "npm-start": "cd src/unified-theme && npm run start",
     "test": "vitest",

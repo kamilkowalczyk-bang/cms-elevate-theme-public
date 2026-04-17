@@ -44,6 +44,12 @@ Elevate is built with modern development practices in mind, utilizing:
    # or
    yarn build-upload
    ```
+   
+   Build and upload to a specific account using wrappers:
+   ```bash
+   npm run build-upload:dev
+   npm run build-upload:prod
+   ```
 
 5. Start the development server:
    ```bash
@@ -56,12 +62,30 @@ Elevate is built with modern development practices in mind, utilizing:
 
 - `build` - Builds the theme for production
 - `upload` - Uploads the theme to HubSpot
+- `upload:dev` - Uploads the theme to `dev-radientum`
+- `upload:prod` - Uploads the theme to `rad-prod`
 - `build-upload` - Builds and uploads the theme in one command
+- `build-upload:dev` - Builds and uploads the theme to `dev-radientum`
+- `build-upload:prod` - Builds and uploads the theme to `rad-prod`
 - `test` - Runs the test suite
 - `npm-install:all` - Installs dependencies for all workspaces
 - `yarn-install:all` - Installs dependencies using Yarn for all workspaces
 - `npm-start` - Starts the development server using npm
 - `yarn-start` - Starts the development server using yarn
+
+### HubSpot account targeting
+
+The base scripts remain available as a backup:
+
+- `npm run build-upload`
+- `npm run upload`
+
+For account-specific uploads without switching default CLI account:
+
+- `npm run build-upload:dev` (test account)
+- `npm run build-upload:prod` (production account)
+- `npm run upload:dev`
+- `npm run upload:prod`
 
 ## Project Structure
 
