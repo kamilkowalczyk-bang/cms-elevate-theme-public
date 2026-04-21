@@ -17,6 +17,13 @@ export type ContactSocialLink = {
 };
 
 export type ContactCardItem = {
+  groupHubdbRow?: {
+    id?: unknown;
+    rowId?: unknown;
+    row_id?: unknown;
+    values?: Record<string, unknown>;
+    [key: string]: unknown;
+  };
   groupRegion: {
     showRegion: BooleanFieldType['default'];
     region: TextFieldType['default'];
@@ -62,6 +69,10 @@ export type ContactCardStyles = {
 
 export type ContactCardProps = {
   moduleName?: string;
+  useHubDB?: BooleanFieldType['default'];
   groupContactCards: ContactCardItem[];
   groupStyle: ContactCardStyles;
+  hublData?: {
+    manualHubDbRows?: (Record<string, unknown> | null)[];
+  };
 };

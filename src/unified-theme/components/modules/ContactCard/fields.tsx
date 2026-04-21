@@ -3,15 +3,18 @@ import {
   RepeatedFieldGroup,
   FieldGroup,
   BooleanField,
+  HubDbRowField,
   TextField,
   ImageField,
   LinkField,
   IconField,
   AdvancedVisibility,
+  Visibility,
 } from '@hubspot/cms-components/fields';
 import { ButtonContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import teamMemberUseBackgroundMed1 from '../../../images/team-member-use-background-med-1.png';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',
@@ -31,8 +34,28 @@ const socialFieldVisibility: AdvancedVisibility = {
   }],
 } as const;
 
+const manualCardFieldVisibility = {
+  controlling_field_path: 'useHubDB',
+  controlling_value_regex: 'false',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
+const hubDbPickerVisibility = {
+  controlling_field_path: 'useHubDB',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
 export const fields = (
   <ModuleFields>
+    <BooleanField
+      label='Use HubDB'
+      name='useHubDB'
+      display='toggle'
+      default={false}
+      helpText='When enabled, each card can be populated from the contact_cards HubDB table.'
+    />
+
     <RepeatedFieldGroup
       label='Contact cards'
       name='groupContactCards'
@@ -332,12 +355,42 @@ export const fields = (
         },
       ]}
     >
-      <FieldGroup label='Region' name='groupRegion' display='inline'>
+      <HubDbRowField
+        label='Choose from HubDB'
+        name='groupHubdbRow'
+        tableNameOrId={HUBDB_TABLE_NAMES.contactCard}
+        required={false}
+        locked={false}
+        columnsToFetch={[
+          'hs_id',
+          'full_name',
+          'department',
+          'region',
+          'phone',
+          'email',
+          'phone_link',
+          'email_link',
+          'button_text',
+          'button_link',
+          'contact_image',
+          'show_phone',
+          'show_email',
+          'show_region',
+          'show_social_media',
+          'show_button',
+        ]}
+        displayColumns={['full_name']}
+        displayFormat='%0'
+        visibility={hubDbPickerVisibility}
+        helpText='Select a row from contact_cards. The selected row will populate this card.'
+      />
+
+      <FieldGroup label='Region' name='groupRegion' display='inline' visibility={manualCardFieldVisibility}>
         <BooleanField label='Show region' name='showRegion' display='toggle' default={true} />
         <TextField label='Region' name='region' default='USA & Canada' inlineEditable={true} />
       </FieldGroup>
 
-      <FieldGroup label='Identity' name='groupIdentity' display='inline'>
+      <FieldGroup label='Identity' name='groupIdentity' display='inline' visibility={manualCardFieldVisibility}>
         <ImageField
           label='Contact image'
           name='contactImage'
@@ -355,7 +408,7 @@ export const fields = (
         <TextField label='Department' name='department' default='Sales' inlineEditable={true} />
       </FieldGroup>
 
-      <FieldGroup label='Phone' name='groupPhone' display='inline'>
+      <FieldGroup label='Phone' name='groupPhone' display='inline' visibility={manualCardFieldVisibility}>
         <BooleanField label='Show phone' name='showPhone' display='toggle' default={true} />
         <TextField label='Contact phone' name='phoneText' default='+358 50 123 4567' inlineEditable={true} />
         <LinkField
@@ -372,7 +425,7 @@ export const fields = (
         />
       </FieldGroup>
 
-      <FieldGroup label='Email' name='groupEmail' display='inline'>
+      <FieldGroup label='Email' name='groupEmail' display='inline' visibility={manualCardFieldVisibility}>
         <BooleanField label='Show email' name='showEmail' display='toggle' default={true} />
         <TextField
           label='Contact email'
@@ -394,7 +447,7 @@ export const fields = (
         />
       </FieldGroup>
 
-      <FieldGroup label='Social media' name='groupSocial' display='inline'>
+      <FieldGroup label='Social media' name='groupSocial' display='inline' visibility={manualCardFieldVisibility}>
         <BooleanField label='Show social media' name='showSocialMedia' display='toggle' default={false} />
         <RepeatedFieldGroup
           label='Social links'
@@ -440,7 +493,7 @@ export const fields = (
         </RepeatedFieldGroup>
       </FieldGroup>
 
-      <FieldGroup label='Button' name='groupButton' display='inline'>
+      <FieldGroup label='Button' name='groupButton' display='inline' visibility={manualCardFieldVisibility}>
         <BooleanField label='Show button' name='showButton' display='toggle' default={true} />
         <ButtonContent
           textDefault='Book a meeting with me'
