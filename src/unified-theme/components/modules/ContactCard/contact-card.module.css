@@ -49,12 +49,24 @@
 }
 
 .hs-elevate-contact-card-container__region {
+  --hsElevate--contactCard__regionLineHeight: 1.3;
+  --hsElevate--contactCard__regionVisibleLines: 2;
+
   margin: 0 0 var(--hsElevate--spacing--20, 20px);
   font-family: var(--hsElevate--body__font);
   font-size: var(--hsElevate--h6__fontSize);
+  line-height: var(--hsElevate--contactCard__regionLineHeight);
   font-style: normal;
   font-weight: 700;
   text-transform: uppercase;
+  min-height: calc(
+    var(--hsElevate--h6__fontSize) * var(--hsElevate--contactCard__regionLineHeight) *
+      var(--hsElevate--contactCard__regionVisibleLines)
+  );
+  display: -webkit-box;
+  -webkit-line-clamp: var(--hsElevate--contactCard__regionVisibleLines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .hs-elevate-contact-card-container__image {
