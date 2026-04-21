@@ -1,0 +1,125 @@
+{
+  "name": "contact_cards",
+  "label": "Contact Cards",
+  "useForPages": true,
+  "allowPublicApiAccess": false,
+  "allowChildTables": false,
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "show_region",
+      "label": "Show region",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "region",
+      "label": "Region",
+      "type": "TEXT"
+    },
+    {
+      "name": "contact_image",
+      "label": "Contact image",
+      "type": "IMAGE"
+    },
+    {
+      "name": "full_name",
+      "label": "Name",
+      "type": "TEXT"
+    },
+    {
+      "name": "department",
+      "label": "Department",
+      "type": "TEXT"
+    },
+    {
+      "name": "show_phone",
+      "label": "Show phone",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "phone_text",
+      "label": "Contact phone",
+      "type": "TEXT"
+    },
+    {
+      "name": "phone_link",
+      "label": "Phone link",
+      "type": "URL"
+    },
+    {
+      "name": "show_email",
+      "label": "Show email",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "email_text",
+      "label": "Contact email",
+      "type": "TEXT"
+    },
+    {
+      "name": "email_link",
+      "label": "Email link",
+      "type": "URL"
+    },
+    {
+      "name": "show_social_media",
+      "label": "Show social media",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "social_icon_name",
+      "label": "Social icon name",
+      "type": "TEXT"
+    },
+    {
+      "name": "social_label",
+      "label": "Social label",
+      "type": "TEXT"
+    },
+    {
+      "name": "social_link",
+      "label": "Social link",
+      "type": "URL"
+    },
+    {
+      "name": "show_button",
+      "label": "Show button",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "button_text",
+      "label": "Button text",
+      "type": "TEXT"
+    },
+    {
+      "name": "button_link",
+      "label": "Button link",
+      "type": "URL"
+    },
+    {
+      "name": "button_show_icon",
+      "label": "Button show icon",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "button_icon_name",
+      "label": "Button icon name",
+      "type": "TEXT"
+    },
+    {
+      "name": "button_icon_position",
+      "label": "Button icon position",
+      "type": "SELECT",
+      "options": [
+        {
+          "name": "left",
+          "type": "option"
+        },
+        {
+          "name": "right",
+          "type": "option"
+        }
+      ]
+    }
+  ]
+}
