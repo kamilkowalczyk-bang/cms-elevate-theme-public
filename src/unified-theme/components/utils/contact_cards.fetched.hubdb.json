@@ -1,0 +1,656 @@
+{
+  "name": "contact_cards",
+  "useForPages": true,
+  "label": "Contact Cards",
+  "allowChildTables": false,
+  "allowPublicApiAccess": false,
+  "dynamicMetaTags": {},
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "show_region",
+      "label": "Show region",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "region",
+      "label": "Region",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "contact_image",
+      "label": "Contact image",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "IMAGE",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "full_name",
+      "label": "Name",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "department",
+      "label": "Department",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "show_phone",
+      "label": "Show phone",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "phone_text",
+      "label": "Contact phone",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "phone_link",
+      "label": "Phone link",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "URL",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "show_email",
+      "label": "Show email",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "email_text",
+      "label": "Contact email",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "email_link",
+      "label": "Email link",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "URL",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "show_social_media",
+      "label": "Show social media",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "social_icon_name",
+      "label": "Social icon name",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "social_label",
+      "label": "Social label",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "social_link",
+      "label": "Social link",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "URL",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "show_button",
+      "label": "Show button",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "button_text",
+      "label": "Button text",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "button_link",
+      "label": "Button link",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "URL",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "button_show_icon",
+      "label": "Button show icon",
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "BOOLEAN",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "button_icon_name",
+      "label": "Button icon name",
+      "limit": 10000,
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "TEXT",
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    },
+    {
+      "name": "button_icon_position",
+      "label": "Button icon position",
+      "options": [
+        {
+          "id": "1",
+          "name": "left",
+          "label": "left",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "createdBy": {
+            "id": "87676804",
+            "email": "kamil.kowalczyk@bang.fi",
+            "firstName": "Kamil",
+            "lastName": "Kowalczyk"
+          },
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "updatedBy": {
+            "id": "87676804",
+            "email": "kamil.kowalczyk@bang.fi",
+            "firstName": "Kamil",
+            "lastName": "Kowalczyk"
+          },
+          "order": null
+        },
+        {
+          "id": "2",
+          "name": "right",
+          "label": "right",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "createdBy": {
+            "id": "87676804",
+            "email": "kamil.kowalczyk@bang.fi",
+            "firstName": "Kamil",
+            "lastName": "Kowalczyk"
+          },
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "updatedBy": {
+            "id": "87676804",
+            "email": "kamil.kowalczyk@bang.fi",
+            "firstName": "Kamil",
+            "lastName": "Kowalczyk"
+          },
+          "order": null
+        }
+      ],
+      "createdAt": "2026-04-21T09:50:26.504Z",
+      "type": "SELECT",
+      "optionCount": 2,
+      "createdByUserId": 87676804,
+      "createdBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      },
+      "updatedAt": "2026-04-21T09:50:26.504Z",
+      "updatedByUserId": 87676804,
+      "updatedBy": {
+        "id": "87676804",
+        "email": "kamil.kowalczyk@bang.fi",
+        "firstName": "Kamil",
+        "lastName": "Kowalczyk"
+      }
+    }
+  ],
+  "rows": [
+    {
+      "path": "contact-placeholder-1",
+      "name": "Contact Placeholder 1",
+      "values": {
+        "button_icon_name": "arrow-right",
+        "show_phone": 1,
+        "email_link": "mailto:firstname.lastname@radientum.fi",
+        "show_button": 1,
+        "email_text": "firstname.lastname@radientum.fi",
+        "social_icon_name": "linkedin",
+        "show_email": 1,
+        "show_social_media": 0,
+        "phone_link": "tel:+358501234567",
+        "full_name": "Name Surname",
+        "show_region": 1,
+        "phone_text": "+358 50 123 4567",
+        "social_link": "https://www.linkedin.com",
+        "button_icon_position": {
+          "id": "2",
+          "name": "right",
+          "label": "right",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "order": 1
+        },
+        "button_link": "#",
+        "button_text": "Book a meeting with me",
+        "region": "USA & Canada",
+        "department": "Sales",
+        "social_label": "LinkedIn",
+        "button_show_icon": 0
+      }
+    },
+    {
+      "path": "contact-placeholder-2",
+      "name": "Contact Placeholder 2",
+      "values": {
+        "button_icon_name": "arrow-right",
+        "show_phone": 1,
+        "email_link": "mailto:firstname.lastname@radientum.fi",
+        "show_button": 1,
+        "email_text": "firstname.lastname@radientum.fi",
+        "social_icon_name": "linkedin",
+        "show_email": 1,
+        "show_social_media": 0,
+        "phone_link": "tel:+358501234567",
+        "full_name": "Name Surname",
+        "show_region": 1,
+        "phone_text": "+358 50 123 4567",
+        "social_link": "https://www.linkedin.com",
+        "button_icon_position": {
+          "id": "2",
+          "name": "right",
+          "label": "right",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "order": 1
+        },
+        "button_link": "#",
+        "button_text": "Book a meeting with me",
+        "region": "USA & Canada",
+        "department": "Sales",
+        "social_label": "LinkedIn",
+        "button_show_icon": 0
+      }
+    },
+    {
+      "path": "contact-placeholder-3",
+      "name": "Contact Placeholder 3",
+      "values": {
+        "button_icon_name": "arrow-right",
+        "show_phone": 1,
+        "email_link": "mailto:firstname.lastname@radientum.fi",
+        "show_button": 1,
+        "email_text": "firstname.lastname@radientum.fi",
+        "social_icon_name": "linkedin",
+        "show_email": 1,
+        "show_social_media": 0,
+        "phone_link": "tel:+358501234567",
+        "full_name": "Name Surname",
+        "show_region": 1,
+        "phone_text": "+358 50 123 4567",
+        "social_link": "https://www.linkedin.com",
+        "button_icon_position": {
+          "id": "2",
+          "name": "right",
+          "label": "right",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "order": 1
+        },
+        "button_link": "#",
+        "button_text": "Book a meeting with me",
+        "region": "USA & Canada",
+        "department": "Sales",
+        "social_label": "LinkedIn",
+        "button_show_icon": 0
+      }
+    },
+    {
+      "path": "contact-placeholder-4",
+      "name": "Contact Placeholder 4",
+      "values": {
+        "button_icon_name": "arrow-right",
+        "show_phone": 1,
+        "email_link": "mailto:firstname.lastname@radientum.fi",
+        "show_button": 1,
+        "email_text": "firstname.lastname@radientum.fi",
+        "social_icon_name": "linkedin",
+        "show_email": 1,
+        "show_social_media": 0,
+        "phone_link": "tel:+358501234567",
+        "full_name": "Name Surname",
+        "show_region": 1,
+        "phone_text": "+358 50 123 4567",
+        "social_link": "https://www.linkedin.com",
+        "button_icon_position": {
+          "id": "2",
+          "name": "right",
+          "label": "right",
+          "type": "option",
+          "createdAt": "2026-04-21T09:50:26.504Z",
+          "createdByUserId": 87676804,
+          "updatedAt": "2026-04-21T09:50:26.504Z",
+          "updatedByUserId": 87676804,
+          "order": 1
+        },
+        "button_link": "#",
+        "button_text": "Book a meeting with me",
+        "region": "USA & Canada",
+        "department": "Sales",
+        "social_label": "LinkedIn",
+        "button_show_icon": 0
+      }
+    }
+  ]
+}
