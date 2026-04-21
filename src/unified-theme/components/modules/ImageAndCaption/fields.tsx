@@ -122,7 +122,7 @@ export const fields = (
       label='Image position (focal point)'
       name='imageObjectPosition'
       alignmentDirection='BOTH'
-      helpText='Only applies with Fill frame (cover) on. Controls which part of the image stays visible when cropped.'
+      helpText='Only applies with Fill frame (cover) on. Vertical and horizontal shifts are visible when the image is cropped (e.g. use a tall portrait image inside a 16∶9 frame), then compare Top vs Bottom.'
       default={{
         horizontal_align: 'CENTER',
         vertical_align: 'MIDDLE',

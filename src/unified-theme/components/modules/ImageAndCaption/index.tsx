@@ -54,11 +54,15 @@ function getAlignmentClass(alignment: ImageAndCaptionProps['captionAlignment']):
   return swm('hs-elevate-image-and-caption__caption--left');
 }
 
+/**
+ * Maps AlignmentField values to CSS object-position (used with object-fit: cover).
+ * CMS JSON may use different casing than the field defaults.
+ */
 function alignmentToObjectPosition(
   pos: AlignmentFieldType['default'] | undefined,
 ): string {
-  const h = pos?.horizontal_align ?? 'CENTER';
-  const v = pos?.vertical_align ?? 'MIDDLE';
+  const h = String(pos?.horizontal_align ?? 'CENTER').toUpperCase();
+  const v = String(pos?.vertical_align ?? 'MIDDLE').toUpperCase();
   const hMap: Record<string, string> = {
     LEFT: 'left',
     CENTER: 'center',
@@ -139,6 +143,7 @@ export const Component = (props: ImageAndCaptionProps) => {
       : {}),
   };
 
+  /* object-position only affects layout when the image is cropped (object-fit: cover + aspect mismatch). */
   const framedImageStyle: CSSProperties | undefined = needsMediaFrame
     ? {
         objectPosition: imageObjectFitCover
