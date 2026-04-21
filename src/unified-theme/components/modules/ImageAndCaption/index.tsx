@@ -89,6 +89,49 @@ function aspectRatioMediaClass(ratio: ImageAspectRatioChoice | undefined): strin
   return undefined;
 }
 
+function toPositiveNumber(value: unknown): number | undefined {
+  if (typeof value === 'number' && Number.isFinite(value) && value > 0) {
+    return value;
+  }
+  if (typeof value === 'string') {
+    const parsed = Number.parseFloat(value);
+    if (Number.isFinite(parsed) && parsed > 0) {
+      return parsed;
+    }
+  }
+  return undefined;
+}
+
+/**
+ * Recreates ImageField sizing semantics for basic mode so it behaves like native fields:
+ * - exact: use provided width/height
+ * - auto_custom_max: preserve aspect ratio while constraining to max dimensions
+ * - auto/default: keep intrinsic sizing
+ */
+function getNativeImageDimensions(image: ImageAndCaptionProps['image']): {
+  width?: number;
+  height?: number;
+} {
+  const width = toPositiveNumber(image?.width);
+  const height = toPositiveNumber(image?.height);
+  const maxWidth = toPositiveNumber(image?.max_width);
+  const maxHeight = toPositiveNumber(image?.max_height);
+  const sizeType = typeof image?.size_type === 'string' ? image.size_type : 'auto';
+
+  if (sizeType !== 'auto_custom_max' || width == null || height == null) {
+    return { width, height };
+  }
+
+  const maxWidthScale = maxWidth != null ? maxWidth / width : Number.POSITIVE_INFINITY;
+  const maxHeightScale = maxHeight != null ? maxHeight / height : Number.POSITIVE_INFINITY;
+  const scale = Math.min(1, maxWidthScale, maxHeightScale);
+
+  return {
+    width: Math.max(1, Math.round(width * scale)),
+    height: Math.max(1, Math.round(height * scale)),
+  };
+}
+
 export const Component = (props: ImageAndCaptionProps) => {
   const {
     moduleName,
@@ -129,6 +172,7 @@ export const Component = (props: ImageAndCaptionProps) => {
 
   const imageWidth = typeof image?.width === 'number' ? image.width : undefined;
   const imageHeight = typeof image?.height === 'number' ? image.height : undefined;
+  const nativeImageDimensions = getNativeImageDimensions(image);
 
   const mediaStyle: CSSProperties = {
     maxWidth: '100%',
@@ -157,8 +201,8 @@ export const Component = (props: ImageAndCaptionProps) => {
       className={swm('hs-elevate-image-and-caption__image')}
       src={image?.src}
       alt={image?.alt}
-      width={needsMediaFrame ? undefined : image?.width}
-      height={needsMediaFrame ? undefined : image?.height}
+      width={needsMediaFrame ? undefined : nativeImageDimensions.width}
+      height={needsMediaFrame ? undefined : nativeImageDimensions.height}
       loading={image?.loading && image.loading !== 'disabled' ? image.loading : 'lazy'}
       data-hs-token={getDataHSToken(moduleName, 'image')}
       style={framedImageStyle}
