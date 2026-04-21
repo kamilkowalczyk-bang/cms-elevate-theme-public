@@ -45,7 +45,7 @@ export const fields = (
         {
           groupRegion: {
             showRegion: true,
-            region: 'USA / Canada',
+            region: 'USA & Canada',
           },
           groupIdentity: {
             contactImage: {
@@ -117,7 +117,7 @@ export const fields = (
         {
           groupRegion: {
             showRegion: true,
-            region: 'USA / Canada',
+            region: 'USA & Canada',
           },
           groupIdentity: {
             contactImage: {
@@ -189,7 +189,7 @@ export const fields = (
         {
           groupRegion: {
             showRegion: true,
-            region: 'USA / Canada',
+            region: 'USA & Canada',
           },
           groupIdentity: {
             contactImage: {
@@ -261,7 +261,7 @@ export const fields = (
         {
           groupRegion: {
             showRegion: true,
-            region: 'USA / Canada',
+            region: 'USA & Canada',
           },
           groupIdentity: {
             contactImage: {
@@ -334,7 +334,7 @@ export const fields = (
     >
       <FieldGroup label='Region' name='groupRegion' display='inline'>
         <BooleanField label='Show region' name='showRegion' display='toggle' default={true} />
-        <TextField label='Region' name='region' default='USA / Canada' inlineEditable={true} />
+        <TextField label='Region' name='region' default='USA & Canada' inlineEditable={true} />
       </FieldGroup>
 
       <FieldGroup label='Identity' name='groupIdentity' display='inline'>

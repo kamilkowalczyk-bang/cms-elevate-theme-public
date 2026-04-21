@@ -172,6 +172,7 @@ export default function ContactCardIsland(props: ContactCardProps) {
         const hasEmail = Boolean(groupEmail?.showEmail && groupEmail?.emailText);
         const hasSocial = Boolean(groupSocial?.showSocialMedia && groupSocial?.groupSocialLinks?.length > 0);
         const hasButton = Boolean(groupButton?.showButton);
+        const hasRegion = Boolean(groupRegion?.showRegion && groupRegion?.region);
         const visibleInfoRowsCount = Number(hasPhone) + Number(hasEmail) + Number(hasSocial);
         const shouldEvenlyDistributeSingleInfoRow = !hasButton && visibleInfoRowsCount === 1;
         const shouldRenderCardBottom = hasPhone || hasEmail || hasSocial || hasButton;
@@ -187,8 +188,15 @@ export default function ContactCardIsland(props: ContactCardProps) {
               showCardShadow ? swm('hs-elevate-contact-card-container__card--drop-shadow') : '',
             ]}
           >
-            <CardTop className={swm('hs-elevate-contact-card-container__card-top')}>
-              {groupRegion?.showRegion && groupRegion?.region && (
+            <CardTop
+              className={cx(
+                swm('hs-elevate-contact-card-container__card-top'),
+                {
+                  [swm('hs-elevate-contact-card-container__card-top--without-region')]: !hasRegion,
+                },
+              )}
+            >
+              {hasRegion && (
                 <Region
                   className={swm('hs-elevate-contact-card-container__region')}
                   data-hs-token={getDataHSToken(moduleName, `groupContactCards[${index}].groupRegion.region`)}
