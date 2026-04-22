@@ -20,12 +20,15 @@
 
 .hs-elevate-office-cards__map {
   position: relative;
-  flex: 0 0 minmax(180px, 240px);
+  flex: 0 0 clamp(180px, 42%, 240px);
+  width: clamp(180px, 42%, 240px);
   min-height: 240px;
+  overflow: hidden;
 }
 
 .hs-elevate-office-cards__map--embed {
-  flex: 0 0 minmax(200px, 280px);
+  flex-basis: clamp(200px, 45%, 280px);
+  width: clamp(200px, 45%, 280px);
 }
 
 .hs-elevate-office-cards__map-link,
