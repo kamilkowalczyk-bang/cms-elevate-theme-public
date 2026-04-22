@@ -6,5 +6,6 @@ export const HUBDB_TABLE_NAMES = {
   serviceCard: 'services',
   logoGrid: 'companies',
   contactCard: 'contact_cards',
+  officeCard: 'offices',
 } as const;
 

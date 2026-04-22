@@ -1,0 +1,117 @@
+{
+  "name": "offices",
+  "label": "Offices",
+  "useForPages": false,
+  "allowPublicApiAccess": false,
+  "allowChildTables": false,
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "office_name",
+      "label": "Office name",
+      "type": "TEXT"
+    },
+    {
+      "name": "street_address",
+      "label": "Street address",
+      "type": "TEXT"
+    },
+    {
+      "name": "postal_code",
+      "label": "Postal code",
+      "type": "TEXT"
+    },
+    {
+      "name": "city",
+      "label": "City",
+      "type": "TEXT"
+    },
+    {
+      "name": "country",
+      "label": "Country",
+      "type": "TEXT"
+    },
+    {
+      "name": "email",
+      "label": "Email",
+      "type": "TEXT"
+    },
+    {
+      "name": "phone",
+      "label": "Phone",
+      "type": "TEXT"
+    },
+    {
+      "name": "map_zoom",
+      "label": "Map zoom",
+      "type": "NUMBER"
+    },
+    {
+      "name": "office_location",
+      "label": "Office location",
+      "type": "LOCATION"
+    },
+    {
+      "name": "google_maps_url",
+      "label": "Google maps URL",
+      "type": "URL"
+    },
+    {
+      "name": "map_image",
+      "label": "Map image",
+      "type": "IMAGE"
+    }
+  ],
+  "rows": [
+    {
+      "name": "HQ Tampere",
+      "values": {
+        "office_name": "HQ - Tampere",
+        "street_address": "Visiokatu 4",
+        "postal_code": "33720",
+        "city": "Tampere",
+        "country": "Finland",
+        "email": "contact@radientum.fi",
+        "phone": "+358 40 501 3535",
+        "map_zoom": 15,
+        "office_location": {
+          "lat": 61.4981,
+          "long": 23.7608,
+          "type": "location"
+        },
+        "google_maps_url": "https://maps.google.com/?q=Visiokatu+4,+33720+Tampere,+Finland",
+        "map_image": {
+          "url": "https://staticmap.openstreetmap.de/staticmap.php?center=61.4981,23.7608&zoom=12&size=640x400&markers=61.4981,23.7608,red-pushpin",
+          "width": 640,
+          "height": 400,
+          "type": "image"
+        }
+      }
+    },
+    {
+      "name": "Design Office Espoo",
+      "values": {
+        "office_name": "Design Office - Espoo",
+        "street_address": "Innopoli 2",
+        "postal_code": "02150",
+        "city": "Espoo",
+        "country": "Finland",
+        "email": "contact@radientum.fi",
+        "phone": "+358 40 501 3535",
+        "map_zoom": 15,
+        "office_location": {
+          "lat": 60.1719,
+          "long": 24.7415,
+          "type": "location"
+        },
+        "google_maps_url": "https://maps.google.com/?q=Innopoli+2,+02150+Espoo,+Finland",
+        "map_image": {
+          "url": "https://staticmap.openstreetmap.de/staticmap.php?center=60.1719,24.7415&zoom=12&size=640x400&markers=60.1719,24.7415,red-pushpin",
+          "width": 640,
+          "height": 400,
+          "type": "image"
+        }
+      }
+    }
+  ]
+}
