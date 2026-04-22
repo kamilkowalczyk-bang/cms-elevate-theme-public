@@ -67,7 +67,7 @@ export const fields = (
           },
           groupMap: {
             mapLocation: '61.4981,23.7608',
-            mapZoom: 15,
+            mapZoom: 12,
             googleMapsLink: {
               url: {
                 type: 'EXTERNAL',
@@ -104,7 +104,7 @@ export const fields = (
           },
           groupMap: {
             mapLocation: '60.1868,24.826',
-            mapZoom: 15,
+            mapZoom: 12,
             googleMapsLink: {
               url: {
                 type: 'EXTERNAL',
@@ -199,7 +199,7 @@ export const fields = (
           min={1}
           max={21}
           step={1}
-          default={15}
+          default={12}
         />
         <LinkField
           label="Google Maps URL (optional)"

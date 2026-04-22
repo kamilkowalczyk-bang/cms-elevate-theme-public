@@ -3,14 +3,26 @@
 }
 
 .hs-elevate-office-cards__grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--hsElevate--spacing--32, 32px);
+  display: grid;
+  width: 100%;
+  max-width: var(--hsElevate--container--maxWidth, 1200px);
+  margin-inline: auto;
+  /* Mobile: one column. Desktop: at most two cards per row (third+ wrap). */
+  grid-template-columns: 1fr;
+  gap: var(--hsElevate--spacing--24, 24px);
+  align-items: stretch;
+}
+
+@media (min-width: 880px) {
+  .hs-elevate-office-cards__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .hs-elevate-office-cards__card {
-  width: min(100%, 560px);
+  width: 100%;
+  min-width: 0;
+  min-height: 330px;
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -20,15 +32,16 @@
 
 .hs-elevate-office-cards__map {
   position: relative;
-  flex: 0 0 clamp(180px, 42%, 240px);
-  width: clamp(180px, 42%, 240px);
-  min-height: 240px;
+  flex: 0 0 clamp(200px, 36%, 280px);
+  width: clamp(200px, 36%, 280px);
+  min-width: 0;
+  min-height: 330px;
   overflow: hidden;
 }
 
 .hs-elevate-office-cards__map--embed {
-  flex-basis: clamp(200px, 45%, 280px);
-  width: clamp(200px, 45%, 280px);
+  flex-basis: clamp(200px, 36%, 280px);
+  width: clamp(200px, 36%, 280px);
 }
 
 .hs-elevate-office-cards__map-link,
@@ -61,7 +74,7 @@
 .hs-elevate-office-cards__map-image {
   width: 100%;
   height: 100%;
-  min-height: 240px;
+  min-height: 330px;
   display: block;
   object-fit: cover;
 }
@@ -71,12 +84,20 @@
   --hsElevate--officeCard__linkColor: var(--hsElevate--card--variant1--link__fontColor, #52bad1);
   --hsElevate--officeCard__linkHoverColor: var(--hsElevate--card--variant1--link__hover--fontColor, #3a9ec0);
 
-  flex: 1 1 auto;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: var(--hsElevate--spacing--8, 8px);
-  padding: var(--hsElevate--spacing--24, 24px);
+  padding: var(--hsElevate--spacing--4, 4px) var(--hsElevate--spacing--24, 24px);
   color: var(--hsElevate--officeCard__textColor);
+}
+
+/* Below compact breakpoint (880px - 1). Literal max-width: same reason as grid @media — var() in @media is unreliable. Sync with --hsElevate--breakpoint--compact. */
+@media (max-width: 879px) {
+  .hs-elevate-office-cards__details {
+    padding-right: 0;
+  }
 }
 
 .hs-elevate-office-cards__office-name {
@@ -87,6 +108,11 @@
   font-style: normal;
   font-weight: 900;
   text-transform: uppercase;
+  width: 100%;
+  max-width: 100%;
+  hyphens: none;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .hs-elevate-office-cards__body-line {
@@ -186,7 +212,14 @@
 }
 
 @media (max-width: 767px) {
+  .hs-elevate-office-cards__grid {
+    max-width: none;
+    margin-inline: 0;
+    grid-template-columns: 1fr;
+  }
+
   .hs-elevate-office-cards__card {
+    min-height: auto;
     flex-direction: column;
   }
 
@@ -199,5 +232,9 @@
 
   .hs-elevate-office-cards__map-image {
     min-height: 200px;
+  }
+  .hs-elevate-office-cards__details {
+    padding-inline: 0;
+    padding-block: var(--hsElevate--spacing--24, 24px) 0;
   }
 }

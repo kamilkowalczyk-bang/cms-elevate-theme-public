@@ -73,13 +73,13 @@
         "country": "Finland",
         "email": "contact@radientum.fi",
         "phone": "+358 40 501 3535",
-        "map_zoom": 15,
+        "map_zoom": 12,
         "office_location": {
           "lat": 61.4981,
           "long": 23.7608,
           "type": "location"
         },
-        "google_maps_url": "https://maps.google.com/?q=Visiokatu+4,+33720+Tampere,+Finland",
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Visiokatu+4,+33720+Tampere,+Finland",
         "map_image": {
           "url": "https://staticmap.openstreetmap.de/staticmap.php?center=61.4981,23.7608&zoom=12&size=640x400&markers=61.4981,23.7608,red-pushpin",
           "width": 640,
@@ -91,22 +91,22 @@
     {
       "name": "Design Office Espoo",
       "values": {
-        "office_name": "Design Office - Espoo",
-        "street_address": "Innopoli 2",
+        "office_name": "Design office - Espoo",
+        "street_address": "Tekniikantie 14",
         "postal_code": "02150",
         "city": "Espoo",
         "country": "Finland",
         "email": "contact@radientum.fi",
         "phone": "+358 40 501 3535",
-        "map_zoom": 15,
+        "map_zoom": 12,
         "office_location": {
-          "lat": 60.1719,
-          "long": 24.7415,
+          "lat": 60.1868,
+          "long": 24.826,
           "type": "location"
         },
-        "google_maps_url": "https://maps.google.com/?q=Innopoli+2,+02150+Espoo,+Finland",
+        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Tekniikantie+14,+02150+Espoo,+Finland",
         "map_image": {
-          "url": "https://staticmap.openstreetmap.de/staticmap.php?center=60.1719,24.7415&zoom=12&size=640x400&markers=60.1719,24.7415,red-pushpin",
+          "url": "https://staticmap.openstreetmap.de/staticmap.php?center=60.1868,24.826&zoom=12&size=640x400&markers=60.1868,24.826,red-pushpin",
           "width": 640,
           "height": 400,
           "type": "image"

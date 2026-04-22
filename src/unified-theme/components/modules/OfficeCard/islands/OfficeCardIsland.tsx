@@ -181,6 +181,37 @@ function buildGoogleMapsSearchUrl(lat: number, lng: number): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lng}`)}`;
 }
 
+function buildGoogleMapsEmbedUrlFromPlaceQuery(placeQuery: string, zoom: number): string {
+  const z = Math.min(21, Math.max(1, Math.round(zoom)));
+  return `https://maps.google.com/maps?q=${encodeURIComponent(placeQuery)}&z=${z}&hl=en&output=embed`;
+}
+
+function buildGoogleMapsSearchUrlFromQuery(placeQuery: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(placeQuery)}`;
+}
+
+function extractPlaceQueryFromUrl(urlString: string | undefined): string | undefined {
+  if (!urlString) return undefined;
+
+  try {
+    const parsed = new URL(urlString);
+    const query = parsed.searchParams.get('query') ?? parsed.searchParams.get('q');
+    if (query && query.trim()) return query.trim();
+  } catch {
+    const match = urlString.match(/[?&](?:query|q)=([^&#]+)/i);
+    if (match?.[1]) return decodeURIComponent(match[1]).trim();
+  }
+
+  return undefined;
+}
+
+function isGenericGoogleMapsUrl(urlString: string | undefined): boolean {
+  if (!urlString) return false;
+
+  const normalized = urlString.trim().replace(/\/+$/, '');
+  return normalized === 'https://www.google.com/maps' || normalized === 'https://maps.google.com';
+}
+
 async function copyTextToClipboard(text: string): Promise<void> {
   if (!text) return;
 
@@ -253,18 +284,31 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
           const zoomFromModule =
             typeof card.groupMap.mapZoom === 'number' && Number.isFinite(card.groupMap.mapZoom)
               ? card.groupMap.mapZoom
-              : 15;
+              : 12;
           const zoom = hubZoom ?? zoomFromModule;
 
           const mapImageSrc = getHubDbImageSrc(hubDbSource, ['map_image']) ?? card.groupMap.mapImage?.src;
           const hasCoords = lat !== undefined && lng !== undefined;
-          const embedUrl = hasCoords ? buildGoogleMapsEmbedUrl(lat, lng, zoom) : undefined;
+          const placeQueryFromAddress = [streetAddress, postalCode, city, country]
+            .filter(Boolean)
+            .join(', ');
 
           const hubMapsUrl = getHubDbString(hubDbSource, ['google_maps_url']);
           const configuredMapsHref = getLinkFieldHref(card.groupMap.googleMapsLink);
+          const preferredConfiguredMapHref = isGenericGoogleMapsUrl(configuredMapsHref)
+            ? undefined
+            : configuredMapsHref;
+          const placeQuery = extractPlaceQueryFromUrl(hubMapsUrl)
+            ?? extractPlaceQueryFromUrl(preferredConfiguredMapHref)
+            ?? placeQueryFromAddress
+            ?? officeName;
+          const embedUrl = placeQuery
+            ? buildGoogleMapsEmbedUrlFromPlaceQuery(placeQuery, zoom)
+            : (hasCoords ? buildGoogleMapsEmbedUrl(lat, lng, zoom) : undefined);
           const mapHref =
             hubMapsUrl ||
-            configuredMapsHref ||
+            preferredConfiguredMapHref ||
+            (placeQuery ? buildGoogleMapsSearchUrlFromQuery(placeQuery) : undefined) ||
             (hasCoords ? buildGoogleMapsSearchUrl(lat, lng) : undefined);
 
           const mapTarget = hubMapsUrl ? '_blank' : getLinkFieldTarget(card.groupMap.googleMapsLink) || '_blank';
