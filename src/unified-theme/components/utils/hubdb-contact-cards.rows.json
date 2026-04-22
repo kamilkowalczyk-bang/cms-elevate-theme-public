@@ -27,7 +27,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "usa_canada",
+          "type": "option"
+        },
+        "default_sales_rep": 1,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -56,7 +62,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "nordic_baltic",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -85,7 +97,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "dach_eastern_europe",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -114,7 +132,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "rest_of_europe",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     }
   ]

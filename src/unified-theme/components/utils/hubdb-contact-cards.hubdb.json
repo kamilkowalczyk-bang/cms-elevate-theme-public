@@ -120,6 +120,48 @@
           "type": "option"
         }
       ]
+    },
+    {
+      "name": "sales_region",
+      "label": "Sales region (for Sales team module)",
+      "type": "SELECT",
+      "options": [
+        {
+          "name": "none",
+          "label": "N/A (not shown as regional)",
+          "type": "option"
+        },
+        {
+          "name": "usa_canada",
+          "label": "USA & Canada",
+          "type": "option"
+        },
+        {
+          "name": "dach_eastern_europe",
+          "label": "DACH & Eastern Europe",
+          "type": "option"
+        },
+        {
+          "name": "nordic_baltic",
+          "label": "Nordic & Baltic Countries",
+          "type": "option"
+        },
+        {
+          "name": "rest_of_europe",
+          "label": "Rest of Europe",
+          "type": "option"
+        }
+      ]
+    },
+    {
+      "name": "default_sales_rep",
+      "label": "Default sales rep (featured)",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "meeting_embed_url",
+      "label": "Meetings embed URL (iframe src)",
+      "type": "URL"
     }
   ],
   "rows": [
@@ -149,7 +191,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "usa_canada",
+          "type": "option"
+        },
+        "default_sales_rep": 1,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -178,7 +226,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "nordic_baltic",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -207,7 +261,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "dach_eastern_europe",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     },
     {
@@ -236,7 +296,13 @@
         "button_icon_position": {
           "name": "right",
           "type": "option"
-        }
+        },
+        "sales_region": {
+          "name": "rest_of_europe",
+          "type": "option"
+        },
+        "default_sales_rep": 0,
+        "meeting_embed_url": ""
       }
     }
   ]
