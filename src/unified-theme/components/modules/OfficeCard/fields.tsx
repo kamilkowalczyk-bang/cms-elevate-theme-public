@@ -66,7 +66,7 @@ export const fields = (
             },
           },
           groupMap: {
-            mapLocation: '61.4981,23.7608',
+            mapLocation: '',
             mapZoom: 12,
             googleMapsLink: {
               url: {
@@ -103,7 +103,7 @@ export const fields = (
             },
           },
           groupMap: {
-            mapLocation: '60.1868,24.826',
+            mapLocation: '',
             mapZoom: 12,
             googleMapsLink: {
               url: {
@@ -187,10 +187,10 @@ export const fields = (
         visibility={manualCardFieldVisibility}
       >
         <TextField
-          label="Map location"
+          label="Map location (optional)"
           name="mapLocation"
-          default="61.4981,23.7608"
-          helpText="Enter latitude and longitude as one value: lat,lng (for example 61.4981,23.7608)."
+          default=""
+          helpText="Leave empty to use the address fields and Google Maps URL for the embedded map (recommended for the place-style card). Use lat,lng only as a fallback when you have no address or place URL. You can also enter a plain-language place string (not coordinates) to refine the map search."
         />
         <NumberField
           label="Map zoom"
@@ -213,7 +213,7 @@ export const fields = (
             },
             open_in_new_tab: true,
           }}
-          helpText="Opens when visitors click the map. If empty, a link is built from map location coordinates."
+          helpText="Opens when visitors click the map. Prefer a Maps link with a place or address in the URL (for example /maps/search/?api=1&query=…). If empty, a search link is built from the address fields or coordinates fallback."
         />
       </FieldGroup>
     </RepeatedFieldGroup>

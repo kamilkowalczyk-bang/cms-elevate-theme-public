@@ -142,6 +142,14 @@ function parseLocationPair(raw: string | undefined): { lat?: number; lng?: numbe
   return {};
 }
 
+/** True when the field is only decimal lat/lng (no letters) — used as coordinate fallback, not as a Google place query. */
+function isLatLngOnlyString(raw: string | undefined): boolean {
+  if (!raw?.trim()) return false;
+  if (/[a-z]/i.test(raw)) return false;
+  const { lat, lng } = parseLocationPair(raw);
+  return lat !== undefined && lng !== undefined;
+}
+
 function toCoordinate(value: unknown): number | undefined {
   if (typeof value === 'number' && Number.isFinite(value)) {
     return value;
@@ -273,7 +281,10 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
 
           const hubZoom = getHubDbNumber(hubDbSource, ['map_zoom', 'zoom']);
           const officeLocationPair = getHubDbLocation(hubDbSource, ['office_location']);
-          const moduleLocationPair = parseLocationPair(card.groupMap.mapLocation);
+          const mapLocationRaw = card.groupMap.mapLocation?.trim();
+          const mapLocationIsLatLng = Boolean(mapLocationRaw && isLatLngOnlyString(mapLocationRaw));
+          const moduleLocationPair = mapLocationRaw && mapLocationIsLatLng ? parseLocationPair(mapLocationRaw) : {};
+          const mapLocationPlaceQuery = mapLocationRaw && !mapLocationIsLatLng ? mapLocationRaw : undefined;
           const lat =
             officeLocationPair.lat ??
             moduleLocationPair.lat;
@@ -298,10 +309,11 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
           const preferredConfiguredMapHref = isGenericGoogleMapsUrl(configuredMapsHref)
             ? undefined
             : configuredMapsHref;
-          const placeQuery = extractPlaceQueryFromUrl(hubMapsUrl)
-            ?? extractPlaceQueryFromUrl(preferredConfiguredMapHref)
-            ?? placeQueryFromAddress
-            ?? officeName;
+          const extractedHubQuery = extractPlaceQueryFromUrl(hubMapsUrl);
+          const extractedConfiguredQuery = extractPlaceQueryFromUrl(preferredConfiguredMapHref);
+          const placeQuery = useHubDB
+            ? (extractedHubQuery ?? placeQueryFromAddress ?? mapLocationPlaceQuery ?? extractedConfiguredQuery ?? officeName)
+            : (placeQueryFromAddress || mapLocationPlaceQuery || extractedHubQuery || extractedConfiguredQuery || officeName);
           const embedUrl = placeQuery
             ? buildGoogleMapsEmbedUrlFromPlaceQuery(placeQuery, zoom)
             : (hasCoords ? buildGoogleMapsEmbedUrl(lat, lng, zoom) : undefined);
