@@ -364,14 +364,14 @@
   }
 
   .hs-elevate-sales-team__meeting-frame {
-    min-height: 320px;
+    min-height: 344px;
     height: max(
-      320px,
-      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 96px), min(860px, 76vh))
+      344px,
+      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 128px), min(896px, 81vh))
     );
     height: max(
-      320px,
-      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 96px), min(860px, 76dvh))
+      344px,
+      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 128px), min(896px, 81dvh))
     );
   }
 
