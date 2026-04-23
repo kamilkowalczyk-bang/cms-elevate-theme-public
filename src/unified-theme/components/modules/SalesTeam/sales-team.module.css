@@ -18,7 +18,25 @@
 }
 
 .hs-elevate-sales-team__featured-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   transition: opacity 0.18s ease;
+}
+
+/* Natural card height for ResizeObserver (column may stretch to row; this wrapper does not). */
+.hs-elevate-sales-team__featured-card-measure {
+  width: 100%;
+}
+
+/* Featured column stretches in the grid, but the card should stay content-height (no height:100% stretch). */
+.hs-elevate-sales-team__featured-card .hs-elevate-sales-team__card {
+  height: auto;
+  min-height: 0;
+}
+
+.hs-elevate-sales-team__featured-card .hs-elevate-sales-team__card-bottom {
+  flex-grow: 0;
 }
 
 .hs-elevate-sales-team__featured-card--dim {
@@ -26,12 +44,30 @@
 }
 
 .hs-elevate-sales-team__meeting-col {
+  display: flex;
+  flex-direction: column;
   min-width: 0;
+  min-height: 0;
 }
 
+/*
+ * Height follows the measured featured card column (ResizeObserver sets --hsElevate--salesTeam__meetingFramePx),
+ * capped so very tall cards do not create an enormous embed. Fallback matches previous 480px default.
+ */
 .hs-elevate-sales-team__meeting-frame {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
   width: 100%;
-  min-height: 480px;
+  min-height: 320px;
+  height: max(
+    320px,
+    min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 140px), min(980px, 82vh))
+  );
+  height: max(
+    320px,
+    min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 140px), min(980px, 82dvh))
+  );
   border-radius: var(--hsElevate--spacing--8, 8px);
   overflow: hidden;
   background: var(--hsElevate--color--neutral--200, #f0f0f0);
@@ -40,22 +76,38 @@
 
 .hs-elevate-sales-team__meeting-iframe {
   display: block;
+  flex: 1 1 auto;
   width: 100%;
-  height: 100%;
-  min-height: 480px;
+  min-height: 0;
   border: 0;
 }
 
 .hs-elevate-sales-team__meeting-placeholder {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
   justify-content: center;
-  min-height: 480px;
+  min-height: 0;
   padding: var(--hsElevate--spacing--24, 24px);
   font-family: var(--hsElevate--body__font);
   font-size: var(--hsElevate--body__fontSize);
   color: var(--hsElevate--salesTeam__textColor, #121212);
   text-align: center;
+}
+
+.hs-elevate-sales-team__meeting-fallback-link {
+  margin-top: var(--hsElevate--spacing--12, 12px);
+  align-self: flex-end;
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body--small__fontSize);
+  color: var(--hsElevate--salesTeam__linkColor);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.hs-elevate-sales-team__meeting-fallback-link:hover,
+.hs-elevate-sales-team__meeting-fallback-link:focus-visible {
+  color: var(--hsElevate--salesTeam__linkHoverColor);
 }
 
 .hs-elevate-sales-team__grid-section {
@@ -309,6 +361,15 @@
 
   .hs-elevate-sales-team__meeting-col {
     order: -1;
+  }
+
+  .hs-elevate-sales-team__meeting-frame {
+    height: max(320px, min(900px, 80vh));
+    height: max(320px, min(900px, 80dvh));
+  }
+
+  .hs-elevate-sales-team__meeting-fallback-link {
+    align-self: flex-start;
   }
 }
 

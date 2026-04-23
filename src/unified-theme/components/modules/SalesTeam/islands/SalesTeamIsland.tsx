@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AlignmentFieldType } from '@hubspot/cms-components/fields';
 import { Card } from '../../../CardComponent/index.js';
 import { Button } from '../../../ButtonComponent/index.js';
@@ -311,6 +311,7 @@ const FeaturedCardCol = createComponent('div');
 const MeetingCol = createComponent('div');
 const MeetingFrameWrap = createComponent('div');
 const MeetingIframe = createComponent('iframe');
+const MeetingFallbackLink = createComponent('a');
 const GridSection = createComponent('div');
 const GridInner = createComponent('div');
 const GridSlot = createComponent('div');
@@ -366,6 +367,24 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
 
   const [activeRowId, setActiveRowId] = useState<string | number | null>(() => initialActiveId);
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
+  const featuredCardColRef = useRef<HTMLDivElement | null>(null);
+  const [meetingFramePx, setMeetingFramePx] = useState<number | null>(null);
+
+  useEffect(() => {
+    const el = featuredCardColRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+
+    const ro = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      const h = entry.contentRect.height;
+      if (!Number.isFinite(h) || h <= 0) return;
+      setMeetingFramePx(Math.round(h));
+    });
+
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [activeRowId]);
 
   const rowById = useMemo(() => {
     const m = new Map<string, unknown>();
@@ -405,6 +424,14 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   );
 
   const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow) : undefined;
+
+  const rootStyleWithMeeting = useMemo((): CSSPropertiesMap => {
+    const next: CSSPropertiesMap = { ...cssVarsMap };
+    if (meetingFramePx != null) {
+      next['--hsElevate--salesTeam__meetingFramePx'] = `${meetingFramePx}px`;
+    }
+    return next;
+  }, [cssVarsMap, meetingFramePx]);
 
   const renderHubCard = (hubRow: unknown, opts: { variant: 'featured' | 'grid'; gridPickLabel?: string }) => {
     const hubDbName = getHubDbString(hubRow, ['full_name', 'name', 'hs_name']);
@@ -589,14 +616,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   }
 
   return (
-    <Root className={swm('hs-elevate-sales-team')} style={cssVarsMap}>
+    <Root className={swm('hs-elevate-sales-team')} style={rootStyleWithMeeting}>
       <FeaturedRow className={swm('hs-elevate-sales-team__featured-row')}>
         <FeaturedCardCol
           className={cx(swm('hs-elevate-sales-team__featured-card'), {
             [swm('hs-elevate-sales-team__featured-card--dim')]: featuredDimmed,
           })}
         >
-          {renderHubCard(activeRow, { variant: 'featured' })}
+          <div ref={featuredCardColRef} className={swm('hs-elevate-sales-team__featured-card-measure')}>
+            {renderHubCard(activeRow, { variant: 'featured' })}
+          </div>
         </FeaturedCardCol>
         <MeetingCol className={swm('hs-elevate-sales-team__meeting-col')}>
           <MeetingFrameWrap
@@ -619,6 +648,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
               </div>
             )}
           </MeetingFrameWrap>
+          {meetingSrc && (
+            <MeetingFallbackLink
+              className={swm('hs-elevate-sales-team__meeting-fallback-link')}
+              href={meetingSrc}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open meeting in a new tab
+            </MeetingFallbackLink>
+          )}
         </MeetingCol>
       </FeaturedRow>
 
