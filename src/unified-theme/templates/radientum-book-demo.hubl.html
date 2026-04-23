@@ -3,6 +3,7 @@
   isAvailableForNewContent: true
   label: Radientum Book demo
   screenshotPath: ../images/template-previews/radientum-book-demo.png
+  scaffoldSchemaPath: ./schemas/radientum-book-demo.scaffold_schema.json
 -->
 {% extends "./layouts/base.hubl.html" %}
 
@@ -14,7 +15,7 @@
       background_image={
         "background_position" : "BOTTOM_CENTER",
         "background_size" : "cover",
-        "image_url" : "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_picture_drone_sunset.jpg"
+        "image_url" : scaffold_content.group_hero.background_image.src or "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_picture_drone_sunset.jpg"
       },
       padding={
         "default" : {
@@ -48,7 +49,7 @@
               "headingStyleVariant" : "display_title",
               "sectionStyleVariant" : "section_variant_4"
             },
-            headingAndTextHeading="Book a free Demo",
+            headingAndTextHeading={{ scaffold_content.group_hero.heading or "Book a free Demo" }},
             headingAndTextHeadingLevel="h2"
           %}
           {% end_dnd_module %}
@@ -76,9 +77,9 @@
             width=12,
             groupCards=[ ],
             groupHeading={
-              "heading" : "Heading",
+              "heading" : scaffold_content.group_intro.heading or "Heading",
               "headingLevel" : "h2",
-              "richTextContentHTML" : "<p style=\"text-align: center;\">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. Feugiat adipiscing nulla habitasse pharetra ac turpis felis lacus in. Magnis tempor nunc tempus tempus lacinia lacus ullamcorper dictum. Volutpat venenatis tristique mauris bibendum. Tortor sed aliquam tempor faucibus a. Aliquet diam aliquet metus viverra enim purus vitae sit venenatis. Tristique dignissim sit tellus enim duis id. [AI-SECTION-END]</p>",
+              "richTextContentHTML" : scaffold_content.group_intro.description or '<p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. Feugiat adipiscing nulla habitasse pharetra ac turpis felis lacus in. Magnis tempor nunc tempus tempus lacinia lacus ullamcorper dictum. Volutpat venenatis tristique mauris bibendum. Tortor sed aliquam tempor faucibus a. Aliquet diam aliquet metus viverra enim purus vitae sit venenatis. Tristique dignissim sit tellus enim duis id. [AI-SECTION-END]</p>',
               "showHeadingRichText" : true
             },
             groupStyle={
@@ -111,12 +112,12 @@
               "link" : {
                 "open_in_new_tab" : false,
                 "url" : {
-                  "href" : "https://www.radientum.com/",
+                  "href" : scaffold_content.group_sales_team.cta_link.url.href or "https://www.radientum.com/",
                   "type" : "EXTERNAL"
                 }
               },
-              "linkText" : "Contact our sales team",
-              "prefaceText" : "Not your region?"
+              "linkText" : scaffold_content.group_sales_team.cta_text or "Contact our sales team",
+              "prefaceText" : scaffold_content.group_sales_team.cta_preface or "Not your region?"
             },
             groupRegionalCards=[ {
               "groupHubdbRow" : {
