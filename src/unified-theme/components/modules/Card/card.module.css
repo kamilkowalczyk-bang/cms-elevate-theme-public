@@ -140,6 +140,16 @@
   }
 }
 
+/* Column + button: fill grid cell height and pin CTA to card bottom in repeater rows */
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button) .hs-elevate-card-container__content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button) .hs-elevate-card-container__button-wrapper {
+  margin-top: auto;
+}
+
 .hs-elevate-card-container__body {
   text-align: var(--hsElevate--card__textAlignment);
 }
