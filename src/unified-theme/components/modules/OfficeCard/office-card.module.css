@@ -13,7 +13,7 @@
   align-items: stretch;
 }
 
-@media (min-width: 880px) {
+@media (min-width: 1151px) {
   .hs-elevate-office-cards__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -32,16 +32,17 @@
 
 .hs-elevate-office-cards__map {
   position: relative;
-  flex: 0 0 clamp(200px, 36%, 280px);
-  width: clamp(200px, 36%, 280px);
-  min-width: 0;
+  flex: 0 0 clamp(330px, 40%, 420px);
+  width: clamp(330px, 40%, 420px);
+  min-width: 330px;
   min-height: 330px;
   overflow: hidden;
 }
 
 .hs-elevate-office-cards__map--embed {
-  flex-basis: clamp(200px, 36%, 280px);
-  width: clamp(200px, 36%, 280px);
+  flex-basis: clamp(330px, 40%, 420px);
+  width: clamp(330px, 40%, 420px);
+  min-width: 330px;
 }
 
 .hs-elevate-office-cards__map-link,
