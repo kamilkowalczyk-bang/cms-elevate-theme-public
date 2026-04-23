@@ -27,6 +27,11 @@
     "type": "group",
     "children": [
       {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading displayed in the elevated story section."
+      },
+      {
         "name": "company_overview",
         "type": "text",
         "description": "Elevated company story: positioning, expertise, and value proposition (use HTML paragraphs and line breaks as needed)."
