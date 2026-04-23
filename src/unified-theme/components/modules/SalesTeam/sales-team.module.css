@@ -161,7 +161,7 @@
 
 .hs-elevate-sales-team__grid-inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+  grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   justify-content: var(--hsElevate--salesTeam__containerAlignment, center);
   gap: var(--hsElevate--spacing--24, 24px);
 }
@@ -204,7 +204,8 @@
 
 .hs-elevate-sales-team__card {
   --hsElevate--card--display: flex;
-  --hsElevate--card--padding: var(--hsElevate--spacing--24, 24px);
+  /* Shared Card: block / inline from theme spacing */
+  --hsElevate--card--padding: var(--hsElevate--spacing--48, 48px) var(--hsElevate--spacing--24, 24px);
 
   width: 290px;
   height: 100%;
@@ -212,6 +213,10 @@
   justify-content: flex-start;
   align-items: var(--hsElevate--salesTeam__innerAlignment, center);
   text-align: var(--hsElevate--salesTeam__innerTextAlignment, center);
+}
+
+.hs-elevate-sales-team__grid-card .hs-elevate-sales-team__card {
+  width: 330px;
 }
 
 .hs-elevate-sales-team__card-top {
