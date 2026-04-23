@@ -1,5 +1,11 @@
-import { AlignmentField, BooleanField, FieldGroup } from '@hubspot/cms-components/fields';
+import { AlignmentField, BooleanField, FieldGroup, Visibility } from '@hubspot/cms-components/fields';
 import { ButtonStyle, CardStyle } from '../../fieldLibrary/index.js';
+
+const nonBookDemoFieldVisibility = {
+  controlling_field_path: 'bookDemo',
+  controlling_value_regex: 'false',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
 
 export default function StyleFields() {
   return (
@@ -33,7 +39,12 @@ export default function StyleFields() {
           default={{ horizontal_align: 'CENTER' }}
         />
       </FieldGroup>
-      <FieldGroup label="Button" name="groupButton" display="inline">
+      <FieldGroup
+        label="Button"
+        name="groupButton"
+        display="inline"
+        visibility={nonBookDemoFieldVisibility}
+      >
         <ButtonStyle buttonStyleDefault="primary" buttonSizeDefault="small" />
       </FieldGroup>
     </FieldGroup>

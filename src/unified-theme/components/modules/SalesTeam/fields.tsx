@@ -6,9 +6,16 @@ import {
   FieldGroup,
   TextField,
   LinkField,
+  Visibility,
 } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
+
+const bookDemoFieldVisibility = {
+  controlling_field_path: 'bookDemo',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
 
 export const fields = (
   <ModuleFields>
@@ -19,7 +26,12 @@ export const fields = (
       default={false}
       helpText="When enabled, the featured rep and meeting are taken from the ordered regional cards list and the second row is hidden."
     />
-    <FieldGroup label="Book demo CTA" name="groupBookDemoCta" display="inline">
+    <FieldGroup
+      label="Book demo CTA"
+      name="groupBookDemoCta"
+      display="inline"
+      visibility={bookDemoFieldVisibility}
+    >
       <TextField
         label="CTA preface text"
         name="prefaceText"

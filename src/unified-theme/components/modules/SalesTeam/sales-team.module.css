@@ -34,16 +34,22 @@
 }
 
 .hs-elevate-sales-team__book-demo-cta-link {
-  color: inherit;
+  color: var(--hsElevate--salesTeam__textColor, #121212) !important;
+  font-size: var(--hsElevate--captions__fontSize);
   font-style: normal;
   font-weight: 300;
-  text-decoration-line: underline;
+  text-decoration-line: underline !important;
+  text-decoration-color: var(--hsElevate--color--neutral--500, #8a8a8a) !important;
+  text-decoration-thickness: 1px !important;
   text-underline-offset: 4px;
 }
 
 .hs-elevate-sales-team__book-demo-cta-link:hover,
 .hs-elevate-sales-team__book-demo-cta-link:focus-visible {
-  color: var(--hsElevate--salesTeam__linkHoverColor);
+  color: var(--hsElevate--salesTeam__textColor, #121212) !important;
+  text-decoration-line: underline !important;
+  text-decoration-color: var(--hsElevate--color--neutral--500, #8a8a8a) !important;
+  text-decoration-thickness: 1px !important;
 }
 
 /* Natural card height for ResizeObserver (column may stretch to row; this wrapper does not). */
@@ -94,6 +100,23 @@
   overflow: hidden;
   background: var(--hsElevate--color--neutral--200, #f0f0f0);
   transition: opacity 0.18s ease;
+}
+
+.hs-elevate-sales-team--book-demo .hs-elevate-sales-team__meeting-frame {
+  height: max(
+    calc(350px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+    min(
+      calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 175px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+      min(calc(1010px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)), 85vh)
+    )
+  );
+  height: max(
+    calc(350px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+    min(
+      calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 180px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+      min(calc(1010px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)), 85dvh)
+    )
+  );
 }
 
 .hs-elevate-sales-team__meeting-iframe {
@@ -396,6 +419,7 @@
       min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 128px), min(896px, 81dvh))
     );
   }
+
 
   .hs-elevate-sales-team__meeting-fallback-link {
     align-self: flex-start;

@@ -449,8 +449,9 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     if (meetingFramePx != null) {
       next['--hsElevate--salesTeam__meetingFramePx'] = `${meetingFramePx}px`;
     }
+    next['--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx'] = bookDemo ? '15px' : '0px';
     return next;
-  }, [cssVarsMap, meetingFramePx]);
+  }, [bookDemo, cssVarsMap, meetingFramePx]);
 
   const ctaHref = getLinkFieldHref(bookDemoCtaLinkField);
   const ctaRel = getLinkFieldRel(bookDemoCtaLinkField);
@@ -638,14 +639,24 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
 
   if (!activeRow) {
     return (
-      <Root className={swm('hs-elevate-sales-team')} style={cssVarsMap}>
+      <Root
+        className={cx(swm('hs-elevate-sales-team'), {
+          [swm('hs-elevate-sales-team--book-demo')]: bookDemo,
+        })}
+        style={cssVarsMap}
+      >
         <p className={swm('hs-elevate-sales-team__empty')}>No sales rep data available.</p>
       </Root>
     );
   }
 
   return (
-    <Root className={swm('hs-elevate-sales-team')} style={rootStyleWithMeeting}>
+    <Root
+      className={cx(swm('hs-elevate-sales-team'), {
+        [swm('hs-elevate-sales-team--book-demo')]: bookDemo,
+      })}
+      style={rootStyleWithMeeting}
+    >
       <FeaturedRow className={swm('hs-elevate-sales-team__featured-row')}>
         <FeaturedCardCol
           className={cx(swm('hs-elevate-sales-team__featured-card'), {
