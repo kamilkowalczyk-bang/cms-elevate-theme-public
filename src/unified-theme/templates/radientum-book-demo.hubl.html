@@ -39,7 +39,7 @@
       %}
         {% dnd_row %}
           {% dnd_module
-            path="@projects/ElevateRadientumTheme/unified-theme/components/modules/Heading",
+            path="../components/modules/Heading",
             offset=0,
             width=12,
             groupStyle={
@@ -58,13 +58,15 @@
     {% end_dnd_section %}
 
     {% dnd_section
-      padding={
-        "default" : {
-          "bottom" : "0px",
-          "top" : "0px"
-        }
-      },
-      full_width=false
+    max_width={{ context.max_width or section_width_medium }},
+    padding={
+      "default" : {
+        "bottom" : "0px",
+        "left" : "0px",
+        "right" : "0px",
+        "top" : "0px"
+      }
+    }
     %}
       {% dnd_column
         offset=0,
@@ -72,7 +74,7 @@
       %}
         {% dnd_row %}
           {% dnd_module
-            path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ElevatedHeading",
+            path="../components/modules/ElevatedHeading",
             offset=0,
             width=12,
             groupCards=[ ],
@@ -104,7 +106,7 @@
       %}
         {% dnd_row %}
           {% dnd_module
-            path="@projects/ElevateRadientumTheme/unified-theme/components/modules/SalesTeam",
+            path="../components/modules/SalesTeam",
             offset=0,
             width=12,
             bookDemo=true,
