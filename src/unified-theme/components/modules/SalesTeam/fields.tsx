@@ -2,12 +2,46 @@ import {
   ModuleFields,
   RepeatedFieldGroup,
   HubDbRowField,
+  BooleanField,
+  FieldGroup,
+  TextField,
+  LinkField,
 } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 export const fields = (
   <ModuleFields>
+    <BooleanField
+      label="Book demo"
+      name="bookDemo"
+      display="toggle"
+      default={false}
+      helpText="When enabled, the featured rep and meeting are taken from the ordered regional cards list and the second row is hidden."
+    />
+    <FieldGroup label="Book demo CTA" name="groupBookDemoCta" display="inline">
+      <TextField
+        label="CTA preface text"
+        name="prefaceText"
+        default="Not your region?"
+      />
+      <TextField
+        label="CTA link text"
+        name="linkText"
+        default="Contact our sales team"
+      />
+      <LinkField
+        label="CTA link"
+        name="link"
+        default={{
+          url: {
+            type: 'EXTERNAL',
+            href: '',
+          },
+          open_in_new_tab: false,
+        }}
+      />
+    </FieldGroup>
     <RepeatedFieldGroup
       label="Regional sales reps (order)"
       name="groupRegionalCards"

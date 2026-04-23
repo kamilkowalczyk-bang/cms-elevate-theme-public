@@ -328,6 +328,8 @@ const CardBottom = createComponent('div');
 const CardRow = createComponent('div');
 const SocialLinksWrapper = createComponent('div');
 const SocialLink = createComponent('a');
+const BookDemoCta = createComponent('p');
+const BookDemoCtaLink = createComponent('a');
 
 function prefersReducedMotion(): boolean {
   if (typeof window === 'undefined' || !window.matchMedia) return false;
@@ -336,6 +338,12 @@ function prefersReducedMotion(): boolean {
 
 export default function SalesTeamIsland(props: SalesTeamProps) {
   const {
+    bookDemo = false,
+    groupBookDemoCta: {
+      prefaceText: bookDemoCtaPrefaceText = 'Not your region?',
+      linkText: bookDemoCtaLinkText = 'Contact our sales team',
+      link: bookDemoCtaLinkField,
+    } = {},
     hublData: { manualHubDbRowsRegional = [], featuredHubDbRow = null, featuredRowId = null } = {},
     groupStyle: {
       groupCard: { cardStyleVariant, showCardShadow = true, showCardBorder = true },
@@ -350,6 +358,17 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   };
 
   const initialActiveId = useMemo(() => {
+    if (bookDemo) {
+      for (let i = 0; i < manualHubDbRowsRegional.length; i++) {
+        const r = manualHubDbRowsRegional[i];
+        if (r && isRegionalSalesRepRow(r)) {
+          const id = getRowId(r);
+          if (id != null) return id;
+        }
+      }
+      return null;
+    }
+
     if (featuredRowId != null && Number.isFinite(Number(featuredRowId))) {
       return Number(featuredRowId) as number;
     }
@@ -363,7 +382,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
       }
     }
     return null;
-  }, [featuredHubDbRow, featuredRowId, manualHubDbRowsRegional]);
+  }, [bookDemo, featuredHubDbRow, featuredRowId, manualHubDbRowsRegional]);
 
   const [activeRowId, setActiveRowId] = useState<string | number | null>(() => initialActiveId);
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
@@ -433,6 +452,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     return next;
   }, [cssVarsMap, meetingFramePx]);
 
+  const ctaHref = getLinkFieldHref(bookDemoCtaLinkField);
+  const ctaRel = getLinkFieldRel(bookDemoCtaLinkField);
+  const ctaTarget = getLinkFieldTarget(bookDemoCtaLinkField);
+  const hasBookDemoCta = Boolean(
+    bookDemo &&
+      bookDemoCtaPrefaceText?.trim() &&
+      bookDemoCtaLinkText?.trim() &&
+      ctaHref?.trim(),
+  );
+
   const renderHubCard = (hubRow: unknown, opts: { variant: 'featured' | 'grid'; gridPickLabel?: string }) => {
     const hubDbName = getHubDbString(hubRow, ['full_name', 'name', 'hs_name']);
     const hubDbDepartment = getHubDbString(hubRow, ['department', 'job_title', 'role']);
@@ -464,7 +493,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     const hasPhone = Boolean(hubDbShowPhone !== false && hubDbPhoneText);
     const hasEmail = Boolean(hubDbShowEmail !== false && hubDbEmailText);
     const hasSocial = Boolean(hubDbShowSocial && socialLink && socialLabel);
-    const hasButton = Boolean(hubDbShowButton !== false && hubDbButtonText);
+    const hasButton = Boolean(!bookDemo && hubDbShowButton !== false && hubDbButtonText);
     const shouldRenderCardBottom = hasPhone || hasEmail || hasSocial || hasButton;
 
     const cardInlineStyles: CSSPropertiesMap | undefined = showCardBorder ? undefined : { border: 'none' };
@@ -626,6 +655,19 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
           <div ref={featuredCardColRef} className={swm('hs-elevate-sales-team__featured-card-measure')}>
             {renderHubCard(activeRow, { variant: 'featured' })}
           </div>
+          {hasBookDemoCta && (
+            <BookDemoCta className={swm('hs-elevate-sales-team__book-demo-cta')}>
+              {bookDemoCtaPrefaceText}{' '}
+              <BookDemoCtaLink
+                className={swm('hs-elevate-sales-team__book-demo-cta-link')}
+                href={ctaHref}
+                rel={ctaRel || undefined}
+                target={ctaTarget || undefined}
+              >
+                {bookDemoCtaLinkText}
+              </BookDemoCtaLink>
+            </BookDemoCta>
+          )}
         </FeaturedCardCol>
         <MeetingCol className={swm('hs-elevate-sales-team__meeting-col')}>
           <MeetingFrameWrap
@@ -661,37 +703,39 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
         </MeetingCol>
       </FeaturedRow>
 
-      <GridSection className={swm('hs-elevate-sales-team__grid-section')}>
-        <GridInner className={swm('hs-elevate-sales-team__grid-inner')}>
-          {manualHubDbRowsRegional.map((hubRow, index) => {
-            if (!hubRow || !hasHubDbRowData(hubRow)) return null;
-            if (!isRegionalSalesRepRow(hubRow)) return null;
-            const rid = getRowId(hubRow);
-            const isActiveSlot = rid != null && rowIdsEqual(rid, activeRowId);
-            const slotKey = rid != null ? `rep-${String(rid)}` : `slot-${index}`;
+      {!bookDemo && (
+        <GridSection className={swm('hs-elevate-sales-team__grid-section')}>
+          <GridInner className={swm('hs-elevate-sales-team__grid-inner')}>
+            {manualHubDbRowsRegional.map((hubRow, index) => {
+              if (!hubRow || !hasHubDbRowData(hubRow)) return null;
+              if (!isRegionalSalesRepRow(hubRow)) return null;
+              const rid = getRowId(hubRow);
+              const isActiveSlot = rid != null && rowIdsEqual(rid, activeRowId);
+              const slotKey = rid != null ? `rep-${String(rid)}` : `slot-${index}`;
 
-            if (isActiveSlot) {
+              if (isActiveSlot) {
+                return (
+                  <GridSlot
+                    key={slotKey}
+                    className={cx(
+                      swm('hs-elevate-sales-team__grid-slot'),
+                      swm('hs-elevate-sales-team__grid-slot--hidden-active'),
+                    )}
+                    aria-hidden
+                    tabIndex={-1}
+                  />
+                );
+              }
+
               return (
-                <GridSlot
-                  key={slotKey}
-                  className={cx(
-                    swm('hs-elevate-sales-team__grid-slot'),
-                    swm('hs-elevate-sales-team__grid-slot--hidden-active'),
-                  )}
-                  aria-hidden
-                  tabIndex={-1}
-                />
+                <GridSlot key={slotKey} className={swm('hs-elevate-sales-team__grid-slot')}>
+                  {renderHubCard(hubRow, { variant: 'grid' })}
+                </GridSlot>
               );
-            }
-
-            return (
-              <GridSlot key={slotKey} className={swm('hs-elevate-sales-team__grid-slot')}>
-                {renderHubCard(hubRow, { variant: 'grid' })}
-              </GridSlot>
-            );
-          })}
-        </GridInner>
-      </GridSection>
+            })}
+          </GridInner>
+        </GridSection>
+      )}
     </Root>
   );
 }

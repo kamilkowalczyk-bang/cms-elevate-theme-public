@@ -35,14 +35,18 @@ export const hublDataTemplate = `
     {% endif %}
   {% endfor %}
 
-  {% set featuredCandidates = [] %}
-  {% for row in hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
-    {% if row.default_sales_rep %}
-      {% do featuredCandidates.append(row) %}
-    {% endif %}
-  {% endfor %}
-  {% set featuredHubDbRow = featuredCandidates[0] if featuredCandidates|length > 0 else none %}
-  {% set featuredRowId = featuredHubDbRow.hs_id if featuredHubDbRow else none %}
+  {% set featuredHubDbRow = none %}
+  {% set featuredRowId = none %}
+  {% if not module.bookDemo %}
+    {% set featuredCandidates = [] %}
+    {% for row in hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
+      {% if row.default_sales_rep %}
+        {% do featuredCandidates.append(row) %}
+      {% endif %}
+    {% endfor %}
+    {% set featuredHubDbRow = featuredCandidates[0] if featuredCandidates|length > 0 else none %}
+    {% set featuredRowId = featuredHubDbRow.hs_id if featuredHubDbRow else none %}
+  {% endif %}
 
   {% set hublData = {
       "manualHubDbRowsRegional": manualHubDbRowsRegional,

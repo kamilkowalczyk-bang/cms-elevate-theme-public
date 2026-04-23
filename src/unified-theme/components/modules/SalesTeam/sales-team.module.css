@@ -24,6 +24,28 @@
   transition: opacity 0.18s ease;
 }
 
+.hs-elevate-sales-team__book-demo-cta {
+  margin: var(--hsElevate--spacing--12, 12px) 0 0;
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body__fontSize);
+  font-style: normal;
+  font-weight: 300;
+  color: var(--hsElevate--salesTeam__textColor, #121212);
+}
+
+.hs-elevate-sales-team__book-demo-cta-link {
+  color: inherit;
+  font-style: normal;
+  font-weight: 300;
+  text-decoration-line: underline;
+  text-underline-offset: 4px;
+}
+
+.hs-elevate-sales-team__book-demo-cta-link:hover,
+.hs-elevate-sales-team__book-demo-cta-link:focus-visible {
+  color: var(--hsElevate--salesTeam__linkHoverColor);
+}
+
 /* Natural card height for ResizeObserver (column may stretch to row; this wrapper does not). */
 .hs-elevate-sales-team__featured-card-measure {
   width: 100%;

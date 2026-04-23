@@ -1,4 +1,4 @@
-import { AlignmentFieldType, BooleanFieldType } from '@hubspot/cms-components/fields';
+import { AlignmentFieldType, BooleanFieldType, LinkFieldType, TextFieldType } from '@hubspot/cms-components/fields';
 import { ButtonStyleType, StandardSizeType } from '../../types/fields.js';
 import { CardStyleFieldLibraryType } from '../../fieldLibrary/CardStyle/types.js';
 
@@ -29,6 +29,12 @@ export type SalesTeamStyles = {
 
 export type SalesTeamProps = {
   moduleName?: string;
+  bookDemo: BooleanFieldType['default'];
+  groupBookDemoCta?: {
+    prefaceText: TextFieldType['default'];
+    linkText: TextFieldType['default'];
+    link: LinkFieldType['default'];
+  };
   groupRegionalCards: SalesTeamRegionalSlot[];
   groupStyle: SalesTeamStyles;
   hublData?: {
