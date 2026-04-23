@@ -79,6 +79,11 @@
     "type": "group",
     "children": [
       {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading shown above the timeline section."
+      },
+      {
         "name": "note",
         "type": "text",
         "description": "Context for the company history timeline (milestones, eras, tone) when AI generates or remixes this page."
