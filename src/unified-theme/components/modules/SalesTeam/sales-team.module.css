@@ -12,7 +12,7 @@
 
 .hs-elevate-sales-team__featured-row {
   display: grid;
-  grid-template-columns: 290px minmax(0, 1fr);
+  grid-template-columns: 330px minmax(0, 1fr);
   gap: var(--hsElevate--spacing--24, 24px);
   align-items: stretch;
 }
@@ -207,16 +207,12 @@
   /* Shared Card: block / inline from theme spacing */
   --hsElevate--card--padding: var(--hsElevate--spacing--48, 48px) var(--hsElevate--spacing--24, 24px);
 
-  width: 290px;
+  width: 330px;
   height: 100%;
   min-height: auto;
   justify-content: flex-start;
   align-items: var(--hsElevate--salesTeam__innerAlignment, center);
   text-align: var(--hsElevate--salesTeam__innerTextAlignment, center);
-}
-
-.hs-elevate-sales-team__grid-card .hs-elevate-sales-team__card {
-  width: 330px;
 }
 
 .hs-elevate-sales-team__card-top {
