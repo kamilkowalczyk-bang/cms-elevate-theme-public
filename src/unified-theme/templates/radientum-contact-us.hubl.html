@@ -107,8 +107,9 @@
 
   {% set sales_rows = [] %}
   {% set invoicing_row = none %}
-  {% for row in hubdb_table_rows("contact_cards") %}
-    {% if row.sales_region and row.sales_region.name and row.sales_region.name|lower != "n_a" %}
+  {% set all_contact_rows = hubdb_table_rows("contact_cards") %}
+  {% for row in all_contact_rows %}
+    {% if not row.invoicing_and_purchasing %}
       {% do sales_rows.append(row) %}
     {% endif %}
     {% if invoicing_row is none %}
@@ -117,6 +118,12 @@
       {% endif %}
     {% endif %}
   {% endfor %}
+
+  {% if sales_rows|length == 0 %}
+    {% for row in all_contact_rows %}
+      {% do sales_rows.append(row) %}
+    {% endfor %}
+  {% endif %}
 
   {% if invoicing_row is none %}
     {% set fallback_rows = hubdb_table_rows("contact_cards") %}
@@ -173,6 +180,78 @@
 
   <section class="hs-elevate-contact-tabs-content" id="contact-tabs-content">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="hs-elevate-contact-tabs-intro">
+        {% module
+          "rad-contact-tab-divider"
+          path="@hubspot/divider",
+          styles={
+            "line" : {
+              "color" : {
+                "color" : "#52BAD1",
+                "opacity" : 100
+              },
+              "thickness" : 4
+            },
+            "size" : {
+              "width" : 10
+            },
+            "spacing" : {
+              "spacing" : {
+                "margin" : {
+                  "bottom" : {
+                    "units" : "px",
+                    "value" : 25
+                  },
+                  "top" : {
+                    "units" : "px",
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        %}
+        {% if active_tab == "sales" %}
+          {% module
+            "rad-contact-tab-heading-sales"
+            path="../components/modules/Heading",
+            groupStyle={
+              "alignment" : {
+                "text_align" : "CENTER"
+              },
+              "headingUppercase" : true
+            },
+            headingAndTextHeading="CONTACT SALES",
+            headingAndTextHeadingLevel="h2"
+          %}
+        {% elif active_tab == "invoicing" %}
+          {% module
+            "rad-contact-tab-heading-invoicing"
+            path="../components/modules/Heading",
+            groupStyle={
+              "alignment" : {
+                "text_align" : "CENTER"
+              },
+              "headingUppercase" : true
+            },
+            headingAndTextHeading="INVOICING AND PURCHASING",
+            headingAndTextHeadingLevel="h2"
+          %}
+        {% elif active_tab == "offices" %}
+          {% module
+            "rad-contact-tab-heading-offices"
+            path="../components/modules/Heading",
+            groupStyle={
+              "alignment" : {
+                "text_align" : "CENTER"
+              },
+              "headingUppercase" : true
+            },
+            headingAndTextHeading="OFFICES",
+            headingAndTextHeadingLevel="h2"
+          %}
+        {% endif %}
+      </div>
       {% if active_tab == "sales" %}
         {% module
           "rad-contact-sales-team"

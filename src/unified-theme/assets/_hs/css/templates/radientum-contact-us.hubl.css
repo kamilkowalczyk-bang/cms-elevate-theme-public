@@ -1,8 +1,8 @@
 .hs-elevate-contact-tabs-section {
   position: relative;
   z-index: 50;
-  transform: translateY(-24px);
-  margin-bottom: -24px;
+  transform: translateY(-56px);
+  margin-bottom: -56px;
 }
 
 .hs-elevate-contact-tabs-section__tabs-wrap {
@@ -49,13 +49,18 @@
 }
 
 .hs-elevate-contact-tabs-content {
-  padding-top: var(--hsElevate--spacing--24, 24px);
+  padding-bottom: var(--hsElevate--spacing--56, 56px);
+}
+
+.hs-elevate-contact-tabs-intro {
+  padding-top: var(--hsElevate--spacing--96, 96px);
+  padding-bottom: var(--hsElevate--spacing--56, 56px);
 }
 
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
-    transform: translateY(-16px);
-    margin-bottom: -16px;
+    transform: translateY(-36px);
+    margin-bottom: -36px;
   }
 
   .hs-elevate-contact-tabs {
@@ -66,5 +71,9 @@
 
   .hs-elevate-contact-tabs__tab {
     white-space: nowrap;
+  }
+
+  .hs-elevate-contact-tabs-intro {
+    padding-top: var(--hsElevate--spacing--64, 64px);
   }
 }

@@ -245,7 +245,15 @@ function getSalesRegionOptionName(row: unknown): string | undefined {
 function isRegionalSalesRepRow(row: unknown): boolean {
   if (!hasHubDbRowData(row)) return false;
   const name = getSalesRegionOptionName(row);
-  if (!name) return false;
+  if (!name) {
+    const fallbackRegionLabel = getHubDbString(row, ['region', 'country_region', 'location']);
+    if (!fallbackRegionLabel) return false;
+    const normalized = fallbackRegionLabel.trim().toLowerCase();
+    if (normalized === '' || normalized === 'none' || normalized === 'n/a' || normalized === 'na') {
+      return false;
+    }
+    return true;
+  }
   if (name === 'none' || name === 'na' || name === 'n_a') return false;
   return SALES_REGION_OPTION_NAMES.has(name);
 }
