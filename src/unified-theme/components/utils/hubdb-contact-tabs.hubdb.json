@@ -1,0 +1,70 @@
+{
+  "name": "contact_tabs",
+  "label": "Contact Tabs",
+  "useForPages": true,
+  "allowPublicApiAccess": false,
+  "allowChildTables": false,
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "tab_label",
+      "label": "Tab label",
+      "type": "TEXT"
+    },
+    {
+      "name": "heading_default",
+      "label": "Default heading",
+      "type": "TEXT"
+    },
+    {
+      "name": "description_default",
+      "label": "Default description",
+      "type": "TEXT"
+    },
+    {
+      "name": "is_enabled",
+      "label": "Tab enabled",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "sort_order",
+      "label": "Sort order",
+      "type": "NUMBER"
+    }
+  ],
+  "rows": [
+    {
+      "name": "Sales",
+      "path": "sales",
+      "values": {
+        "tab_label": "Sales",
+        "heading_default": "CONTACT SALES",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 10
+      }
+    },
+    {
+      "name": "Invoicing and purchasing",
+      "path": "invoicing-and-purchasing",
+      "values": {
+        "tab_label": "Invoicing and purchasing",
+        "heading_default": "INVOICING AND PURCHASING",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 20
+      }
+    },
+    {
+      "name": "Offices",
+      "path": "offices",
+      "values": {
+        "tab_label": "Offices",
+        "heading_default": "OFFICES",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 30
+      }
+    }
+  ]
+}

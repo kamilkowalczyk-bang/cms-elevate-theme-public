@@ -96,13 +96,67 @@
   {% end_dnd_area %}
 
   {% set active_tab = "sales" %}
-  {% if dynamic_page_route_level == 1 and dynamic_page_hubdb_row %}
-    {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default("")|lower %}
-    {% if current_tab_path == "invoicing-and-purchasing" %}
-      {% set active_tab = "invoicing" %}
-    {% elif current_tab_path == "offices" %}
-      {% set active_tab = "offices" %}
+  {% set active_tab_path = "sales" %}
+  {% set current_tab_path = "" %}
+  {% if dynamic_page_hubdb_row %}
+    {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default(dynamic_page_hubdb_row.path)|default("")|lower %}
+  {% endif %}
+  {% if not current_tab_path %}
+    {% set normalized_request_path = request.path|default("")|lower|trim %}
+    {% if normalized_request_path == contact_base_path ~ "/invoicing-and-purchasing" %}
+      {% set current_tab_path = "invoicing-and-purchasing" %}
+    {% elif normalized_request_path == contact_base_path ~ "/offices" %}
+      {% set current_tab_path = "offices" %}
+    {% elif normalized_request_path == contact_base_path %}
+      {% set current_tab_path = "sales" %}
     {% endif %}
+  {% endif %}
+  {% if current_tab_path == "invoicing-and-purchasing" %}
+    {% set active_tab = "invoicing" %}
+    {% set active_tab_path = "invoicing-and-purchasing" %}
+  {% elif current_tab_path == "offices" %}
+    {% set active_tab = "offices" %}
+    {% set active_tab_path = "offices" %}
+  {% else %}
+    {% set active_tab = "sales" %}
+    {% set active_tab_path = "sales" %}
+  {% endif %}
+
+  {% set enabled_contact_tabs = [] %}
+  {% set sales_tab_row = none %}
+  {% set invoicing_tab_row = none %}
+  {% set offices_tab_row = none %}
+  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+    {% set enabled_raw = tab_row.is_enabled|default(tab_row.values.is_enabled)|default(0)|string|lower|trim %}
+    {% set is_enabled = (enabled_raw == "1" or enabled_raw == "true" or enabled_raw == "on" or enabled_raw == "yes") %}
+    {% if is_enabled %}
+      {% do enabled_contact_tabs.append(tab_row) %}
+    {% endif %}
+    {% set tab_path = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+    {% if tab_path == "sales" %}
+      {% set sales_tab_row = tab_row %}
+    {% elif tab_path == "invoicing-and-purchasing" %}
+      {% set invoicing_tab_row = tab_row %}
+    {% elif tab_path == "offices" %}
+      {% set offices_tab_row = tab_row %}
+    {% endif %}
+  {% endfor %}
+
+  {% set active_tab_label = "Sales" %}
+  {% set active_tab_heading = "CONTACT SALES" %}
+  {% set active_tab_description = "" %}
+  {% if active_tab == "sales" and sales_tab_row %}
+    {% set active_tab_label = sales_tab_row.tab_label|default(sales_tab_row.values.tab_label)|default("Sales") %}
+    {% set active_tab_heading = sales_tab_row.heading_default|default(sales_tab_row.values.heading_default)|default("CONTACT SALES") %}
+    {% set active_tab_description = sales_tab_row.description_default|default(sales_tab_row.values.description_default)|default("") %}
+  {% elif active_tab == "invoicing" and invoicing_tab_row %}
+    {% set active_tab_label = invoicing_tab_row.tab_label|default(invoicing_tab_row.values.tab_label)|default("Invoicing and purchasing") %}
+    {% set active_tab_heading = invoicing_tab_row.heading_default|default(invoicing_tab_row.values.heading_default)|default("INVOICING AND PURCHASING") %}
+    {% set active_tab_description = invoicing_tab_row.description_default|default(invoicing_tab_row.values.description_default)|default("") %}
+  {% elif active_tab == "offices" and offices_tab_row %}
+    {% set active_tab_label = offices_tab_row.tab_label|default(offices_tab_row.values.tab_label)|default("Offices") %}
+    {% set active_tab_heading = offices_tab_row.heading_default|default(offices_tab_row.values.heading_default)|default("OFFICES") %}
+    {% set active_tab_description = offices_tab_row.description_default|default(offices_tab_row.values.description_default)|default("") %}
   {% endif %}
 
   {% set sales_rows = [] %}
@@ -153,27 +207,48 @@
   <section class="hs-elevate-contact-tabs-section">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
       <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
-        <a
-          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'sales' else '' }}"
-          href="{{ contact_base_path }}"
-          aria-current="{{ 'page' if active_tab == 'sales' else 'false' }}"
-        >
-          Sales
-        </a>
-        <a
-          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'invoicing' else '' }}"
-          href="{{ contact_base_path }}/invoicing-and-purchasing"
-          aria-current="{{ 'page' if active_tab == 'invoicing' else 'false' }}"
-        >
-          Invoicing and purchasing
-        </a>
-        <a
-          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'offices' else '' }}"
-          href="{{ contact_base_path }}/offices"
-          aria-current="{{ 'page' if active_tab == 'offices' else 'false' }}"
-        >
-          Offices
-        </a>
+        {% if enabled_contact_tabs|length > 0 %}
+          {% for tab_row in enabled_contact_tabs %}
+            {% set tab_path = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+            {% set tab_href = contact_base_path %}
+            {% if tab_path and tab_path != "sales" %}
+              {% set tab_href = contact_base_path ~ "/" ~ tab_path %}
+            {% endif %}
+            {% set is_tab_active = (
+              (active_tab_path == "sales" and (tab_path == "" or tab_path == "sales")) or
+              tab_path == active_tab_path
+            ) %}
+            <a
+              class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if is_tab_active else '' }}"
+              href="{{ tab_href }}"
+              aria-current="{{ 'page' if is_tab_active else 'false' }}"
+            >
+              {{ tab_row.tab_label|default(tab_row.values.tab_label)|default(tab_path|replace("-", " ")|title) }}
+            </a>
+          {% endfor %}
+        {% else %}
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'sales' else '' }}"
+            href="{{ contact_base_path }}"
+            aria-current="{{ 'page' if active_tab == 'sales' else 'false' }}"
+          >
+            Sales
+          </a>
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'invoicing' else '' }}"
+            href="{{ contact_base_path }}/invoicing-and-purchasing"
+            aria-current="{{ 'page' if active_tab == 'invoicing' else 'false' }}"
+          >
+            Invoicing and purchasing
+          </a>
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'offices' else '' }}"
+            href="{{ contact_base_path }}/offices"
+            aria-current="{{ 'page' if active_tab == 'offices' else 'false' }}"
+          >
+            Offices
+          </a>
+        {% endif %}
       </nav>
     </div>
   </section>
@@ -211,45 +286,9 @@
             }
           }
         %}
-        {% if active_tab == "sales" %}
-          {% module
-            "rad-contact-tab-heading-sales"
-            path="../components/modules/Heading",
-            groupStyle={
-              "alignment" : {
-                "text_align" : "CENTER"
-              },
-              "headingUppercase" : true
-            },
-            headingAndTextHeading="CONTACT SALES",
-            headingAndTextHeadingLevel="h2"
-          %}
-        {% elif active_tab == "invoicing" %}
-          {% module
-            "rad-contact-tab-heading-invoicing"
-            path="../components/modules/Heading",
-            groupStyle={
-              "alignment" : {
-                "text_align" : "CENTER"
-              },
-              "headingUppercase" : true
-            },
-            headingAndTextHeading="INVOICING AND PURCHASING",
-            headingAndTextHeadingLevel="h2"
-          %}
-        {% elif active_tab == "offices" %}
-          {% module
-            "rad-contact-tab-heading-offices"
-            path="../components/modules/Heading",
-            groupStyle={
-              "alignment" : {
-                "text_align" : "CENTER"
-              },
-              "headingUppercase" : true
-            },
-            headingAndTextHeading="OFFICES",
-            headingAndTextHeadingLevel="h2"
-          %}
+        <h2 class="hs-elevate-contact-tabs__heading">{{ active_tab_heading }}</h2>
+        {% if active_tab_description %}
+          <p class="hs-elevate-contact-tabs__description">{{ active_tab_description }}</p>
         {% endif %}
       </div>
       {% if active_tab == "sales" %}

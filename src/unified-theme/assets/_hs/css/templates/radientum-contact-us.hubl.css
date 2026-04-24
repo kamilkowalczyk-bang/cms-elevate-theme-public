@@ -1,7 +1,7 @@
 .hs-elevate-contact-tabs-section {
   position: relative;
-  z-index: 50;
-  transform: translateY(-56px);
+  z-index: 4;
+  transform: translateY(-48px);
   margin-bottom: -56px;
 }
 
@@ -57,9 +57,24 @@
   padding-bottom: var(--hsElevate--spacing--56, 56px);
 }
 
+.hs-elevate-contact-tabs__heading {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.hs-elevate-contact-tabs__description {
+  margin: var(--hsElevate--spacing--16, 16px) auto 0;
+  max-width: var(--hsElevate--contentWrapper--compact__maxWidth, 880px);
+  text-align: center;
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body__fontSize);
+  color: var(--hsElevate--body__textColor);
+}
+
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
-    transform: translateY(-36px);
+    transform: translateY(-28px);
     margin-bottom: -36px;
   }
 
