@@ -31,19 +31,41 @@
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__track) {
   overflow: hidden;
+  min-height: 0;
   margin: 0 0 var(--hsElevate--spacing--56, 56px);
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__list) {
-  display: flex;
+  backface-visibility: hidden;
+  display: flex !important;
   align-items: center;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__slide) {
   display: flex;
+  position: relative;
+  box-sizing: border-box;
   justify-content: center;
   align-items: center;
-  list-style: none;
+  list-style: none !important;
+  margin: 0;
+  backface-visibility: hidden;
+}
+
+/* Keep Splide live-region permanently visually hidden to prevent flash/flicker */
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__sr) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__arrow) {
@@ -73,6 +95,26 @@
   margin: 0 6px;
   background-color: var(--hsElevate--logoGridSlider__paginationColor, #52bad1) !important;
   opacity: 0.3;
+}
+
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__pagination) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1em;
+  list-style: none;
+  list-style-type: none !important;
+  pointer-events: none;
+}
+
+.hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(.splide__pagination li) {
+  margin: 0;
+  list-style: none;
+  list-style-type: none !important;
+  line-height: 1;
+  pointer-events: auto;
 }
 
 .hs-elevate-logo-grid-slider-react .hs-elevate-logo-grid-slider-react__splide:global(.splide) :global(button.splide__pagination__page.is-active) {
