@@ -143,8 +143,8 @@
 
   {% set active_tab_label = "Sales" %}
   {% set active_tab_heading = "CONTACT SALES" %}
-  {% set active_tab_description = "" %}
-  {# Match heading to HubDB row by resolved URL slug (active_tab_path), not only pre-assigned *_tab_row (avoids stale Sales when paths differ). #}
+  {# Match heading/label to HubDB row by resolved URL slug (active_tab_path). #}
+  {# Note: do not assign tab description into a variable inside this `if` then read it later — Jinjava can block-scope `{% set %}` so the outer variable never updates. Render description inline below. #}
   {% set heading_tab_match = none %}
   {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
     {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
@@ -155,7 +155,6 @@
   {% if heading_tab_match %}
     {% set active_tab_label = heading_tab_match.tab_label|default(heading_tab_match.values.tab_label)|default(active_tab_label) %}
     {% set active_tab_heading = heading_tab_match.heading_default|default(heading_tab_match.values.heading_default)|default(active_tab_heading) %}
-    {% set active_tab_description = heading_tab_match.description_default|default(heading_tab_match.values.description_default)|default("") %}
   {% elif active_tab == "invoicing" %}
     {% set active_tab_label = "Invoicing and purchasing" %}
     {% set active_tab_heading = "INVOICING AND PURCHASING" %}
@@ -292,9 +291,47 @@
           }
         %}
         <h2 class="hs-elevate-contact-tabs__heading">{{ active_tab_heading }}</h2>
-        {% if active_tab_description %}
-          <p class="hs-elevate-contact-tabs__description">{{ active_tab_description }}</p>
-        {% endif %}
+        {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+          {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+          {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
+            {% set dcell = tab_row.description_default %}
+            {% if (dcell is none or (dcell is string and dcell|trim == "")) and tab_row.values %}
+              {% set dcell = tab_row.values.description_default %}
+            {% endif %}
+            {% set dhtml = "" %}
+            {% if dcell is string %}
+              {% set dhtml = dcell %}
+            {% elif dcell %}
+              {% set dhtml = dcell.html|default(dcell.value)|default("") %}
+            {% endif %}
+            {% set dvis = dhtml|default("")|string|trim %}
+            {% if dvis|length == 0 and tab_row.hs_id %}
+              {% set snap = hubdb_table_row("contact_tabs", tab_row.hs_id|int) %}
+              {% set sc = none %}
+              {% if snap and snap.values %}
+                {% set sc = snap.values.description_default %}
+              {% endif %}
+              {% if snap and (sc is none or (sc is string and sc|trim == "")) %}
+                {% set sc = snap.description_default %}
+              {% endif %}
+              {% if sc is string %}
+                {% set dhtml = sc %}
+              {% elif sc %}
+                {% set dhtml = sc.html|default(sc.value)|default("") %}
+              {% endif %}
+              {% set dvis = dhtml|default("")|string|trim %}
+            {% endif %}
+            {% if dvis|length > 0 %}
+              <div class="hs-elevate-contact-tabs__description">
+                {% if '<' in dvis %}
+                  {{ dhtml|sanitize_html }}
+                {% else %}
+                  <p>{{ dhtml|escape_html }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
       </div>
       {% if active_tab == "sales" %}
         {% module

@@ -19,7 +19,7 @@
     {
       "name": "description_default",
       "label": "Default description",
-      "type": "TEXT"
+      "type": "RICHTEXT"
     },
     {
       "name": "is_enabled",
