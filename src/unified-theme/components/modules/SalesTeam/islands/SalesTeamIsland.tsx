@@ -312,6 +312,7 @@ const MeetingCol = createComponent('div');
 const MeetingFrameWrap = createComponent('div');
 const MeetingIframe = createComponent('iframe');
 const MeetingFallbackLink = createComponent('a');
+const MeetingFooterActions = createComponent('div');
 const GridSection = createComponent('div');
 const GridInner = createComponent('div');
 const GridSlot = createComponent('div');
@@ -701,15 +702,37 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
               </div>
             )}
           </MeetingFrameWrap>
-          {meetingSrc && (
-            <MeetingFallbackLink
-              className={swm('hs-elevate-sales-team__meeting-fallback-link')}
-              href={meetingSrc}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open meeting in a new tab
-            </MeetingFallbackLink>
+          {(meetingSrc || hasBookDemoCta) && (
+            <MeetingFooterActions className={swm('hs-elevate-sales-team__meeting-footer-actions')}>
+              {meetingSrc && (
+                <MeetingFallbackLink
+                  className={swm('hs-elevate-sales-team__meeting-fallback-link')}
+                  href={meetingSrc}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open meeting in a new tab
+                </MeetingFallbackLink>
+              )}
+              {hasBookDemoCta && (
+                <BookDemoCta
+                  className={cx(
+                    swm('hs-elevate-sales-team__book-demo-cta'),
+                    swm('hs-elevate-sales-team__book-demo-cta--meeting-footer-only'),
+                  )}
+                >
+                  {bookDemoCtaPrefaceText}{' '}
+                  <BookDemoCtaLink
+                    className={swm('hs-elevate-sales-team__book-demo-cta-link')}
+                    href={ctaHref}
+                    rel={ctaRel || undefined}
+                    target={ctaTarget || undefined}
+                  >
+                    {bookDemoCtaLinkText}
+                  </BookDemoCtaLink>
+                </BookDemoCta>
+              )}
+            </MeetingFooterActions>
           )}
         </MeetingCol>
       </FeaturedRow>

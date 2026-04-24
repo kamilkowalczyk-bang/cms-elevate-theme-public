@@ -155,6 +155,37 @@
   color: var(--hsElevate--salesTeam__linkHoverColor);
 }
 
+.hs-elevate-sales-team__meeting-footer-actions {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--20, 20px);
+  margin-top: var(--hsElevate--spacing--12, 12px);
+  width: 100%;
+}
+
+.hs-elevate-sales-team__meeting-footer-actions .hs-elevate-sales-team__meeting-fallback-link {
+  margin-top: 0;
+  align-self: auto;
+}
+
+.hs-elevate-sales-team__meeting-footer-actions .hs-elevate-sales-team__book-demo-cta {
+  margin: 0;
+}
+
+/* Same CTA copy as under featured card; hidden on desktop, shown when featured column is off (narrow). */
+.hs-elevate-sales-team__book-demo-cta--meeting-footer-only {
+  display: none;
+}
+
+@media (min-width: 880px) {
+  .hs-elevate-sales-team__meeting-footer-actions:not(:has(.hs-elevate-sales-team__meeting-fallback-link)) {
+    display: none;
+  }
+}
+
 .hs-elevate-sales-team__grid-section {
   width: 100%;
 }
@@ -405,22 +436,57 @@
     flex-direction: column;
   }
 
+  /* Featured rep card stacks awkwardly under the meeting embed; grid still lists reps below. */
+  .hs-elevate-sales-team__featured-card {
+    display: none;
+  }
+
   .hs-elevate-sales-team__meeting-col {
     order: -1;
   }
 
+  /*
+   * Featured column is hidden — do not use measured card height (inline --hsElevate--salesTeam__meetingFramePx),
+   * which can stay stale from desktop. Use the same fallback base as the desktop rule (480px).
+   */
   .hs-elevate-sales-team__meeting-frame {
     min-height: 344px;
     height: max(
       344px,
-      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 128px), min(896px, 81vh))
+      min(calc(480px + 128px), min(896px, 81vh))
     );
     height: max(
       344px,
-      min(calc(var(--hsElevate--salesTeam__meetingFramePx, 480px) + 128px), min(896px, 81dvh))
+      min(calc(480px + 128px), min(896px, 81dvh))
     );
   }
 
+  .hs-elevate-sales-team--book-demo .hs-elevate-sales-team__meeting-frame {
+    height: max(
+      calc(350px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+      min(
+        calc(480px + 180px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+        min(calc(1010px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)), 85vh)
+      )
+    );
+    height: max(
+      calc(350px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+      min(
+        calc(480px + 180px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
+        min(calc(1010px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)), 85dvh)
+      )
+    );
+  }
+
+  .hs-elevate-sales-team__meeting-footer-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .hs-elevate-sales-team__book-demo-cta--meeting-footer-only {
+    display: block;
+  }
 
   .hs-elevate-sales-team__meeting-fallback-link {
     align-self: flex-start;
