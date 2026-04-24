@@ -8,7 +8,7 @@
 
 .hs-elevate-list-container__item {
   display: flex;
-  margin-bottom: var(--hsElevate--spacing--16, 16px);
+  margin-bottom: var(--hsElevate--spacing--8, 8px);
   align-items: flex-start;
   color: var(--hsElevate--list__textColor);
   gap: var(--hsElevate--spacing--8, 8px);
