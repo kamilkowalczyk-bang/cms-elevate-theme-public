@@ -19,7 +19,7 @@
   gap: 10px;
 }
 
-.hs-elevate-contact-tabs__tab {
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,25 +27,56 @@
   padding: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--24, 24px);
   border-radius: 6px 6px 0 0;
   text-align: center;
-  text-decoration: none;
   font-family: var(--hsElevate--body__font);
   font-size: var(--hsElevate--body__fontSize);
   font-weight: 400;
   line-height: 1.2;
+  cursor: pointer;
+  color: var(--hsElevate--section--lightSection--1__textColor, var(--hsElevate--body__textColor));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0;
+  text-underline-offset: 0;
   background-color: var(--hsElevate--button--primary__backgroundColor);
   border: 1px solid var(--hsElevate--button--primary__backgroundColor, #52BAD1);
-  color: var(--hsElevate--button--primary__textColor);
+  box-shadow: 0 -12px 8px -12px rgba(0, 0, 0, 0.25) inset;
 }
 
-.hs-elevate-contact-tabs__tab:hover,
-.hs-elevate-contact-tabs__tab:focus-visible {
-  color: var(--hsElevate--button--primary__textColor);
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:link,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:visited,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:hover,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:focus,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:focus-visible,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab:active {
+  color: var(--hsElevate--section--lightSection--1__textColor, var(--hsElevate--body__textColor));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0;
 }
 
-.hs-elevate-contact-tabs__tab--active {
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active {
   background-color: #ffffff;
   border-bottom: 1px solid var(--hsElevate--button--primary__backgroundColor, #52BAD1);
-  color: var(--hsElevate--button--primary__textColor);
+  color: var(--hsElevate--section--lightSection--1__textColor, var(--hsElevate--body__textColor));
+  box-shadow: none;
+}
+
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:link,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:visited,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:hover,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:focus,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:focus-visible,
+.hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab.hs-elevate-contact-tabs__tab--active:active {
+  color: var(--hsElevate--section--lightSection--1__textColor, var(--hsElevate--body__textColor));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-decoration-line: none;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 0;
 }
 
 .hs-elevate-contact-tabs-content {
