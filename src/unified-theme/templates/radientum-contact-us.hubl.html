@@ -95,22 +95,32 @@
     {% end_dnd_section %}
   {% end_dnd_area %}
 
-  {% set active_tab = "sales" %}
-  {% set active_tab_path = "sales" %}
+  {# Tab route: prefer URL last segment. dynamic_page_hubdb_row is often the parent row on all routes, so reading it first wrongly pins active tab to Sales. #}
+  {% set base_slug = contact_base_path|regex_replace("^/+", "")|regex_replace("/+$", "") %}
+  {% set normalized_request_path = request.path|default("")|lower|trim|regex_replace("^/+", "")|regex_replace("/+$", "") %}
+  {% set path_segments = normalized_request_path|split("/") %}
+  {% set last_slug = path_segments|last|default("") %}
+
   {% set current_tab_path = "" %}
-  {% if dynamic_page_hubdb_row %}
+  {% if last_slug == "invoicing-and-purchasing" %}
+    {% set current_tab_path = "invoicing-and-purchasing" %}
+  {% elif last_slug == "offices" %}
+    {% set current_tab_path = "offices" %}
+  {% elif last_slug == "sales" %}
+    {% set current_tab_path = "sales" %}
+  {% elif last_slug == base_slug %}
+    {% set current_tab_path = "sales" %}
+  {% endif %}
+
+  {% if not current_tab_path and dynamic_page_hubdb_row %}
     {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default(dynamic_page_hubdb_row.path)|default("")|lower %}
   {% endif %}
   {% if not current_tab_path %}
-    {% set normalized_request_path = request.path|default("")|lower|trim %}
-    {% if normalized_request_path == contact_base_path ~ "/invoicing-and-purchasing" %}
-      {% set current_tab_path = "invoicing-and-purchasing" %}
-    {% elif normalized_request_path == contact_base_path ~ "/offices" %}
-      {% set current_tab_path = "offices" %}
-    {% elif normalized_request_path == contact_base_path %}
-      {% set current_tab_path = "sales" %}
-    {% endif %}
+    {% set current_tab_path = "sales" %}
   {% endif %}
+
+  {% set active_tab = "sales" %}
+  {% set active_tab_path = "sales" %}
   {% if current_tab_path == "invoicing-and-purchasing" %}
     {% set active_tab = "invoicing" %}
     {% set active_tab_path = "invoicing-and-purchasing" %}
@@ -123,40 +133,35 @@
   {% endif %}
 
   {% set enabled_contact_tabs = [] %}
-  {% set sales_tab_row = none %}
-  {% set invoicing_tab_row = none %}
-  {% set offices_tab_row = none %}
   {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
     {% set enabled_raw = tab_row.is_enabled|default(tab_row.values.is_enabled)|default(0)|string|lower|trim %}
     {% set is_enabled = (enabled_raw == "1" or enabled_raw == "true" or enabled_raw == "on" or enabled_raw == "yes") %}
     {% if is_enabled %}
       {% do enabled_contact_tabs.append(tab_row) %}
     {% endif %}
-    {% set tab_path = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
-    {% if tab_path == "sales" %}
-      {% set sales_tab_row = tab_row %}
-    {% elif tab_path == "invoicing-and-purchasing" %}
-      {% set invoicing_tab_row = tab_row %}
-    {% elif tab_path == "offices" %}
-      {% set offices_tab_row = tab_row %}
-    {% endif %}
   {% endfor %}
 
   {% set active_tab_label = "Sales" %}
   {% set active_tab_heading = "CONTACT SALES" %}
   {% set active_tab_description = "" %}
-  {% if active_tab == "sales" and sales_tab_row %}
-    {% set active_tab_label = sales_tab_row.tab_label|default(sales_tab_row.values.tab_label)|default("Sales") %}
-    {% set active_tab_heading = sales_tab_row.heading_default|default(sales_tab_row.values.heading_default)|default("CONTACT SALES") %}
-    {% set active_tab_description = sales_tab_row.description_default|default(sales_tab_row.values.description_default)|default("") %}
-  {% elif active_tab == "invoicing" and invoicing_tab_row %}
-    {% set active_tab_label = invoicing_tab_row.tab_label|default(invoicing_tab_row.values.tab_label)|default("Invoicing and purchasing") %}
-    {% set active_tab_heading = invoicing_tab_row.heading_default|default(invoicing_tab_row.values.heading_default)|default("INVOICING AND PURCHASING") %}
-    {% set active_tab_description = invoicing_tab_row.description_default|default(invoicing_tab_row.values.description_default)|default("") %}
-  {% elif active_tab == "offices" and offices_tab_row %}
-    {% set active_tab_label = offices_tab_row.tab_label|default(offices_tab_row.values.tab_label)|default("Offices") %}
-    {% set active_tab_heading = offices_tab_row.heading_default|default(offices_tab_row.values.heading_default)|default("OFFICES") %}
-    {% set active_tab_description = offices_tab_row.description_default|default(offices_tab_row.values.description_default)|default("") %}
+  {# Match heading to HubDB row by resolved URL slug (active_tab_path), not only pre-assigned *_tab_row (avoids stale Sales when paths differ). #}
+  {% set heading_tab_match = none %}
+  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+    {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+    {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
+      {% set heading_tab_match = tab_row %}
+    {% endif %}
+  {% endfor %}
+  {% if heading_tab_match %}
+    {% set active_tab_label = heading_tab_match.tab_label|default(heading_tab_match.values.tab_label)|default(active_tab_label) %}
+    {% set active_tab_heading = heading_tab_match.heading_default|default(heading_tab_match.values.heading_default)|default(active_tab_heading) %}
+    {% set active_tab_description = heading_tab_match.description_default|default(heading_tab_match.values.description_default)|default("") %}
+  {% elif active_tab == "invoicing" %}
+    {% set active_tab_label = "Invoicing and purchasing" %}
+    {% set active_tab_heading = "INVOICING AND PURCHASING" %}
+  {% elif active_tab == "offices" %}
+    {% set active_tab_label = "Offices" %}
+    {% set active_tab_heading = "OFFICES" %}
   {% endif %}
 
   {% set sales_rows = [] %}
