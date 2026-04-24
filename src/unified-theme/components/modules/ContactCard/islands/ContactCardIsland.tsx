@@ -283,9 +283,9 @@ export default function ContactCardIsland(props: ContactCardProps) {
         const hubDbName = getHubDbString(hubDbSource, ['full_name', 'name', 'hs_name']);
         const hubDbDepartment = getHubDbString(hubDbSource, ['department', 'job_title', 'role']);
         const hubDbRegion = getHubDbString(hubDbSource, ['region', 'country_region', 'location']);
-        const hubDbPhoneText = getHubDbString(hubDbSource, ['phone', 'phone_number', 'mobile']);
+        const hubDbPhoneText = getHubDbString(hubDbSource, ['phone', 'phone_text', 'phone_number', 'mobile']);
         const hubDbPhoneLink = getHubDbString(hubDbSource, ['phone_link', 'phone_url']);
-        const hubDbEmailText = getHubDbString(hubDbSource, ['email', 'email_address']);
+        const hubDbEmailText = getHubDbString(hubDbSource, ['email', 'email_text', 'email_address']);
         const hubDbEmailLink = getHubDbString(hubDbSource, ['email_link', 'email_url']);
         const hubDbButtonText = getHubDbString(hubDbSource, ['button_text', 'cta_text', 'button_label']);
         const hubDbButtonLink = getHubDbString(hubDbSource, ['button_link', 'button_url', 'cta_link']);

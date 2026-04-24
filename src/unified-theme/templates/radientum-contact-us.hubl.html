@@ -1,0 +1,124 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Radientum Contact us
+  screenshotPath: ../images/template-previews/radientum-contact-us.png
+-->
+{#Important note
+The template currently uses:
+contact_base_path = "/contact"
+If your published parent dynamic page path differs, update that constant at the top of the template.#}
+{% set template_css = "../../assets/_hs/css/templates/radientum-contact-us.hubl.css" %}
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {# TODO: Keep this in sync with the published dynamic parent page URL. #}
+  {% set contact_base_path = "/contact" %}
+
+  {% set active_tab = "sales" %}
+  {% if dynamic_page_route_level == 1 and dynamic_page_hubdb_row %}
+    {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default("")|lower %}
+    {% if current_tab_path == "invoicing-and-purchasing" %}
+      {% set active_tab = "invoicing" %}
+    {% elif current_tab_path == "offices" %}
+      {% set active_tab = "offices" %}
+    {% endif %}
+  {% endif %}
+
+  {% set sales_rows = [] %}
+  {% set invoicing_row = none %}
+  {% for row in hubdb_table_rows("contact_cards") %}
+    {% if row.sales_region and row.sales_region.name and row.sales_region.name|lower != "n_a" %}
+      {% do sales_rows.append(row) %}
+    {% endif %}
+    {% if invoicing_row is none %}
+      {% if row.invoicing_and_purchasing %}
+        {% set invoicing_row = row %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {% if invoicing_row is none %}
+    {% set fallback_rows = hubdb_table_rows("contact_cards") %}
+    {% if fallback_rows|length > 0 %}
+      {% set invoicing_row = fallback_rows[0] %}
+    {% endif %}
+  {% endif %}
+
+  {% set sales_card_rows = [] %}
+  {% for sales_row in sales_rows %}
+    {% do sales_card_rows.append({
+      "groupHubdbRow": {
+        "id": sales_row.hs_id
+      }
+    }) %}
+  {% endfor %}
+
+  {% set office_card_rows = [] %}
+  {% for office_row in hubdb_table_rows("offices") %}
+    {% do office_card_rows.append({
+      "groupHubdbRow": {
+        "id": office_row.hs_id
+      }
+    }) %}
+  {% endfor %}
+
+  <section class="hs-elevate-contact-tabs-section">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
+      <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
+        <a
+          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'sales' else '' }}"
+          href="{{ contact_base_path }}"
+          aria-current="{{ 'page' if active_tab == 'sales' else 'false' }}"
+        >
+          Sales
+        </a>
+        <a
+          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'invoicing' else '' }}"
+          href="{{ contact_base_path }}/invoicing-and-purchasing"
+          aria-current="{{ 'page' if active_tab == 'invoicing' else 'false' }}"
+        >
+          Invoicing and purchasing
+        </a>
+        <a
+          class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'offices' else '' }}"
+          href="{{ contact_base_path }}/offices"
+          aria-current="{{ 'page' if active_tab == 'offices' else 'false' }}"
+        >
+          Offices
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="hs-elevate-contact-tabs-content">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      {% if active_tab == "sales" %}
+        {% module
+          "rad-contact-sales-team"
+          path="../components/modules/SalesTeam"
+          bookDemo=false
+          groupRegionalCards=sales_card_rows
+        %}
+      {% elif active_tab == "invoicing" %}
+        {% module
+          "rad-contact-invoicing-card"
+          path="../components/modules/ContactCard"
+          useHubDB=true
+          groupContactCards=[{
+            "groupHubdbRow": {
+              "id": invoicing_row.hs_id if invoicing_row else none
+            }
+          }]
+        %}
+      {% elif active_tab == "offices" %}
+        {% module
+          "rad-contact-offices"
+          path="../components/modules/OfficeCard"
+          useHubDB=true
+          groupOfficeCards=office_card_rows
+        %}
+      {% endif %}
+    </div>
+  </section>
+{% endblock body %}
