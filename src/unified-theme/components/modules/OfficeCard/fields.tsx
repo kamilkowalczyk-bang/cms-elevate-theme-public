@@ -23,6 +23,12 @@ const hubDbPickerVisibility = {
   operator: 'EQUAL',
 } as const satisfies Visibility;
 
+const hubDbOfficesFallbackVisibility = {
+  controlling_field_path: 'useHubDB',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
 export const fields = (
   <ModuleFields>
     <BooleanField
@@ -31,6 +37,14 @@ export const fields = (
       display="toggle"
       default={false}
       helpText="When enabled, each office card can be populated from the offices HubDB table."
+    />
+    <BooleanField
+      label="If repeater has no row IDs, load all offices from HubDB"
+      name="hubdbFallbackOfficesWhenEmpty"
+      display="toggle"
+      default={false}
+      visibility={hubDbOfficesFallbackVisibility}
+      helpText="When Use HubDB is on but no office row is resolved from the repeater (e.g. template `{% module %}` did not serialize), load all published `offices` table rows on the server—same pattern as Sales team and Contact card invoicing fallback."
     />
     <RepeatedFieldGroup
       label="Office cards"

@@ -36,8 +36,11 @@ export type OfficeCardItem = {
 export type OfficeCardProps = {
   moduleName?: string;
   useHubDB?: BooleanFieldType['default'];
-  groupOfficeCards: OfficeCardItem[];
+  /** When true, hubl can fill from `offices` if repeater picks resolve to nothing. */
+  hubdbFallbackOfficesWhenEmpty?: BooleanFieldType['default'];
+  groupOfficeCards?: OfficeCardItem[];
   hublData?: {
     manualHubDbRows?: (Record<string, unknown> | null)[];
+    feedFromManualHubDbOnly?: boolean;
   };
 };

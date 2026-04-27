@@ -220,6 +220,27 @@
     {% endif %}
   {% endfor %}
 
+  {# Offices tab: all published `offices` HubDB rows, same `groupHubdbRow` id shape as the editor (mirrors sales / invoicing modules). #}
+  {% set office_card_rows = [] %}
+  {% for office_row in hubdb_table_rows("offices") %}
+    {% set sid = office_row.hs_id %}
+    {% if sid is none %}
+      {% set sid = office_row.id %}
+    {% endif %}
+    {% if sid is none and office_row.values %}
+      {% set sid = office_row.values.hs_id %}
+    {% endif %}
+    {% if sid %}
+      {% do office_card_rows.append({
+        "groupHubdbRow": {
+          "id": sid,
+          "rowId": sid,
+          "hs_id": sid
+        }
+      }) %}
+    {% endif %}
+  {% endfor %}
+
   <section class="hs-elevate-contact-tabs-section">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
       <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
@@ -411,13 +432,27 @@
           </p>
         {% endif %}
       {% elif active_tab == "offices" %}
-        {# OfficeCard: use HubDB pickers on the module’s two default repeater slots (fields default occurrence=2).
-           Do not pass groupOfficeCards from the template — dynamic repeater payloads are not reliably serialized for this module instance. #}
-        {% module
-          "rad-contact-offices"
-          path="../components/modules/OfficeCard"
-          useHubDB=true
-        %}
+        {% if office_card_rows|length > 0 %}
+          <div class="hs-elevate-contact-tabs__offices">
+            {#
+              Comma after each `{% module %}` parameter so keys are not merged. Pass `groupOfficeCards` for stable row
+              resolution; if the repeater still does not receive HubDB id picks, `hubdbFallbackOfficesWhenEmpty` in
+              OfficeCard loads all `offices` rows server-side (same idea as ContactCard invoicing + Sales team).
+            #}
+            {% module
+              "rad-contact-offices-hubdb"
+              path="../components/modules/OfficeCard",
+              useHubDB=true,
+              hubdbFallbackOfficesWhenEmpty=true,
+              groupOfficeCards=office_card_rows,
+            %}
+          </div>
+        {% else %}
+          <p class="hs-elevate-contact-tabs__empty">
+            No offices are published in the <strong>offices</strong> HubDB table yet. Add rows in HubDB, publish the
+            table, then return to this page.
+          </p>
+        {% endif %}
       {% endif %}
     </div>
   </section>

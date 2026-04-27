@@ -14,8 +14,9 @@ export { fields } from './fields.js';
 
 export const hublDataTemplate = `
   {% set manualHubDbRows = [] %}
+  {% set feedFromManualHubDbOnly = false %}
   {% if module.useHubDB %}
-    {% for officeCard in module.groupOfficeCards %}
+    {% for officeCard in module.groupOfficeCards|default([]) %}
       {% set picker = officeCard.groupHubdbRow %}
       {% set rid = none %}
       {% if picker %}
@@ -38,9 +39,23 @@ export const hublDataTemplate = `
         {% do manualHubDbRows.append(none) %}
       {% endif %}
     {% endfor %}
+    {% set resolvedHubDbMarkers = [] %}
+    {% for _m in manualHubDbRows %}
+      {% if _m %}
+        {% do resolvedHubDbMarkers.append(1) %}
+      {% endif %}
+    {% endfor %}
+    {% if module.hubdbFallbackOfficesWhenEmpty and resolvedHubDbMarkers|length == 0 %}
+      {% set feedFromManualHubDbOnly = true %}
+      {% set manualHubDbRows = [] %}
+      {% for office_row in hubdb_table_rows("${HUBDB_TABLE_NAMES.officeCard}") %}
+        {% do manualHubDbRows.append(office_row) %}
+      {% endfor %}
+    {% endif %}
   {% endif %}
   {% set hublData = {
-      "manualHubDbRows": manualHubDbRows
+      "manualHubDbRows": manualHubDbRows,
+      "feedFromManualHubDbOnly": feedFromManualHubDbOnly
     }
   %}
 `;

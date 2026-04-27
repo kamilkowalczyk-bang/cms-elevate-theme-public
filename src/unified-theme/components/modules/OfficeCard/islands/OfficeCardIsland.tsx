@@ -6,7 +6,7 @@ import {
 import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
-import { OfficeCardProps } from '../types.js';
+import { OfficeCardItem, OfficeCardProps } from '../types.js';
 import styles from '../office-card.module.css';
 
 const swm = staticWithModule(styles);
@@ -260,28 +260,48 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
     moduleName,
     useHubDB = false,
     groupOfficeCards = [],
-    hublData: { manualHubDbRows = [] } = {},
+    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly = false } = {},
   } = props;
 
   const inlineModuleName = useHubDB ? undefined : moduleName;
 
+  const isManualOfficeFeed = Boolean(
+    useHubDB && feedFromManualHubDbOnly && Array.isArray(manualHubDbRows) && manualHubDbRows.length > 0,
+  );
+  const isFallbackEmpty = Boolean(
+    useHubDB && feedFromManualHubDbOnly && (!manualHubDbRows?.length),
+  );
+  const cardCount = isManualOfficeFeed
+    ? manualHubDbRows.length
+    : isFallbackEmpty
+      ? 0
+      : groupOfficeCards.length;
+  const cardIndices = Array.from({ length: cardCount }, (_, j) => j);
+
   return (
     <Section className={swm('hs-elevate-office-cards')}>
       <Grid className={swm('hs-elevate-office-cards__grid')}>
-        {groupOfficeCards.map((card, index) => {
-          const hubDbSource = useHubDB ? (manualHubDbRows[index] ?? card.groupHubdbRow) : undefined;
+        {cardIndices.map((index) => {
+          const card = groupOfficeCards[index] as OfficeCardItem | undefined;
+          const emptyShell: Partial<OfficeCardItem> = {};
+          const c = (card ?? emptyShell) as OfficeCardItem;
+          const gInfo = c.groupInfo;
+          const gMap = c.groupMap;
+          const hubDbSource = useHubDB
+            ? (manualHubDbRows[index] ?? c.groupHubdbRow)
+            : undefined;
 
-          const officeName = getHubDbString(hubDbSource, ['office_name']) ?? card.groupInfo.officeName;
-          const streetAddress = getHubDbString(hubDbSource, ['street_address']) ?? card.groupInfo.streetAddress;
-          const postalCode = getHubDbString(hubDbSource, ['postal_code']) ?? card.groupInfo.postalCode;
-          const city = getHubDbString(hubDbSource, ['city']) ?? card.groupInfo.city;
-          const country = getHubDbString(hubDbSource, ['country']) ?? card.groupInfo.country;
-          const emailText = getHubDbString(hubDbSource, ['email', 'email_address']) ?? card.groupInfo.emailText;
-          const phoneText = getHubDbString(hubDbSource, ['phone', 'phone_number']) ?? card.groupInfo.phoneText;
+          const officeName = getHubDbString(hubDbSource, ['office_name']) ?? gInfo?.officeName;
+          const streetAddress = getHubDbString(hubDbSource, ['street_address']) ?? gInfo?.streetAddress;
+          const postalCode = getHubDbString(hubDbSource, ['postal_code']) ?? gInfo?.postalCode;
+          const city = getHubDbString(hubDbSource, ['city']) ?? gInfo?.city;
+          const country = getHubDbString(hubDbSource, ['country']) ?? gInfo?.country;
+          const emailText = getHubDbString(hubDbSource, ['email', 'email_address']) ?? gInfo?.emailText;
+          const phoneText = getHubDbString(hubDbSource, ['phone', 'phone_number']) ?? gInfo?.phoneText;
 
           const hubZoom = getHubDbNumber(hubDbSource, ['map_zoom', 'zoom']);
           const officeLocationPair = getHubDbLocation(hubDbSource, ['office_location']);
-          const mapLocationRaw = card.groupMap.mapLocation?.trim();
+          const mapLocationRaw = gMap?.mapLocation?.trim();
           const mapLocationIsLatLng = Boolean(mapLocationRaw && isLatLngOnlyString(mapLocationRaw));
           const moduleLocationPair = mapLocationRaw && mapLocationIsLatLng ? parseLocationPair(mapLocationRaw) : {};
           const mapLocationPlaceQuery = mapLocationRaw && !mapLocationIsLatLng ? mapLocationRaw : undefined;
@@ -293,19 +313,19 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
             moduleLocationPair.lng;
 
           const zoomFromModule =
-            typeof card.groupMap.mapZoom === 'number' && Number.isFinite(card.groupMap.mapZoom)
-              ? card.groupMap.mapZoom
+            typeof gMap?.mapZoom === 'number' && Number.isFinite(gMap.mapZoom)
+              ? gMap.mapZoom
               : 12;
           const zoom = hubZoom ?? zoomFromModule;
 
-          const mapImageSrc = getHubDbImageSrc(hubDbSource, ['map_image']) ?? card.groupMap.mapImage?.src;
+          const mapImageSrc = getHubDbImageSrc(hubDbSource, ['map_image']) ?? gMap?.mapImage?.src;
           const hasCoords = lat !== undefined && lng !== undefined;
           const placeQueryFromAddress = [streetAddress, postalCode, city, country]
             .filter(Boolean)
             .join(', ');
 
           const hubMapsUrl = getHubDbString(hubDbSource, ['google_maps_url']);
-          const configuredMapsHref = getLinkFieldHref(card.groupMap.googleMapsLink);
+          const configuredMapsHref = getLinkFieldHref(gMap?.googleMapsLink);
           const preferredConfiguredMapHref = isGenericGoogleMapsUrl(configuredMapsHref)
             ? undefined
             : configuredMapsHref;
@@ -323,17 +343,17 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
             (placeQuery ? buildGoogleMapsSearchUrlFromQuery(placeQuery) : undefined) ||
             (hasCoords ? buildGoogleMapsSearchUrl(lat, lng) : undefined);
 
-          const mapTarget = hubMapsUrl ? '_blank' : getLinkFieldTarget(card.groupMap.googleMapsLink) || '_blank';
-          const mapRel = hubMapsUrl ? 'noopener noreferrer' : getLinkFieldRel(card.groupMap.googleMapsLink) || 'noopener noreferrer';
+          const mapTarget = hubMapsUrl ? '_blank' : getLinkFieldTarget(gMap?.googleMapsLink) || '_blank';
+          const mapRel = hubMapsUrl ? 'noopener noreferrer' : getLinkFieldRel(gMap?.googleMapsLink) || 'noopener noreferrer';
 
           const addressLine1 = [streetAddress, postalCode].filter(Boolean).join(', ');
           const addressLine2 = [city, country].filter(Boolean).join(', ');
 
           const phoneHref = phoneText
-            ? getFallbackOrLinkHref(phoneText, getLinkFieldHref(card.groupInfo.phoneLink), 'phone')
+            ? getFallbackOrLinkHref(phoneText, getLinkFieldHref(gInfo?.phoneLink), 'phone')
             : undefined;
           const emailHref = emailText
-            ? getFallbackOrLinkHref(emailText, getLinkFieldHref(card.groupInfo.emailLink), 'email')
+            ? getFallbackOrLinkHref(emailText, getLinkFieldHref(gInfo?.emailLink), 'email')
             : undefined;
 
           const hasMapEmbed = Boolean(embedUrl);
@@ -397,7 +417,7 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
                 {officeName && (
                   <OfficeName
                     className={swm('hs-elevate-office-cards__office-name')}
-                    data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${index}].groupInfo.officeName`)}
+                    data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${String(index)}].groupInfo.officeName`)}
                   >
                     {officeName}
                   </OfficeName>
@@ -408,9 +428,9 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
                   <PhoneLink
                     className={swm('hs-elevate-office-cards__phone-link')}
                     href={phoneHref}
-                    rel={getLinkFieldRel(card.groupInfo.phoneLink)}
-                    target={getLinkFieldTarget(card.groupInfo.phoneLink)}
-                    data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${index}].groupInfo.phoneText`)}
+                    rel={getLinkFieldRel(gInfo?.phoneLink)}
+                    target={getLinkFieldTarget(gInfo?.phoneLink)}
+                    data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${String(index)}].groupInfo.phoneText`)}
                   >
                     {phoneText}
                   </PhoneLink>
@@ -420,9 +440,9 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
                     <EmailLink
                       className={swm('hs-elevate-office-cards__email-link')}
                       href={emailHref}
-                      rel={getLinkFieldRel(card.groupInfo.emailLink)}
-                      target={getLinkFieldTarget(card.groupInfo.emailLink)}
-                      data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${index}].groupInfo.emailText`)}
+                      rel={getLinkFieldRel(gInfo?.emailLink)}
+                      target={getLinkFieldTarget(gInfo?.emailLink)}
+                      data-hs-token={getDataHSToken(inlineModuleName, `groupOfficeCards[${String(index)}].groupInfo.emailText`)}
                     >
                       {emailText}
                     </EmailLink>
