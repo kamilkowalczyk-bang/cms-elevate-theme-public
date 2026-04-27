@@ -115,6 +115,16 @@
   color: var(--hsElevate--button--primary__backgroundColor, #52bad1);
 }
 
+.hs-elevate-contact-tabs__empty {
+  margin: 0 auto;
+  max-width: var(--hsElevate--contentWrapper--compact__maxWidth, 880px);
+  text-align: center;
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body__fontSize);
+  color: var(--hsElevate--body__textColor);
+  opacity: 0.9;
+}
+
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
     transform: translateY(-28px);

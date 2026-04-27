@@ -162,6 +162,11 @@
       "name": "meeting_embed_url",
       "label": "Meetings embed URL (iframe src)",
       "type": "URL"
+    },
+    {
+      "name": "invoicing_and_purchasing",
+      "label": "Show on Invoicing and purchasing tab",
+      "type": "BOOLEAN"
     }
   ],
   "rows": [
@@ -197,7 +202,8 @@
           "type": "option"
         },
         "default_sales_rep": 1,
-        "meeting_embed_url": ""
+        "meeting_embed_url": "",
+        "invoicing_and_purchasing": 0
       }
     },
     {
@@ -232,7 +238,8 @@
           "type": "option"
         },
         "default_sales_rep": 0,
-        "meeting_embed_url": ""
+        "meeting_embed_url": "",
+        "invoicing_and_purchasing": 0
       }
     },
     {
@@ -242,7 +249,7 @@
         "show_region": 1,
         "region": "USA & Canada",
         "full_name": "Name Surname",
-        "department": "Sales",
+        "department": "Invoicing and purchasing",
         "show_phone": 1,
         "phone_text": "+358 50 123 4567",
         "phone_link": "tel:+358501234567",
@@ -267,7 +274,8 @@
           "type": "option"
         },
         "default_sales_rep": 0,
-        "meeting_embed_url": ""
+        "meeting_embed_url": "",
+        "invoicing_and_purchasing": 1
       }
     },
     {
@@ -277,7 +285,7 @@
         "show_region": 1,
         "region": "USA & Canada",
         "full_name": "Name Surname",
-        "department": "Sales",
+        "department": "Invoicing and purchasing",
         "show_phone": 1,
         "phone_text": "+358 50 123 4567",
         "phone_link": "tel:+358501234567",
@@ -302,7 +310,8 @@
           "type": "option"
         },
         "default_sales_rep": 0,
-        "meeting_embed_url": ""
+        "meeting_embed_url": "",
+        "invoicing_and_purchasing": 1
       }
     }
   ]

@@ -47,19 +47,8 @@ export const hublDataTemplate = `
     {% set manualHubDbRowsRegional = [] %}
     {% set allContactRows = hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
     {% for row in allContactRows %}
-      {% set inv = row.invoicing_and_purchasing %}
-      {% if inv is none and row.values %}
-        {% set inv = row.values.invoicing_and_purchasing %}
-      {% endif %}
-      {% if not inv %}
-        {% do manualHubDbRowsRegional.append(row) %}
-      {% endif %}
+      {% do manualHubDbRowsRegional.append(row) %}
     {% endfor %}
-    {% if manualHubDbRowsRegional|length == 0 %}
-      {% for row in allContactRows %}
-        {% do manualHubDbRowsRegional.append(row) %}
-      {% endfor %}
-    {% endif %}
   {% endif %}
 
   {% set featuredHubDbRow = none %}

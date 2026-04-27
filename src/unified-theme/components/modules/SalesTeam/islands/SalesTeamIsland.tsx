@@ -244,6 +244,12 @@ function getSalesRegionOptionName(row: unknown): string | undefined {
 
 function isRegionalSalesRepRow(row: unknown): boolean {
   if (!hasHubDbRowData(row)) return false;
+  const department = getHubDbString(row, ['department', 'job_title', 'role']);
+  // Business rule: any contact marked as Sales should be rendered on Sales tab,
+  // regardless of region/checkbox combinations.
+  if (department && department.trim().toLowerCase().includes('sales')) {
+    return true;
+  }
   const name = getSalesRegionOptionName(row);
   if (!name) {
     const fallbackRegionLabel = getHubDbString(row, ['region', 'country_region', 'location']);

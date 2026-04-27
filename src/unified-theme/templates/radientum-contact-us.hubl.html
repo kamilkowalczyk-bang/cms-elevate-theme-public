@@ -163,36 +163,9 @@
     {% set active_tab_heading = "OFFICES" %}
   {% endif %}
 
-  {% set sales_rows = [] %}
-  {% set invoicing_row = none %}
   {% set all_contact_rows = hubdb_table_rows("contact_cards") %}
-  {% for row in all_contact_rows %}
-    {% set inv = row.invoicing_and_purchasing %}
-    {% if inv is none and row.values %}
-      {% set inv = row.values.invoicing_and_purchasing %}
-    {% endif %}
-    {% if not inv %}
-      {% do sales_rows.append(row) %}
-    {% endif %}
-    {% if invoicing_row is none %}
-      {% if inv %}
-        {% set invoicing_row = row %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {% if sales_rows|length == 0 %}
-    {% for row in all_contact_rows %}
-      {% do sales_rows.append(row) %}
-    {% endfor %}
-  {% endif %}
-
-  {% if invoicing_row is none %}
-    {% set fallback_rows = hubdb_table_rows("contact_cards") %}
-    {% if fallback_rows|length > 0 %}
-      {% set invoicing_row = fallback_rows[0] %}
-    {% endif %}
-  {% endif %}
+  {# Sales tab should continue to show all sales team contacts. #}
+  {% set sales_rows = all_contact_rows %}
 
   {% set sales_card_rows = [] %}
   {% for sales_row in sales_rows %}
@@ -211,6 +184,62 @@
       }) %}
     {% endif %}
   {% endfor %}
+
+  {# Invoicing tab: all contact_cards rows flagged for this tab (HubDB row order). #}
+  {% set invoicing_card_rows = [] %}
+  {% for inv_row in hubdb_table_rows("contact_cards") %}
+    {% set inv_raw = inv_row.invoicing_and_purchasing|default(inv_row.values.invoicing_and_purchasing if inv_row.values else none) %}
+    {% set inv_candidate = inv_raw %}
+    {% if inv_candidate and inv_candidate.value is defined %}
+      {% set inv_candidate = inv_candidate.value %}
+    {% elif inv_candidate and inv_candidate.checked is defined %}
+      {% set inv_candidate = inv_candidate.checked %}
+    {% elif inv_candidate and inv_candidate.selected is defined %}
+      {% set inv_candidate = inv_candidate.selected %}
+    {% endif %}
+    {% set inv_norm = inv_candidate|string|lower|trim %}
+    {% set is_invoicing = (inv_norm == "1" or inv_norm == "true" or inv_norm == "yes" or inv_norm == "on") %}
+    {% if is_invoicing %}
+      {% set sid = inv_row.hs_id %}
+      {% if sid is none %}
+        {% set sid = inv_row.id %}
+      {% endif %}
+      {% if sid is none and inv_row.values %}
+        {% set sid = inv_row.values.hs_id %}
+      {% endif %}
+      {% if sid %}
+        {% do invoicing_card_rows.append({
+          "groupHubdbRow": {
+            "id": sid
+          }
+        }) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {# Fallback for portals where invoicing checkbox column is missing/unpublished:
+     infer invoicing contacts from department naming to avoid an empty tab. #}
+  {% if invoicing_card_rows|length == 0 %}
+    {% for inv_row in hubdb_table_rows("contact_cards") %}
+      {% set dep = inv_row.department|default(inv_row.values.department if inv_row.values else "")|string|lower|trim %}
+      {% if "invoicing" in dep or "purchasing" in dep %}
+        {% set sid = inv_row.hs_id %}
+        {% if sid is none %}
+          {% set sid = inv_row.id %}
+        {% endif %}
+        {% if sid is none and inv_row.values %}
+          {% set sid = inv_row.values.hs_id %}
+        {% endif %}
+        {% if sid %}
+          {% do invoicing_card_rows.append({
+            "groupHubdbRow": {
+              "id": sid
+            }
+          }) %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
 
   {% set office_card_rows = [] %}
   {% for office_row in hubdb_table_rows("offices") %}
@@ -350,9 +379,9 @@
         {# Sales team: default (non-book-demo) layout: featured rep, meeting iframe, regional rep grid. #}
         {% module
           "rad-contact-sales-team"
-          path="../components/modules/SalesTeam"
-          bookDemo=false
-          groupRegionalCards=sales_card_rows
+            path="../components/modules/SalesTeam",
+            bookDemo=false,
+            groupRegionalCards=sales_card_rows,
           groupStyle={
             "groupCard" : {
               "cardStyleVariant" : "card_variant_3",
@@ -374,21 +403,25 @@
           }
         %}
       {% elif active_tab == "invoicing" %}
-        {% module
-          "rad-contact-invoicing-card"
-          path="../components/modules/ContactCard"
-          useHubDB=true
-          groupContactCards=[{
-            "groupHubdbRow": {
-              "id": invoicing_row.hs_id if invoicing_row else none
-            }
-          }]
-        %}
+        {% if invoicing_card_rows|length > 0 %}
+          {# Use a fresh module instance key so template-provided HubDB config is applied on published pages. #}
+          {% module
+            "rad-contact-invoicing-card-v2"
+            path="../components/modules/ContactCard",
+            useHubDB=true,
+            groupContactCards=invoicing_card_rows
+          %}
+        {% else %}
+          <p class="hs-elevate-contact-tabs__empty">
+            No invoicing contacts are configured in HubDB yet. In the <strong>contact_cards</strong> table, enable
+            <strong>Show on Invoicing and purchasing tab</strong> for one or more rows, then publish the table.
+          </p>
+        {% endif %}
       {% elif active_tab == "offices" %}
         {% module
           "rad-contact-offices"
-          path="../components/modules/OfficeCard"
-          useHubDB=true
+          path="../components/modules/OfficeCard",
+          useHubDB=true,
           groupOfficeCards=office_card_rows
         %}
       {% endif %}
