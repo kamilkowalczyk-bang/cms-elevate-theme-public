@@ -125,6 +125,13 @@
   opacity: 0.9;
 }
 
+.hs-elevate-contact-tabs__invoicing-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hsElevate--spacing--24, 24px);
+  justify-content: center;
+}
+
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
     transform: translateY(-28px);

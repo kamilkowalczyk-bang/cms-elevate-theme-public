@@ -12,44 +12,49 @@ import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
-import { ContactCardProps } from '../types.js';
+import { ContactCardItem, ContactCardProps } from '../types.js';
 import styles from '../contact-card.module.css';
 
 const swm = staticWithModule(styles);
 
-function generateColorCssVars(cardVariantField: string): CSSPropertiesMap {
-  const cardColorsMap = {
-    card_variant_1: {
-      textColor: 'var(--hsElevate--card--variant1__textColor)',
-      accentColor: 'var(--hsElevate--card--variant1__iconColor)',
-      linkColor: 'var(--hsElevate--card--variant1--link__fontColor)',
-      linkHoverColor: 'var(--hsElevate--card--variant1--link__hover--fontColor)',
-    },
-    card_variant_2: {
-      textColor: 'var(--hsElevate--card--variant2__textColor)',
-      accentColor: 'var(--hsElevate--card--variant2__iconColor)',
-      linkColor: 'var(--hsElevate--card--variant2--link__fontColor)',
-      linkHoverColor: 'var(--hsElevate--card--variant2--link__hover--fontColor)',
-    },
-    card_variant_3: {
-      textColor: 'var(--hsElevate--card--variant3__textColor)',
-      accentColor: 'var(--hsElevate--card--variant3__iconColor)',
-      linkColor: 'var(--hsElevate--card--variant3--link__fontColor)',
-      linkHoverColor: 'var(--hsElevate--card--variant3--link__hover--fontColor)',
-    },
-    card_variant_4: {
-      textColor: 'var(--hsElevate--card--variant4__textColor)',
-      accentColor: 'var(--hsElevate--card--variant4__iconColor)',
-      linkColor: 'var(--hsElevate--card--variant4--link__fontColor)',
-      linkHoverColor: 'var(--hsElevate--card--variant4--link__hover--fontColor)',
-    },
-  };
+const CARD_VARIANT_COLOR_MAP = {
+  card_variant_1: {
+    textColor: 'var(--hsElevate--card--variant1__textColor)',
+    accentColor: 'var(--hsElevate--card--variant1__iconColor)',
+    linkColor: 'var(--hsElevate--card--variant1--link__fontColor)',
+    linkHoverColor: 'var(--hsElevate--card--variant1--link__hover--fontColor)',
+  },
+  card_variant_2: {
+    textColor: 'var(--hsElevate--card--variant2__textColor)',
+    accentColor: 'var(--hsElevate--card--variant2__iconColor)',
+    linkColor: 'var(--hsElevate--card--variant2--link__fontColor)',
+    linkHoverColor: 'var(--hsElevate--card--variant2--link__hover--fontColor)',
+  },
+  card_variant_3: {
+    textColor: 'var(--hsElevate--card--variant3__textColor)',
+    accentColor: 'var(--hsElevate--card--variant3__iconColor)',
+    linkColor: 'var(--hsElevate--card--variant3--link__fontColor)',
+    linkHoverColor: 'var(--hsElevate--card--variant3--link__hover--fontColor)',
+  },
+  card_variant_4: {
+    textColor: 'var(--hsElevate--card--variant4__textColor)',
+    accentColor: 'var(--hsElevate--card--variant4__iconColor)',
+    linkColor: 'var(--hsElevate--card--variant4--link__fontColor)',
+    linkHoverColor: 'var(--hsElevate--card--variant4--link__hover--fontColor)',
+  },
+} as const;
+
+function generateColorCssVars(cardVariantField: string | undefined): CSSPropertiesMap {
+  const palette =
+    cardVariantField && cardVariantField in CARD_VARIANT_COLOR_MAP
+      ? CARD_VARIANT_COLOR_MAP[cardVariantField as keyof typeof CARD_VARIANT_COLOR_MAP]
+      : CARD_VARIANT_COLOR_MAP.card_variant_3;
 
   return {
-    '--hsElevate--contactCard__textColor': cardColorsMap[cardVariantField].textColor,
-    '--hsElevate--contactCard__accentColor': cardColorsMap[cardVariantField].accentColor,
-    '--hsElevate--contactCard__linkColor': cardColorsMap[cardVariantField].linkColor,
-    '--hsElevate--contactCard__linkHoverColor': cardColorsMap[cardVariantField].linkHoverColor,
+    '--hsElevate--contactCard__textColor': palette.textColor,
+    '--hsElevate--contactCard__accentColor': palette.accentColor,
+    '--hsElevate--contactCard__linkColor': palette.linkColor,
+    '--hsElevate--contactCard__linkHoverColor': palette.linkHoverColor,
   };
 }
 
@@ -246,18 +251,32 @@ const CardTop = createComponent('div');
 const CardBottom = createComponent('div');
 const CardRow = createComponent('div');
 
+const DEFAULT_CARDS_ALIGNMENT: AlignmentFieldType['default'] = { horizontal_align: 'CENTER' };
+const DEFAULT_CONTENT_ALIGNMENT: AlignmentFieldType['default'] = { horizontal_align: 'CENTER' };
+
 export default function ContactCardIsland(props: ContactCardProps) {
   const {
     moduleName,
     useHubDB = false,
-    groupContactCards,
-    hublData: { manualHubDbRows = [] } = {},
-    groupStyle: {
-      groupCard: { cardStyleVariant, showCardShadow = true, showCardBorder = true },
-      groupLayout: { cardsAlignment, contentAlignment },
-      groupButton: { buttonStyleVariant, buttonStyleSize },
-    },
+    groupContactCards = [],
+    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly: feedFromManualOnly = false } = {},
+    groupStyle,
   } = props;
+
+  const isManualInvoicingFeed = Boolean(
+    useHubDB && feedFromManualOnly && Array.isArray(manualHubDbRows) && manualHubDbRows.length > 0,
+  );
+  const cardIndices: number[] = isManualInvoicingFeed
+    ? Array.from({ length: manualHubDbRows.length }, (_, i) => i)
+    : groupContactCards.map((_, i) => i);
+
+  const cardStyleVariant = groupStyle?.groupCard?.cardStyleVariant ?? 'card_variant_3';
+  const showCardShadow = groupStyle?.groupCard?.showCardShadow ?? true;
+  const showCardBorder = groupStyle?.groupCard?.showCardBorder ?? true;
+  const cardsAlignment = groupStyle?.groupLayout?.cardsAlignment ?? DEFAULT_CARDS_ALIGNMENT;
+  const contentAlignment = groupStyle?.groupLayout?.contentAlignment ?? DEFAULT_CONTENT_ALIGNMENT;
+  const buttonStyleVariant = groupStyle?.groupButton?.buttonStyleVariant ?? 'primary';
+  const buttonStyleSize = groupStyle?.groupButton?.buttonStyleSize ?? 'small';
 
   const cssVarsMap = {
     ...generateColorCssVars(cardStyleVariant),
@@ -267,7 +286,10 @@ export default function ContactCardIsland(props: ContactCardProps) {
 
   return (
     <ContactCardsContainer className={swm('hs-elevate-contact-card-container')} style={cssVarsMap}>
-      {groupContactCards.map((card, index) => {
+      {cardIndices.map((index) => {
+        const card =
+          (isManualInvoicingFeed ? (groupContactCards[index] as ContactCardItem | undefined) : groupContactCards[index]) ??
+          ({} as ContactCardItem);
         const {
           groupHubdbRow,
           groupRegion,
@@ -278,7 +300,11 @@ export default function ContactCardIsland(props: ContactCardProps) {
           groupButton,
         } = card;
 
-        const hubDbSource = useHubDB ? (manualHubDbRows[index] ?? groupHubdbRow) : undefined;
+        const hubDbSource = useHubDB
+          ? isManualInvoicingFeed
+            ? manualHubDbRows[index]
+            : (manualHubDbRows[index] ?? groupHubdbRow)
+          : undefined;
         const isHubDbCard = useHubDB && hasHubDbRowData(hubDbSource);
         const hubDbName = getHubDbString(hubDbSource, ['full_name', 'name', 'hs_name']);
         const hubDbDepartment = getHubDbString(hubDbSource, ['department', 'job_title', 'role']);
@@ -482,7 +508,7 @@ export default function ContactCardIsland(props: ContactCardProps) {
                 {hasSocial && (
                   <CardRow className={swm('hs-elevate-contact-card-container__row hs-elevate-contact-card-container__row--social')}>
                   <SocialLinksWrapper className={swm('hs-elevate-contact-card-container__social')}>
-                    {effectiveSocial.groupSocialLinks.map((socialLink, socialIndex) => (
+                    {(effectiveSocial?.groupSocialLinks ?? []).map((socialLink, socialIndex) => (
                       <SocialLink
                         key={socialIndex}
                         className={swm('hs-elevate-contact-card-container__social-link')}

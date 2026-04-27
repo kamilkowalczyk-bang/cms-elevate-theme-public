@@ -46,6 +46,12 @@ const hubDbPickerVisibility = {
   operator: 'EQUAL',
 } as const satisfies Visibility;
 
+const hubDbInvoicingFallbackVisibility = {
+  controlling_field_path: 'useHubDB',
+  controlling_value_regex: 'true',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
 export const fields = (
   <ModuleFields>
     <BooleanField
@@ -54,6 +60,14 @@ export const fields = (
       display='toggle'
       default={false}
       helpText='When enabled, each card can be populated from the contact_cards HubDB table.'
+    />
+    <BooleanField
+      label='If repeater has no row IDs, load invoicing contacts from HubDB'
+      name='hubdbFallbackInvoicingWhenEmpty'
+      display='toggle'
+      default={false}
+      visibility={hubDbInvoicingFallbackVisibility}
+      helpText='When Use HubDB is on but no contact row can be resolved from the card repeater load all published contact_cards rows where "Show on Invoicing and purchasing" is checked—same server-side. Turn on for the Invoicing tab template feed.'
     />
 
     <RepeatedFieldGroup

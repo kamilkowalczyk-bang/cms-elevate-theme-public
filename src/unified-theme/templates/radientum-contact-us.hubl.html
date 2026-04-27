@@ -185,6 +185,41 @@
     {% endif %}
   {% endfor %}
 
+  {# Invoicing tab: contact_cards rows where invoicing_and_purchasing is checked (HubDB only; no department fallback).
+     groupHubdbRow mirrors the ContactCard "Choose from HubDB" field: same row ids the editor would save (id / rowId / hs_id). #}
+  {% set invoicing_card_rows = [] %}
+  {% for inv_row in hubdb_table_rows("contact_cards") %}
+    {% set inv_raw = inv_row.invoicing_and_purchasing|default(inv_row.values.invoicing_and_purchasing if inv_row.values else none) %}
+    {% set inv_candidate = inv_raw %}
+    {% if inv_candidate and inv_candidate.value is defined %}
+      {% set inv_candidate = inv_candidate.value %}
+    {% elif inv_candidate and inv_candidate.checked is defined %}
+      {% set inv_candidate = inv_candidate.checked %}
+    {% elif inv_candidate and inv_candidate.selected is defined %}
+      {% set inv_candidate = inv_candidate.selected %}
+    {% endif %}
+    {% set inv_norm = inv_candidate|string|lower|trim %}
+    {% set is_invoicing = (inv_norm == "1" or inv_norm == "true" or inv_norm == "yes" or inv_norm == "on") %}
+    {% if is_invoicing %}
+      {% set sid = inv_row.hs_id %}
+      {% if sid is none %}
+        {% set sid = inv_row.id %}
+      {% endif %}
+      {% if sid is none and inv_row.values %}
+        {% set sid = inv_row.values.hs_id %}
+      {% endif %}
+      {% if sid %}
+        {% do invoicing_card_rows.append({
+          "groupHubdbRow": {
+            "id": sid,
+            "rowId": sid,
+            "hs_id": sid
+          }
+        }) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
   <section class="hs-elevate-contact-tabs-section">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
       <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
@@ -338,13 +373,43 @@
           }
         %}
       {% elif active_tab == "invoicing" %}
-        {# ContactCard: use HubDB pickers on the module’s default repeater slots (fields default occurrence=4).
-           Do not pass groupContactCards from the template — dynamic repeater payloads are not reliably serialized for this module instance. #}
-        {% module
-          "rad-contact-invoicing-card"
-          path="../components/modules/ContactCard"
-          useHubDB=true
-        %}
+        {# ContactCard in HubDB mode with one module instance; groupContactCards is built from contact_cards rows where invoicing_and_purchasing is checked (same shape as "Choose from HubDB" per repeater slot). #}
+        {% if invoicing_card_rows|length > 0 %}
+          {# One ContactCard module (static instance id). #}
+          <div class="hs-elevate-contact-tabs__invoicing-cards">
+            {# Commas between {% module %} args: without a comma after `groupContactCards=…`, HubSpot can glue the next line (`groupStyle`) into one bogus hubl key (`invoicing_card_rows` + newline + `groupStyle`), drop groupContactCards, and fall back to 4 field defaults with useHubDB=false from stale page JSON. New instance id resets saved useHubDB off. #}
+            {% module "rad-contact-invoicing-hubdb"
+              path="../components/modules/ContactCard",
+              useHubDB=true,
+              hubdbFallbackInvoicingWhenEmpty=true,
+              groupContactCards=invoicing_card_rows,
+              groupStyle={
+                "groupCard" : {
+                  "cardStyleVariant" : "card_variant_3",
+                  "showCardShadow" : true,
+                  "showCardBorder" : true
+                },
+                "groupLayout" : {
+                  "cardsAlignment" : {
+                    "horizontal_align" : "CENTER"
+                  },
+                  "contentAlignment" : {
+                    "horizontal_align" : "CENTER"
+                  }
+                },
+                "groupButton" : {
+                  "buttonStyleVariant" : "primary",
+                  "buttonStyleSize" : "small"
+                }
+              }
+            %}
+          </div>
+        {% else %}
+          <p class="hs-elevate-contact-tabs__empty">
+            No invoicing contacts are configured in HubDB yet. In the <strong>contact_cards</strong> table, enable
+            <strong>Show on Invoicing and purchasing tab</strong> for one or more rows, then publish the table.
+          </p>
+        {% endif %}
       {% elif active_tab == "offices" %}
         {# OfficeCard: use HubDB pickers on the module’s two default repeater slots (fields default occurrence=2).
            Do not pass groupOfficeCards from the template — dynamic repeater payloads are not reliably serialized for this module instance. #}

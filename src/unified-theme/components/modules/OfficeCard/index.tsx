@@ -25,6 +25,8 @@ export const hublDataTemplate = `
           {% set rid = picker.rowId %}
         {% elif picker.row_id is not none %}
           {% set rid = picker.row_id %}
+        {% elif picker.hs_id is not none %}
+          {% set rid = picker.hs_id %}
         {% elif picker.values and picker.values.hs_id is not none %}
           {% set rid = picker.values.hs_id %}
         {% endif %}

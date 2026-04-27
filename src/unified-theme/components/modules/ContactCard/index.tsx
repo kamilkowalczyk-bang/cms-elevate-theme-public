@@ -14,6 +14,7 @@ export { fields } from './fields.js';
 
 export const hublDataTemplate = `
   {% set manualHubDbRows = [] %}
+  {% set feedFromManualHubDbOnly = false %}
   {% if module.useHubDB %}
     {% for card in module.groupContactCards %}
       {% set picker = card.groupHubdbRow %}
@@ -25,6 +26,8 @@ export const hublDataTemplate = `
           {% set rid = picker.rowId %}
         {% elif picker.row_id is not none %}
           {% set rid = picker.row_id %}
+        {% elif picker.hs_id is not none %}
+          {% set rid = picker.hs_id %}
         {% elif picker.values and picker.values.hs_id is not none %}
           {% set rid = picker.values.hs_id %}
         {% endif %}
@@ -36,9 +39,36 @@ export const hublDataTemplate = `
         {% do manualHubDbRows.append(none) %}
       {% endif %}
     {% endfor %}
+    {% set resolvedHubDbMarkers = [] %}
+    {% for _r in manualHubDbRows %}
+      {% if _r %}
+        {% do resolvedHubDbMarkers.append(1) %}
+      {% endif %}
+    {% endfor %}
+    {% if module.hubdbFallbackInvoicingWhenEmpty and resolvedHubDbMarkers|length == 0 %}
+      {% set feedFromManualHubDbOnly = true %}
+      {% set manualHubDbRows = [] %}
+      {% for inv_row in hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
+        {% set inv_raw = inv_row.invoicing_and_purchasing|default(inv_row.values.invoicing_and_purchasing if inv_row.values else none) %}
+        {% set inv_candidate = inv_raw %}
+        {% if inv_candidate and inv_candidate.value is defined %}
+          {% set inv_candidate = inv_candidate.value %}
+        {% elif inv_candidate and inv_candidate.checked is defined %}
+          {% set inv_candidate = inv_candidate.checked %}
+        {% elif inv_candidate and inv_candidate.selected is defined %}
+          {% set inv_candidate = inv_candidate.selected %}
+        {% endif %}
+        {% set inv_norm = inv_candidate|string|lower|trim %}
+        {% set is_invoicing = (inv_norm == "1" or inv_norm == "true" or inv_norm == "yes" or inv_norm == "on") %}
+        {% if is_invoicing %}
+          {% do manualHubDbRows.append(inv_row) %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   {% endif %}
   {% set hublData = {
-      "manualHubDbRows": manualHubDbRows
+      "manualHubDbRows": manualHubDbRows,
+      "feedFromManualHubDbOnly": feedFromManualHubDbOnly
     }
   %}
 `;

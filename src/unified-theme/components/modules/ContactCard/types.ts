@@ -70,9 +70,14 @@ export type ContactCardStyles = {
 export type ContactCardProps = {
   moduleName?: string;
   useHubDB?: BooleanFieldType['default'];
-  groupContactCards: ContactCardItem[];
-  groupStyle: ContactCardStyles;
+  /** When true, server hubl can fill `manualHubDbRows` from invoicing flag if repeater pickers resolve to nothing. */
+  hubdbFallbackInvoicingWhenEmpty?: BooleanFieldType['default'];
+  groupContactCards?: ContactCardItem[];
+  /** When omitted (e.g. template `{% module %}` overrides), the island uses field defaults. */
+  groupStyle?: ContactCardStyles;
   hublData?: {
     manualHubDbRows?: (Record<string, unknown> | null)[];
+    /** Set when hublDataTemplate used invoicing-only table rows instead of per-slot HubDB pickers. */
+    feedFromManualHubDbOnly?: boolean;
   };
 };
