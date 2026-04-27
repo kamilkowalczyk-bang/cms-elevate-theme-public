@@ -185,71 +185,6 @@
     {% endif %}
   {% endfor %}
 
-  {# Invoicing tab: all contact_cards rows flagged for this tab (HubDB row order). #}
-  {% set invoicing_card_rows = [] %}
-  {% for inv_row in hubdb_table_rows("contact_cards") %}
-    {% set inv_raw = inv_row.invoicing_and_purchasing|default(inv_row.values.invoicing_and_purchasing if inv_row.values else none) %}
-    {% set inv_candidate = inv_raw %}
-    {% if inv_candidate and inv_candidate.value is defined %}
-      {% set inv_candidate = inv_candidate.value %}
-    {% elif inv_candidate and inv_candidate.checked is defined %}
-      {% set inv_candidate = inv_candidate.checked %}
-    {% elif inv_candidate and inv_candidate.selected is defined %}
-      {% set inv_candidate = inv_candidate.selected %}
-    {% endif %}
-    {% set inv_norm = inv_candidate|string|lower|trim %}
-    {% set is_invoicing = (inv_norm == "1" or inv_norm == "true" or inv_norm == "yes" or inv_norm == "on") %}
-    {% if is_invoicing %}
-      {% set sid = inv_row.hs_id %}
-      {% if sid is none %}
-        {% set sid = inv_row.id %}
-      {% endif %}
-      {% if sid is none and inv_row.values %}
-        {% set sid = inv_row.values.hs_id %}
-      {% endif %}
-      {% if sid %}
-        {% do invoicing_card_rows.append({
-          "groupHubdbRow": {
-            "id": sid
-          }
-        }) %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {# Fallback for portals where invoicing checkbox column is missing/unpublished:
-     infer invoicing contacts from department naming to avoid an empty tab. #}
-  {% if invoicing_card_rows|length == 0 %}
-    {% for inv_row in hubdb_table_rows("contact_cards") %}
-      {% set dep = inv_row.department|default(inv_row.values.department if inv_row.values else "")|string|lower|trim %}
-      {% if "invoicing" in dep or "purchasing" in dep %}
-        {% set sid = inv_row.hs_id %}
-        {% if sid is none %}
-          {% set sid = inv_row.id %}
-        {% endif %}
-        {% if sid is none and inv_row.values %}
-          {% set sid = inv_row.values.hs_id %}
-        {% endif %}
-        {% if sid %}
-          {% do invoicing_card_rows.append({
-            "groupHubdbRow": {
-              "id": sid
-            }
-          }) %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-
-  {% set office_card_rows = [] %}
-  {% for office_row in hubdb_table_rows("offices") %}
-    {% do office_card_rows.append({
-      "groupHubdbRow": {
-        "id": office_row.hs_id
-      }
-    }) %}
-  {% endfor %}
-
   <section class="hs-elevate-contact-tabs-section">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
       <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
@@ -403,26 +338,20 @@
           }
         %}
       {% elif active_tab == "invoicing" %}
-        {% if invoicing_card_rows|length > 0 %}
-          {# Use a fresh module instance key so template-provided HubDB config is applied on published pages. #}
-          {% module
-            "rad-contact-invoicing-card-v2"
-            path="../components/modules/ContactCard",
-            useHubDB=true,
-            groupContactCards=invoicing_card_rows
-          %}
-        {% else %}
-          <p class="hs-elevate-contact-tabs__empty">
-            No invoicing contacts are configured in HubDB yet. In the <strong>contact_cards</strong> table, enable
-            <strong>Show on Invoicing and purchasing tab</strong> for one or more rows, then publish the table.
-          </p>
-        {% endif %}
+        {# ContactCard: use HubDB pickers on the module’s default repeater slots (fields default occurrence=4).
+           Do not pass groupContactCards from the template — dynamic repeater payloads are not reliably serialized for this module instance. #}
+        {% module
+          "rad-contact-invoicing-card"
+          path="../components/modules/ContactCard"
+          useHubDB=true
+        %}
       {% elif active_tab == "offices" %}
+        {# OfficeCard: use HubDB pickers on the module’s two default repeater slots (fields default occurrence=2).
+           Do not pass groupOfficeCards from the template — dynamic repeater payloads are not reliably serialized for this module instance. #}
         {% module
           "rad-contact-offices"
-          path="../components/modules/OfficeCard",
-          useHubDB=true,
-          groupOfficeCards=office_card_rows
+          path="../components/modules/OfficeCard"
+          useHubDB=true
         %}
       {% endif %}
     </div>
