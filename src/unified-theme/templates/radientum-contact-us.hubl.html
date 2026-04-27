@@ -167,11 +167,15 @@
   {% set invoicing_row = none %}
   {% set all_contact_rows = hubdb_table_rows("contact_cards") %}
   {% for row in all_contact_rows %}
-    {% if not row.invoicing_and_purchasing %}
+    {% set inv = row.invoicing_and_purchasing %}
+    {% if inv is none and row.values %}
+      {% set inv = row.values.invoicing_and_purchasing %}
+    {% endif %}
+    {% if not inv %}
       {% do sales_rows.append(row) %}
     {% endif %}
     {% if invoicing_row is none %}
-      {% if row.invoicing_and_purchasing %}
+      {% if inv %}
         {% set invoicing_row = row %}
       {% endif %}
     {% endif %}
@@ -192,11 +196,20 @@
 
   {% set sales_card_rows = [] %}
   {% for sales_row in sales_rows %}
-    {% do sales_card_rows.append({
-      "groupHubdbRow": {
-        "id": sales_row.hs_id
-      }
-    }) %}
+    {% set sid = sales_row.hs_id %}
+    {% if sid is none %}
+      {% set sid = sales_row.id %}
+    {% endif %}
+    {% if sid is none and sales_row.values %}
+      {% set sid = sales_row.values.hs_id %}
+    {% endif %}
+    {% if sid %}
+      {% do sales_card_rows.append({
+        "groupHubdbRow": {
+          "id": sid
+        }
+      }) %}
+    {% endif %}
   {% endfor %}
 
   {% set office_card_rows = [] %}
@@ -334,11 +347,31 @@
         {% endfor %}
       </div>
       {% if active_tab == "sales" %}
+        {# Sales team: default (non-book-demo) layout: featured rep, meeting iframe, regional rep grid. #}
         {% module
           "rad-contact-sales-team"
           path="../components/modules/SalesTeam"
           bookDemo=false
           groupRegionalCards=sales_card_rows
+          groupStyle={
+            "groupCard" : {
+              "cardStyleVariant" : "card_variant_3",
+              "showCardShadow" : true,
+              "showCardBorder" : true
+            },
+            "groupLayout" : {
+              "cardsAlignment" : {
+                "horizontal_align" : "CENTER"
+              },
+              "contentAlignment" : {
+                "horizontal_align" : "CENTER"
+              }
+            },
+            "groupButton" : {
+              "buttonStyleVariant" : "primary",
+              "buttonStyleSize" : "small"
+            }
+          }
         %}
       {% elif active_tab == "invoicing" %}
         {% module

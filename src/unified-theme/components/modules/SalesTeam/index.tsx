@@ -35,17 +35,52 @@ export const hublDataTemplate = `
     {% endif %}
   {% endfor %}
 
+  {# When template/module instance passes no usable HubDB row picks (common with {% module %} + dynamic repeater),
+     build the regional list from published contact_cards rows so the grid can render. #}
+  {% set resolvedMarkers = [] %}
+  {% for _rr in manualHubDbRowsRegional %}
+    {% if _rr %}
+      {% do resolvedMarkers.append(1) %}
+    {% endif %}
+  {% endfor %}
+  {% if resolvedMarkers|length == 0 %}
+    {% set manualHubDbRowsRegional = [] %}
+    {% set allContactRows = hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
+    {% for row in allContactRows %}
+      {% set inv = row.invoicing_and_purchasing %}
+      {% if inv is none and row.values %}
+        {% set inv = row.values.invoicing_and_purchasing %}
+      {% endif %}
+      {% if not inv %}
+        {% do manualHubDbRowsRegional.append(row) %}
+      {% endif %}
+    {% endfor %}
+    {% if manualHubDbRowsRegional|length == 0 %}
+      {% for row in allContactRows %}
+        {% do manualHubDbRowsRegional.append(row) %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+
   {% set featuredHubDbRow = none %}
   {% set featuredRowId = none %}
   {% if not module.bookDemo %}
     {% set featuredCandidates = [] %}
     {% for row in hubdb_table_rows("${HUBDB_TABLE_NAMES.contactCard}") %}
-      {% if row.default_sales_rep %}
+      {% set isDefaultRep = row.default_sales_rep or (row.values.default_sales_rep if row.values else false) %}
+      {% if isDefaultRep %}
         {% do featuredCandidates.append(row) %}
       {% endif %}
     {% endfor %}
     {% set featuredHubDbRow = featuredCandidates[0] if featuredCandidates|length > 0 else none %}
-    {% set featuredRowId = featuredHubDbRow.hs_id if featuredHubDbRow else none %}
+    {% set featuredRowId = none %}
+    {% if featuredHubDbRow %}
+      {% if featuredHubDbRow.hs_id is not none %}
+        {% set featuredRowId = featuredHubDbRow.hs_id %}
+      {% elif featuredHubDbRow.values and featuredHubDbRow.values.hs_id is not none %}
+        {% set featuredRowId = featuredHubDbRow.values.hs_id %}
+      {% endif %}
+    {% endif %}
   {% endif %}
 
   {% set hublData = {
