@@ -36,7 +36,7 @@
               "fallback": "sans-serif",
               "font": "Inter",
               "font_set": "GOOGLE",
-              "google_font_variants": ["400", "400i", "600", "600i"]
+              "google_font_variants": ["300", "300i", "400", "400i"]
             }
           },
           {
@@ -358,7 +358,7 @@
                           }
                         },
                         "default": {
-                          "size": 18
+                          "size": 16
                         }
                       }
                     ]
