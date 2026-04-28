@@ -26,7 +26,7 @@
   border-radius: var(--hsElevate--socialShareIcon__shape);
   align-items: center;
   justify-content: center;
-  background-color: var(--hsElevate--socialShareIcon__backgroundColor);
+  background-color: var(--hsElevate--socialShareIcon__backgroundColor, transparent);
 
   svg {
     fill: var(--hsElevate--socialShareIcon__color);
@@ -35,7 +35,7 @@
   &:hover {
     border-color: var(--hsElevate--socialShareIcon__hover--borderColor);
     border-width: var(--hsElevate--socialShareIcon__hover--borderWidth);
-    background-color: var(--hsElevate--socialShareIcon__hover--backgroundColor);
+    background-color: var(--hsElevate--socialShareIcon__hover--backgroundColor, transparent);
 
     svg {
       fill: var(--hsElevate--socialShareIcon__hover--color);
@@ -45,7 +45,7 @@
   &:active {
     border-color: var(--hsElevate--socialShareIcon__active--borderColor);
     border-width: var(--hsElevate--socialShareIcon__active--borderWidth);
-    background-color: var(--hsElevate--socialShareIcon__active--backgroundColor);
+    background-color: var(--hsElevate--socialShareIcon__active--backgroundColor, transparent);
 
     svg {
       fill: var(--hsElevate--socialShareIcon__active--color);
