@@ -196,6 +196,11 @@
   padding-block: var(--hsElevate--spacing--48, 48px);
 }
 
+/* Remove descendant bottom spacing while preserving slide container spacing */
+.hs-elevate-testimonial-slider :where(*):not(.hs-elevate-testimonial-slider__slide) {
+  margin-block-end: 0 !important;
+}
+
 .hs-elevate-testimonial-slider--drop-shadow {
   box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.15);
 }
