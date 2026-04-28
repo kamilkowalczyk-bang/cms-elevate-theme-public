@@ -394,7 +394,7 @@
           }
         %}
       {% elif active_tab == "invoicing" %}
-        {# ContactCard in HubDB mode with one module instance; groupContactCards is built from contact_cards rows where invoicing_and_purchasing is checked (same shape as "Choose from HubDB" per repeater slot). #}
+        {# Invoicing and purchasing tab uses ContactCard in HubDB mode; groupContactCards is built from contact_cards rows where invoicing_and_purchasing is checked (same shape as "Choose from HubDB" per repeater slot). #}
         {% if invoicing_card_rows|length > 0 %}
           {# One ContactCard module (static instance id). #}
           <div class="hs-elevate-contact-tabs__invoicing-cards">
@@ -437,7 +437,7 @@
             {#
               Comma after each `{% module %}` parameter so keys are not merged. Pass `groupOfficeCards` for stable row
               resolution; if the repeater still does not receive HubDB id picks, `hubdbFallbackOfficesWhenEmpty` in
-              OfficeCard loads all `offices` rows server-side (same idea as ContactCard invoicing + Sales team).
+              OfficeCard loads all `offices` rows server-side.
             #}
             {% module
               "rad-contact-offices-hubdb"

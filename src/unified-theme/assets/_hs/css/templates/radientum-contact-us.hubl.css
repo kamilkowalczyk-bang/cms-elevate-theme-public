@@ -126,10 +126,24 @@
 }
 
 .hs-elevate-contact-tabs__invoicing-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--hsElevate--spacing--24, 24px);
+  width: 100%;
+}
+
+.hs-elevate-contact-tabs__invoicing-cards > .hs_cos_wrapper {
+  display: block;
+  width: 100%;
+}
+
+.hs-elevate-contact-tabs__invoicing-cards .hs-elevate-contact-card-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   justify-content: center;
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-contact-tabs__invoicing-cards .hs-elevate-contact-card-container > article {
+  width: 330px;
 }
 
 @media (max-width: 879px) {

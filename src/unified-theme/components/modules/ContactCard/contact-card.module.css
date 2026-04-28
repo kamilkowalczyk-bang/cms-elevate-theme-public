@@ -145,6 +145,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  margin-block: var(--hsElevate--text--small__margin, 0 20px);
 }
 
 .hs-elevate-contact-card-container__copy-email-button {
