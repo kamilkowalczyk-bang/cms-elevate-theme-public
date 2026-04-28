@@ -68,6 +68,10 @@
   text-transform: uppercase;
 }
 
+.hs-rad-footer .hs-rad-footer-top__col .hs-elevate-button.hs-elevate-button--primary:hover {
+  background-color: var(--hsElevate--footerTopCol__primaryButtonHoverBackgroundColor, #19383F);
+}
+
 .hs-rad-footer-top__col--logos {
   gap: 24px;
 }
