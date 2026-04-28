@@ -6,71 +6,233 @@
       {
         "name": "background_image",
         "type": "image",
-        "description": "Hero background image for the top section of the Industry template.",
+        "description": "Hero background image for the Industrial IoT page.",
         "width": "1750",
         "height": "1000"
       },
       {
         "name": "eyebrow",
         "type": "text",
-        "description": "Short eyebrow line above the hero heading describing the focus area."
+        "description": "Short eyebrow text above the hero heading."
       },
       {
         "name": "heading",
         "type": "text",
-        "description": "Main hero heading that states the value proposition for this industry page."
+        "description": "Main hero heading describing the value proposition."
       },
       {
         "name": "cta_text",
         "type": "text",
-        "description": "Primary hero call-to-action button label."
+        "description": "Primary hero button label."
       },
       {
         "name": "cta_link",
         "type": "link",
-        "description": "Primary hero call-to-action destination URL."
+        "description": "Primary hero button destination URL."
       }
     ]
   },
   {
-    "name": "group_content",
-    "type": "group",
-    "children": [
-      {
-        "name": "what_you_get_heading",
-        "type": "text",
-        "description": "Heading for the key benefits section."
-      },
-      {
-        "name": "what_you_get_description",
-        "type": "text",
-        "description": "Supporting description text for the key benefits section."
-      }
-    ]
-  },
-  {
-    "name": "group_cta",
+    "name": "group_overview",
     "type": "group",
     "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Heading text for the dark call-to-action section."
+        "description": "Heading for the elevated overview section below the hero."
       },
       {
         "name": "description",
         "type": "text",
-        "description": "Supporting paragraph text for the call-to-action section."
+        "description": "Supporting overview paragraph below the section heading."
+      }
+    ]
+  },
+  {
+    "name": "group_benefit_cards",
+    "type": "group",
+    "children": [
+      {
+        "name": "card_one_heading",
+        "type": "text",
+        "description": "Heading for the first benefit card."
+      },
+      {
+        "name": "card_one_description",
+        "type": "text",
+        "description": "Description for the first benefit card."
+      },
+      {
+        "name": "card_two_heading",
+        "type": "text",
+        "description": "Heading for the second benefit card."
+      },
+      {
+        "name": "card_two_description",
+        "type": "text",
+        "description": "Description for the second benefit card."
+      },
+      {
+        "name": "card_three_heading",
+        "type": "text",
+        "description": "Heading for the third benefit card."
+      },
+      {
+        "name": "card_three_description",
+        "type": "text",
+        "description": "Description for the third benefit card."
+      }
+    ]
+  },
+  {
+    "name": "group_reference_project",
+    "type": "group",
+    "children": [
+      {
+        "name": "caption",
+        "type": "text",
+        "description": "Caption above the reference project heading."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the reference project feature block."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Short reference project summary text."
       },
       {
         "name": "button_text",
         "type": "text",
-        "description": "Button label shown in the call-to-action section."
+        "description": "Button label for the reference project block."
       },
       {
         "name": "button_link",
         "type": "link",
-        "description": "Destination URL for the call-to-action section button."
+        "description": "Button destination URL for the reference project block."
+      },
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image used in the reference project block.",
+        "width": "600",
+        "height": "600"
+      }
+    ]
+  },
+  {
+    "name": "group_mid_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image for the dark midpoint call-to-action section.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the midpoint call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph text for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL for the midpoint call-to-action section."
+      }
+    ]
+  },
+  {
+    "name": "group_services_one",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the first service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the first service cards grid."
+      }
+    ]
+  },
+  {
+    "name": "group_services_two",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the second service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the second service cards grid."
+      }
+    ]
+  },
+  {
+    "name": "group_blog",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the recent blog posts slider."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the recent blog posts slider."
+      }
+    ]
+  },
+  {
+    "name": "group_final_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image for the final global call-to-action section.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Final section heading near the bottom of the page."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Final section supporting paragraph text."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Final section button label."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Final section button destination URL."
       }
     ]
   }
