@@ -111,7 +111,8 @@
 {% dnd_section
   padding={
     "default" : {
-      "top" : "0px"
+      "top" : "0px",
+      "bottom" : "0px"
     }
   }
 %}
@@ -253,7 +254,102 @@
 
 {% include_dnd_partial path="../sections/radientum-testimonial-slider.hubl.html" %}
 
-{% dnd_section %}
+{# Full-width intro, then a two-column row: mixing width=12 with width=6+6 in one section breaks the DND grid. #}
+{% dnd_section
+  background_image={
+    "background_position" : "MIDDLE_CENTER",
+    "background_size" : "fill",
+    "image_url" : "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_dot_graph_white.svg"
+  },
+  padding={
+    "default" : {
+      "top" : "56px",
+      "bottom" : "0px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
+        },
+        headingAndTextHeading="Heading",
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
+        {% end_module_attribute %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+{% dnd_section
+  background_image={
+    "background_position" : "BOTTOM_RIGHT",
+    "background_size" : "cover",
+    "image_url" : "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_dot_graph_white.svg"
+  },
+  padding={
+    "default" : {
+      "top" : "32px",
+      "bottom" : "0px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=6
@@ -384,6 +480,7 @@
 {% dnd_section
   padding={
     "default" : {
+      "top" : "0px",
       "bottom" : "0px"
     }
   }
@@ -439,7 +536,7 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading="Headline for Who we serve",
+        headingAndTextHeading="Heading",
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}
@@ -451,14 +548,21 @@
         width=12
       %}
         {% module_attribute "richTextContentHTML" %}
-          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.&nbsp;</p>
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
         {% end_module_attribute %}
       {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section %}
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "56px",
+      "bottom" : "56px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=12
@@ -716,7 +820,7 @@
         }
       %}
         {% module_attribute "richTextContentHTML" %}
-          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
         {% end_module_attribute %}
       {% end_dnd_module %}
     {% end_dnd_row %}
@@ -741,7 +845,7 @@
   padding={
     "default" : {
       "bottom" : "0px",
-      "top" : "100px"
+      "top" : "96px"
     }
   }
 %}
@@ -796,7 +900,7 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading="LAtest activities",
+        headingAndTextHeading="Heading",
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}
@@ -804,14 +908,20 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section %}
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "56px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=12
   %}
     {% dnd_row %}
       {% dnd_module
-        path="@projects/ElevateRadientumTheme/unified-theme/components/modules/RecentBlogPostsSlider",
+        path="../components/modules/RecentBlogPostsSlider",
         offset=0,
         width=12,
         blog="default",
