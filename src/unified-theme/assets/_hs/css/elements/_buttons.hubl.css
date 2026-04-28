@@ -1,3 +1,8 @@
+{% set primary_button = theme.group_elements.group_button_types.group_primary_button %}
+{% set secondary_button = theme.group_elements.group_button_types.group_secondary_button %}
+{% set tertiary_button = theme.group_elements.group_button_types.group_tertiary_button %}
+{% set accent_button = theme.group_elements.group_button_types.group_accent_button %}
+
 .hs-elevate-button:focus {
   outline: 2px solid #53ACFF;
   outline-offset: 2px;
@@ -10,7 +15,7 @@
   font-style: var(--hsElevate--button--primary__fontStyle);
   color: var(--hsElevate--button--primary__textColor);
   border-width: var(--hsElevate--button--primary__borderThickness);
-  background-color: var(--hsElevate--button--primary__backgroundColor);
+  background-color: {% if primary_button.button_fill == "filled" %}rgba({{ primary_button.group_default_state.fill_color.color|convert_rgb }}, {{ primary_button.group_default_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-style: solid;
   border-color: var(--hsElevate--button--primary__borderColor);
   border-radius: var(--hsElevate--button--primary__borderRadius);
@@ -19,7 +24,7 @@
 
 .hs-elevate-button--primary:hover {
   color: var(--hsElevate--button--primary__hover--textColor);
-  background-color: var(--hsElevate--button--primary__hover--backgroundColor);
+  background-color: {% if primary_button.button_fill == "filled" %}rgba({{ primary_button.group_hover_state.fill_color.color|convert_rgb }}, {{ primary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: var(--hsElevate--button--primary__hover--borderColor);
   border-width: var(--hsElevate--button--primary__hover--borderThickness);
   text-decoration: none;
@@ -27,7 +32,7 @@
 
 .hs-elevate-button--primary:active {
   color: var(--hsElevate--button--primary__hover--textColor);
-  background-color: {{ primary_button_active_background_color }};
+  background-color: {% if primary_button.button_fill == "filled" %}rgba({{ color_variant(primary_button.group_hover_state.fill_color.color, -30)|convert_rgb }}, {{ primary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: {{ primary_button_active_border_color }};
   border-width: var(--hsElevate--button--primary__hover--borderThickness);
   text-decoration: none;
@@ -40,7 +45,7 @@
   font-style: var(--hsElevate--button--secondary__fontStyle);
   color: var(--hsElevate--button--secondary__textColor);
   border-width: var(--hsElevate--button--secondary__borderThickness);
-  background-color: var(--hsElevate--button--secondary__backgroundColor);
+  background-color: {% if secondary_button.button_fill == "filled" %}rgba({{ secondary_button.group_default_state.fill_color.color|convert_rgb }}, {{ secondary_button.group_default_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-style: solid;
   border-color: var(--hsElevate--button--secondary__borderColor);
   border-radius: var(--hsElevate--button--secondary__borderRadius);
@@ -49,7 +54,7 @@
 
 .hs-elevate-button--secondary:hover {
   color: var(--hsElevate--button--secondary__hover--textColor);
-  background-color: var(--hsElevate--button--secondary__hover--backgroundColor);
+  background-color: {% if secondary_button.button_fill == "filled" %}rgba({{ secondary_button.group_hover_state.fill_color.color|convert_rgb }}, {{ secondary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: var(--hsElevate--button--secondary__hover--borderColor);
   border-width: var(--hsElevate--button--secondary__hover--borderThickness);
   text-decoration: none;
@@ -57,7 +62,7 @@
 
 .hs-elevate-button--secondary:active {
   color: var(--hsElevate--button--secondary__hover--textColor);
-  background-color: {{ secondary_button_active_background_color }};
+  background-color: {% if secondary_button.button_fill == "filled" %}rgba({{ color_variant(secondary_button.group_hover_state.fill_color.color, -30)|convert_rgb }}, {{ secondary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: {{ secondary_button_active_border_color }};
   border-width: var(--hsElevate--button--secondary__hover--borderThickness);
   text-decoration: none;
@@ -70,7 +75,7 @@
   font-style: var(--hsElevate--button--tertiary__fontStyle);
   color: var(--hsElevate--button--tertiary__textColor);
   border-width: var(--hsElevate--button--tertiary__borderThickness);
-  background-color: var(--hsElevate--button--tertiary__backgroundColor);
+  background-color: {% if tertiary_button.button_fill == "filled" %}rgba({{ tertiary_button.group_default_state.fill_color.color|convert_rgb }}, {{ tertiary_button.group_default_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-style: solid;
   border-color: var(--hsElevate--button--tertiary__borderColor);
   border-radius: var(--hsElevate--button--tertiary__borderRadius);
@@ -79,7 +84,7 @@
 
 .hs-elevate-button--tertiary:hover {
   color: var(--hsElevate--button--tertiary__hover--textColor);
-  background-color: var(--hsElevate--button--tertiary__hover--backgroundColor);
+  background-color: {% if tertiary_button.button_fill == "filled" %}rgba({{ tertiary_button.group_hover_state.fill_color.color|convert_rgb }}, {{ tertiary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: var(--hsElevate--button--tertiary__hover--borderColor);
   border-width: var(--hsElevate--button--tertiary__hover--borderThickness);
   text-decoration: none;
@@ -87,7 +92,7 @@
 
 .hs-elevate-button--tertiary:active {
   color: var(--hsElevate--button--tertiary__hover--textColor);
-  background-color: {{ tertiary_button_active_background_color }};
+  background-color: {% if tertiary_button.button_fill == "filled" %}rgba({{ color_variant(tertiary_button.group_hover_state.fill_color.color, -30)|convert_rgb }}, {{ tertiary_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: {{ tertiary_button_active_border_color }};
   border-width: var(--hsElevate--button--tertiary__hover--borderThickness);
   text-decoration: none;
@@ -100,7 +105,7 @@
   font-style: var(--hsElevate--button--accent__fontStyle);
   color: var(--hsElevate--button--accent__textColor);
   border-width: var(--hsElevate--button--accent__borderThickness);
-  background-color: var(--hsElevate--button--accent__backgroundColor);
+  background-color: {% if accent_button.button_fill == "filled" %}rgba({{ accent_button.group_default_state.fill_color.color|convert_rgb }}, {{ accent_button.group_default_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-style: solid;
   border-color: var(--hsElevate--button--accent__borderColor);
   border-radius: var(--hsElevate--button--accent__borderRadius);
@@ -109,7 +114,7 @@
 
 .hs-elevate-button--accent:hover {
   color: var(--hsElevate--button--accent__hover--textColor);
-  background-color: var(--hsElevate--button--accent__hover--backgroundColor);
+  background-color: {% if accent_button.button_fill == "filled" %}rgba({{ accent_button.group_hover_state.fill_color.color|convert_rgb }}, {{ accent_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: var(--hsElevate--button--accent__hover--borderColor);
   border-width: var(--hsElevate--button--accent__hover--borderThickness);
   text-decoration: none;
@@ -117,7 +122,7 @@
 
 .hs-elevate-button--accent:active {
   color: var(--hsElevate--button--accent__hover--textColor);
-  background-color: {{ accent_button_active_background_color }};
+  background-color: {% if accent_button.button_fill == "filled" %}rgba({{ color_variant(accent_button.group_hover_state.fill_color.color, -30)|convert_rgb }}, {{ accent_button.group_hover_state.fill_color.opacity / 100 }}){% else %}transparent{% endif %};
   border-color: {{ accent_button_active_border_color }};
   border-width: var(--hsElevate--button--accent__hover--borderThickness);
   text-decoration: none;
