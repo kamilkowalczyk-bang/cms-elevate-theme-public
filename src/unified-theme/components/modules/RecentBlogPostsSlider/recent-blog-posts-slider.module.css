@@ -138,7 +138,7 @@
 
 /* Slider chrome: padding + dot nav (TestimonialSlider-style, scoped to this Splide root only) */
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
-  padding-block-end: var(--hsElevate--spacing--24, 24px);
+  padding-block-end: var(--hsElevate--spacing--56, 56px);
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows),
