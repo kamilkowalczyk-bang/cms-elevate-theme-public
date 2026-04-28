@@ -197,7 +197,8 @@
 }
 
 /* Remove descendant bottom spacing while preserving slide container spacing */
-.hs-elevate-testimonial-slider :where(*):not(.hs-elevate-testimonial-slider__slide) {
+.hs-elevate-testimonial-slider
+  :where(*):not(.hs-elevate-testimonial-slider__slide):not(.hs-elevate-testimonial-slider__info-button-container) {
   margin-block-end: 0 !important;
 }
 
@@ -275,7 +276,7 @@
 .hs-elevate-testimonial-slider__info-button-container {
   display: flex;
   justify-content: center;
-  margin-block: var(--hsElevate--spacing--24, 24px);
+  margin-block: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--56, 56px);
 }
 
 /* Splide track/list/slide — mirrors @splidejs/react-splide/dist/css/splide.min.css (core + list rules).
@@ -440,5 +441,5 @@
 
 /* Info layout-specific pagination offset */
 .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
-  bottom: 5em !important;
+  bottom: 8em !important;
 }
