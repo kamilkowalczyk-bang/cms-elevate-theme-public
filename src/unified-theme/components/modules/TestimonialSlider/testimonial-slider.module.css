@@ -23,7 +23,7 @@
 }
 
 .hs-elevate-testimonial-slider__footer {
-  margin-block: var(--hsElevate--text--large__margin, 0 32px);
+  margin-block: var(--hsElevate--spacing--24, 24px 0);
 }
 
 .hs-elevate-testimonial-slider__author-container {
@@ -211,6 +211,8 @@
   font-style: normal;
   font-weight: 900;
   text-transform: uppercase;
+  line-height: 1;
+  font-size: var(--hsElevate--h2__fontSize);
 }
 
 .hs-elevate-testimonial-slider--info {
@@ -276,7 +278,7 @@
 .hs-elevate-testimonial-slider__info-button-container {
   display: flex;
   justify-content: center;
-  margin-block: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--56, 56px);
+  margin-block: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--96, 96px);
 }
 
 /* Splide track/list/slide — mirrors @splidejs/react-splide/dist/css/splide.min.css (core + list rules).
@@ -441,5 +443,5 @@
 
 /* Info layout-specific pagination offset */
 .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
-  bottom: 8em !important;
+  bottom: 9em !important;
 }

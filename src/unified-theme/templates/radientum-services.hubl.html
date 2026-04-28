@@ -615,7 +615,13 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section %}
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "0px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=12
