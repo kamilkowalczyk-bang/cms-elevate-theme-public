@@ -9,6 +9,8 @@
 
 {% set template_translations = load_translations('../_locales', html_lang, 'en') %}
 {% import "../../helpers/variables.hubl.html" %}
+{% set footer_rad_background_color = footer_rad_background_color|default("#19383F") %}
+{% set footer_rad_background_color_opacity = footer_rad_background_color_opacity|default(100) %}
 {% set footer_rad_background_position = footer_rad_background_image_position|default("MIDDLE_CENTER")|lower|replace("middle", "center")|replace("_", " ") %}
 {% set footer_rad_background_size = footer_rad_background_image_size|default("cover")|lower %}
 
@@ -158,7 +160,7 @@
         </div>
 
         {% module "rad_footer_social"
-          path="../../components/modules/SocialFollow",
+          path="@projects/ElevateRadientumTheme/unified-theme/components/modules/SocialFollow",
           groupSocialLinks=[
             {
               "groupLink": {
@@ -204,7 +206,7 @@
             "buttonStyleVariant": "secondary",
             "iconBorder" : "none",
             "shape" : "rounded",
-            "buttonStyleSize": "small",
+            "buttonStyleSize": "medium",
             "spaceBetweenIcons": "small",
             "alignment": {
               "horizontal_align": "CENTER"

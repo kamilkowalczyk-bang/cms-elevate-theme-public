@@ -452,7 +452,7 @@
                     ]
                   },
                   {
-                    "label": "Caption",
+                    "label": "Intro label / Caption",
                     "name": "group_caption",
                     "type": "group",
                     "display": "inline",
