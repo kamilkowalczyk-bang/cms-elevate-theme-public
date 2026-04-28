@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   min-height: 46px;
-  padding: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--24, 24px);
+  padding: var(--hsElevate--spacing--20, 20px) var(--hsElevate--spacing--32, 32px);
   border-radius: 6px 6px 0 0;
   text-align: center;
   font-family: var(--hsElevate--body__font);
