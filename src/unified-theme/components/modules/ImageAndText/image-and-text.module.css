@@ -167,10 +167,10 @@
 
 .hs-elevate-image-and-text__list-item {
   display: flex;
-  margin-bottom: var(--hsElevate--spacing--16, 16px);
+  margin-bottom: var(--hsElevate--spacing--4, 4px);
   align-items: flex-start;
   color: var(--hsElevate--imageAndText__textColor);
-  gap: var(--hsElevate--spacing--8, 8px);
+  gap: var(--hsElevate--spacing--4, 4px);
 }
 
 .hs-elevate-image-and-text__list-item:last-child {
