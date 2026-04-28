@@ -15,7 +15,7 @@ export default function StyleFields() {
           label='Show card border'
           name='showCardBorder'
           display='toggle'
-          default={true}
+          default={false}
         />
         <CardStyle cardStyleDefault='card_variant_3' />
       </FieldGroup>

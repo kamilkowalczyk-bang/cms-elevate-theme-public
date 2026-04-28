@@ -361,7 +361,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     } = {},
     hublData: { manualHubDbRowsRegional = [], featuredHubDbRow = null, featuredRowId = null } = {},
     groupStyle: {
-      groupCard: { cardStyleVariant, showCardShadow = true, showCardBorder = true },
+      groupCard: { cardStyleVariant, showCardShadow = true, showCardBorder = false },
       groupLayout: { cardsAlignment, contentAlignment },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },

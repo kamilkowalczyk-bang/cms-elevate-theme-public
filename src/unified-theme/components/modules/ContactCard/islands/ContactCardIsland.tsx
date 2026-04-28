@@ -272,7 +272,7 @@ export default function ContactCardIsland(props: ContactCardProps) {
 
   const cardStyleVariant = groupStyle?.groupCard?.cardStyleVariant ?? 'card_variant_3';
   const showCardShadow = groupStyle?.groupCard?.showCardShadow ?? true;
-  const showCardBorder = groupStyle?.groupCard?.showCardBorder ?? true;
+  const showCardBorder = groupStyle?.groupCard?.showCardBorder ?? false;
   const cardsAlignment = groupStyle?.groupLayout?.cardsAlignment ?? DEFAULT_CARDS_ALIGNMENT;
   const contentAlignment = groupStyle?.groupLayout?.contentAlignment ?? DEFAULT_CONTENT_ALIGNMENT;
   const buttonStyleVariant = groupStyle?.groupButton?.buttonStyleVariant ?? 'primary';
