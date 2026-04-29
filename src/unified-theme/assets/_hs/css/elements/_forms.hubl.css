@@ -227,7 +227,7 @@
 :is(.hs-form, .hs-elevate-system-form) .hs-button,
 :is(.hs-form, .hs-elevate-system-form) input[type='submit'] {
   display: inline-block;
-  width: 100%;
+  width: auto;
   border-color: var(--hsElevate--button--primary__borderColor);
   border-radius: var(--hsElevate--button--primary__borderRadius);
   border-style: solid;
@@ -240,7 +240,7 @@
   font-style: var(--hsElevate--button--primary__fontStyle);
   font-weight: var(--hsElevate--button--primary__fontWeight);
   padding-block: var(--hsElevate--spacing--20);
-  padding-inline: var(--hsElevate--spacing--24);
+  padding-inline: var(--hsElevate--spacing--32);
   text-align: center;
   text-decoration: none;
   transition: all 0.15s linear;

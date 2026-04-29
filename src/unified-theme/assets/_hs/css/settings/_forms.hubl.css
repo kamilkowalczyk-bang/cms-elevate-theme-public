@@ -236,7 +236,8 @@
   */
 
   /* Button */
-  --hsf-button__width: 100%;
+  /* Let the HubSpot v2 button size to its content width */
+  --hsf-button__width: auto;
   --hsf-button__font-family: var(--hsElevate--button--primary__font);
   --hsf-button__font-size: var(--hsElevate--button--primary__fontSize);
   --hsf-button__font-weight: var(--hsElevate--button--primary__fontWeight);
