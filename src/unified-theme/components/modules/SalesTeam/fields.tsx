@@ -17,6 +17,12 @@ const bookDemoFieldVisibility = {
   operator: 'EQUAL',
 } as const satisfies Visibility;
 
+const geoAutoSelectFieldVisibility = {
+  controlling_field_path: 'bookDemo',
+  controlling_value_regex: 'false',
+  operator: 'EQUAL',
+} as const satisfies Visibility;
+
 export const fields = (
   <ModuleFields>
     <BooleanField
@@ -25,6 +31,14 @@ export const fields = (
       display="toggle"
       default={false}
       helpText="When enabled, the featured rep and meeting are taken from the ordered regional cards list and the second row is hidden."
+    />
+    <BooleanField
+      label="Auto-select featured rep by visitor region"
+      name="enableGeoAutoSelect"
+      display="toggle"
+      default={false}
+      visibility={geoAutoSelectFieldVisibility}
+      helpText="Uses visitor IP country (client-side) to match a contact_cards row by Sales region; falls back to the Default sales rep when unknown. Ignored when Book demo is on."
     />
     <FieldGroup
       label="Book demo CTA"

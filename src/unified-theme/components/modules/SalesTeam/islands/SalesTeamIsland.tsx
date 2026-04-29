@@ -12,6 +12,13 @@ import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
 import { SalesTeamProps } from '../types.js';
+import {
+  countryToRegion,
+  GEO_IPAPI_URL,
+  getRegionFromUrl,
+  readCachedRegion,
+  writeCachedRegion,
+} from '../geo.js';
 import styles from '../sales-team.module.css';
 
 const swm = staticWithModule(styles);
@@ -354,6 +361,7 @@ function prefersReducedMotion(): boolean {
 export default function SalesTeamIsland(props: SalesTeamProps) {
   const {
     bookDemo = false,
+    enableGeoAutoSelect = false,
     groupBookDemoCta: {
       prefaceText: bookDemoCtaPrefaceText = 'Not your region?',
       linkText: bookDemoCtaLinkText = 'Contact our sales team',
@@ -403,6 +411,53 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
   const featuredCardColRef = useRef<HTMLDivElement | null>(null);
   const [meetingFramePx, setMeetingFramePx] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!enableGeoAutoSelect || bookDemo) return;
+    if (!manualHubDbRowsRegional?.length) return;
+
+    const applyRegion = (region: string | null) => {
+      if (!region) return;
+      const match = manualHubDbRowsRegional.find((r) => r && getSalesRegionOptionName(r) === region);
+      const id = match ? getRowId(match) : null;
+      if (id != null) setActiveRowId(id);
+    };
+
+    const fromQuery = getRegionFromUrl();
+    if (fromQuery) {
+      writeCachedRegion(fromQuery);
+      applyRegion(fromQuery);
+      return;
+    }
+
+    const cached = readCachedRegion();
+    if (cached !== undefined) {
+      applyRegion(cached);
+      return;
+    }
+
+    let cancelled = false;
+    fetch(GEO_IPAPI_URL, { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : Promise.resolve(null)))
+      .then((data: unknown) => {
+        if (cancelled) return;
+        if (data === null) return;
+        const code =
+          data && typeof data === 'object' && data !== null && 'country_code' in data
+            ? (data as { country_code?: string }).country_code
+            : undefined;
+        const region = countryToRegion(code);
+        writeCachedRegion(region);
+        applyRegion(region);
+      })
+      .catch(() => {
+        /* keep default rep; do not cache failures so refresh can retry */
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [enableGeoAutoSelect, bookDemo, manualHubDbRowsRegional]);
 
   useEffect(() => {
     const el = featuredCardColRef.current;

@@ -30,6 +30,8 @@ export type SalesTeamStyles = {
 export type SalesTeamProps = {
   moduleName?: string;
   bookDemo: BooleanFieldType['default'];
+  /** When true, client-side geo resolves visitor country → HubDB sales_region for featured rep + meeting. */
+  enableGeoAutoSelect?: BooleanFieldType['default'];
   groupBookDemoCta?: {
     prefaceText: TextFieldType['default'];
     linkText: TextFieldType['default'];
