@@ -23,7 +23,7 @@
 }
 
 .hs-elevate-testimonial-slider__footer {
-  margin-block: var(--hsElevate--text--large__margin, 0 32px);
+  margin-block: var(--hsElevate--spacing--24, 24px 0);
 }
 
 .hs-elevate-testimonial-slider__author-container {
@@ -33,6 +33,19 @@
   justify-content: var(--hsElevate--testimonial__alignment);
   gap: var(--hsElevate--gap--large, 20px);
   margin-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+/* Testimonial layout only — Info slides never render __author-container; :global matches staticWithModule root */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__author-container {
+  gap: var(--hsElevate--gap--extraSmall, 8px);
+}
+
+@media (width < 500px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__author-container {
+    flex-direction: column;
+  }
 }
 
 .hs-elevate-testimonial-slider__author-image-container {
@@ -74,7 +87,7 @@
   display: flex;
   padding: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--12, 12px);
   border-left: 0;
-  margin: 0 0 var(--hsElevate--spacing--32, 32px);
+  margin: 0 0 var(--hsElevate--spacing--4, 4px);
   flex-direction: column;
   align-items: flex-start;
   gap: var(--hsElevate--text--large__margin, 0 40px);
@@ -82,7 +95,7 @@
 
   @media (width >= 1000px) {
     padding: var(--hsElevate--spacing--24, 24px);
-    margin: 0 var(--hsElevate--spacing--40, 40px) var(--hsElevate--spacing--32, 32px);
+    margin: 0 var(--hsElevate--spacing--40, 40px) var(--hsElevate--spacing--8, 8px);
     flex-direction: row;
     gap: var(--hsElevate--spacing--72, 72px);
   }
@@ -132,7 +145,39 @@
   justify-content: var(--hsElevate--testimonial__alignment);
   text-align: var(--hsElevate--testimonial__textAlign);
   padding-inline: var(--hsElevate--spacing--40, 40px);
-  margin: 0 var(--hsElevate--spacing--40, 40px) var(--hsElevate--spacing--32, 32px);
+  margin: 0 var(--hsElevate--spacing--40, 40px) var(--hsElevate--spacing--8, 8px);
+}
+
+/* Testimonial only, <1000px; :global root; --spacing--4 = smallest :root spacing */
+@media (width < 1000px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__content-container {
+    padding-inline: 0;
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__slider {
+    padding-inline: 0;
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__footer {
+    margin-block: var(--hsElevate--spacing--4, 4px);
+  }
+
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__image-container {
+    display: none;
+  }
+}
+
+/* Testimonial only, >=1000px: :global(ancestor) matches staticWithModule BEM on DOM; child selectors stay scoped */
+@media (width >= 1000px) {
+  :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+    .hs-elevate-testimonial-slider__content-container {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
 }
 
 .hs-elevate-testimonial-slider__quote-text {
@@ -151,6 +196,12 @@
   padding-block: var(--hsElevate--spacing--48, 48px);
 }
 
+/* Remove descendant bottom spacing while preserving slide container spacing */
+.hs-elevate-testimonial-slider
+  :where(*):not(.hs-elevate-testimonial-slider__slide):not(.hs-elevate-testimonial-slider__info-button-container) {
+  margin-block-end: 0 !important;
+}
+
 .hs-elevate-testimonial-slider--drop-shadow {
   box-shadow: 0 29px 48px -24px rgba(0, 0, 0, 0.15);
 }
@@ -160,6 +211,8 @@
   font-style: normal;
   font-weight: 900;
   text-transform: uppercase;
+  line-height: 1;
+  font-size: var(--hsElevate--h2__fontSize);
 }
 
 .hs-elevate-testimonial-slider--info {
@@ -225,7 +278,141 @@
 .hs-elevate-testimonial-slider__info-button-container {
   display: flex;
   justify-content: center;
-  margin-block: var(--hsElevate--spacing--24, 24px);
+  margin-block: var(--hsElevate--spacing--24, 24px) var(--hsElevate--spacing--96, 96px);
+}
+
+/* Splide track/list/slide — mirrors @splidejs/react-splide/dist/css/splide.min.css (core + list rules).
+   display:flex !important beats .splide.is-initialized:not(.is-active) .splide__list { display:block }.
+   Omit height:100% on .splide__list: with auto track height it can force a second layout pass at move end. */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__track) {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__list) {
+  backface-visibility: hidden;
+  display: flex !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__slide) {
+  position: relative;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  list-style-type: none !important;
+  margin: 0;
+  backface-visibility: hidden;
+}
+
+/* Splide theme chrome (arrows + dot row): normally from @splidejs/react-splide/css; duplicated here
+   so island-only pages still match Splide + RecentBlogPostsSlider behavior when that file is absent or late. */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) {
+  position: relative;
+}
+
+/* Splide default `.splide__sr` (live region); scoped + !important so CMS span resets cannot unhide it. */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__sr) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info)
+  .hs-elevate-testimonial-slider__slider:global(.splide.is-overflow) {
+  padding-block-end: var(--hsElevate--spacing--48, 48px);
+}
+
+/* Full-bleed overlay so arrow chrome never participates in normal flow (avoids end-of-move reflow nudging). */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrows) {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow:disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--prev) {
+  left: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--next) {
+  right: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide) :global(.splide__arrow--prev svg) {
+  transform: scaleX(-1);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--prev) {
+  left: auto;
+  right: 1em;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--prev svg) {
+  transform: scaleX(1);
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--next) {
+  left: 1em;
+  right: auto;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.splide--rtl) :global(.splide__arrow--next svg) {
+  transform: scaleX(-1);
+}
+
+/* Only when Splide marks overflow — do not override .splide:not(.is-overflow) .splide__pagination { display:none }
+   (high-specificity display:flex here was winning and could flash/fight at slide end). */
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.is-overflow) :global(.splide__pagination) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.5em;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1em;
+  list-style: none;
+  list-style-type: none !important;
+  gap: 0;
+  pointer-events: none;
+}
+
+.hs-elevate-testimonial-slider .hs-elevate-testimonial-slider__slider:global(.splide.is-overflow) :global(.splide__pagination li) {
+  margin: 0;
+  list-style: none;
+  list-style-type: none !important;
+  line-height: 1;
+  pointer-events: auto;
 }
 
 .hs-elevate-testimonial-slider__slider {
@@ -243,27 +430,11 @@
   border: none;
   border-radius: 20px;
   margin: 0 6px;
-  background: var(--hsElevate--cardIcon__fillColor, #000);
-  opacity: 0.3;
-}
-:global(.splide__pagination__page) {
-  /* stylelint-disable-line selector-pseudo-class-no-unknown */
-  height: 4px;
-  width: 48px;
-  border: none;
-  border-radius: 20px;
-  margin: 0 6px;
   background: var(--hsElevate--cardIcon__fillColor, #000) !important;
   opacity: 0.3;
 }
 
 .hs-elevate-testimonial-slider :global(.splide__pagination__page.is-active) {
-  /* stylelint-disable-line selector-pseudo-class-no-unknown */
-  background: var(--hsElevate--cardIcon__fillColor, #000);
-  opacity: 1;
-  transform: none;
-}
-:global(.splide__pagination__page.is-active) {
   /* stylelint-disable-line selector-pseudo-class-no-unknown */
   background: var(--hsElevate--cardIcon__fillColor, #000) !important;
   opacity: 1;
@@ -272,5 +443,5 @@
 
 /* Info layout-specific pagination offset */
 .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
-  bottom: 5em !important;
+  bottom: 9em !important;
 }

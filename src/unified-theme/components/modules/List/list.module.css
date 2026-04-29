@@ -8,10 +8,10 @@
 
 .hs-elevate-list-container__item {
   display: flex;
-  margin-bottom: var(--hsElevate--spacing--16, 16px);
+  margin-bottom: var(--hsElevate--spacing--4, 4px);
   align-items: flex-start;
   color: var(--hsElevate--list__textColor);
-  gap: var(--hsElevate--spacing--8, 8px);
+  gap: var(--hsElevate--spacing--4, 4px);
 }
 
 .hs-elevate-list-container--grids .hs-elevate-list-container__item:last-child {
@@ -31,4 +31,12 @@
   padding: var(--hsElevate--spacing--8, 8px);
   flex: 0 0 1.75rem;
   fill: var(--hsElevate--list__accentColor);
+}
+
+.hs-elevate-list-container__text {
+  color: inherit;
+
+  p {
+    margin-block: 0;
+  }
 }

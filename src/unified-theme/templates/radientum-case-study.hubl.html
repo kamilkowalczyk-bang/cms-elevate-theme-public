@@ -11,6 +11,23 @@
   {% dnd_area "dnd_area"
     label="Main section"
   %}
+  {% dnd_section
+  background_color="rgba(43, 45, 58, 1)"
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/horizontal_spacer",
+        offset=0,
+        width=12
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
 {% dnd_section
   padding={
     "default" : {

@@ -39,6 +39,8 @@ type AccordionProps = {
 
 function generateGapCssVars(gapField: Gap): CSSPropertiesMap {
   const gapMap = {
+    xxs: 'var(--hsElevate--spacing--4, 4px)',
+    xs: 'var(--hsElevate--spacing--8, 8px)',
     small: 'var(--hsElevate--spacing--16, 16px)',
     medium: 'var(--hsElevate--spacing--24, 24px)',
     large: 'var(--hsElevate--spacing--32, 32px)',

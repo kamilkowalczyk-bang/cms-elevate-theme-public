@@ -140,8 +140,46 @@
   }
 }
 
+/* Column + button: fill grid cell height and pin CTA to card bottom in repeater rows */
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button) .hs-elevate-card-container__content {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button) .hs-elevate-card-container__button-wrapper {
+  margin-top: auto;
+}
+
+/*
+ * Column + button: no icon/image above content — share extra vertical space so the block
+ * is not stuck under an empty top. Only the first caption or card title (HeadingComponent) gets auto margin.
+ */
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button):not(
+    :has(.hs-elevate-card-container__icon-wrapper)
+  ):not(:has(.hs-elevate-card-container__image-wrapper))
+  .hs-elevate-card-container__content
+  > :first-child:is(.hs-elevate-card-container__caption, .hs-elevate-card-container__title) {
+  margin-top: auto;
+}
+
+/*
+ * Column + button: media present but no caption — space between media and heading with flex + bottom CTA.
+ */
+.hs-elevate-card-container__card--column:not(.hs-elevate-card-container__card--no-button):is(
+    :has(.hs-elevate-card-container__icon-wrapper),
+    :has(.hs-elevate-card-container__image-wrapper)
+  ):not(:has(.hs-elevate-card-container__caption))
+  .hs-elevate-card-container__content
+  > .hs-elevate-card-container__title:first-child {
+  margin-top: auto;
+}
+
 .hs-elevate-card-container__body {
   text-align: var(--hsElevate--card__textAlignment);
+}
+
+.hs-elevate-card-container__body p:last-of-type {
+  margin-block: var(--hsElevate--text--small__margin, 0 20px);
 }
 
 .hs-elevate-card-container__card--no-button .hs-elevate-card-container__body *:last-child {

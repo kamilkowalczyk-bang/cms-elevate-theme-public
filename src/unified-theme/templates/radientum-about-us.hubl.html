@@ -74,6 +74,7 @@
 {% end_dnd_section %}
 
 {% dnd_section
+  max_width={{ context.max_width or section_width_medium }},
   padding={
     "default" : {
       "bottom" : "0px",
@@ -94,7 +95,9 @@
         width=12,
         groupCards=[ ],
         groupHeading={
-          "richTextContentHTML" : scaffold_content.group_story.company_overview or "<p>Radientum is the world's most wanted antenna design partner for products that require demanding and innovative antenna designs in automotive, wearable, IOT and other industries.<br><br>We help our customers to develop superior antenna solutions for their wireless products. With the expertise of design, simulation and testing from corporations such as Nokia, Microsoft, Intel, Blackberry &amp; Huawei , our engineers can develop antennas from the very first concept innovation through Over-The-Air verification to ready-made prototypes.</p>",
+          "heading" : "Heading",
+          "headingLevel" : "h2",
+          "richTextContentHTML" : scaffold_content.group_story.company_overview or "[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. Feugiat adipiscing nulla habitasse pharetra ac turpis felis lacus in. Magnis tempor nunc tempus tempus lacinia lacus ullamcorper dictum. Volutpat venenatis tristique mauris bibendum. Tortor sed aliquam tempor faucibus a. Aliquet diam aliquet metus viverra enim purus vitae sit venenatis. Tristique dignissim sit tellus enim duis id. [AI-SECTION-END]",
           "showHeadingRichText" : true
         },
         groupStyle={
@@ -111,7 +114,13 @@
 {% end_dnd_section %}
 
 {% dnd_section
-  background_color="rgba(240, 240, 243, 1)"
+  background_color="rgba(240, 240, 243, 1)",
+  padding={
+    "default" : {
+      "bottom" : "56px",
+      "top" : "56px"
+    }
+  }
 %}
   {% dnd_column
     offset=0,
@@ -162,7 +171,7 @@
           },
           "headingUppercase" : true
         },
-        headingAndTextHeading={{ scaffold_content.group_key_numbers.heading or "Key numbers" }},
+        headingAndTextHeading={{ scaffold_content.group_key_numbers.heading or "Heading" }},
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}
@@ -293,7 +302,82 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section %}
+{% dnd_section
+  padding={
+    "default" : {
+      "bottom" : "0px",
+      "top" : "96px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
+        offset=0,
+        width=12,
+        groupStyle={
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
+        },
+        headingAndTextHeading={{ scaffold_content.group_timeline.heading or "Heading" }},
+        headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section 
+    padding={
+    "default" : {
+      "bottom" : "0px",
+      "top" : "0px"
+    }
+  },
+  max_width={{ context.max_width or section_width_compact }}
+%}
   {% dnd_column
     offset=0,
     width=12
@@ -361,7 +445,7 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading={{ scaffold_content.group_shareholders.heading or "Share holders" }},
+        headingAndTextHeading={{ scaffold_content.group_shareholders.heading or "Heading" }},
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}
@@ -709,7 +793,7 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading={{ scaffold_content.group_sales.heading or "Sales" }},
+        headingAndTextHeading={{ scaffold_content.group_sales.heading or "Heading" }},
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}

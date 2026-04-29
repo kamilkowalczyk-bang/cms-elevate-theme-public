@@ -27,7 +27,7 @@ p {
   margin-block: var(--hsElevate--text__margin);
 }
 
-a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link),
+a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link, .hs-elevate-contact-tabs__tab),
 a.hs-elevate-link--primary,
 .hs-elevate-link--primary a {
   color: var(--hsElevate--link--primary__fontColor);
@@ -38,8 +38,8 @@ a.hs-elevate-link--primary,
   text-decoration-color: var(--hsElevate--link--primary__textDecorationColor);
 }
 
-a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link):hover,
-a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link):focus,
+a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link, .hs-elevate-contact-tabs__tab):hover,
+a:not(.hs-elevate-button, .hs-elevate-blog-listing__pagination-link, .hs-elevate-card--blog__link, .hs-elevate-contact-tabs__tab):focus,
 a.hs-elevate-link--primary:hover,
 .hs-elevate-link--primary a:hover,
 a.hs-elevate-link--primary:focus,

@@ -4,9 +4,10 @@
 #}
 
 {% set section_width_narrow = "768" %}
+{% set section_width_compact = "880" %}
 {% set section_width_medium = "1120" %}
 {# This is set as the default in theme styles - no need to apply the value #}
-{% set section_width_wide = "1410" %}
+{% set section_width_wide = "1610" %}
 
 {% set section_vertical_spacing_extra_small = "48px" %}
 {% set section_vertical_spacing_small = "64px" %}
@@ -64,8 +65,13 @@
 
     /* Sections */
     --hsElevate--contentWrapper--narrow__maxWidth: {{ section_width_narrow ~ "px" }};
+    --hsElevate--contentWrapper--compact__maxWidth: {{ section_width_compact ~ "px" }};
     --hsElevate--contentWrapper--medium__maxWidth: {{ section_width_medium ~ "px" }};
     --hsElevate--contentWrapper--wide__maxWidth: {{ section_width_wide ~ "px" }};
+
+    /* Layout breakpoints (aligned with helpers/variables.hubl.html section_width_*) */
+    --hsElevate--breakpoint--compact: {{ section_width_compact ~ "px" }};
+    --hsElevate--breakpoint--belowCompact__maxWidth: calc({{ section_width_compact ~ "px" }} - 1px);
 
     --hsElevate--section--extraSmall__verticalPadding: {{ section_vertical_spacing_extra_small }};
     --hsElevate--section--small__verticalPadding: {{ section_vertical_spacing_small }};

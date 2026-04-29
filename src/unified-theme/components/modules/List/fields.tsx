@@ -1,4 +1,13 @@
-import { BooleanField, FieldGroup, IconField, ModuleFields, RepeatedFieldGroup, TextField } from '@hubspot/cms-components/fields';
+import {
+  AdvancedVisibility,
+  BooleanField,
+  FieldGroup,
+  IconField,
+  ModuleFields,
+  RepeatedFieldGroup,
+  RichTextField,
+  TextField,
+} from '@hubspot/cms-components/fields';
 import { SectionStyle } from '../../fieldLibrary/index.js';
 
 const contentDefault = 'Add a list item here.';
@@ -7,6 +16,24 @@ const groupListContentDefault = {
     listItemContent: contentDefault,
   },
 };
+
+const listItemTextVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [{
+    controlling_field_path: 'groupListItems.groupListContent.useAdvancedEditing',
+    controlling_value_regex: 'false',
+    operator: 'EQUAL',
+  }],
+} as const;
+
+const listItemRichTextVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [{
+    controlling_field_path: 'groupListItems.groupListContent.useAdvancedEditing',
+    controlling_value_regex: 'true',
+    operator: 'EQUAL',
+  }],
+} as const;
 
 export const fields = (
   <ModuleFields>
@@ -31,7 +58,28 @@ export const fields = (
       default={[groupListContentDefault, groupListContentDefault, groupListContentDefault, groupListContentDefault]}
     >
       <FieldGroup label="List items" name="groupListContent" display="inline">
-        <TextField label="Item" name="listItemContent" default={contentDefault} inlineEditable={true} />
+        <BooleanField
+          label="Advanced editing"
+          name="useAdvancedEditing"
+          display="toggle"
+          default={false}
+        />
+        <TextField
+          label="Item"
+          name="listItemContent"
+          default={contentDefault}
+          inlineEditable={true}
+          visibilityRules="ADVANCED"
+          advancedVisibility={listItemTextVisibility}
+        />
+        <RichTextField
+          label="Advanced editor"
+          name="listItemContentRichTextHTML"
+          default={`<p>${contentDefault}</p>`}
+          inlineEditable={true}
+          visibilityRules="ADVANCED"
+          advancedVisibility={listItemRichTextVisibility}
+        />
       </FieldGroup>
     </RepeatedFieldGroup>
 

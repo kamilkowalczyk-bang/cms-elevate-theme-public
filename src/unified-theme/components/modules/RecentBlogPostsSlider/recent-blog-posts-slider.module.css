@@ -61,9 +61,9 @@
   margin-top: auto;
   flex-shrink: 0;
   color: var(--hsElevate--blogCard__textColor);
-  font-size: var(--hsElevate--h5__fontSize);
+  font-size: var(--hsElevate--body__fontSize);
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-color: #52bad1;
@@ -74,19 +74,41 @@
 /* Splide: equal-height slides (stretch on cross-axis, same as grid + align-items: stretch) */
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__track) {
   overflow: hidden;
+  min-height: 0;
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__list) {
-  display: flex;
+  backface-visibility: hidden;
+  display: flex !important;
   align-items: stretch;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__slide) {
   display: flex;
+  position: relative;
+  box-sizing: border-box;
   flex-shrink: 0;
   height: auto;
   align-self: stretch;
-  list-style: none;
+  list-style: none !important;
+  margin: 0;
+  backface-visibility: hidden;
+}
+
+/* Keep Splide live-region permanently visually hidden to prevent flash */
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__sr) {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 
 .hs-elevate-recent-blog-posts-slider__slide-inner {
@@ -116,7 +138,7 @@
 
 /* Slider chrome: padding + dot nav (TestimonialSlider-style, scoped to this Splide root only) */
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
-  padding-block-end: var(--hsElevate--spacing--24, 24px);
+  padding-block-end: var(--hsElevate--spacing--56, 56px);
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows),
@@ -125,8 +147,25 @@
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0 1em;
+  list-style: none;
+  list-style-type: none !important;
   bottom: 0;
   gap: 0;
+  pointer-events: none;
+}
+
+.hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination li) {
+  margin: 0;
+  list-style: none;
+  list-style-type: none !important;
+  line-height: 1;
+  pointer-events: auto;
 }
 
 /*

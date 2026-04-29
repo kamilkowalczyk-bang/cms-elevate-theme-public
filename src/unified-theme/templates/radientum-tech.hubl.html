@@ -1,11 +1,11 @@
 <!--
   templateType: page
-  label: Radientum Technologies
   isAvailableForNewContent: true
+  label: Radientum – Section consolidation template
   screenshotPath: ../images/template-previews/radientum-technologies.png
   scaffoldSchemaPath: ./schemas/radientum-tech.scaffold_schema.json
 -->
-{% extends "./layouts/base-rad.hubl.html" %}
+{% extends "./layouts/base.hubl.html" %}
 
 {% block body %}
   {% dnd_area "dnd_area"
@@ -74,6 +74,7 @@
 {% end_dnd_section %}
 
 {% dnd_section
+  max_width={{ context.max_width or section_width_medium }},
   padding={
     "default" : {
       "bottom" : "0px",
@@ -95,7 +96,7 @@
         groupHeading={
           "heading" : "Whatever the technology - we get it!",
           "headingLevel" : "h2",
-          "richTextContentHTML" : "<p style=\"text-align: center;\">We help customers to develop products with superb wireless performance – whatever the technology or product is. We work in all industry sectors that require wireless communication. Our offering covers all steps of product life-cycle; from idea concepting to design, verification and mass production quality control. Our specialty is development and integration of compact antennas to challenging products and environments.</p>",
+          "richTextContentHTML" : "<p style='text-align: center;'>[AI-SECTION-START] We help customers to develop products with superb wireless performance – whatever the technology or product is. We work in all industry sectors that require wireless communication. Our offering covers all steps of product life-cycle; from idea concepting to design, verification and mass production quality control. Our specialty is development and integration of compact antennas to challenging products and environments. [AI-SECTION-END]</p>",
           "showHeadingRichText" : true
         },
         groupStyle={
@@ -113,14 +114,7 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section
-  padding={
-    "default" : {
-      "top" : "0px"
-    }
-  },
-  full_width=false
-%}
+{% dnd_section %}
   {% dnd_column
     offset=0,
     width=12
@@ -129,9 +123,7 @@
       {% dnd_module
         path="../components/modules/ServiceCard",
         offset=0,
-        width=12,
-        serviceCategory="service_all",
-        useHubDBFeed=true
+        width=12
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}

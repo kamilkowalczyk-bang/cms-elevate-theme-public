@@ -44,9 +44,9 @@ export const fields = (
   <ModuleFields>
     <FieldGroup label="Content" name="groupContent" display="inline">
       <BooleanField label="Show divider" name="showDivider" display="toggle" default={false} />
-      <BooleanField label="Show caption" name="showCaption" display="toggle" default={true} />
+      <BooleanField label="Show intro label" name="showCaption" display="toggle" default={true} />
       <TextField
-        label="Caption"
+        label="Intro label"
         name="captionText"
         visibility={captionFieldsVisibility}
         default="Gaining trust"
@@ -104,7 +104,7 @@ export const fields = (
           }}
         />
         <AlignmentField
-          label="Caption alignment"
+          label="Intro label alignment"
           name="captionHorizontalAlignment"
           visibility={captionFieldsVisibility}
           alignmentDirection="HORIZONTAL"

@@ -2,10 +2,12 @@
 {% set form_field_background = form.group_field_background.background %}
 
 :root {
-  /* Form field background color */
-  {% if form_field_background == "filled" %}
-    --hsElevate--formField__backgroundColor: {{ form.group_default_state.fill_color.color }};
-  {% endif %}
+/* Form field background color */
+{% if form_field_background == "filled" %}
+  --hsElevate--formField__backgroundColor: {{ form.group_default_state.fill_color.color }};
+{% else %}
+  --hsElevate--formField__backgroundColor: transparent;
+{% endif %}
 
   /* Form field shape */
   {% if form_field_background == "filled" %}
@@ -234,7 +236,8 @@
   */
 
   /* Button */
-  --hsf-button__width: 100%;
+  /* Let the HubSpot v2 button size to its content width */
+  --hsf-button__width: auto;
   --hsf-button__font-family: var(--hsElevate--button--primary__font);
   --hsf-button__font-size: var(--hsElevate--button--primary__fontSize);
   --hsf-button__font-weight: var(--hsElevate--button--primary__fontWeight);
@@ -245,8 +248,8 @@
   --hsf-button__border-width: var(--hsElevate--button--primary__borderThickness);
   --hsf-button__border-style: solid;
   --hsf-button__border-color: var(--hsElevate--button--primary__borderColor);
-  --hsf-button__padding: var(--hsElevate--spacing--20) var(--hsElevate--spacing--24);
-  --hsf-button__box-shadow: none;
+  --hsf-button__padding: var(--hsElevate--spacing--20) var(--hsElevate--spacing--32);
+  --hsf-button__box-shadow: var(--hsf-button__box-shadow);
   --hsf-button--hover__color: var(--hsElevate--button--primary__hover--textColor);
   --hsf-button--hover__background-color: var(--hsElevate--button--primary__hover--backgroundColor);
   --hsf-button--hover__border-color: var(--hsElevate--button--primary__hover--borderColor);

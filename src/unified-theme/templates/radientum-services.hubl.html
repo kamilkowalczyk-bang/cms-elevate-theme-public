@@ -72,6 +72,7 @@
 {% end_dnd_section %}
 
 {% dnd_section
+  max_width={{ context.max_width or section_width_medium }},
   padding={
     "default" : {
       "bottom" : "0px",
@@ -111,7 +112,8 @@
 {% dnd_section
   padding={
     "default" : {
-      "top" : "0px"
+      "top" : "0px",
+      "bottom" : "0px"
     }
   }
 %}
@@ -251,7 +253,21 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
+{% include_dnd_partial path="../sections/radientum-testimonial-slider.hubl.html" %}
+
+{# Full-width intro, then a two-column row: mixing width=12 with width=6+6 in one section breaks the DND grid. #}
 {% dnd_section
+  background_image={
+    "background_position" : "MIDDLE_CENTER",
+    "background_size" : "fill",
+    "image_url" : "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_dot_graph_white.svg"
+  },
+  padding={
+    "default" : {
+      "top" : "56px",
+      "bottom" : "0px"
+    }
+  }
 %}
   {% dnd_column
     offset=0,
@@ -259,202 +275,82 @@
   %}
     {% dnd_row %}
       {% dnd_module
-        path="../components/modules/TestimonialSlider",
+        path="@hubspot/divider",
+        offset=0,
+        width=12,
+        styles={
+          "line" : {
+            "color" : {
+              "color" : light_section_1_accent_color,
+              "opacity" : 100
+            },
+            "thickness" : 4
+          },
+          "size" : {
+            "width" : 10
+          },
+          "spacing" : {
+            "spacing" : {
+              "margin" : {
+                "bottom" : {
+                  "units" : "px",
+                  "value" : 25
+                },
+                "top" : {
+                  "units" : "px",
+                  "value" : 0
+                }
+              }
+            }
+          }
+        }
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/Heading",
         offset=0,
         width=12,
         groupStyle={
-          "cardStyleVariant" : "card_variant_2",
-          "showTestimonialDropShadow" : true,
-          "showTestimonialQuoteBoldUppercase" : true
+          "alignment" : {
+            "text_align" : "CENTER"
+          },
+          "headingStyleVariant" : "h2",
+          "headingUppercase" : true,
+          "sectionStyleVariant" : "section_variant_1"
         },
-        groupTestimonial=[ {
-          "groupAuthor" : {
-            "authorImage" : {
-              "src" : ""
-            },
-            "authorName" : "Firstname Lastname",
-            "authorTitle" : "Title and Company"
-          },
-          "groupImage" : {
-            "image" : {
-              "src" : ""
-            },
-            "showImage" : false
-          },
-          "groupInfoButton" : {
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : false
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Industrial IoT & smart metering",
-            "showButton" : true
-          },
-          "groupInfoContent" : {
-            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
-          },
-          "groupInfoImage" : {
-            "image" : {
-              "alt" : "",
-              "max_height" : 315,
-              "max_width" : 315,
-              "size_type" : "auto_custom_max",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
-            },
-            "showImage" : true
-          },
-          "groupLink" : {
-            "link" : {
-              "open_in_new_tab" : true
-            },
-            "linkText" : ""
-          },
-          "groupQuote" : {
-            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
-          }
-        }, {
-          "groupAuthor" : {
-            "authorImage" : {
-              "src" : ""
-            },
-            "authorName" : "Firstname Lastname",
-            "authorTitle" : "Title and Company"
-          },
-          "groupImage" : {
-            "image" : {
-              "src" : ""
-            },
-            "showImage" : false
-          },
-          "groupInfoButton" : {
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : false
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Industrial IoT & smart metering",
-            "showButton" : true
-          },
-          "groupInfoContent" : {
-            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
-          },
-          "groupInfoImage" : {
-            "image" : {
-              "alt" : "",
-              "max_height" : 315,
-              "max_width" : 315,
-              "size_type" : "auto_custom_max",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
-            },
-            "showImage" : true
-          },
-          "groupLink" : {
-            "link" : {
-              "open_in_new_tab" : true
-            },
-            "linkText" : ""
-          },
-          "groupQuote" : {
-            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
-          }
-        }, {
-          "groupAuthor" : {
-            "authorImage" : {
-              "src" : ""
-            },
-            "authorName" : "Firstname Lastname",
-            "authorTitle" : "Title and Company"
-          },
-          "groupImage" : {
-            "image" : {
-              "src" : ""
-            },
-            "showImage" : false
-          },
-          "groupInfoButton" : {
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : false
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Industrial IoT & smart metering",
-            "showButton" : true
-          },
-          "groupInfoContent" : {
-            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
-          },
-          "groupInfoImage" : {
-            "image" : {
-              "alt" : "",
-              "max_height" : 315,
-              "max_width" : 315,
-              "size_type" : "auto_custom_max",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
-            },
-            "showImage" : true
-          },
-          "groupLink" : {
-            "link" : {
-              "open_in_new_tab" : true
-            },
-            "linkText" : ""
-          },
-          "groupQuote" : {
-            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
-          }
-        }, {
-          "groupAuthor" : {
-            "authorImage" : {
-              "src" : ""
-            },
-            "authorName" : "Firstname Lastname",
-            "authorTitle" : "Title and Company"
-          },
-          "groupImage" : {
-            "image" : {
-              "src" : ""
-            },
-            "showImage" : false
-          },
-          "groupInfoButton" : {
-            "buttonContentIconPosition" : "right",
-            "buttonContentLink" : {
-              "open_in_new_tab" : false
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Industrial IoT & smart metering",
-            "showButton" : true
-          },
-          "groupInfoContent" : {
-            "richTextContentHTML" : "<h4 style='text-transform: uppercase;'>Wireless performance matters</h4><p class='hs-elevate-display-title'>in Industrial IoT &amp; Smart Metering</p><p>Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>"
-          },
-          "groupInfoImage" : {
-            "image" : {
-              "alt" : "",
-              "max_height" : 315,
-              "max_width" : 315,
-              "size_type" : "auto_custom_max",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/280/js_client_assets/assets/hero-CeRQgo5z.png"
-            },
-            "showImage" : true
-          },
-          "groupLink" : {
-            "link" : {
-              "open_in_new_tab" : true
-            },
-            "linkText" : ""
-          },
-          "groupQuote" : {
-            "quote" : "“We have been able to put our focus where it needs to be because of radientum’s awesome service!” "
-          }
-        } ]
+        headingAndTextHeading="Heading",
+        headingAndTextHeadingLevel="h2"
       %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RichText",
+        offset=0,
+        width=12
+      %}
+        {% module_attribute "richTextContentHTML" %}
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
+        {% end_module_attribute %}
       {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
 {% end_dnd_section %}
-
-{% dnd_section %}
+{% dnd_section
+  background_image={
+    "background_position" : "BOTTOM_RIGHT",
+    "background_size" : "cover",
+    "image_url" : "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_dot_graph_white.svg"
+  },
+  padding={
+    "default" : {
+      "top" : "32px",
+      "bottom" : "0px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=6
@@ -580,9 +476,12 @@
   {% end_dnd_column %}
 {% end_dnd_section %}
 
+
+
 {% dnd_section
   padding={
     "default" : {
+      "top" : "0px",
       "bottom" : "0px"
     }
   }
@@ -638,7 +537,7 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading="Headline for Who we serve",
+        headingAndTextHeading="Heading",
         headingAndTextHeadingLevel="h2"
       %}
       {% end_dnd_module %}
@@ -650,15 +549,20 @@
         width=12
       %}
         {% module_attribute "richTextContentHTML" %}
-          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.&nbsp;</p>
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
         {% end_module_attribute %}
       {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section
-  background_color="rgba(0, 0, 0, 0)"
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "56px",
+      "bottom" : "56px"
+    }
+  }
 %}
   {% dnd_column
     offset=0,
@@ -666,7 +570,7 @@
   %}
     {% dnd_row %}
       {% dnd_module
-        path="../components/modules/Card",
+        path="../components/modules/ServiceCard",
         offset=0,
         width=12,
         groupCards=[ {
@@ -684,31 +588,25 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
             "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
+            "headingAndTextHeadingLevel" : "h4",
             "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
             "showCaption" : false
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
         }, {
           "groupButton" : {
@@ -725,76 +623,117 @@
           },
           "groupCardBackground" : {
             "image" : {
-              "alt" : "hero",
-              "height" : 870,
-              "loading" : "disabled",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/hero.png",
-              "width" : 1600
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
             }
           },
           "groupContent" : {
+            "captionText" : "",
             "headingAndTextHeading" : "Content Creation",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>"
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "play-circle"
-            }
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
           },
           "groupImage" : {
             "image" : {
               "alt" : "",
               "loading" : "lazy",
-              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/253/js_client_assets/assets/newsletter-p8HETA_F.png"
-            }
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
-        } ],
-        groupStyle={
+        }, {
           "groupButton" : {
-            "buttonStyleSize" : "small",
-            "buttonStyleVariant" : "secondary"
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : true
           },
-          "groupCard" : {
-            "cardOrientation" : "row",
-            "cardStyleVariant" : "card_variant_4",
-            "showCardShadow" : true,
-            "showIconBorder" : false
+          "groupCardBackground" : {
+            "image" : {
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
+            }
           },
           "groupContent" : {
-            "headingStyleVariant" : "h5",
-            "headingUppercase" : true
+            "captionText" : "",
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
           }
-        }
+        }, {
+          "groupButton" : {
+            "buttonContentIcon" : {
+              "name" : "arrow-right"
+            },
+            "buttonContentIconPosition" : "right",
+            "buttonContentLink" : {
+              "open_in_new_tab" : true
+            },
+            "buttonContentShowIcon" : false,
+            "buttonContentText" : "Explore more",
+            "showButton" : true
+          },
+          "groupCardBackground" : {
+            "image" : {
+              "alt" : "service image background",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/service-card-D8IMQcyF.png"
+            }
+          },
+          "groupContent" : {
+            "captionText" : "",
+            "headingAndTextHeading" : "Content Creation",
+            "headingAndTextHeadingLevel" : "h4",
+            "richTextContentHTML" : "<p>Stand out with our captivating content creation services, tailored to engage today's digital audience </p>",
+            "showCaption" : false
+          },
+          "groupImage" : {
+            "image" : {
+              "alt" : "",
+              "loading" : "lazy",
+              "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/548/js_client_assets/assets/newsletter-p8HETA_F.png"
+            },
+            "showRoundImageBorder" : false
+          }
+        } ]
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
 {% end_dnd_section %}
 
-{% dnd_section %}
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "0px"
+    }
+  }
+%}
   {% dnd_column
     offset=0,
     width=12
   %}
     {% dnd_row %}
       {% dnd_module
-        path="../components/modules/Heading",
-        offset=0,
-        width=12,
-        groupStyle={
-          "alignment" : {
-            "text_align" : "CENTER"
-          },
-          "headingUppercase" : true
-        },
-        headingAndTextHeading="They trust our design services"
-      %}
-      {% end_dnd_module %}
-    {% end_dnd_row %}
-    {% dnd_row %}
-      {% dnd_module
-        path="@hubspot/logo_grid",
+        path="../components/modules/LogoGridSlider",
         offset=0,
         width=12
       %}
@@ -882,7 +821,7 @@
         }
       %}
         {% module_attribute "richTextContentHTML" %}
-          <p style="text-align: center;">Lorem ipsum dolor sit amet consectetur. Aenean id eleifend vitae sed augue velit. Est quam vel purus sagittis commodo non amet erat rhoncus.</p>
+          <p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. [AI-SECTION-END]</p>
         {% end_module_attribute %}
       {% end_dnd_module %}
     {% end_dnd_row %}
@@ -907,7 +846,7 @@
   padding={
     "default" : {
       "bottom" : "0px",
-      "top" : "100px"
+      "top" : "96px"
     }
   }
 %}
@@ -962,8 +901,37 @@
           "headingUppercase" : true,
           "sectionStyleVariant" : "section_variant_1"
         },
-        headingAndTextHeading="LAtest activities",
+        headingAndTextHeading="Heading",
         headingAndTextHeadingLevel="h2"
+      %}
+      {% end_dnd_module %}
+    {% end_dnd_row %}
+  {% end_dnd_column %}
+{% end_dnd_section %}
+
+{% dnd_section 
+  padding={
+    "default" : {
+      "top" : "56px"
+    }
+  }
+%}
+  {% dnd_column
+    offset=0,
+    width=12
+  %}
+    {% dnd_row %}
+      {% dnd_module
+        path="../components/modules/RecentBlogPostsSlider",
+        offset=0,
+        width=12,
+        blog="default",
+        filterByTag=false,
+        groupStyle={
+          "cardStyleVariant" : "card_variant_2"
+        },
+        postLimit=6,
+        tag=""
       %}
       {% end_dnd_module %}
     {% end_dnd_row %}

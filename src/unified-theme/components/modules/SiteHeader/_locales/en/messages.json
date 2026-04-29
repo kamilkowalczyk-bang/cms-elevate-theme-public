@@ -179,6 +179,11 @@
     "description": "",
     "placeholders": null
   },
+  "styles.groupMenu.menuArrowIconFillHover.label": {
+    "message": "Arrow icon fill hover",
+    "description": "",
+    "placeholders": null
+  },
   "styles.groupButton.buttonStyleVariant.inline_help_text": {
     "message": "<a href=\"$theme_link\">Edit</a>",
     "description": "",

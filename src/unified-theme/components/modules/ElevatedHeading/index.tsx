@@ -21,6 +21,8 @@ const swm = staticWithModule(styles);
 type GroupStyle = SectionStyleFieldLibraryType &
   HeadingStyleFieldLibraryType & {
     sectionBackgroundColor: ColorFieldType['default'];
+    showIntroPadding?: boolean;
+    introTextPadding?: 'none' | 'xxs' | 'xs' | 'small' | 'medium' | 'large';
   };
 
 function sectionBackgroundWithOpacity(color: string, opacityPercent?: number): string {
@@ -89,6 +91,23 @@ function generateRichTextColorCssVars(sectionVariantField: SectionVariantType): 
   };
 }
 
+function generateIntroPaddingCssVars(
+  introTextPaddingField: 'none' | 'xxs' | 'xs' | 'small' | 'medium' | 'large'
+): CSSPropertiesMap {
+  const introPaddingMap = {
+    none: 'var(--hsElevate--spacing--0, 0px)',
+    xxs: 'var(--hsElevate--spacing--24, 24px)',
+    xs: 'var(--hsElevate--spacing--48, 48px)',
+    small: 'var(--hsElevate--spacing--56, 56px)',
+    medium: 'var(--hsElevate--spacing--72, 72px)',
+    large: 'var(--hsElevate--spacing--96, 96px)',
+  };
+
+  return {
+    '--hsElevate--elevatedHeading__introPaddingInline': introPaddingMap[introTextPaddingField],
+  };
+}
+
 export const Component = (props: ElevatedHeadingProps) => {
   const {
     moduleName,
@@ -98,6 +117,8 @@ export const Component = (props: ElevatedHeadingProps) => {
       sectionStyleVariant,
       headingStyleVariant,
       sectionBackgroundColor: sectionBackgroundColorField = { color: '#F0F0F3', opacity: 100 },
+      showIntroPadding = false,
+      introTextPadding = 'none',
     },
     groupCards,
   } = props;
@@ -136,8 +157,13 @@ export const Component = (props: ElevatedHeadingProps) => {
         {showHeadingRichText === true && (
           <RichText
             fieldPath="groupHeading.richTextContentHTML"
-            className={swm('hs-elevate-elevated-heading__introRichText')}
-            style={generateRichTextColorCssVars(sectionStyleVariant)}
+            className={cx(swm('hs-elevate-elevated-heading__introRichText'), {
+              [swm('hs-elevate-elevated-heading__introRichText--withPadding')]: showIntroPadding,
+            })}
+            style={{
+              ...generateRichTextColorCssVars(sectionStyleVariant),
+              ...(showIntroPadding ? generateIntroPaddingCssVars(introTextPadding) : {}),
+            }}
             data-hs-token={getDataHSToken(moduleName, 'groupHeading.richTextContentHTML')}
           />
         )}

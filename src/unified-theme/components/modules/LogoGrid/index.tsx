@@ -11,6 +11,7 @@ import { sectionColorsMap } from '../../utils/section-color-map.js';
 import cx, { staticWithModule } from '../../utils/classnames.js';
 import { createComponent } from '../../utils/create-component.js';
 import { CSSPropertiesMap } from '../../types/components.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 const swm = staticWithModule(styles);
 
@@ -188,7 +189,7 @@ export const hublDataTemplate = `
       {% endif %}
     {% endif %}
     {% if rid %}
-      {% set row = hubdb_table_row(231586389, rid|int) %}
+      {% set row = hubdb_table_row("${HUBDB_TABLE_NAMES.logoGrid}", rid|int) %}
       {% set logoRaw = row.logo %}
       {% if logoRaw %}
         {% if logoRaw.url %}

@@ -4,130 +4,268 @@
     "type": "group",
     "children": [
       {
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the top NFC page section.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
         "name": "eyebrow",
         "type": "text",
-        "description": "Short label above the hero headline (e.g. technology or product line)."
+        "description": "Short eyebrow text above the hero heading."
       },
       {
-        "name": "headline",
+        "name": "heading",
         "type": "text",
-        "description": "Primary hero headline (value proposition for NFC or related technology)."
-      },
-      {
-        "name": "hero_image",
-        "type": "image",
-        "description": "Full-width hero background image.",
-        "width": "1600",
-        "height": "870"
+        "description": "Main hero heading describing the NFC value proposition."
       }
     ]
   },
   {
-    "name": "group_what_you_get",
+    "name": "group_overview",
     "type": "group",
     "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Section heading for the benefits or outcomes block."
+        "description": "Heading for the elevated overview section below the hero."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Introductory paragraph under the heading, centered."
+        "description": "Supporting overview paragraph in the elevated heading section."
       }
     ]
   },
   {
-    "name": "group_nfc_layout",
-    "type": "group",
-    "children": [
-      {
-        "name": "intro",
-        "type": "text",
-        "description": "Left column copy introducing NFC design services (headline and body in RichText module)."
-      },
-      {
-        "name": "features_note",
-        "type": "text",
-        "description": "Context for the feature list items in the right column (benefits, capabilities)."
-      }
-    ]
-  },
-  {
-    "name": "group_case_accordion",
-    "type": "group",
-    "children": [
-      {
-        "name": "note",
-        "type": "text",
-        "description": "Context for repeated case study + accordion two-column sections (problems, proof, FAQs)."
-      }
-    ]
-  },
-  {
-    "name": "group_cta_banner",
-    "type": "group",
-    "children": [
-      {
-        "name": "headline",
-        "type": "text",
-        "description": "Headline on the mid-page CTA with background image."
-      },
-      {
-        "name": "body",
-        "type": "text",
-        "description": "Supporting copy under the CTA headline."
-      }
-    ]
-  },
-  {
-    "name": "group_case_highlight",
+    "name": "group_intro_split",
     "type": "group",
     "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Case study or reference project title in the ImageAndText card."
+        "description": "Heading for the left-side NFC intro content block."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Short description of the reference project."
+        "description": "Body text for the left-side NFC intro content block."
       },
       {
-        "name": "case_image",
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label in the left-side NFC intro content block."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL in the left-side NFC intro content block."
+      },
+      {
+        "name": "feature_one_title",
+        "type": "text",
+        "description": "Title for the first feature item in the right column list."
+      },
+      {
+        "name": "feature_one_description",
+        "type": "text",
+        "description": "Description for the first feature item in the right column list."
+      },
+      {
+        "name": "feature_two_title",
+        "type": "text",
+        "description": "Title for the second feature item in the right column list."
+      },
+      {
+        "name": "feature_two_description",
+        "type": "text",
+        "description": "Description for the second feature item in the right column list."
+      },
+      {
+        "name": "feature_three_title",
+        "type": "text",
+        "description": "Title for the third feature item in the right column list."
+      },
+      {
+        "name": "feature_three_description",
+        "type": "text",
+        "description": "Description for the third feature item in the right column list."
+      }
+    ]
+  },
+  {
+    "name": "group_challenges_section",
+    "type": "group",
+    "children": [
+      {
+        "name": "case_study_heading",
+        "type": "text",
+        "description": "Heading for the case-study content block in the challenges section."
+      },
+      {
+        "name": "case_study_description",
+        "type": "text",
+        "description": "Body text for the case-study content block in the challenges section."
+      },
+      {
+        "name": "accordion_one_title",
+        "type": "text",
+        "description": "Title for the first accordion item in the challenges section."
+      },
+      {
+        "name": "accordion_one_content",
+        "type": "text",
+        "description": "Body text for the first accordion item in the challenges section."
+      },
+      {
+        "name": "accordion_two_title",
+        "type": "text",
+        "description": "Title for the second accordion item in the challenges section."
+      },
+      {
+        "name": "accordion_two_content",
+        "type": "text",
+        "description": "Body text for the second accordion item in the challenges section."
+      },
+      {
+        "name": "accordion_three_title",
+        "type": "text",
+        "description": "Title for the third accordion item in the challenges section."
+      },
+      {
+        "name": "accordion_three_content",
+        "type": "text",
+        "description": "Body text for the third accordion item in the challenges section."
+      }
+    ]
+  },
+  {
+    "name": "group_mid_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
         "type": "image",
-        "description": "Visual for the parking / NFC case study card.",
+        "description": "Background image for the dark midpoint call-to-action section.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the midpoint call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph text for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL for the midpoint call-to-action section."
+      }
+    ]
+  },
+  {
+    "name": "group_reference_project",
+    "type": "group",
+    "children": [
+      {
+        "name": "caption",
+        "type": "text",
+        "description": "Caption above the reference project heading."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the reference project feature block."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Short reference project summary text."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the reference project block."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL for the reference project block."
+      },
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image used in the reference project block.",
         "width": "400",
         "height": "200"
       }
     ]
   },
   {
-    "name": "group_who_we_serve",
+    "name": "group_blog_intro",
     "type": "group",
     "children": [
       {
-        "name": "headline",
+        "name": "heading",
         "type": "text",
-        "description": "Section headline for the “Who we serve” blocks."
+        "description": "Heading above the recent blog posts slider."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Supporting paragraph, centered."
+        "description": "Supporting text near the recent blog posts slider heading."
       }
     ]
   },
   {
-    "name": "group_card_rows",
+    "name": "group_services_one",
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "heading",
         "type": "text",
-        "description": "Context for card grid sections (services, industries, or offers shown as cards)."
+        "description": "Heading above the first service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the first service cards grid."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label shown between the first and second service card grids."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL shown between the first and second service card grids."
+      }
+    ]
+  },
+  {
+    "name": "group_services_two",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the second service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the second service cards grid."
       }
     ]
   }

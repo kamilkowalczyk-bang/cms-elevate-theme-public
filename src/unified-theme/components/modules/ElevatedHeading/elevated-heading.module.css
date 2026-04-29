@@ -51,6 +51,10 @@
   text-align: center;
 }
 
+.hs-elevate-elevated-heading__introRichText--withPadding {
+  padding-inline: var(--hsElevate--elevatedHeading__introPaddingInline);
+}
+
 .hs-elevate-elevated-heading__introRichText h1,
 .hs-elevate-elevated-heading__introRichText h2,
 .hs-elevate-elevated-heading__introRichText h3,
@@ -111,6 +115,11 @@
   .hs-elevate-elevated-heading {
     padding-inline: var(--hsElevate--spacing--32, 32px);
   }
+
+  .hs-elevate-elevated-heading__introRichText--withPadding {
+    padding-inline: var(--hsElevate--spacing--0, 0px);
+  }
+
   .hs-elevate-elevated-heading__cards {
     gap: var(--hsElevate--spacing--16, 16px);
   }

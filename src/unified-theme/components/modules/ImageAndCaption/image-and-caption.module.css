@@ -1,0 +1,71 @@
+/* Outer section: default HubSpot–style block, centered, no vertical margin. */
+.hs-elevate-image-and-caption__section {
+  margin-block: 0;
+  margin-inline: auto;
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* Let HubSpot ImageField width/height (and srcset/sizes) control layout; do not override with width: 100%. */
+.hs-elevate-image-and-caption {
+  margin: 0;
+}
+
+.hs-elevate-image-and-caption__image {
+  max-width: 100%;
+  display: block;
+}
+
+/* Framed image: aspect / cover / focal (advanced editing) */
+.hs-elevate-image-and-caption__media {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+.hs-elevate-image-and-caption__media--ratio-16-9 {
+  aspect-ratio: 16 / 9;
+}
+
+.hs-elevate-image-and-caption__media--ratio-4-3 {
+  aspect-ratio: 4 / 3;
+}
+
+.hs-elevate-image-and-caption__media--ratio-3-2 {
+  aspect-ratio: 3 / 2;
+}
+
+.hs-elevate-image-and-caption__media .hs-elevate-image-and-caption__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-width: none;
+  object-fit: contain;
+}
+
+.hs-elevate-image-and-caption__media--cover .hs-elevate-image-and-caption__image {
+  object-fit: cover;
+}
+
+.hs-elevate-image-and-caption__caption {
+  margin: 0;
+  padding: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--16, 16px);
+  background-color: var(--hsElevate--imageAndCaption__captionBackgroundColor);
+  color: var(--hsElevate--imageAndCaption__captionTextColor);
+  font-family: var(--hsElevate--captions__font);
+  font-size: var(--hsElevate--captions__fontSize);
+  font-style: var(--hsElevate--captions__fontStyle);
+  font-weight: var(--hsElevate--captions__fontWeight);
+}
+
+.hs-elevate-image-and-caption__caption--left {
+  text-align: left;
+}
+
+.hs-elevate-image-and-caption__caption--center {
+  text-align: center;
+}
+
+.hs-elevate-image-and-caption__caption--right {
+  text-align: right;
+}

@@ -1,6 +1,6 @@
 import { ModuleMeta } from '../../types/modules.js';
-import { Icon } from '@hubspot/cms-components';
-import { BooleanFieldType, IconFieldType, NumberFieldType, TextFieldType } from '@hubspot/cms-components/fields';
+import { Icon, RichText } from '@hubspot/cms-components';
+import { BooleanFieldType, IconFieldType, NumberFieldType, RichTextFieldType, TextFieldType } from '@hubspot/cms-components/fields';
 import { SectionVariantType } from '../../types/fields.js';
 import HeadingComponent from '../../HeadingComponent/index.js';
 import featureListIconSvg from './assets/list.svg';
@@ -21,7 +21,9 @@ const swm = staticWithModule(styles);
 type GroupStyle = SectionStyleFieldLibraryType & HeadingStyleFieldLibraryType;
 
 type GroupFeatureContent = HeadingAndTextFieldLibraryType & {
+  useAdvancedEditing?: BooleanFieldType['default'];
   featureDescription?: TextFieldType['default'];
+  featureDescriptionRichTextHTML?: RichTextFieldType['default'];
 };
 
 type GroupFeatures = {
@@ -91,7 +93,14 @@ export const Component = (props: FeatureListProps) => {
                 fieldPath={`groupFeatures[${index}].groupFeatureContent.headingAndTextHeading`}
               />
             )}
-            {feature.groupFeatureContent.featureDescription && (
+            {feature.groupFeatureContent.useAdvancedEditing && feature.groupFeatureContent.featureDescriptionRichTextHTML && (
+              <RichText
+                fieldPath={`groupFeatures[${index}].groupFeatureContent.featureDescriptionRichTextHTML`}
+                className={swm('hs-elevate-feature-list__body')}
+                data-hs-token={getDataHSToken(moduleName, `groupFeatures[${index}].groupFeatureContent.featureDescriptionRichTextHTML`)}
+              />
+            )}
+            {!feature.groupFeatureContent.useAdvancedEditing && feature.groupFeatureContent.featureDescription && (
               <FeatureParagraph
                 className={swm('hs-elevate-feature-list__body')}
                 data-hs-token={getDataHSToken(moduleName, `groupFeatures[${index}].groupFeatureContent.featureDescription`)}

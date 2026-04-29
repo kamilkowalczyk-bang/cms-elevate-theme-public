@@ -70,4 +70,8 @@
 .hs-elevate-feature-list__body {
   font-size: var(--hsElevate--body--small__fontSize);
   margin-block-end: 0;
+
+  p {
+    margin-block: 0;
+  }
 }

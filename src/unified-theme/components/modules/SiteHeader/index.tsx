@@ -29,7 +29,11 @@ const swm = staticWithModule(styles);
 type ColorProps = {
   menuTextColor: string;
   menuTextHoverColor: string;
+  menuTopLevelTextColor: string;
+  menuTopLevelTextHoverColor: string;
+  menuTopLevelUnderlineColor: string;
   menuArrowIconFill: string;
+  menuArrowIconFillHover: string;
   menuBackgroundColor: string;
   menuAccentColor: string;
   flyoutItemHoverBackgroundColor: string;
@@ -63,7 +67,11 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
   const {
     menuTextColor,
     menuTextHoverColor,
+    menuTopLevelTextColor,
+    menuTopLevelTextHoverColor,
+    menuTopLevelUnderlineColor,
     menuArrowIconFill,
+    menuArrowIconFillHover,
     menuBackgroundColor,
     menuAccentColor,
     flyoutItemHoverBackgroundColor,
@@ -72,7 +80,11 @@ function generateColorCssVars(props: ColorProps): CSSPropertiesMap {
   return {
     '--hsElevate--siteHeader__menuTextColor': menuTextColor,
     '--hsElevate--siteHeader__hover--menuTextColor': menuTextHoverColor,
+    '--hsElevate--siteHeader__menuTopLevelTextColor': menuTopLevelTextColor,
+    '--hsElevate--siteHeader__hover--menuTopLevelTextColor': menuTopLevelTextHoverColor,
+    '--hsElevate--siteHeader__menuTopLevelUnderlineColor': menuTopLevelUnderlineColor,
     '--hsElevate--siteHeader__menuArrowIconFill': menuArrowIconFill,
+    '--hsElevate--siteHeader__menuArrowIconFillHover': menuArrowIconFillHover,
     '--hsElevate--siteHeader__menuBackgroundColor': menuBackgroundColor,
     '--hsElevate--siteHeader__menuAccentColor': menuAccentColor,
     // Flyout background uses Accent color (including its opacity) so designers
@@ -138,7 +150,12 @@ export const Component = (props: MenuModulePropTypes) => {
       menuAccentColor: { color: menuAccentColor, opacity: menuAccentOpacity } = { color: '#D3DAE4', opacity: 100 },
       menuTextColor: { color: menuTextColor } = { color: '#09152B' },
       menuTextHoverColor: { color: menuTextHoverColor } = { color: '#F7F9FC' },
+      menuTopLevelTextColor: menuTopLevelTextColorField,
+      menuTopLevelTextHoverColor: menuTopLevelTextHoverColorField,
+      menuTopLevelUnderlineEnabled = true,
+      menuTopLevelUnderlineColor: menuTopLevelUnderlineColorField,
       menuArrowIconFill: { color: menuArrowIconFill } = { color: menuTextColor },
+      menuArrowIconFillHover: { color: menuArrowIconFillHover } = { color: '#FFFFFF' },
       menuFlyoutUseAccentOnHover = false,
       stickyNavigation = false,
     },
@@ -161,24 +178,44 @@ export const Component = (props: MenuModulePropTypes) => {
   const mobileMenuTextRaw = groupMobileMenu?.mobileMenuTextColor ?? { color: menuTextColor };
   const mobileMenuTextHoverRaw = groupMobileMenu?.mobileMenuTextHoverColor ?? { color: menuTextHoverColor };
 
+  const menuTopLevelTextColor = menuTopLevelTextColorField?.color ?? menuTextColor;
+  const menuTopLevelTextHoverColor = menuTopLevelTextHoverColorField?.color ?? menuTextHoverColor;
+  const menuTopLevelUnderlineColor = menuTopLevelUnderlineColorField?.color ?? '#52BAD1';
+
   const mobileMenuBackgroundColor = withOpacity(mobileMenuBackgroundRaw.color, mobileMenuBackgroundRaw.opacity);
   const mobileMenuAccentColor = withOpacity(mobileMenuAccentRaw.color, mobileMenuAccentRaw.opacity);
   const mobileMenuTextColor = mobileMenuTextRaw.color;
   const mobileMenuTextHoverColor = mobileMenuTextHoverRaw.color;
+  const menuBackgroundColorStickyBase = menuBackgroundColor;
+  const menuBackgroundOpacitySticky = '0.85';
 
-  const cssVarsMap = {
+  const cssVarsMap: CSSPropertiesMap = {
     ...generateColorCssVars({
       menuTextColor,
       menuTextHoverColor,
+      menuTopLevelTextColor,
+      menuTopLevelTextHoverColor,
+      menuTopLevelUnderlineColor,
       menuArrowIconFill,
+      menuArrowIconFillHover,
       menuBackgroundColor: menuBackgroundColorWithOpacity,
       menuAccentColor: menuAccentColorWithOpacity,
       flyoutItemHoverBackgroundColor,
     }),
+    ...(stickyNavigation
+      ? {
+          '--hsElevate--siteHeader__menuBackgroundColorStickyBase': menuBackgroundColorStickyBase,
+          '--hsElevate--siteHeader__menuBackgroundOpacitySticky': menuBackgroundOpacitySticky,
+          '--hsElevate--siteHeader__menuTextColorSticky': menuTopLevelTextColor,
+          '--hsElevate--siteHeader__menuTextHoverColorSticky': menuTopLevelTextHoverColor,
+          '--hsElevate--siteHeader__menuArrowIconFillHoverSticky': menuArrowIconFillHover,
+        }
+      : {}),
   };
 
   const siteHeaderClassNames = cx(swm('hs-elevate-site-header'), {
     [styles['hs-elevate-site-header--has-language-switcher']]: showLanguageSwitcher,
+    [styles['hs-elevate-site-header--top-level-underline']]: menuTopLevelUnderlineEnabled,
     'hs-elevate-site-header--sticky-navigation-desktop': stickyNavigation,
   });
 

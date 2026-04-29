@@ -17,7 +17,11 @@ export function getLinkFieldHref(fieldValue: LinkFieldType['default']) {
   return hrefMap[linkType] || linkHref;
 }
 
-export function getLinkFieldRel(fieldValue: LinkFieldType['default']) {
+export function getLinkFieldRel(fieldValue: LinkFieldType['default'] | undefined) {
+  if (!fieldValue) {
+    return '';
+  }
+
   const relValues = [];
 
   if (fieldValue.open_in_new_tab) {

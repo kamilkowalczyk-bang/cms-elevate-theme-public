@@ -62,6 +62,10 @@ describe('getLinkFieldRel', () => {
     };
     expect(getLinkFieldRel(fieldValue)).toBe('');
   });
+
+  test('returns empty string when field value is undefined (HubDB-only cards with no module link fields)', () => {
+    expect(getLinkFieldRel(undefined)).toBe('');
+  });
 });
 
 describe('getLinkFieldTarget', () => {

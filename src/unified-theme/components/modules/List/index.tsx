@@ -1,7 +1,7 @@
-import { IconFieldType, TextFieldType } from '@hubspot/cms-components/fields';
+import { BooleanFieldType, IconFieldType, RichTextFieldType, TextFieldType } from '@hubspot/cms-components/fields';
 import { ModuleMeta } from '../../types/modules.js';
 import listIconSvg from '../FeatureList/assets/list.svg';
-import { Icon } from '@hubspot/cms-components';
+import { Icon, RichText } from '@hubspot/cms-components';
 import styles from './list.module.css';
 import { SectionVariantType } from '../../types/fields.js';
 import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/types.js';
@@ -17,7 +17,9 @@ const swm = staticWithModule(styles);
 
 export type GroupListItems = {
   groupListContent: {
-    listItemContent: TextFieldType['default'];
+    useAdvancedEditing?: BooleanFieldType['default'];
+    listItemContent?: TextFieldType['default'];
+    listItemContentRichTextHTML?: RichTextFieldType['default'];
   };
 };
 
@@ -66,16 +68,37 @@ export const Component = (props: ListProps) => {
   return (
     <ListContainer className={cx(swm('hs-elevate-list-container'), styles[layoutClass])} style={cssColorVars}>
       {groupListItems.map((item, index) => {
+        const {
+          useAdvancedEditing,
+          listItemContent,
+          listItemContentRichTextHTML,
+        } = item.groupListContent;
+
         return (
-          <ListItem className={swm('hs-elevate-list-container__item')} key={`${index} ${item.groupListContent.listItemContent}`}>
+          <ListItem
+            className={swm('hs-elevate-list-container__item')}
+            key={`${index} ${listItemContent ?? listItemContentRichTextHTML ?? ''}`}
+          >
             {listIcon.name && (
               <IconContainer className={swm('hs-elevate-list-container__icon-container')}>
                 <Icon className={swm('hs-elevate-list-container__icon')} fieldPath="listIcon" purpose="DECORATIVE" />
               </IconContainer>
             )}
-            <ListItemText data-hs-token={getDataHSToken(moduleName, `groupListItems[${index}].groupListContent.listItemContent`)}>
-              {item.groupListContent.listItemContent}
-            </ListItemText>
+            {useAdvancedEditing && listItemContentRichTextHTML && (
+              <RichText
+                fieldPath={`groupListItems[${index}].groupListContent.listItemContentRichTextHTML`}
+                className={swm('hs-elevate-list-container__text')}
+                data-hs-token={getDataHSToken(moduleName, `groupListItems[${index}].groupListContent.listItemContentRichTextHTML`)}
+              />
+            )}
+            {!useAdvancedEditing && listItemContent && (
+              <ListItemText
+                className={swm('hs-elevate-list-container__text')}
+                data-hs-token={getDataHSToken(moduleName, `groupListItems[${index}].groupListContent.listItemContent`)}
+              >
+                {listItemContent}
+              </ListItemText>
+            )}
           </ListItem>
         );
       })}

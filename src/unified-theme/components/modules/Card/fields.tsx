@@ -139,9 +139,9 @@ export const fields = (
         />
       </FieldGroup>
       <FieldGroup label='Content' name='groupContent' display='inline' id='groupContent'>
-        <BooleanField label='Show caption' name='showCaption' display='toggle' default={false} />
+        <BooleanField label='Show intro label' name='showCaption' display='toggle' default={false} />
         <TextField
-          label='Caption'
+          label='Intro label'
           name='captionText'
           visibility={captionFieldsVisibility}
           default=''

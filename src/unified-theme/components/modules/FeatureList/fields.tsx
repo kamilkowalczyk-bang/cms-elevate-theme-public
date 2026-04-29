@@ -5,7 +5,9 @@ import {
   BooleanField,
   IconField,
   TextField,
+  RichTextField,
   FieldGroup,
+  AdvancedVisibility,
 } from '@hubspot/cms-components/fields';
 import {
   HeadingAndText,
@@ -15,6 +17,24 @@ import {
 
 const headingLevelDefault = 'h3';
 const contentDefault = 'Write a brief description of the product\'s capabilities';
+
+const featureDescriptionTextVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [{
+    controlling_field_path: 'groupFeatures.groupFeatureContent.useAdvancedEditing',
+    controlling_value_regex: 'false',
+    operator: 'EQUAL',
+  }],
+} as const;
+
+const featureDescriptionRichTextVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [{
+    controlling_field_path: 'groupFeatures.groupFeatureContent.useAdvancedEditing',
+    controlling_value_regex: 'true',
+    operator: 'EQUAL',
+  }],
+} as const;
 
 export const fields = (
   <ModuleFields>
@@ -181,11 +201,27 @@ export const fields = (
           headingLevelDefault={headingLevelDefault}
           textDefault='Content Creation'
         />
+        <BooleanField
+          label='Advanced editing'
+          name='useAdvancedEditing'
+          display='toggle'
+          default={false}
+        />
         <TextField
           label='Feature description'
           name='featureDescription'
           default={contentDefault}
           inlineEditable={true}
+          visibilityRules='ADVANCED'
+          advancedVisibility={featureDescriptionTextVisibility}
+        />
+        <RichTextField
+          label='Advanced editor'
+          name='featureDescriptionRichTextHTML'
+          default={`<p>${contentDefault}</p>`}
+          inlineEditable={true}
+          visibilityRules='ADVANCED'
+          advancedVisibility={featureDescriptionRichTextVisibility}
         />
       </FieldGroup>
     </RepeatedFieldGroup>

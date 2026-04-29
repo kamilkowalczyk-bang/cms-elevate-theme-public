@@ -4,129 +4,235 @@
     "type": "group",
     "children": [
       {
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the Industrial IoT page.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
         "name": "eyebrow",
         "type": "text",
-        "description": "Short label above the hero headline (e.g. industry or product line)."
+        "description": "Short eyebrow text above the hero heading."
       },
       {
-        "name": "headline",
+        "name": "heading",
         "type": "text",
-        "description": "Primary hero headline (value proposition for the industry)."
+        "description": "Main hero heading describing the value proposition."
       },
       {
-        "name": "hero_image",
-        "type": "image",
-        "description": "Full-width hero background image behind the headline.",
-        "width": "1600",
-        "height": "870"
+        "name": "cta_text",
+        "type": "text",
+        "description": "Primary hero button label."
+      },
+      {
+        "name": "cta_link",
+        "type": "link",
+        "description": "Primary hero button destination URL."
       }
     ]
   },
   {
-    "name": "group_what_you_get",
+    "name": "group_overview",
     "type": "group",
     "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Section heading for the benefits or outcomes block."
+        "description": "Heading for the elevated overview section below the hero."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Introductory paragraph under the heading, centered."
+        "description": "Supporting overview paragraph below the section heading."
       }
     ]
   },
   {
-    "name": "group_case_accordion",
+    "name": "group_benefit_cards",
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "card_one_heading",
         "type": "text",
-        "description": "Context for the case study and FAQ accordion two-column sections (problems solved, proof points)."
+        "description": "Heading for the first benefit card."
+      },
+      {
+        "name": "card_one_description",
+        "type": "text",
+        "description": "Description for the first benefit card."
+      },
+      {
+        "name": "card_two_heading",
+        "type": "text",
+        "description": "Heading for the second benefit card."
+      },
+      {
+        "name": "card_two_description",
+        "type": "text",
+        "description": "Description for the second benefit card."
+      },
+      {
+        "name": "card_three_heading",
+        "type": "text",
+        "description": "Heading for the third benefit card."
+      },
+      {
+        "name": "card_three_description",
+        "type": "text",
+        "description": "Description for the third benefit card."
       }
     ]
   },
   {
-    "name": "group_testimonial",
+    "name": "group_reference_project",
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "caption",
         "type": "text",
-        "description": "Context for the testimonial slider (customer story, industry relevance)."
-      }
-    ]
-  },
-  {
-    "name": "group_technologies",
-    "type": "group",
-    "children": [
+        "description": "Caption above the reference project heading."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the reference project feature block."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Short reference project summary text."
+      },
       {
         "name": "button_text",
         "type": "text",
-        "description": "CTA label on the dark band with technologies or tools imagery."
-      }
-    ]
-  },
-  {
-    "name": "group_trust",
-    "type": "group",
-    "children": [
-      {
-        "name": "headline",
-        "type": "text",
-        "description": "Headline above the logo or partner image slider."
-      }
-    ]
-  },
-  {
-    "name": "group_cta_banner",
-    "type": "group",
-    "children": [
-      {
-        "name": "headline",
-        "type": "text",
-        "description": "Headline on the mid-page CTA section with background image."
+        "description": "Button label for the reference project block."
       },
       {
-        "name": "body",
-        "type": "text",
-        "description": "Supporting copy under the CTA headline."
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL for the reference project block."
+      },
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image used in the reference project block.",
+        "width": "600",
+        "height": "600"
       }
     ]
   },
   {
-    "name": "group_who_we_serve",
+    "name": "group_mid_cta",
     "type": "group",
     "children": [
       {
-        "name": "headline",
-        "type": "text",
-        "description": "Section headline for the “Who we serve” blocks."
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image for the dark midpoint call-to-action section.",
+        "width": "1750",
+        "height": "1000"
       },
       {
-        "name": "body",
+        "name": "heading",
         "type": "text",
-        "description": "Supporting paragraph, centered."
+        "description": "Heading for the midpoint call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph text for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the midpoint call-to-action section."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button destination URL for the midpoint call-to-action section."
       }
     ]
   },
   {
-    "name": "group_map_cta",
+    "name": "group_services_one",
     "type": "group",
     "children": [
       {
-        "name": "headline",
+        "name": "heading",
         "type": "text",
-        "description": "Bold headline on the world-map style closing CTA."
+        "description": "Heading above the first service cards grid."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Supporting copy under the map CTA headline."
+        "description": "Supporting text above the first service cards grid."
+      }
+    ]
+  },
+  {
+    "name": "group_services_two",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the second service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the second service cards grid."
+      }
+    ]
+  },
+  {
+    "name": "group_blog",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading above the recent blog posts slider."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting text above the recent blog posts slider."
+      }
+    ]
+  },
+  {
+    "name": "group_final_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image for the final global call-to-action section.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Final section heading near the bottom of the page."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Final section supporting paragraph text."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Final section button label."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Final section button destination URL."
       }
     ]
   }

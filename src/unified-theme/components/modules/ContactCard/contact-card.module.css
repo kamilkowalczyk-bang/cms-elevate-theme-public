@@ -1,19 +1,58 @@
 .hs-elevate-contact-card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+  grid-template-columns: repeat(auto-fit, minmax(330px, 330px));
   justify-content: var(--hsElevate--contactCard__containerAlignment, center);
   gap: var(--hsElevate--spacing--24, 24px);
 }
 
 .hs-elevate-contact-card-container__card {
   --hsElevate--card--display: flex;
-  --hsElevate--card--padding: var(--hsElevate--spacing--24, 24px);
+  /* Shared Card: block / inline from theme spacing (was single 24px on all sides) */
+  --hsElevate--card--padding: var(--hsElevate--spacing--48, 48px) var(--hsElevate--spacing--24, 24px);
 
-  width: 290px;
+  width: 330px;
+  height: 100%;
   min-height: auto;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: var(--hsElevate--contactCard__innerAlignment, center);
   text-align: var(--hsElevate--contactCard__innerTextAlignment, center);
+}
+
+.hs-elevate-contact-card-container__card-top {
+  --hsElevate--contactCard__regionLineHeight: 1.3;
+  --hsElevate--contactCard__regionVisibleLines: 3;
+
+  width: 100%;
+}
+
+.hs-elevate-contact-card-container__card-top--without-region {
+  padding-top: calc(
+    var(--hsElevate--h6__fontSize) * var(--hsElevate--contactCard__regionLineHeight, 1.3) *
+      var(--hsElevate--contactCard__regionVisibleLines, 2) + var(--hsElevate--spacing--20, 20px)
+  );
+}
+
+.hs-elevate-contact-card-container__card-bottom {
+  width: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--hsElevate--spacing--8, 8px);
+  /* margin-top: var(--hsElevate--spacing--20, 20px); */
+}
+
+.hs-elevate-contact-card-container__card-bottom--single-info-row {
+  justify-content: space-evenly;
+}
+
+.hs-elevate-contact-card-container__row {
+  width: 100%;
+  display: flex;
+  justify-content: var(--hsElevate--contactCard__innerAlignment, center);
+}
+
+.hs-elevate-contact-card-container__row--button {
+  margin-top: auto;
 }
 
 .hs-elevate-contact-card-container__card--drop-shadow {
@@ -24,14 +63,23 @@
   margin: 0 0 var(--hsElevate--spacing--20, 20px);
   font-family: var(--hsElevate--body__font);
   font-size: var(--hsElevate--h6__fontSize);
+  line-height: var(--hsElevate--contactCard__regionLineHeight);
   font-style: normal;
   font-weight: 700;
   text-transform: uppercase;
+  min-height: calc(
+    var(--hsElevate--h6__fontSize) * var(--hsElevate--contactCard__regionLineHeight) *
+      var(--hsElevate--contactCard__regionVisibleLines)
+  );
+  display: -webkit-box;
+  -webkit-line-clamp: var(--hsElevate--contactCard__regionVisibleLines);
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .hs-elevate-contact-card-container__image {
-  width: 140px;
-  height: 140px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -60,7 +108,6 @@
   flex-direction: column;
   align-items: var(--hsElevate--contactCard__innerAlignment, center);
   gap: var(--hsElevate--spacing--8, 8px);
-  margin-bottom: var(--hsElevate--spacing--16, 16px);
 }
 
 .hs-elevate-contact-card-container__contact-link {
@@ -84,13 +131,68 @@
   text-decoration-thickness: 2px !important;
 }
 
+.hs-elevate-contact-card-container__contact-link--email {
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+
+.hs-elevate-contact-card-container__contact-link--email:hover,
+.hs-elevate-contact-card-container__contact-link--email:focus {
+  text-decoration: none !important;
+}
+
+.hs-elevate-contact-card-container__email-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-block: var(--hsElevate--text--small__margin, 0 20px);
+}
+
+.hs-elevate-contact-card-container__copy-email-button {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  margin-left: 2px;
+  background: transparent;
+  color: var(--hsElevate--contactCard__linkColor, #52BAD1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hs-elevate-contact-card-container__copy-email-button::after {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-color: currentColor;
+  -webkit-mask-image: url('./assets/copy-email.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  mask-image: url('./assets/copy-email.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+.hs-elevate-contact-card-container__copy-email-button:hover,
+.hs-elevate-contact-card-container__copy-email-button:focus-visible {
+  color: var(--hsElevate--contactCard__linkHoverColor);
+}
+
+.hs-elevate-contact-card-container__copy-email-button:focus-visible {
+  outline: 2px solid var(--hsElevate--contactCard__linkHoverColor);
+  outline-offset: 2px;
+}
+
 .hs-elevate-contact-card-container__social {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: var(--hsElevate--contactCard__innerAlignment, center);
   gap: var(--hsElevate--spacing--12, 12px);
-  margin-bottom: var(--hsElevate--spacing--20, 20px);
 }
 
 .hs-elevate-contact-card-container__social-link {
@@ -102,8 +204,8 @@
 }
 
 .hs-elevate-contact-card-container__social-link :global(svg) {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   fill: var(--hsElevate--contactCard__accentColor);
 }
 

@@ -79,6 +79,10 @@ function generateGapCssVars(gapField: StandardSizeType): CSSPropertiesMap {
     small: 'var(--hsElevate--spacing--8, 8px)',
     medium: 'var(--hsElevate--spacing--16, 16px)',
     large: 'var(--hsElevate--spacing--24, 24px)',
+    xl: 'var(--hsElevate--spacing--32, 32px)',
+    xxl: 'var(--hsElevate--spacing--40, 40px)',
+    xxxl: 'var(--hsElevate--spacing--48, 48px)',
+    xxxxl: 'var(--hsElevate--spacing--56, 56px)',
   };
 
   return { '--hsElevate--buttons__gap': gapMap[gapField] };

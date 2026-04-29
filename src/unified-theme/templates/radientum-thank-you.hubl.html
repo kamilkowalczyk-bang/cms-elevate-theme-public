@@ -163,64 +163,82 @@
         }
       }
     %}
-      {% dnd_module
-        path="../components/modules/Card",
-        offset=0,
-        width=12,
-        groupCards=[ {
-          "groupButton" : {
-            "buttonContentIcon" : {
-              "name" : "LinkedIn",
-              "type" : "REGULAR",
-              "unicode" : "f08c"
-            },
-            "buttonContentShowIcon" : false,
-            "buttonContentText" : "Get in touch",
-            "showButton" : false
-          },
-          "groupContent" : {
-            "captionText" : "USA / Canada",
-            "headingAndTextHeading" : "Team member",
-            "headingAndTextHeadingLevel" : "h3",
-            "richTextContentHTML" : "Role here",
-            "showCaption" : false
-          },
-          "groupIcon" : {
-            "icon" : {
-              "name" : "face-smile"
-            }
-          },
-          "groupImage" : {
-            "image" : {
-              "alt" : "",
-              "loading" : "lazy",
-              "size_type" : "auto_custom_max",
-              "src" : "//51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/public/@projects/ElevateRadientumTheme/unified-theme/images/team-member-4.png"
-            },
-            "showRoundImageBorder" : true
-          }
-        } ],
-        groupStyle={
-          "groupButton" : {
-            "buttonStyleSize" : "small",
-            "buttonStyleVariant" : "tertiary"
-          },
-          "groupCard" : {
-            "cardOrientation" : "column",
-            "cardStyleVariant" : "card_variant_1",
-            "showCardShadow" : true
-          },
-          "groupContent" : {
-            "alignment" : {
-              "horizontal_align" : "CENTER"
-            },
-            "headingStyleVariant" : "h5",
-            "headingUppercase" : true
+    {% dnd_module
+    path="@projects/ElevateRadientumTheme/unified-theme/components/modules/ContactCard",
+    offset=0,
+    width=12,
+    groupContactCards=[ {
+      "groupButton" : {
+        "buttonContentIcon" : {
+          "name" : "arrow-right"
+        },
+        "buttonContentIconPosition" : "right",
+        "buttonContentLink" : {
+          "url" : {
+            "content_id" : 0,
+            "href" : "#",
+            "type" : "EXTERNAL"
           }
         },
-        imageOrIcon="image"
-      %}
-      {% end_dnd_module %}
+        "buttonContentShowIcon" : false,
+        "buttonContentText" : "Book a meeting with me",
+        "showButton" : false
+      },
+      "groupEmail" : {
+        "emailLink" : {
+          "url" : {
+            "content_id" : 0,
+            "href" : "firstname.lastname@radientum.fi",
+            "type" : "EMAIL_ADDRESS"
+          }
+        },
+        "emailText" : "firstname.lastname@radientum.fi",
+        "showEmail" : true
+      },
+      "groupIdentity" : {
+        "contactImage" : {
+          "alt" : "Team member portrait",
+          "loading" : "lazy",
+          "src" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/raw_assets/ElevateRadientumTheme/740/js_client_assets/assets/team-member-use-background-med-1-DzoYt3Ku.png"
+        },
+        "department" : "Sales",
+        "fullName" : "Name Surname"
+      },
+      "groupPhone" : {
+        "phoneLink" : {
+          "url" : {
+            "content_id" : 0,
+            "href" : "+358501234567",
+            "type" : "PHONE_NUMBER"
+          }
+        },
+        "phoneText" : "+358 50 123 4567",
+        "showPhone" : true
+      },
+      "groupRegion" : {
+        "region" : "USA & Canada",
+        "showRegion" : true
+      },
+      "groupSocial" : {
+        "groupSocialLinks" : [ {
+          "socialIcon" : {
+            "name" : "linkedin"
+          },
+          "socialLabel" : "LinkedIn",
+          "socialLink" : {
+            "open_in_new_tab" : true,
+            "url" : {
+              "content_id" : 0,
+              "href" : "https://www.linkedin.com",
+              "type" : "EXTERNAL"
+            }
+          }
+        } ],
+        "showSocialMedia" : false
+      }
+    } ]
+  %}
+  {% end_dnd_module %}
     {% end_dnd_row %}
   {% end_dnd_column %}
 {% end_dnd_section %}

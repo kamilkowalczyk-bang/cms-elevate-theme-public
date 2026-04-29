@@ -4,14 +4,21 @@
     "type": "group",
     "children": [
       {
-        "name": "eyebrow",
-        "type": "text",
-        "description": "Small label in the hero (above the main hero heading)."
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the top of the Services page.",
+        "width": "1750",
+        "height": "1000"
       },
       {
-        "name": "headline",
+        "name": "eyebrow",
         "type": "text",
-        "description": "Main hero headline (value proposition)."
+        "description": "Short accent line above the main hero heading (e.g. industry or service line)."
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Main hero heading stating the services value proposition."
       }
     ]
   },
@@ -22,118 +29,285 @@
       {
         "name": "heading",
         "type": "text",
-        "description": "Heading for the “What you get” block."
+        "description": "Heading for the elevated what-you-get section below the hero."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Supporting paragraph for the “What you get” block."
+        "description": "Supporting paragraph under that heading."
       }
     ]
   },
   {
-    "name": "group_features",
+    "name": "group_benefit_cards",
     "type": "group",
     "children": [
       {
-        "name": "feature_1_heading",
+        "name": "card_one_heading",
         "type": "text",
-        "description": "First feature card heading."
+        "description": "Heading for the first horizontal benefit card."
       },
       {
-        "name": "feature_1_body",
+        "name": "card_one_description",
         "type": "text",
-        "description": "First feature card supporting text."
+        "description": "Body copy for the first benefit card."
       },
       {
-        "name": "feature_2_heading",
+        "name": "card_two_heading",
         "type": "text",
-        "description": "Second feature card heading."
+        "description": "Heading for the second benefit card."
       },
       {
-        "name": "feature_2_body",
+        "name": "card_two_description",
         "type": "text",
-        "description": "Second feature card supporting text."
+        "description": "Body copy for the second benefit card."
       },
       {
-        "name": "feature_3_heading",
+        "name": "card_three_heading",
         "type": "text",
-        "description": "Third feature card heading."
+        "description": "Heading for the third benefit card."
       },
       {
-        "name": "feature_3_body",
+        "name": "card_three_description",
         "type": "text",
-        "description": "Third feature card supporting text."
+        "description": "Body copy for the third benefit card."
       }
     ]
   },
   {
-    "name": "group_testimonial",
+    "name": "group_testimonial_slider",
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "section_context",
         "type": "text",
-        "description": "Context for the testimonial slider content (industry + credibility)."
+        "description": "High-level context for the testimonial slider section (quotes and slides are authored in the included TestimonialSlider section module)."
       }
     ]
   },
   {
-    "name": "group_who_we_serve",
+    "name": "group_process_intro",
     "type": "group",
     "children": [
+      {
+        "name": "decorative_background",
+        "type": "image",
+        "description": "Optional decorative background graphic for the process band (e.g. dot pattern).",
+        "width": "1750",
+        "height": "1000"
+      },
       {
         "name": "heading",
         "type": "text",
-        "description": "Heading for the “Who we serve” block."
+        "description": "Heading above the process intro rich text."
       },
       {
-        "name": "body",
+        "name": "description",
         "type": "text",
-        "description": "Supporting paragraph for the “Who we serve” block."
+        "description": "Intro paragraph for the process section (full width above image and accordion)."
       }
     ]
   },
   {
-    "name": "group_trust",
+    "name": "group_process_split",
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "process_image",
+        "type": "image",
+        "description": "Illustration or diagram shown beside the process accordion.",
+        "width": "700",
+        "height": "400"
+      },
+      {
+        "name": "accordion_one_title",
         "type": "text",
-        "description": "Heading above the logo grid (credibility/trust)."
+        "description": "Title of the first process accordion item."
+      },
+      {
+        "name": "accordion_one_content",
+        "type": "text",
+        "description": "Body text for the first process accordion item."
+      },
+      {
+        "name": "accordion_two_title",
+        "type": "text",
+        "description": "Title of the second process accordion item."
+      },
+      {
+        "name": "accordion_two_content",
+        "type": "text",
+        "description": "Body text for the second process accordion item."
+      },
+      {
+        "name": "accordion_three_title",
+        "type": "text",
+        "description": "Title of the third process accordion item."
+      },
+      {
+        "name": "accordion_three_content",
+        "type": "text",
+        "description": "Body text for the third process accordion item."
       }
     ]
   },
   {
-    "name": "group_cta_banner",
+    "name": "group_reference_project",
     "type": "group",
     "children": [
       {
-        "name": "heading",
+        "name": "caption",
         "type": "text",
-        "description": "CTA headline in the mid-page banner."
+        "description": "Caption above the featured case or reference card heading."
       },
       {
-        "name": "body",
+        "name": "heading",
         "type": "text",
-        "description": "CTA supporting copy."
+        "description": "Heading for the featured reference project card."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Summary body for the reference project card."
       },
       {
         "name": "button_text",
         "type": "text",
-        "description": "CTA button label."
+        "description": "Primary button label on the reference project card."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "URL for the reference project button."
+      },
+      {
+        "name": "featured_image",
+        "type": "image",
+        "description": "Hero image for the reference project card.",
+        "width": "600",
+        "height": "600"
       }
     ]
   },
   {
-    "name": "group_latest_activities",
+    "name": "group_services_intro",
     "type": "group",
     "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Heading for the “Latest activities” section."
+        "description": "Heading above the service cards grid."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph above the service cards grid."
+      }
+    ]
+  },
+  {
+    "name": "group_services_cards",
+    "type": "group",
+    "children": [
+      {
+        "name": "card_one_heading",
+        "type": "text",
+        "description": "Heading for the first service card."
+      },
+      {
+        "name": "card_one_description",
+        "type": "text",
+        "description": "Description for the first service card."
+      },
+      {
+        "name": "card_two_heading",
+        "type": "text",
+        "description": "Heading for the second service card."
+      },
+      {
+        "name": "card_two_description",
+        "type": "text",
+        "description": "Description for the second service card."
+      },
+      {
+        "name": "card_three_heading",
+        "type": "text",
+        "description": "Heading for the third service card."
+      },
+      {
+        "name": "card_three_description",
+        "type": "text",
+        "description": "Description for the third service card."
+      },
+      {
+        "name": "card_four_heading",
+        "type": "text",
+        "description": "Heading for the fourth service card."
+      },
+      {
+        "name": "card_four_description",
+        "type": "text",
+        "description": "Description for the fourth service card."
+      }
+    ]
+  },
+  {
+    "name": "group_logo_strip",
+    "type": "group",
+    "children": [
+      {
+        "name": "context",
+        "type": "text",
+        "description": "Optional context for editors or AI about which partner or client logos belong in the logo strip."
+      }
+    ]
+  },
+  {
+    "name": "group_banner_cta",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Background image for the mid-page call-to-action band.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading for the call-to-action band."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting paragraph in the call-to-action band."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label in the call-to-action band."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Button URL in the call-to-action band."
+      }
+    ]
+  },
+  {
+    "name": "group_blog",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Heading shown above the recent blog posts slider."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Optional supporting line under the blog heading (template may add rich text later)."
       }
     ]
   }

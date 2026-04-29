@@ -1,0 +1,57 @@
+[
+  {
+    "name": "group_hero",
+    "type": "group",
+    "children": [
+      {
+        "name": "background_image",
+        "type": "image",
+        "description": "Wide hero background image behind the main Book demo heading.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Primary hero heading inviting visitors to book a free demo."
+      }
+    ]
+  },
+  {
+    "name": "group_intro",
+    "type": "group",
+    "children": [
+      {
+        "name": "heading",
+        "type": "text",
+        "description": "Intro section heading displayed above the supporting paragraph."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Short supporting text below the intro heading (may include simple HTML markup)."
+      }
+    ]
+  },
+  {
+    "name": "group_sales_team",
+    "type": "group",
+    "children": [
+      {
+        "name": "cta_preface",
+        "type": "text",
+        "description": "Small preface shown before the sales team CTA link text."
+      },
+      {
+        "name": "cta_text",
+        "type": "text",
+        "description": "Sales team CTA link text."
+      },
+      {
+        "name": "cta_link",
+        "type": "link",
+        "description": "Destination URL for the sales team CTA link."
+      }
+    ]
+  }
+]

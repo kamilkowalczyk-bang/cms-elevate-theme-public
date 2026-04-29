@@ -64,12 +64,14 @@ export const fields = (
         helpText='The space between the accordions'
         display='select'
         choices={[
+          ['xxs', 'XXS'],
+          ['xs', 'XS'],
           ['small', 'Small'],
           ['medium', 'Medium'],
           ['large', 'Large'],
         ]}
         required={true}
-        default='medium'
+        default='xxs'
       />
     </FieldGroup>
   </ModuleFields>

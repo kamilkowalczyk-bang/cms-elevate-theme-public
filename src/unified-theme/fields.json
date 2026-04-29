@@ -36,7 +36,7 @@
               "fallback": "sans-serif",
               "font": "Inter",
               "font_set": "GOOGLE",
-              "google_font_variants": ["400", "400i", "600", "600i"]
+              "google_font_variants": ["300", "300i", "400", "400i"]
             }
           },
           {
@@ -358,7 +358,7 @@
                           }
                         },
                         "default": {
-                          "size": 18
+                          "size": 16
                         }
                       }
                     ]
@@ -452,7 +452,7 @@
                     ]
                   },
                   {
-                    "label": "Caption",
+                    "label": "Intro label / Caption",
                     "name": "group_caption",
                     "type": "group",
                     "display": "inline",
@@ -1438,10 +1438,10 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_primary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
+                    },
+                    "default": {
+                      "opacity": 100
                     },
                     "inherited_value": {
                       "property_value_paths": {
@@ -1497,10 +1497,7 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_primary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
                     },
                     "default": {
                       "color": "#6854E8",
@@ -1651,10 +1648,10 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_secondary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
+                    },
+                    "default": {
+                      "opacity": 100
                     },
                     "inherited_value": {
                       "property_value_paths": {
@@ -1710,10 +1707,7 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_secondary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
                     },
                     "default": {
                       "color": "#6854E8",
@@ -1863,10 +1857,10 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_tertiary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
+                    },
+                    "default": {
+                      "opacity": 100
                     },
                     "inherited_value": {
                       "property_value_paths": {
@@ -1922,10 +1916,7 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_tertiary_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
                     },
                     "default": {
                       "color": "#E9E5FF",
@@ -2076,10 +2067,10 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_accent_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
+                    },
+                    "default": {
+                      "opacity": 100
                     },
                     "inherited_value": {
                       "property_value_paths": {
@@ -2135,10 +2126,7 @@
                     "visibility": {
                       "controlling_field_path": "group_elements.group_button_types.group_accent_button.button_fill",
                       "controlling_value_regex": "filled",
-                      "operator": "EQUAL",
-                      "hidden_subfields": {
-                        "opacity": true
-                      }
+                      "operator": "EQUAL"
                     },
                     "default": {
                       "color": "#E9E5FF",

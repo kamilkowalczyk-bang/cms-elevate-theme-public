@@ -17,6 +17,13 @@ export type ContactSocialLink = {
 };
 
 export type ContactCardItem = {
+  groupHubdbRow?: {
+    id?: unknown;
+    rowId?: unknown;
+    row_id?: unknown;
+    values?: Record<string, unknown>;
+    [key: string]: unknown;
+  };
   groupRegion: {
     showRegion: BooleanFieldType['default'];
     region: TextFieldType['default'];
@@ -62,6 +69,15 @@ export type ContactCardStyles = {
 
 export type ContactCardProps = {
   moduleName?: string;
-  groupContactCards: ContactCardItem[];
-  groupStyle: ContactCardStyles;
+  useHubDB?: BooleanFieldType['default'];
+  /** When true, server hubl can fill `manualHubDbRows` from invoicing flag if repeater pickers resolve to nothing. */
+  hubdbFallbackInvoicingWhenEmpty?: BooleanFieldType['default'];
+  groupContactCards?: ContactCardItem[];
+  /** When omitted (e.g. template `{% module %}` overrides), the island uses field defaults. */
+  groupStyle?: ContactCardStyles;
+  hublData?: {
+    manualHubDbRows?: (Record<string, unknown> | null)[];
+    /** Set when hublDataTemplate used invoicing-only table rows instead of per-slot HubDB pickers. */
+    feedFromManualHubDbOnly?: boolean;
+  };
 };

@@ -4,48 +4,37 @@
     "type": "group",
     "children": [
       {
+        "name": "background_image",
+        "type": "image",
+        "description": "Hero background image for the top section of the section consolidation template.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
         "name": "eyebrow",
         "type": "text",
-        "description": "Short label above the hero headline (e.g. product line or page theme: Technologies)."
+        "description": "Short label text shown above the main hero heading."
       },
-      {
-        "name": "headline",
-        "type": "text",
-        "description": "Primary hero headline (wireless / technology value proposition)."
-      },
-      {
-        "name": "hero_image",
-        "type": "image",
-        "description": "Full-width hero background image (e.g. product, environment, or brand visual).",
-        "width": "1600",
-        "height": "870"
-      }
-    ]
-  },
-  {
-    "name": "group_technology_intro",
-    "type": "group",
-    "children": [
       {
         "name": "heading",
         "type": "text",
-        "description": "Section heading for the elevated intro block (breadth of technologies and expertise)."
-      },
-      {
-        "name": "body",
-        "type": "text",
-        "description": "Supporting paragraph: wireless performance, industries served, lifecycle offering, antenna specialty."
+        "description": "Main hero heading introducing Radientum technologies."
       }
     ]
   },
   {
-    "name": "group_services_hubdb",
+    "name": "group_content",
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "section_heading",
         "type": "text",
-        "description": "Context for the services grid: cards are loaded from HubDB; multi-category filter pills may apply. Describe service types and how they map to HubDB categories."
+        "description": "Heading for the core technologies content section."
+      },
+      {
+        "name": "section_description",
+        "type": "text",
+        "description": "Supporting rich text content for the core technologies section."
       }
     ]
   },
@@ -54,9 +43,24 @@
     "type": "group",
     "children": [
       {
-        "name": "note",
+        "name": "heading",
         "type": "text",
-        "description": "Context for the embedded HubSpot CTA (@hubspot/cta): goal of the call-to-action and audience (e.g. contact, demo, resource). CTA creative is managed in HubSpot Marketing, not in the template body."
+        "description": "Heading for the closing call-to-action section."
+      },
+      {
+        "name": "description",
+        "type": "text",
+        "description": "Supporting description for the closing call-to-action section."
+      },
+      {
+        "name": "button_text",
+        "type": "text",
+        "description": "Button label for the closing call-to-action."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Destination URL for the closing call-to-action button."
       }
     ]
   }

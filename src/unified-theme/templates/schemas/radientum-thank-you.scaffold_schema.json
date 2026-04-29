@@ -4,9 +4,16 @@
     "type": "group",
     "children": [
       {
+        "name": "background_image",
+        "type": "image",
+        "description": "Full-width hero background behind the thank-you headline.",
+        "width": "1750",
+        "height": "1000"
+      },
+      {
         "name": "headline",
         "type": "text",
-        "description": "Thank-you headline over the hero background (e.g. after form submit or download)."
+        "description": "Primary thank-you headline centered over the hero (e.g. after form submit, download, or booking)."
       }
     ]
   },
@@ -17,12 +24,12 @@
       {
         "name": "headline",
         "type": "text",
-        "description": "Subheading explaining what happens next (e.g. expert will be in touch)."
+        "description": "Left-column subheading after the hero (e.g. that an expert will follow up soon)."
       },
       {
         "name": "body",
         "type": "text",
-        "description": "Rich guidance: what to expect, contact options, bullet list of meeting or follow-up points."
+        "description": "Left-column body copy: what happens next, how to reach the team, optional bullet-style expectations for a meeting or download follow-up. May include list-style guidance for AI."
       }
     ]
   },
@@ -31,26 +38,51 @@
     "type": "group",
     "children": [
       {
-        "name": "region_caption",
+        "name": "region_label",
         "type": "text",
-        "description": "Short label for region or office (e.g. USA / Canada)."
+        "description": "Region or territory line above the contact name (e.g. USA and Canada)."
       },
       {
-        "name": "name",
+        "name": "full_name",
         "type": "text",
-        "description": "Team member name or title shown on the card."
+        "description": "Contact person full name on the card."
       },
       {
-        "name": "role",
+        "name": "department",
         "type": "text",
-        "description": "Role or one-line description under the name."
+        "description": "Job title or department under the name (e.g. Sales)."
       },
       {
-        "name": "photo",
+        "name": "portrait",
         "type": "image",
-        "description": "Portrait for the contact or team card.",
+        "description": "Square portrait image for the contact card.",
         "width": "400",
         "height": "400"
+      },
+      {
+        "name": "phone_display",
+        "type": "text",
+        "description": "Phone number as shown on the card (human-readable format)."
+      },
+      {
+        "name": "email_display",
+        "type": "text",
+        "description": "Email address as shown on the card."
+      },
+      {
+        "name": "button_label",
+        "type": "text",
+        "description": "Optional CTA label on the card when the meeting button is shown."
+      },
+      {
+        "name": "button_link",
+        "type": "link",
+        "description": "Destination URL for the card CTA when the button is enabled."
+      },
+      {
+        "name": "linkedin_url",
+        "type": "link",
+        "description": "Optional LinkedIn profile URL when social links are enabled on the card."
       }
     ]
   }

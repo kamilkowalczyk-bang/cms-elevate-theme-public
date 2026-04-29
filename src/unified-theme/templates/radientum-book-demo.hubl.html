@@ -1,0 +1,140 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Radientum Book demo
+  screenshotPath: ../images/template-previews/radientum-book-demo.png
+  scaffoldSchemaPath: ./schemas/radientum-book-demo.scaffold_schema.json
+-->
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {% dnd_area "dnd_area"
+    label="Main section"
+  %}
+    {% dnd_section
+      background_image={
+        "background_position" : "BOTTOM_CENTER",
+        "background_size" : "cover",
+        "image_url" : scaffold_content.group_hero.background_image.src or "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_picture_drone_sunset.jpg"
+      },
+      padding={
+        "default" : {
+          "bottom" : "150px",
+          "left" : "250px",
+          "right" : "250px",
+          "top" : "350px"
+        },
+        "mobile" : {
+          "bottom" : "60px",
+          "left" : "32px",
+          "right" : "32px",
+          "top" : "150px"
+        }
+      },
+      full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../components/modules/Heading",
+            offset=0,
+            width=12,
+            groupStyle={
+              "alignment" : {
+                "text_align" : "CENTER"
+              },
+              "headingStyleVariant" : "display_title",
+              "sectionStyleVariant" : "section_variant_4"
+            },
+            headingAndTextHeading={{ scaffold_content.group_hero.heading or "Book a free Demo" }},
+            headingAndTextHeadingLevel="h2"
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+    {% dnd_section
+    max_width={{ context.max_width or section_width_medium }},
+    padding={
+      "default" : {
+        "bottom" : "0px",
+        "left" : "0px",
+        "right" : "0px",
+        "top" : "0px"
+      }
+    }
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../components/modules/ElevatedHeading",
+            offset=0,
+            width=12,
+            groupCards=[ ],
+            groupHeading={
+              "heading" : scaffold_content.group_intro.heading or "Heading",
+              "headingLevel" : "h2",
+              "richTextContentHTML" : scaffold_content.group_intro.description or '<p style="text-align: center;">[AI-SECTION-START] Lorem ipsum dolor sit amet consectetur. Elit in risus hac et a. Luctus diam neque lacus sed feugiat quis urna malesuada. Feugiat adipiscing nulla habitasse pharetra ac turpis felis lacus in. Magnis tempor nunc tempus tempus lacinia lacus ullamcorper dictum. Volutpat venenatis tristique mauris bibendum. Tortor sed aliquam tempor faucibus a. Aliquet diam aliquet metus viverra enim purus vitae sit venenatis. Tristique dignissim sit tellus enim duis id. [AI-SECTION-END]</p>',
+              "showHeadingRichText" : true
+            },
+            groupStyle={
+              "headingStyleVariant" : "h2",
+              "sectionBackgroundColor" : {
+                "color" : "#ffffff",
+                "opacity" : 100
+              },
+              "sectionStyleVariant" : "section_variant_1"
+            },
+            isElevated=true
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+
+    {% dnd_section %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../components/modules/SalesTeam",
+            offset=0,
+            width=12,
+            bookDemo=true,
+            groupBookDemoCta={
+              "link" : {
+                "open_in_new_tab" : false,
+                "url" : {
+                  "href" : scaffold_content.group_sales_team.cta_link.url.href or "https://www.radientum.com/",
+                  "type" : "EXTERNAL"
+                }
+              },
+              "linkText" : scaffold_content.group_sales_team.cta_text or "Contact our sales team",
+              "prefaceText" : scaffold_content.group_sales_team.cta_preface or "Not your region?"
+            },
+            groupRegionalCards=[ {
+              "groupHubdbRow" : {
+                "id" : 211441338214
+              }
+            } ],
+            groupStyle={
+              "groupCard" : {
+                "showCardBorder" : false
+              }
+            }
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+{% endblock body %}

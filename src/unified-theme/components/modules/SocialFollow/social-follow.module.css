@@ -15,7 +15,7 @@
   border-width: var(--hsElevate--socialFollowIcon__borderWidth);
   align-items: center;
   justify-content: center;
-  background-color: var(--hsElevate--socialFollowIcon__backgroundColor);
+  background-color: var(--hsElevate--socialFollowIcon__backgroundColor, transparent);
 
   :global(svg) {
     fill: var(--hsElevate--socialFollowIcon__color);
@@ -24,7 +24,7 @@
   &:hover {
     border-color: var(--hsElevate--socialFollowIcon__hover--borderColor);
     border-width: var(--hsElevate--socialFollowIcon__hover--borderWidth);
-    background-color: var(--hsElevate--socialFollowIcon__hover--backgroundColor);
+    background-color: var(--hsElevate--socialFollowIcon__hover--backgroundColor, transparent);
 
     :global(svg) {
       fill: var(--hsElevate--socialFollowIcon__hover--color);
@@ -34,7 +34,7 @@
   &:active {
     border-color: var(--hsElevate--socialFollowIcon__active--borderColor);
     border-width: var(--hsElevate--socialFollowIcon__active--borderWidth);
-    background-color: var(--hsElevate--socialFollowIcon__active--backgroundColor);
+    background-color: var(--hsElevate--socialFollowIcon__active--backgroundColor, transparent);
 
     :global(svg) {
       fill: var(--hsElevate--socialFollowIcon__active--color);

@@ -1,0 +1,460 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Radientum Contact us
+  screenshotPath: ../images/template-previews/radientum-contact-us.png
+-->
+{# Important note:
+  The template currently uses `contact_base_path = "/contact"`.
+  If your published parent dynamic page path differs, update the constant below.
+#}
+{% set template_css = "../../assets/_hs/css/templates/radientum-contact-us.hubl.css" %}
+{% extends "./layouts/base.hubl.html" %}
+
+{% block body %}
+  {# TODO: Keep this in sync with the published dynamic parent page URL. #}
+  {% set contact_base_path = "/contact" %}
+
+  {% dnd_area "hero_area"
+    label="Hero section"
+  %}
+    {% dnd_section
+      background_image={
+        "background_position" : "BOTTOM_CENTER",
+        "background_size" : "cover",
+        "image_url" : "https://51079453.fs1.hubspotusercontent-na1.net/hubfs/51079453/Radientum_assets_2026/Brand_picture_drone_sunset.webp"
+      },
+      padding={
+      "default" : {
+        "bottom" : "150px",
+        "left" : "150px",
+        "right" : "150px",
+        "top" : "350px"
+      },
+      "mobile" : {
+        "bottom" : "60px",
+        "left" : "32px",
+        "right" : "32px",
+        "top" : "150px"
+      }
+    },
+    full_width=true
+    %}
+      {% dnd_column
+        offset=0,
+        width=12
+      %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../components/modules/Heading",
+            offset=0,
+            width=12,
+            groupStyle={
+              "alignment" : {
+                "text_align" : "CENTER"
+              },
+              "headingStyleVariant" : "display_title",
+              "sectionStyleVariant" : "section_variant_4"
+            },
+            headingAndTextHeading="Contact us",
+            headingAndTextHeadingLevel="h1"
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+        {% dnd_row %}
+          {% dnd_module
+            path="../components/modules/Button",
+            offset=0,
+            width=12,
+            groupButtons=[{
+              "buttonContentText": "Use contact form",
+              "buttonContentLink": {
+                "url": {
+                  "type": "EXTERNAL",
+                  "href": "#contact-tabs-content"
+                }
+              },
+              "buttonContentShowIcon": false,
+              "buttonContentIcon": {
+                "name": "arrow-right"
+              },
+              "buttonContentIconPosition": "right"
+            }],
+            groupStyle={
+              "alignment": {
+                "horizontal_align": "CENTER"
+              },
+              "buttonStyleSize": "medium",
+              "buttonStyleVariant": "secondary",
+              "gap": "medium"
+            }
+          %}
+          {% end_dnd_module %}
+        {% end_dnd_row %}
+      {% end_dnd_column %}
+    {% end_dnd_section %}
+  {% end_dnd_area %}
+
+  {# Tab route: prefer URL last segment. dynamic_page_hubdb_row is often the parent row on all routes, so reading it first wrongly pins active tab to Sales. #}
+  {% set base_slug = contact_base_path|regex_replace("^/+", "")|regex_replace("/+$", "") %}
+  {% set normalized_request_path = request.path|default("")|lower|trim|regex_replace("^/+", "")|regex_replace("/+$", "") %}
+  {% set path_segments = normalized_request_path|split("/") %}
+  {% set last_slug = path_segments|last|default("") %}
+
+  {% set current_tab_path = "" %}
+  {% if last_slug == "invoicing-and-purchasing" %}
+    {% set current_tab_path = "invoicing-and-purchasing" %}
+  {% elif last_slug == "offices" %}
+    {% set current_tab_path = "offices" %}
+  {% elif last_slug == "sales" %}
+    {% set current_tab_path = "sales" %}
+  {% elif last_slug == base_slug %}
+    {% set current_tab_path = "sales" %}
+  {% endif %}
+
+  {% if not current_tab_path and dynamic_page_hubdb_row %}
+    {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default(dynamic_page_hubdb_row.path)|default("")|lower %}
+  {% endif %}
+  {% if not current_tab_path %}
+    {% set current_tab_path = "sales" %}
+  {% endif %}
+
+  {% set active_tab = "sales" %}
+  {% set active_tab_path = "sales" %}
+  {% if current_tab_path == "invoicing-and-purchasing" %}
+    {% set active_tab = "invoicing" %}
+    {% set active_tab_path = "invoicing-and-purchasing" %}
+  {% elif current_tab_path == "offices" %}
+    {% set active_tab = "offices" %}
+    {% set active_tab_path = "offices" %}
+  {% else %}
+    {% set active_tab = "sales" %}
+    {% set active_tab_path = "sales" %}
+  {% endif %}
+
+  {% set enabled_contact_tabs = [] %}
+  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+    {% set enabled_raw = tab_row.is_enabled|default(tab_row.values.is_enabled)|default(0)|string|lower|trim %}
+    {% set is_enabled = (enabled_raw == "1" or enabled_raw == "true" or enabled_raw == "on" or enabled_raw == "yes") %}
+    {% if is_enabled %}
+      {% do enabled_contact_tabs.append(tab_row) %}
+    {% endif %}
+  {% endfor %}
+
+  {% set active_tab_label = "Sales" %}
+  {% set active_tab_heading = "CONTACT SALES" %}
+  {# Match heading/label to HubDB row by resolved URL slug (active_tab_path). #}
+  {# Note: do not assign tab description into a variable inside this `if` then read it later — Jinjava can block-scope `{% set %}` so the outer variable never updates. Render description inline below. #}
+  {% set heading_tab_match = none %}
+  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+    {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+    {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
+      {% set heading_tab_match = tab_row %}
+    {% endif %}
+  {% endfor %}
+  {% if heading_tab_match %}
+    {% set active_tab_label = heading_tab_match.tab_label|default(heading_tab_match.values.tab_label)|default(active_tab_label) %}
+    {% set active_tab_heading = heading_tab_match.heading_default|default(heading_tab_match.values.heading_default)|default(active_tab_heading) %}
+  {% elif active_tab == "invoicing" %}
+    {% set active_tab_label = "Invoicing and purchasing" %}
+    {% set active_tab_heading = "INVOICING AND PURCHASING" %}
+  {% elif active_tab == "offices" %}
+    {% set active_tab_label = "Offices" %}
+    {% set active_tab_heading = "OFFICES" %}
+  {% endif %}
+
+  {% set all_contact_rows = hubdb_table_rows("contact_cards") %}
+  {# Sales tab should continue to show all sales team contacts. #}
+  {% set sales_rows = all_contact_rows %}
+
+  {% set sales_card_rows = [] %}
+  {% for sales_row in sales_rows %}
+    {% set sid = sales_row.hs_id %}
+    {% if sid is none %}
+      {% set sid = sales_row.id %}
+    {% endif %}
+    {% if sid is none and sales_row.values %}
+      {% set sid = sales_row.values.hs_id %}
+    {% endif %}
+    {% if sid %}
+      {% do sales_card_rows.append({
+        "groupHubdbRow": {
+          "id": sid
+        }
+      }) %}
+    {% endif %}
+  {% endfor %}
+
+  {# Invoicing tab: contact_cards rows where invoicing_and_purchasing is checked (HubDB only; no department fallback).
+     groupHubdbRow mirrors the ContactCard "Choose from HubDB" field: same row ids the editor would save (id / rowId / hs_id). #}
+  {% set invoicing_card_rows = [] %}
+  {% for inv_row in hubdb_table_rows("contact_cards") %}
+    {% set inv_raw = inv_row.invoicing_and_purchasing|default(inv_row.values.invoicing_and_purchasing if inv_row.values else none) %}
+    {% set inv_candidate = inv_raw %}
+    {% if inv_candidate and inv_candidate.value is defined %}
+      {% set inv_candidate = inv_candidate.value %}
+    {% elif inv_candidate and inv_candidate.checked is defined %}
+      {% set inv_candidate = inv_candidate.checked %}
+    {% elif inv_candidate and inv_candidate.selected is defined %}
+      {% set inv_candidate = inv_candidate.selected %}
+    {% endif %}
+    {% set inv_norm = inv_candidate|string|lower|trim %}
+    {% set is_invoicing = (inv_norm == "1" or inv_norm == "true" or inv_norm == "yes" or inv_norm == "on") %}
+    {% if is_invoicing %}
+      {% set sid = inv_row.hs_id %}
+      {% if sid is none %}
+        {% set sid = inv_row.id %}
+      {% endif %}
+      {% if sid is none and inv_row.values %}
+        {% set sid = inv_row.values.hs_id %}
+      {% endif %}
+      {% if sid %}
+        {% do invoicing_card_rows.append({
+          "groupHubdbRow": {
+            "id": sid,
+            "rowId": sid,
+            "hs_id": sid
+          }
+        }) %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+
+  {# Offices tab: all published `offices` HubDB rows, same `groupHubdbRow` id shape as the editor (mirrors sales / invoicing modules). #}
+  {% set office_card_rows = [] %}
+  {% for office_row in hubdb_table_rows("offices") %}
+    {% set sid = office_row.hs_id %}
+    {% if sid is none %}
+      {% set sid = office_row.id %}
+    {% endif %}
+    {% if sid is none and office_row.values %}
+      {% set sid = office_row.values.hs_id %}
+    {% endif %}
+    {% if sid %}
+      {% do office_card_rows.append({
+        "groupHubdbRow": {
+          "id": sid,
+          "rowId": sid,
+          "hs_id": sid
+        }
+      }) %}
+    {% endif %}
+  {% endfor %}
+
+  <section class="hs-elevate-contact-tabs-section">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
+      <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
+        {% if enabled_contact_tabs|length > 0 %}
+          {% for tab_row in enabled_contact_tabs %}
+            {% set tab_path = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+            {% set tab_href = contact_base_path %}
+            {% if tab_path and tab_path != "sales" %}
+              {% set tab_href = contact_base_path ~ "/" ~ tab_path %}
+            {% endif %}
+            {% set is_tab_active = (
+              (active_tab_path == "sales" and (tab_path == "" or tab_path == "sales")) or
+              tab_path == active_tab_path
+            ) %}
+            <a
+              class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if is_tab_active else '' }}"
+              href="{{ tab_href }}"
+              aria-current="{{ 'page' if is_tab_active else 'false' }}"
+            >
+              {{ tab_row.tab_label|default(tab_row.values.tab_label)|default(tab_path|replace("-", " ")|title) }}
+            </a>
+          {% endfor %}
+        {% else %}
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'sales' else '' }}"
+            href="{{ contact_base_path }}"
+            aria-current="{{ 'page' if active_tab == 'sales' else 'false' }}"
+          >
+            Sales
+          </a>
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'invoicing' else '' }}"
+            href="{{ contact_base_path }}/invoicing-and-purchasing"
+            aria-current="{{ 'page' if active_tab == 'invoicing' else 'false' }}"
+          >
+            Invoicing and purchasing
+          </a>
+          <a
+            class="hs-elevate-contact-tabs__tab{{ ' hs-elevate-contact-tabs__tab--active' if active_tab == 'offices' else '' }}"
+            href="{{ contact_base_path }}/offices"
+            aria-current="{{ 'page' if active_tab == 'offices' else 'false' }}"
+          >
+            Offices
+          </a>
+        {% endif %}
+      </nav>
+    </div>
+  </section>
+
+  <section class="hs-elevate-contact-tabs-content" id="contact-tabs-content">
+    <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--wide">
+      <div class="hs-elevate-contact-tabs-intro">
+        {% module
+          "rad-contact-tab-divider"
+          path="@hubspot/divider",
+          styles={
+            "line" : {
+              "color" : {
+                "color" : "#52BAD1",
+                "opacity" : 100
+              },
+              "thickness" : 4
+            },
+            "size" : {
+              "width" : 10
+            },
+            "spacing" : {
+              "spacing" : {
+                "margin" : {
+                  "bottom" : {
+                    "units" : "px",
+                    "value" : 25
+                  },
+                  "top" : {
+                    "units" : "px",
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        %}
+        <h2 class="hs-elevate-contact-tabs__heading">{{ active_tab_heading }}</h2>
+        {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+          {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+          {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
+            {% set dcell = tab_row.description_default %}
+            {% if (dcell is none or (dcell is string and dcell|trim == "")) and tab_row.values %}
+              {% set dcell = tab_row.values.description_default %}
+            {% endif %}
+            {% set dhtml = "" %}
+            {% if dcell is string %}
+              {% set dhtml = dcell %}
+            {% elif dcell %}
+              {% set dhtml = dcell.html|default(dcell.value)|default("") %}
+            {% endif %}
+            {% set dvis = dhtml|default("")|string|trim %}
+            {% if dvis|length == 0 and tab_row.hs_id %}
+              {% set snap = hubdb_table_row("contact_tabs", tab_row.hs_id|int) %}
+              {% set sc = none %}
+              {% if snap and snap.values %}
+                {% set sc = snap.values.description_default %}
+              {% endif %}
+              {% if snap and (sc is none or (sc is string and sc|trim == "")) %}
+                {% set sc = snap.description_default %}
+              {% endif %}
+              {% if sc is string %}
+                {% set dhtml = sc %}
+              {% elif sc %}
+                {% set dhtml = sc.html|default(sc.value)|default("") %}
+              {% endif %}
+              {% set dvis = dhtml|default("")|string|trim %}
+            {% endif %}
+            {% if dvis|length > 0 %}
+              <div class="hs-elevate-contact-tabs__description">
+                {% if '<' in dvis %}
+                  {{ dhtml|sanitize_html }}
+                {% else %}
+                  <p>{{ dhtml|escape_html }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+      {% if active_tab == "sales" %}
+        {# Sales team: default (non-book-demo) layout: featured rep, meeting iframe, regional rep grid. #}
+        {% module
+          "rad-contact-sales-team"
+            path="../components/modules/SalesTeam",
+            bookDemo=false,
+            enableGeoAutoSelect=true,
+            groupRegionalCards=sales_card_rows,
+          groupStyle={
+            "groupCard" : {
+              "cardStyleVariant" : "card_variant_3",
+              "showCardShadow" : true,
+              "showCardBorder" : false
+            },
+            "groupLayout" : {
+              "cardsAlignment" : {
+                "horizontal_align" : "CENTER"
+              },
+              "contentAlignment" : {
+                "horizontal_align" : "CENTER"
+              }
+            },
+            "groupButton" : {
+              "buttonStyleVariant" : "primary",
+              "buttonStyleSize" : "small"
+            }
+          }
+        %}
+      {% elif active_tab == "invoicing" %}
+        {# Invoicing and purchasing tab uses ContactCard in HubDB mode; groupContactCards is built from contact_cards rows where invoicing_and_purchasing is checked (same shape as "Choose from HubDB" per repeater slot). #}
+        {% if invoicing_card_rows|length > 0 %}
+          {# One ContactCard module (static instance id). #}
+          <div class="hs-elevate-contact-tabs__invoicing-cards">
+            {# Commas between {% module %} args: without a comma after `groupContactCards=…`, HubSpot can glue the next line (`groupStyle`) into one bogus hubl key (`invoicing_card_rows` + newline + `groupStyle`), drop groupContactCards, and fall back to 4 field defaults with useHubDB=false from stale page JSON. New instance id resets saved useHubDB off. #}
+            {% module "rad-contact-invoicing-hubdb"
+              path="../components/modules/ContactCard",
+              useHubDB=true,
+              hubdbFallbackInvoicingWhenEmpty=true,
+              groupContactCards=invoicing_card_rows,
+              groupStyle={
+                "groupCard" : {
+                  "cardStyleVariant" : "card_variant_3",
+                  "showCardShadow" : true,
+                  "showCardBorder" : false
+                },
+                "groupLayout" : {
+                  "cardsAlignment" : {
+                    "horizontal_align" : "CENTER"
+                  },
+                  "contentAlignment" : {
+                    "horizontal_align" : "CENTER"
+                  }
+                },
+                "groupButton" : {
+                  "buttonStyleVariant" : "primary",
+                  "buttonStyleSize" : "small"
+                }
+              }
+            %}
+          </div>
+        {% else %}
+          <p class="hs-elevate-contact-tabs__empty">
+            No invoicing contacts are configured in HubDB yet. In the <strong>contact_cards</strong> table, enable
+            <strong>Show on Invoicing and purchasing tab</strong> for one or more rows, then publish the table.
+          </p>
+        {% endif %}
+      {% elif active_tab == "offices" %}
+        {% if office_card_rows|length > 0 %}
+          <div class="hs-elevate-contact-tabs__offices">
+            {#
+              Comma after each `{% module %}` parameter so keys are not merged. Pass `groupOfficeCards` for stable row
+              resolution; if the repeater still does not receive HubDB id picks, `hubdbFallbackOfficesWhenEmpty` in
+              OfficeCard loads all `offices` rows server-side.
+            #}
+            {% module
+              "rad-contact-offices-hubdb"
+              path="../components/modules/OfficeCard",
+              useHubDB=true,
+              hubdbFallbackOfficesWhenEmpty=true,
+              groupOfficeCards=office_card_rows,
+            %}
+          </div>
+        {% else %}
+          <p class="hs-elevate-contact-tabs__empty">
+            No offices are published in the <strong>offices</strong> HubDB table yet. Add rows in HubDB, publish the
+            table, then return to this page.
+          </p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </section>
+{% endblock body %}

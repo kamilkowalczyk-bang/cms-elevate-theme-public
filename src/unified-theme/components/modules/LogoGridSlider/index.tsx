@@ -4,6 +4,7 @@ import logoGridIconSvg from './assets/card-icon-grid.svg';
 // @ts-expect-error -- ?island not typed
 import LogoGridSliderIsland from './islands/LogoGridSliderIsland.js?island';
 import { LogoGridSliderProps } from './types.js';
+import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
 
 export const Component = (props: LogoGridSliderProps) => {
   const {
@@ -47,7 +48,7 @@ export const hublDataTemplate = `
       {% endif %}
     {% endif %}
     {% if rid %}
-      {% set row = hubdb_table_row(231586389, rid|int) %}
+      {% set row = hubdb_table_row("${HUBDB_TABLE_NAMES.logoGrid}", rid|int) %}
       {% set logoRaw = row.logo %}
       {% if logoRaw %}
         {% if logoRaw.url %}
