@@ -2,10 +2,12 @@
 {% set form_field_background = form.group_field_background.background %}
 
 :root {
-  /* Form field background color */
-  {% if form_field_background == "filled" %}
-    --hsElevate--formField__backgroundColor: {{ form.group_default_state.fill_color.color }};
-  {% endif %}
+/* Form field background color */
+{% if form_field_background == "filled" %}
+  --hsElevate--formField__backgroundColor: {{ form.group_default_state.fill_color.color }};
+{% else %}
+  --hsElevate--formField__backgroundColor: transparent;
+{% endif %}
 
   /* Form field shape */
   {% if form_field_background == "filled" %}
