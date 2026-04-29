@@ -249,7 +249,7 @@
   --hsf-button__border-style: solid;
   --hsf-button__border-color: var(--hsElevate--button--primary__borderColor);
   --hsf-button__padding: var(--hsElevate--spacing--20) var(--hsElevate--spacing--32);
-  --hsf-button__box-shadow: none;
+  --hsf-button__box-shadow: var(--hsf-button__box-shadow);
   --hsf-button--hover__color: var(--hsElevate--button--primary__hover--textColor);
   --hsf-button--hover__background-color: var(--hsElevate--button--primary__hover--backgroundColor);
   --hsf-button--hover__border-color: var(--hsElevate--button--primary__hover--borderColor);

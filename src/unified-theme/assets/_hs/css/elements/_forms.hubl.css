@@ -259,6 +259,21 @@
   text-decoration: none;
 }
 
+/* HubSpot v2 form renderer (hsfc-*) sometimes clips button shadows. */
+.hsfc-Step__Content,
+.hsfc-NavigationRow {
+  overflow: visible !important;
+}
+
+.hsfc-Button {
+  /* settings/_forms.hubl.css always defines --hsf-button__box-shadow */
+  box-shadow: var(--hsf-button__box-shadow);
+}
+
+.hsfc-NavigationRow .hsfc-Button {
+  z-index: 1;
+}
+
 /* Captcha */
 
 .grecaptcha-badge {
