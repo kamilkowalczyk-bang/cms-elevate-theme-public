@@ -33,6 +33,17 @@ const headingRichTextVisibility: AdvancedVisibility = {
   ],
 };
 
+const introPaddingVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'groupStyle.showIntroPadding',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+} as const;
+
 export const fields = (
   <ModuleFields>
     <BooleanField label="Elevate (offset)" name="isElevated" display="toggle" default={false} />
@@ -77,6 +88,24 @@ export const fields = (
       />
       <SectionStyle sectionStyleDefault="section_variant_1" />
       <HeadingStyle headingStyleAsDefault="display_title" />
+      <BooleanField label="Intro padding" name="showIntroPadding" display="toggle" default={false} />
+      <ChoiceField
+        label="Intro-text padding"
+        name="introTextPadding"
+        display="select"
+        choices={[
+          ['none', 'None (0px)'],
+          ['xxs', 'XXS (24px)'],
+          ['xs', 'XS (48px)'],
+          ['small', 'Small (56px)'],
+          ['medium', 'Medium (72px)'],
+          ['large', 'Large (96px)'],
+        ]}
+        default="none"
+        required={true}
+        visibilityRules="ADVANCED"
+        advancedVisibility={introPaddingVisibility}
+      />
     </FieldGroup>
 
     <RepeatedFieldGroup
