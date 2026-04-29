@@ -259,6 +259,11 @@
   text-decoration: none;
 }
 
+/* HubSpot v2/React form buttons */
+.hsfc-Button {
+  box-shadow: var(--hsf-button__box-shadow, none);
+}
+
 /* Captcha */
 
 .grecaptcha-badge {
