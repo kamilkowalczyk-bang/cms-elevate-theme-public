@@ -248,8 +248,8 @@
   --hsf-button__border-width: var(--hsElevate--button--primary__borderThickness);
   --hsf-button__border-style: solid;
   --hsf-button__border-color: var(--hsElevate--button--primary__borderColor);
-  --hsf-button__padding: var(--hsElevate--spacing--20) var(--hsElevate--spacing--24);
-  --hsf-button__box-shadow: none;
+  --hsf-button__padding: var(--hsElevate--spacing--20) var(--hsElevate--spacing--32);
+  --hsf-button__box-shadow: 0 12px 24px -24px rgba(0, 0, 0, 0.15);
   --hsf-button--hover__color: var(--hsElevate--button--primary__hover--textColor);
   --hsf-button--hover__background-color: var(--hsElevate--button--primary__hover--backgroundColor);
   --hsf-button--hover__border-color: var(--hsElevate--button--primary__hover--borderColor);

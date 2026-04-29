@@ -240,11 +240,12 @@
   font-style: var(--hsElevate--button--primary__fontStyle);
   font-weight: var(--hsElevate--button--primary__fontWeight);
   padding-block: var(--hsElevate--spacing--20);
-  padding-inline: var(--hsElevate--spacing--32);
+  padding-inline: var(--hsElevate--spacing--20);
   text-align: center;
   text-decoration: none;
   transition: all 0.15s linear;
   white-space: normal !important;
+  box-shadow: 0 12px 24px -24px rgba(0, 0, 0, 0.15);
 }
 
 :is(.hs-form, .hs-elevate-system-form) .hs-button:hover,
