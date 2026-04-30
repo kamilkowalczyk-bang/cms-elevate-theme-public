@@ -2,6 +2,7 @@ import {
   ModuleFields,
   FieldGroup,
   TextField,
+  RichTextField,
   ChoiceField,
   ColorField,
   BooleanField,
@@ -74,7 +75,12 @@ export const fields = (
   <ModuleFields>
     <FieldGroup label="Heading" name="groupHeading" display="inline">
       <TextField label="Heading" name="heading" default="GLOBAL PRESENCE" inlineEditable={true} />
-      <TextField label="Subheading" name="subheading" default="We serve customers all around the world" inlineEditable={true} />
+      <RichTextField
+        label="Subheading"
+        name="subheading"
+        default="<p>We serve customers all around the world</p>"
+        inlineEditable={true}
+      />
       <ChoiceField
         label="Semantic heading level"
         name="headingLevel"
@@ -86,15 +92,17 @@ export const fields = (
       />
     </FieldGroup>
     <FieldGroup label="Globe" name="groupGlobe" display="inline">
-      <ChoiceField
-        label="Highlighted countries"
-        name="highlightedCountries"
-        choices={COUNTRY_CHOICES}
-        multiple={true}
-        display="checkbox"
-        reorderingEnabled={false}
-        default={defaultHighlightedCountries}
-      />
+      <FieldGroup label="Highlighted countries" name="groupHighlightedCountries" display="accordion" expanded={false}>
+        <ChoiceField
+          label="Highlighted countries"
+          name="highlightedCountries"
+          choices={COUNTRY_CHOICES}
+          multiple={true}
+          display="checkbox"
+          reorderingEnabled={false}
+          default={defaultHighlightedCountries}
+        />
+      </FieldGroup>
       <ColorField
         label="Highlight color"
         name="highlightColor"

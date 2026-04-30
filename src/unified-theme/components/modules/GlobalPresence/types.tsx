@@ -3,6 +3,7 @@ import {
   ChoiceFieldType,
   ColorFieldType,
   NumberFieldType,
+  RichTextFieldType,
   TextFieldType,
 } from '@hubspot/cms-components/fields';
 import { HeadingStyleFieldLibraryType } from '../../fieldLibrary/HeadingStyle/types.js';
@@ -11,7 +12,10 @@ import { SectionStyleFieldLibraryType } from '../../fieldLibrary/SectionStyle/ty
 export type GroupStyle = SectionStyleFieldLibraryType & HeadingStyleFieldLibraryType;
 
 export type GlobeConfig = {
-  highlightedCountries: string[];
+  groupHighlightedCountries?: {
+    highlightedCountries: string[];
+  };
+  highlightedCountries?: string[];
   highlightColor: ColorFieldType['default'];
   baseCountryColor: ColorFieldType['default'];
   oceanColor: ColorFieldType['default'];
@@ -24,7 +28,7 @@ export type GlobalPresenceProps = {
   moduleName?: string;
   groupHeading: {
     heading: TextFieldType['default'];
-    subheading: TextFieldType['default'];
+    subheading: RichTextFieldType['default'];
     headingLevel: ChoiceFieldType['default'];
   };
   groupGlobe: GlobeConfig;

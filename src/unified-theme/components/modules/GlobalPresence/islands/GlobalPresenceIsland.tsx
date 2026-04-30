@@ -27,20 +27,25 @@ const sphere: SphereDatum = { type: 'Sphere' };
 
 function useLandFeatures(): FeatureCollection<Geometry, GeoJsonProperties> {
   return useMemo(() => {
-    const topo = countries110m as Parameters<typeof feature>[0];
-    return feature(topo, topo.objects.countries as never) as FeatureCollection<Geometry, GeoJsonProperties>;
+    const topo = countries110m as unknown as Parameters<typeof feature>[0];
+    return feature(topo, topo.objects.countries as never) as unknown as FeatureCollection<Geometry, GeoJsonProperties>;
   }, []);
 }
 
 function featureIdToAlpha2(id: string | number | undefined): string | undefined {
   if (id === undefined || id === null) return undefined;
-  return NUMERIC_TO_ALPHA2[String(id)];
+  const raw = String(id);
+  const normalized = String(Number.parseInt(raw, 10));
+  return NUMERIC_TO_ALPHA2[raw] ?? NUMERIC_TO_ALPHA2[normalized];
 }
 
 export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
+  const countriesFromNestedGroup = props.groupGlobe.groupHighlightedCountries?.highlightedCountries ?? [];
+  const countriesFromLegacyField = (props.groupGlobe as { highlightedCountries?: string[] }).highlightedCountries ?? [];
+  const highlightedCountries = countriesFromNestedGroup.length > 0 ? countriesFromNestedGroup : countriesFromLegacyField;
+
   const {
     groupGlobe: {
-      highlightedCountries,
       highlightColor,
       baseCountryColor,
       oceanColor,

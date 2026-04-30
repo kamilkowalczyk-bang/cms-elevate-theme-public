@@ -1,5 +1,5 @@
 import { ModuleMeta } from '../../types/modules.js';
-import { Island } from '@hubspot/cms-components';
+import { Island, RichText } from '@hubspot/cms-components';
 // @ts-expect-error -- ?island not typed
 import GlobalPresenceIsland from './islands/GlobalPresenceIsland.js?island';
 import { GlobalPresenceProps } from './types.js';
@@ -37,11 +37,12 @@ function generateSectionCssVars(sectionVariantField: SectionVariantType): CSSPro
 
 const Section = createComponent('section');
 const SubheadingBlock = createComponent('div');
+const Divider = createComponent('hr');
 
 export const Component = (props: GlobalPresenceProps) => {
   const {
     moduleName,
-    groupHeading: { heading, subheading, headingLevel },
+    groupHeading: { heading, headingLevel },
     groupGlobe,
     groupStyle: { sectionStyleVariant, headingStyleVariant },
   } = props;
@@ -63,6 +64,7 @@ export const Component = (props: GlobalPresenceProps) => {
 
   return (
     <Section className={cx(swm('hs-elevate-global-presence'), 'hs-elevate-global-presence')} style={cssVarsMap}>
+      <Divider className={swm('hs-elevate-global-presence__divider')} aria-hidden="true" />
       <HeadingTag
         className={cx('hs-elevate-global-presence__heading', headingClass, swm('hs-elevate-global-presence__heading'))}
         data-hs-token={getDataHSToken(moduleName, 'groupHeading.heading')}
@@ -72,13 +74,11 @@ export const Component = (props: GlobalPresenceProps) => {
       <SubheadingBlock
         className={cx('hs-elevate-global-presence__subheading-block', swm('hs-elevate-global-presence__subheading-block'))}
       >
-        <p
+        <RichText
+          fieldPath="groupHeading.subheading"
           className={cx('hs-elevate-global-presence__subheading', swm('hs-elevate-global-presence__subheading'))}
           data-hs-token={getDataHSToken(moduleName, 'groupHeading.subheading')}
-        >
-          {subheading}
-        </p>
-        <div className={swm('hs-elevate-global-presence__subheading-divider')} aria-hidden="true" />
+        />
       </SubheadingBlock>
       <Island hydrateOn="visible" module={GlobalPresenceIsland} {...props} />
     </Section>
