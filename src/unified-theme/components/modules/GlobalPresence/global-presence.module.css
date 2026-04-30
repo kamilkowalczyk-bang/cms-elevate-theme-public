@@ -90,6 +90,22 @@
   transition: fill 200ms ease;
 }
 
+.hs-elevate-global-presence__tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  z-index: 2;
+  pointer-events: none;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border: 1px solid var(--hsElevate--globalPresence__highlightColor, #52bad1);
+  border-radius: 4px;
+  background-color: var(--hsElevate--globalPresence__oceanColor, #ffffff);
+  color: var(--hsElevate--body__fontColor, var(--hsElevate--globalPresence__textColor));
+  font-family: var(--hsElevate--body__font);
+  font-size: calc(var(--hsElevate--body__fontSize, 16px) * 0.6);
+  line-height: 1.2;
+}
+
 .hs-elevate-global-presence__visually-hidden {
   position: absolute;
   width: 1px;

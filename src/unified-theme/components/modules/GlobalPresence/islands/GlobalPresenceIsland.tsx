@@ -20,6 +20,7 @@ const NUMERIC_TO_ALPHA2 = numericToAlpha2 as Record<string, string>;
 
 const GlobeWrap = createComponent('div');
 const GlobeInner = createComponent('div');
+const HoverTooltip = createComponent('div');
 
 type SphereDatum = { type: 'Sphere' };
 
@@ -76,6 +77,7 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
 
   const [size, setSize] = useState({ width: 640, height: 400 });
   const [rotation, setRotation] = useState<[number, number, number]>([-12, -35, 0]);
+  const [hoveredCountry, setHoveredCountry] = useState<{ name: string; x: number; y: number } | null>(null);
 
   const width = Math.max(1, size.width);
   const heightPx = Math.max(1, size.height);
@@ -192,16 +194,36 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
             const isHi = Boolean(alpha2 && highlightSet.has(alpha2));
             const d = pathGen(f) ?? '';
             const key = String(f.id ?? i);
+            const countryName = f.properties?.name || (alpha2 ? nameByCode.get(alpha2) : undefined) || key;
             return (
               <path
                 key={key}
                 className={swm('hs-elevate-global-presence__land')}
                 d={d}
                 fill={isHi ? highlightFill : baseFill}
+                onMouseMove={event => {
+                  const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
+                  if (!rect) return;
+                  setHoveredCountry({
+                    name: countryName,
+                    x: event.clientX - rect.left + 12,
+                    y: event.clientY - rect.top - 12,
+                  });
+                }}
+                onMouseLeave={() => setHoveredCountry(null)}
               />
             );
           })}
         </svg>
+        {hoveredCountry && (
+          <HoverTooltip
+            className={swm('hs-elevate-global-presence__tooltip')}
+            style={{ left: `${hoveredCountry.x}px`, top: `${hoveredCountry.y}px` }}
+            aria-hidden="true"
+          >
+            {hoveredCountry.name}
+          </HoverTooltip>
+        )}
       </GlobeInner>
     </GlobeWrap>
   );

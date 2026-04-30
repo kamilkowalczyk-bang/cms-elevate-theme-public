@@ -55,10 +55,12 @@ export const Component = (props: GlobalPresenceProps) => {
   const headingClass = headingStyleVariant ? headingClasses[headingStyleVariant] : '';
 
   const highlightCss = colorFieldToCss(groupGlobe.highlightColor);
+  const oceanCss = colorFieldToCss(groupGlobe.oceanColor);
 
   const cssVarsMap: CSSPropertiesMap = {
     ...generateSectionCssVars(sectionStyleVariant),
     '--hsElevate--globalPresence__highlightColor': highlightCss,
+    '--hsElevate--globalPresence__oceanColor': oceanCss,
     '--hsElevate--globalPresence__maxHeight': `${groupGlobe.height ?? 500}px`,
   };
 
