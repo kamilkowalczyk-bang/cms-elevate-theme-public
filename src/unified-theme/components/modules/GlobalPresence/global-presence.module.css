@@ -65,10 +65,17 @@
   height: 100%;
   touch-action: none;
   cursor: grab;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hs-elevate-global-presence__svg:active {
   cursor: grabbing;
+}
+
+.hs-elevate-global-presence__svg:focus,
+.hs-elevate-global-presence__svg:focus-visible {
+  outline: 2px solid #D2D4DE;
+  outline-offset: 2px;
 }
 
 .hs-elevate-global-presence__svg--no-drag {
