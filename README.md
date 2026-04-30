@@ -123,6 +123,49 @@ For account-specific uploads without switching default CLI account:
 
 The theme uses HubSpot's local development server for real-time preview of your changes. When you run `npm run start` or `yarn yarn-start`, you can view your changes at the local development URL provided by the CLI.
 
+## Module and template dependencies (GlobalPresence and Contact Us geo)
+
+### `GlobalPresence` module
+
+Path: `src/unified-theme/components/modules/GlobalPresence`
+
+Libraries used:
+- `react` (`useState`, `useEffect`, `useMemo`, `useRef`) for interactive rendering and state.
+- `topojson-client` to convert `countries-110m.json` TopoJSON data into GeoJSON features.
+- `geojson` types for strongly typed map geometry/feature data.
+- `d3-geo` (`geoOrthographic`, `geoPath`, `geoGraticule`) for globe projection and SVG paths.
+- `d3-drag` + `d3-selection` for drag-to-rotate behavior.
+- `d3-timer` for continuous auto-rotation.
+- `@hubspot/cms-components/fields` for module field schema and field typing.
+
+Supporting assets and utilities:
+- `assets/countries-110m.json` for world geometry.
+- `assets/numeric-to-alpha2.json` and `assets/country-codes.ts/js` for country code mapping and labels.
+- Internal helpers such as `create-component`, `classnames`, and `color-to-css`.
+
+### Contact Us template CSS and geolocation
+
+Paths:
+- CSS: `src/unified-theme/assets/_hs/css/templates/radientum-contact-us.hubl.css`
+- Template toggle: `src/unified-theme/templates/radientum-contact-us.hubl.html`
+- Geo logic: `src/unified-theme/components/modules/SalesTeam/geo.ts`
+- Geo runtime usage: `src/unified-theme/components/modules/SalesTeam/islands/SalesTeamIsland.tsx`
+
+Notes:
+- `radientum-contact-us.hubl.css` is styling-only and does not contain geolocation code.
+- Geolocation is enabled in the Contact Us template by passing `enableGeoAutoSelect=true` to `SalesTeam`.
+
+Geolocation dependencies:
+- `react` for lifecycle-driven auto-selection behavior.
+- Browser `fetch` API for `https://ipapi.co/json/` country lookup (`country_code`).
+- Browser `URLSearchParams` for URL override with `?region=<sales_region>`.
+- Browser `sessionStorage` for a 24-hour geo-region cache.
+- Internal country-to-region mapping in `geo.ts` (`countryToRegion`) to map ISO alpha-2 country codes to HubDB region option names:
+  - `usa_canada`
+  - `dach_eastern_europe`
+  - `nordic_baltic`
+  - `rest_of_europe`
+
 ## Creating a child theme based on Elevate
 
 Building a child theme is a great way to extend the functionality of Elevate without having to modify the core theme files. This can be done in either design manager or using the unified theme framework.
