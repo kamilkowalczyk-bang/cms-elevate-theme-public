@@ -219,6 +219,9 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
                 className={swm('hs-elevate-global-presence__land')}
                 d={d}
                 fill={isHi ? highlightFill : baseFill}
+                stroke={oceanFill}
+                strokeWidth={0.9}
+                strokeLinejoin="round"
                 onMouseMove={event => {
                   const rect = event.currentTarget.ownerSVGElement?.getBoundingClientRect();
                   if (!rect) return;
