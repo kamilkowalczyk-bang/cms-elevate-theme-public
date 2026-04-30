@@ -21,10 +21,19 @@ const NUMERIC_TO_ALPHA2 = numericToAlpha2 as Record<string, string>;
 const GlobeWrap = createComponent('div');
 const GlobeInner = createComponent('div');
 const HoverTooltip = createComponent('div');
+const ZoomControls = createComponent('div');
+const ZoomButton = createComponent('button');
 
 type SphereDatum = { type: 'Sphere' };
 
 const sphere: SphereDatum = { type: 'Sphere' };
+const MIN_ZOOM = 0.75;
+const MAX_ZOOM = 2.5;
+const ZOOM_STEP = 0.2;
+
+function clampZoom(value: number): number {
+  return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, value));
+}
 
 function useLandFeatures(): FeatureCollection<Geometry, GeoJsonProperties> {
   return useMemo(() => {
@@ -78,22 +87,26 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
   const [size, setSize] = useState({ width: 640, height: 400 });
   const [rotation, setRotation] = useState<[number, number, number]>([-12, -35, 0]);
   const [hoveredCountry, setHoveredCountry] = useState<{ name: string; x: number; y: number } | null>(null);
+  const [zoomScale, setZoomScale] = useState(1);
 
   const width = Math.max(1, size.width);
   const heightPx = Math.max(1, size.height);
 
   const projection = useMemo(() => {
     const pad = 16;
-    return geoOrthographic()
+    const baseProjection = geoOrthographic()
       .fitExtent(
         [
           [pad, pad],
           [width - pad, heightPx - pad],
         ],
         sphere
-      )
+      );
+    const fittedScale = baseProjection.scale();
+    return baseProjection
+      .scale(fittedScale * zoomScale)
       .rotate(rotation);
-  }, [width, heightPx, rotation]);
+  }, [width, heightPx, rotation, zoomScale]);
 
   projectionRef.current = projection;
 
@@ -186,6 +199,11 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
           role="img"
           aria-label={ariaLabel}
           tabIndex={0}
+          onWheel={event => {
+            event.preventDefault();
+            const delta = event.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
+            setZoomScale(prev => clampZoom(prev + delta));
+          }}
         >
           <path d={spherePath} fill={oceanFill} stroke="rgba(0,0,0,0.08)" strokeWidth={0.5} />
           <path d={graticulePath} fill="none" stroke="rgba(0,0,0,0.12)" strokeWidth={0.5} />
@@ -224,6 +242,24 @@ export default function GlobalPresenceIsland(props: GlobalPresenceProps) {
             {hoveredCountry.name}
           </HoverTooltip>
         )}
+        <ZoomControls className={swm('hs-elevate-global-presence__zoom-controls')} aria-label="Globe zoom controls">
+          <ZoomButton
+            type="button"
+            className={swm('hs-elevate-global-presence__zoom-button')}
+            aria-label="Zoom in"
+            onClick={() => setZoomScale(prev => clampZoom(prev + ZOOM_STEP))}
+          >
+            +
+          </ZoomButton>
+          <ZoomButton
+            type="button"
+            className={swm('hs-elevate-global-presence__zoom-button')}
+            aria-label="Zoom out"
+            onClick={() => setZoomScale(prev => clampZoom(prev - ZOOM_STEP))}
+          >
+            -
+          </ZoomButton>
+        </ZoomControls>
       </GlobeInner>
     </GlobeWrap>
   );
