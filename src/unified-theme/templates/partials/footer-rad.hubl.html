@@ -99,17 +99,39 @@
           }
         %}
           {% module_attribute "richTextContentHTML" %}
+            {% set footer_offices = hubdb_table_rows("offices") %}
             <h4>Radientum</h4>
-            <h6>HQ – Tampere</h6>
-            <p>
-              Visiokatu 4<br>
-              33720 Tampere, Finland<br>
-              <a href="tel:+358 40 501 3535">+358 40 501 3535</a>
-            </p>
-            <h6>Design Office – Espoo</h6>
-            <p>Innopoli 2<br>
-            Tekniikantie 14<br> 
-            02150 Espoo, Finland</p>
+            {% for office_row in footer_offices %}
+              {% set office_name = office_row.office_name|default(office_row.values.office_name)|default("")|trim %}
+              {% set street_address = office_row.street_address|default(office_row.values.street_address)|default("")|trim %}
+              {% set postal_code = office_row.postal_code|default(office_row.values.postal_code)|default("")|trim %}
+              {% set city = office_row.city|default(office_row.values.city)|default("")|trim %}
+              {% set country = office_row.country|default(office_row.values.country)|default("")|trim %}
+              {% set phone_raw = office_row.phone|default(office_row.values.phone)|default("")|trim %}
+              {% set postal_city = (postal_code ~ " " ~ city)|trim %}
+              {% set line_city_country = "" %}
+              {% if postal_city and country %}
+                {% set line_city_country = postal_city ~ ", " ~ country %}
+              {% elif postal_city %}
+                {% set line_city_country = postal_city %}
+              {% elif country %}
+                {% set line_city_country = country %}
+              {% endif %}
+              {% if office_name or street_address or line_city_country or phone_raw %}
+                <h6>{{ office_name|escape_html }}</h6>
+                <p>
+                  {% if street_address %}
+                    {{ street_address|escape_html }}<br>
+                  {% endif %}
+                  {% if line_city_country %}
+                    {{ line_city_country|escape_html }}<br>
+                  {% endif %}
+                  {% if phone_raw %}
+                    <a href="tel:{{ phone_raw|replace(" ", "")|escape_url }}">{{ phone_raw|escape_html }}</a>
+                  {% endif %}
+                </p>
+              {% endif %}
+            {% endfor %}
           {% end_module_attribute %}
         {% end_module_block %}
       </div>
