@@ -42,7 +42,7 @@ const Divider = createComponent('hr');
 export const Component = (props: GlobalPresenceProps) => {
   const {
     moduleName,
-    groupHeading: { heading, headingLevel },
+    groupHeading: { heading, headingLevel, hideDivider = false },
     groupGlobe,
     groupStyle: { sectionStyleVariant, headingStyleVariant },
   } = props;
@@ -66,7 +66,9 @@ export const Component = (props: GlobalPresenceProps) => {
 
   return (
     <Section className={cx(swm('hs-elevate-global-presence'), 'hs-elevate-global-presence')} style={cssVarsMap}>
-      <Divider className={swm('hs-elevate-global-presence__divider')} aria-hidden="true" />
+      {!hideDivider && (
+        <Divider className={swm('hs-elevate-global-presence__divider')} aria-hidden="true" />
+      )}
       <HeadingTag
         className={cx('hs-elevate-global-presence__heading', headingClass, swm('hs-elevate-global-presence__heading'))}
         data-hs-token={getDataHSToken(moduleName, 'groupHeading.heading')}

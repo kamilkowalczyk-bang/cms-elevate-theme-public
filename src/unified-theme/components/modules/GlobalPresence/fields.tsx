@@ -90,6 +90,13 @@ export const fields = (
         required={true}
         helpText="This affects screen readers and how search engines understand your content."
       />
+      <BooleanField
+        label="Hide divider"
+        name="hideDivider"
+        display="toggle"
+        default={false}
+        helpText="When on, the decorative line above the heading is hidden."
+      />
     </FieldGroup>
     <FieldGroup label="Globe" name="groupGlobe" display="inline">
       <FieldGroup label="Highlighted countries" name="groupHighlightedCountries" display="accordion" expanded={false}>

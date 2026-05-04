@@ -30,6 +30,7 @@ export type GlobalPresenceProps = {
     heading: TextFieldType['default'];
     subheading: RichTextFieldType['default'];
     headingLevel: ChoiceFieldType['default'];
+    hideDivider?: BooleanFieldType['default'];
   };
   groupGlobe: GlobeConfig;
   groupStyle: GroupStyle;
