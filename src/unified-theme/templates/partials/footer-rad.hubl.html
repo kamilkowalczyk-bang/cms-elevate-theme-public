@@ -127,7 +127,8 @@
                     {{ line_city_country|escape_html }}<br>
                   {% endif %}
                   {% if phone_raw %}
-                    <a href="tel:{{ phone_raw|replace(" ", "")|escape_url }}">{{ phone_raw|escape_html }}</a>
+                    {% set phone_href = phone_raw|replace(' ', '')|escape_url %}
+                    <a href="tel:{{ phone_href }}">{{ phone_raw|escape_html }}</a>
                   {% endif %}
                 </p>
               {% endif %}
