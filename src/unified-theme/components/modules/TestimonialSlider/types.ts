@@ -1,4 +1,4 @@
-import { ImageFieldType, TextFieldType, LinkFieldType, BooleanFieldType } from '@hubspot/cms-components/fields';
+import { ImageFieldType, TextFieldType, LinkFieldType, BooleanFieldType, NumberFieldType } from '@hubspot/cms-components/fields';
 import { CardStyleFieldLibraryType } from '../../fieldLibrary/CardStyle/types.js';
 import { RichTextContentFieldLibraryType } from '../../fieldLibrary/RichTextContent/types.js';
 import { ButtonContentType } from '../../fieldLibrary/ButtonContent/types.js';
@@ -88,6 +88,8 @@ export type TestimonialLayoutProps = {
 export type TestimonialStyleProps = CardStyleFieldLibraryType & {
   showTestimonialDropShadow?: BooleanFieldType['default'];
   showTestimonialQuoteBoldUppercase?: BooleanFieldType['default'];
+  /** Max width (px) of the large testimonial slide image column; stylesheet reads via `--hsElevate--testimonial-slider__featuredImageMaxWidth`. */
+  testimonialFeaturedImageMaxWidth?: NumberFieldType['default'];
 };
 
 // Types for the testimonial slider

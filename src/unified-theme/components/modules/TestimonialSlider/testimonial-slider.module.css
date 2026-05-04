@@ -127,6 +127,19 @@
   }
 }
 
+/*
+ * Testimonial layout only: cap the large slide image column (not __author-image-container).
+ * flex: 1 0 30% can read wide on large viewports; width comes from STYLE field via
+ * --hsElevate--testimonial-slider__featuredImageMaxWidth (fallback 400px). Info layout does not
+ * use this container for the hero image (background is on the slide).
+ */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__image-container {
+  max-width: var(--hsElevate--testimonial-slider__featuredImageMaxWidth, 400px);
+  /* Allow the flex item to shrink when the row is narrow; works with max-width cap */
+  min-width: 0;
+}
+
 .hs-elevate-testimonial-slider__image {
   height: 100%;
   width: 100%;
@@ -176,7 +189,7 @@
 @media (width >= 1000px) {
   :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
     .hs-elevate-testimonial-slider__content-container {
-    margin-block: auto 0;
+    margin-block: 0;
     padding-inline: 0;
   }
 }
@@ -319,6 +332,7 @@
   .hs-elevate-testimonial-slider__slider:global(.splide)
   :global(.splide__slide) {
   justify-content: flex-end;
+  align-items: center;
 }
 
 /* Splide theme chrome (arrows + dot row): normally from @splidejs/react-splide/css; duplicated here

@@ -334,6 +334,14 @@ function generateBlockquoteCssVar(cardVariantField: CardVariantType): CSSPropert
   };
 }
 
+/** Testimonial slide featured image column; clamped like LogoGrid slider max dimensions. */
+function generateFeaturedImageMaxWidthCssVar(widthPx?: number): CSSPropertiesMap {
+  const raw = typeof widthPx === 'number' && !Number.isNaN(widthPx) ? widthPx : 400;
+  const clamped = Math.min(1200, Math.max(120, raw));
+
+  return { '--hsElevate--testimonial-slider__featuredImageMaxWidth': `${clamped}px` };
+}
+
 const TestimonialSliderContainer = createComponent('div');
 
 const TestimonialSlider = (props: TestimonialSliderProps) => {
@@ -341,7 +349,12 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
     moduleName,
     groupLayout,
     groupTestimonial,
-    groupStyle: { cardStyleVariant, showTestimonialDropShadow, showTestimonialQuoteBoldUppercase },
+    groupStyle: {
+      cardStyleVariant,
+      showTestimonialDropShadow,
+      showTestimonialQuoteBoldUppercase,
+      testimonialFeaturedImageMaxWidth,
+    },
     groupDefaultText,
   } = props;
 
@@ -351,6 +364,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
     ...generateIconColorCssVar(cardStyleVariant),
     ...generateLinkCssVar(cardStyleVariant),
     ...generateBlockquoteCssVar(cardStyleVariant),
+    ...generateFeaturedImageMaxWidthCssVar(testimonialFeaturedImageMaxWidth),
   };
 
   const [htmlDirection, setHtmlDirection] = useState('ltr');
