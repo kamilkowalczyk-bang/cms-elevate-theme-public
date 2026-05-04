@@ -474,4 +474,7 @@
 /* Info layout-specific pagination offset */
 .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
   bottom: 9em !important;
+  @media (width <= 768px) {
+    bottom: 6.5em !important;
+  }
 }
