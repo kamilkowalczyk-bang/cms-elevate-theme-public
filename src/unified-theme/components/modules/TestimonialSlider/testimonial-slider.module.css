@@ -90,6 +90,7 @@
   margin: 0 0 var(--hsElevate--spacing--4, 4px);
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: var(--hsElevate--text--large__margin, 0 40px);
   overflow-wrap: anywhere;
 
@@ -175,7 +176,7 @@
 @media (width >= 1000px) {
   :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
     .hs-elevate-testimonial-slider__content-container {
-    margin-inline: 0;
+    margin-block: auto 0;
     padding-inline: 0;
   }
 }
@@ -213,6 +214,9 @@
   text-transform: uppercase;
   line-height: 1;
   font-size: var(--hsElevate--h2__fontSize);
+  @media (width <= 767px) {
+    font-size: calc(var(--hsElevate--h2__fontSize) * var(--hsElevate--heading__tablet-modifier));
+  }
 }
 
 .hs-elevate-testimonial-slider--info {
@@ -303,6 +307,18 @@
   list-style-type: none !important;
   margin: 0;
   backface-visibility: hidden;
+}
+
+/*
+ * Testimonial layout only: Splide core styles set .splide__slide { display:flex; flex-flow:column;
+ * justify-content:space-between }, which spreads short slides. Info layout keeps Splide defaults
+ * for hero vertical rhythm. :global(root) + scoped __slider + :global(.splide__slide) beats
+ * single-class .splide__slide without !important.
+ */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__slider:global(.splide)
+  :global(.splide__slide) {
+  justify-content: flex-end;
 }
 
 /* Splide theme chrome (arrows + dot row): normally from @splidejs/react-splide/css; duplicated here
