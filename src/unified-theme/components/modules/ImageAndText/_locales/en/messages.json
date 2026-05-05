@@ -309,6 +309,21 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.groupContent.bodyListOrder.label": {
+    "message": "Description and list order",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.bodyListOrder.choices.body_first": {
+    "message": "Description above list",
+    "description": "",
+    "placeholders": null
+  },
+  "groupStyle.groupContent.bodyListOrder.choices.list_first": {
+    "message": "List above description",
+    "description": "",
+    "placeholders": null
+  },
   "groupStyle.groupContent.showContentDivider.label": {
     "message": "Show divider",
     "description": "",

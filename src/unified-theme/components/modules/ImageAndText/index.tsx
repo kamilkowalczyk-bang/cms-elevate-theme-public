@@ -77,6 +77,7 @@ const ListItem = createComponent('li');
 const ListIconContainer = createComponent('span');
 const ListItemText = createComponent('span');
 const Caption = createComponent('p');
+const BodyListStack = createComponent('div');
 
 function backgroundImageStyleFromField(src: string | undefined): CSSPropertiesMap | undefined {
   if (typeof src !== 'string' || !src.trim()) {
@@ -133,6 +134,7 @@ export const Component = (props: ImageAndTextProps) => {
         contentBackgroundColor: contentBackgroundColorField = { color: '#FFFFFF', opacity: 0 },
         captionColor: captionColorField = { color: '#FFFFFF', opacity: 0 },
         headingUppercase = false,
+        bodyListOrder = 'body_first',
         showContentDivider = false,
         dividerHorizontalAlignment,
       },
@@ -254,28 +256,37 @@ export const Component = (props: ImageAndTextProps) => {
               fieldPath="groupContent.headingAndTextHeading"
             />
           )}
-          {richTextContentHTML && (
-            <RichText
-              fieldPath="groupContent.richTextContentHTML"
-              className="hs-elevate-image-and-text__body"
-              data-hs-token={getDataHSToken(moduleName, 'groupContent.richTextContentHTML')}
-            />
-          )}
-          {hasListBlock && (
-            <ListContainer className={swm('hs-elevate-image-and-text__list')}>
-              {groupListItems.map((item, index) => (
-                <ListItem className={swm('hs-elevate-image-and-text__list-item')} key={index}>
-                  {listIcon?.name && (
-                    <ListIconContainer className={swm('hs-elevate-image-and-text__list-icon-container')}>
-                      <Icon className={swm('hs-elevate-image-and-text__list-icon')} fieldPath="groupContent.listIcon" purpose="DECORATIVE" />
-                    </ListIconContainer>
-                  )}
-                  <ListItemText data-hs-token={getDataHSToken(moduleName, `groupContent.groupListItems[${index}].groupListContent.listItemContent`)}>
-                    {item.groupListContent.listItemContent}
-                  </ListItemText>
-                </ListItem>
-              ))}
-            </ListContainer>
+          {(richTextContentHTML || hasListBlock) && (
+            <BodyListStack
+              className={cx(
+                swm('hs-elevate-image-and-text__body-list-stack'),
+                bodyListOrder === 'list_first' && swm('hs-elevate-image-and-text__body-list-stack--list-first'),
+              )}
+            >
+              {richTextContentHTML && (
+                <RichText
+                  fieldPath="groupContent.richTextContentHTML"
+                  className="hs-elevate-image-and-text__body"
+                  data-hs-token={getDataHSToken(moduleName, 'groupContent.richTextContentHTML')}
+                />
+              )}
+              {hasListBlock && (
+                <ListContainer className={swm('hs-elevate-image-and-text__list')}>
+                  {groupListItems.map((item, index) => (
+                    <ListItem className={swm('hs-elevate-image-and-text__list-item')} key={index}>
+                      {listIcon?.name && (
+                        <ListIconContainer className={swm('hs-elevate-image-and-text__list-icon-container')}>
+                          <Icon className={swm('hs-elevate-image-and-text__list-icon')} fieldPath="groupContent.listIcon" purpose="DECORATIVE" />
+                        </ListIconContainer>
+                      )}
+                      <ListItemText data-hs-token={getDataHSToken(moduleName, `groupContent.groupListItems[${index}].groupListContent.listItemContent`)}>
+                        {item.groupListContent.listItemContent}
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                </ListContainer>
+              )}
+            </BodyListStack>
           )}
           {showButton && (
             <Button

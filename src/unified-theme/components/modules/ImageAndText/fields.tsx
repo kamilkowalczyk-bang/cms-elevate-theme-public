@@ -243,6 +243,18 @@ export const fields = (
             vertical_align: 'MIDDLE',
           }}
         />
+        <ChoiceField
+          label='Description and list order'
+          name='bodyListOrder'
+          visibility={listFieldsVisibility as unknown as Visibility}
+          display='radio'
+          choices={[
+            ['body_first', 'Description above list'],
+            ['list_first', 'List above description'],
+          ]}
+          required={true}
+          default='body_first'
+        />
         <BooleanField
           label='Show divider'
           name='showContentDivider'

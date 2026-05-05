@@ -1,8 +1,8 @@
 .hs-elevate-contact-tabs-section {
   position: relative;
   z-index: 4;
-  transform: translateY(-48px);
-  margin-bottom: -56px;
+  transform: translateY(-62px);
+  margin-bottom: -62px;
 }
 
 .hs-elevate-contact-tabs-section__tabs-wrap {
@@ -148,12 +148,12 @@
 
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
-    transform: translateY(-28px);
-    margin-bottom: -36px;
+    transform: translateY(-62px);
+    margin-bottom: -62px;
   }
 
   .hs-elevate-contact-tabs {
-    justify-content: flex-start;
+    /* justify-content: flex-start; */
     overflow-x: auto;
     padding-inline: var(--hsElevate--spacing--16, 16px);
   }

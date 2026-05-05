@@ -52,6 +52,8 @@ export type GroupContentStyle = SectionStyleFieldLibraryType &
     headingUppercase?: BooleanFieldType['default'];
     showContentDivider?: BooleanFieldType['default'];
     dividerHorizontalAlignment?: AlignmentFieldType['default'];
+    /** Description vs list visual order when both are present. Omitted = body first (legacy). */
+    bodyListOrder?: 'body_first' | 'list_first';
   };
 
 export interface GroupModuleStyle {

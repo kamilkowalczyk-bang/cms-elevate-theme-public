@@ -90,6 +90,7 @@
   margin: 0 0 var(--hsElevate--spacing--4, 4px);
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: var(--hsElevate--text--large__margin, 0 40px);
   overflow-wrap: anywhere;
 
@@ -124,6 +125,19 @@
     -o-object-position: center;
     object-position: center;
   }
+}
+
+/*
+ * Testimonial layout only: cap the large slide image column (not __author-image-container).
+ * flex: 1 0 30% can read wide on large viewports; width comes from STYLE field via
+ * --hsElevate--testimonial-slider__featuredImageMaxWidth (fallback 400px). Info layout does not
+ * use this container for the hero image (background is on the slide).
+ */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__image-container {
+  max-width: var(--hsElevate--testimonial-slider__featuredImageMaxWidth, 400px);
+  /* Allow the flex item to shrink when the row is narrow; works with max-width cap */
+  min-width: 0;
 }
 
 .hs-elevate-testimonial-slider__image {
@@ -175,7 +189,7 @@
 @media (width >= 1000px) {
   :global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
     .hs-elevate-testimonial-slider__content-container {
-    margin-inline: 0;
+    margin-block: 0;
     padding-inline: 0;
   }
 }
@@ -213,6 +227,9 @@
   text-transform: uppercase;
   line-height: 1;
   font-size: var(--hsElevate--h2__fontSize);
+  @media (width <= 767px) {
+    font-size: calc(var(--hsElevate--h2__fontSize) * var(--hsElevate--heading__tablet-modifier));
+  }
 }
 
 .hs-elevate-testimonial-slider--info {
@@ -303,6 +320,19 @@
   list-style-type: none !important;
   margin: 0;
   backface-visibility: hidden;
+}
+
+/*
+ * Testimonial layout only: Splide core styles set .splide__slide { display:flex; flex-flow:column;
+ * justify-content:space-between }, which spreads short slides. Info layout keeps Splide defaults
+ * for hero vertical rhythm. :global(root) + scoped __slider + :global(.splide__slide) beats
+ * single-class .splide__slide without !important.
+ */
+:global(.hs-elevate-testimonial-slider:not(.hs-elevate-testimonial-slider--info))
+  .hs-elevate-testimonial-slider__slider:global(.splide)
+  :global(.splide__slide) {
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /* Splide theme chrome (arrows + dot row): normally from @splidejs/react-splide/css; duplicated here
@@ -444,4 +474,7 @@
 /* Info layout-specific pagination offset */
 .hs-elevate-testimonial-slider--info :global(.splide__pagination) {
   bottom: 9em !important;
+  @media (width <= 768px) {
+    bottom: 6.5em !important;
+  }
 }

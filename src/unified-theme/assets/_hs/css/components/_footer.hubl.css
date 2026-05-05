@@ -90,7 +90,7 @@
   padding: 0 var(--hsElevate--section--horizontalPadding);
 }
 
-#hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+.hs-rad-footer .hs-rad-footer-logo-grid .hs-logo-grid {
   flex-wrap: nowrap;
   justify-content: flex-start;
 }
@@ -138,8 +138,8 @@
     align-items: flex-start;
   }
 }
-@media (width <= 375px) {
-  #hs_cos_wrapper_rad_footer_logo_grid .hs-logo-grid {
+@media (width < 320px) {
+  .hs-rad-footer .hs-rad-footer-logo-grid .hs-logo-grid {
     flex-wrap: wrap;
     justify-content: center;
   }

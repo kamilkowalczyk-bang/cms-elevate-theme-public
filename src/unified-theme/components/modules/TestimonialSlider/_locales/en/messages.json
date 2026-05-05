@@ -134,6 +134,11 @@
     "description": "",
     "placeholders": null
   },
+  "groupStyle.testimonialFeaturedImageMaxWidth.label": {
+    "message": "Featured image max width",
+    "description": "",
+    "placeholders": null
+  },
   "groupTestimonial.default.0.groupQuote.quote": {
     "message": "Add a testimonial quote #1 here. Keep it concise and impactful to enhance credibility with your business",
     "description": "",

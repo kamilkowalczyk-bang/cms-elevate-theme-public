@@ -11,12 +11,22 @@
   "dependencies": {
     "@hubspot/cms-components": "^1.0.0",
     "@splidejs/react-splide": "^0.7.12",
+    "@types/d3-drag": "^3.0.7",
+    "@types/d3-geo": "^3.1.0",
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-timer": "^3.0.2",
     "@types/react": "^18",
+    "@types/topojson-client": "^3.1.5",
+    "d3-drag": "^3.0.0",
+    "d3-geo": "^3.1.1",
+    "d3-selection": "^3.0.0",
+    "d3-timer": "^3.0.1",
     "html-react-parser": "^5.1.16",
     "isomorphic-dompurify": "2.26.0",
     "prop-types": "^15.8",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "topojson-client": "^3.1.0"
   },
   "devDependencies": {
     "@hubspot/cms-dev-server": "^1.0.0",

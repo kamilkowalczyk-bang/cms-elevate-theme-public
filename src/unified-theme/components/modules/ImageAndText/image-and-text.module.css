@@ -82,6 +82,9 @@
   align-self: stretch;
   min-width: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
   /* Theme has no --spacing--25; fixed mobile inset per design */
   padding: 25px;
 
@@ -110,6 +113,29 @@
     width: auto;
     padding: var(--hsElevate--spacing--80, 80px);
   }
+
+  /* Flex column defaults to align-items: stretch — keep CTA intrinsic width (theme button pattern). */
+  :global(.hs-elevate-image-and-text__button) {
+    align-self: flex-start;
+    margin-top: auto;
+    width: auto;
+    max-width: 100%;
+  }
+}
+
+.hs-elevate-image-and-text__body-list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hsElevate--spacing--24, 24px);
+}
+
+/* Match previous list bottom spacing before the button; skip when description-only (rich text margins unchanged). */
+.hs-elevate-image-and-text__body-list-stack:has(.hs-elevate-image-and-text__list) {
+  margin-block-end: var(--hsElevate--spacing--24, 24px);
+}
+
+.hs-elevate-image-and-text__body-list-stack--list-first {
+  flex-direction: column-reverse;
 }
 
 .hs-elevate-image-and-text__divider {
@@ -163,6 +189,11 @@
   margin-block-start: var(--hsElevate--spacing--24, 24px);
   margin-block-end: var(--hsElevate--spacing--24, 24px);
   list-style: none;
+}
+
+.hs-elevate-image-and-text__body-list-stack .hs-elevate-image-and-text__list {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .hs-elevate-image-and-text__list-item {
