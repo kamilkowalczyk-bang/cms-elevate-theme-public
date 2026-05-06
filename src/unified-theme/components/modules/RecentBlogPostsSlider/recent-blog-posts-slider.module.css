@@ -138,6 +138,7 @@
 
 /* Slider chrome: padding + dot nav (TestimonialSlider-style, scoped to this Splide root only) */
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
+  position: relative;
   padding-block-end: var(--hsElevate--spacing--56, 56px);
 }
 
@@ -147,6 +148,9 @@
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination) {
+  position: absolute;
+  left: 0;
+  right: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
