@@ -29,10 +29,6 @@
 {% set card_two_content = "<p>{{ scaffold_content.group_cards.group_card_two.description or template_translations.lp_products_card_two_content.message }}</p>" %}
 {% set card_three_content = "<p>{{ scaffold_content.group_cards.group_card_three.description or template_translations.lp_products_card_three_content.message }}</p>" %}
 
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock header %}
-
 {% block body %}
   {% if grids %}
     {% dnd_area "dnd_area"
@@ -1244,7 +1240,3 @@
     {% end_dnd_area %}
   {% endif %}
 {% endblock body %}
-
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock footer %}

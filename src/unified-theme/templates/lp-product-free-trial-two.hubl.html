@@ -8,10 +8,6 @@
 -->
 {% extends "./layouts/base.hubl.html" %}
 
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock header %}
-
 {% set accordion_one_answer = "<p>{{ scaffold_content.group_faq.group_faq_one.content or template_translations.lp_product_free_trial_two_faq_one_content.message }}</p>" %}
 {% set accordion_two_answer = "<p>{{ scaffold_content.group_faq.group_faq_two.content or template_translations.lp_product_free_trial_two_faq_two_content.message }}</p>" %}
 {% set accordion_three_answer = "<p>{{ scaffold_content.group_faq.group_faq_three.content or template_translations.lp_product_free_trial_two_faq_three_content.message }}</p>" %}
@@ -593,7 +589,3 @@
     {% end_dnd_area %}
   {% endif %}
 {% endblock body %}
-
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock footer %}

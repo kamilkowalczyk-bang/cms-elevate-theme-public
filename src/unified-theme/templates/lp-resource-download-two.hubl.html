@@ -8,10 +8,6 @@
 -->
 {% extends "./layouts/base.hubl.html" %}
 
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock header %}
-
 {% block body %}
   {% if grids %}
     {% dnd_area "dnd_area"
@@ -1086,7 +1082,3 @@
     {% end_dnd_area %}
   {% endif %}
 {% endblock body %}
-
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock footer %}

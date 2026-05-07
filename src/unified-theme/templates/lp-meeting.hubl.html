@@ -24,10 +24,6 @@
 {% set accordion_four_answer = "<p>{{ scaffold_content.group_faqs.group_faq_four.answer or template_translations.shared_faq_answer_4.message }}</p>" %}
 {% set accordion_five_answer = "<p>{{ scaffold_content.group_faqs.group_faq_five.answer or template_translations.shared_faq_answer_5.message }}</p>" %}
 
-{% block header %}
-  {% global_partial path="./partials/lp-header.hubl.html" type="HEADER" %}
-{% endblock header %}
-
 {% block body %}
   {% if grids %}
     {% dnd_area "dnd_area"
@@ -800,7 +796,3 @@
     {% end_dnd_area %}
   {% endif %}
 {% endblock body %}
-
-{% block footer %}
-  {% global_partial path="./partials/lp-footer.hubl.html" type="FOOTER" %}
-{% endblock footer %}
