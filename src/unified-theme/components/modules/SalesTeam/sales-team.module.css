@@ -437,11 +437,12 @@
     flex-direction: column;
   }
 
-  /* Featured rep card stacks awkwardly under the meeting embed; grid still lists reps below. */
+  /* Keep the featured contact card visible on mobile (stacked layout). */
   .hs-elevate-sales-team__featured-card {
-    display: none;
+    display: flex;
   }
 
+  /* On mobile show meeting/calendar first, contact card below. */
   .hs-elevate-sales-team__meeting-col {
     order: -1;
   }
