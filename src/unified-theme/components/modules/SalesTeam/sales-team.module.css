@@ -442,6 +442,13 @@
     display: flex;
   }
 
+  /* Center the featured card measure wrapper within the mobile stack. */
+  .hs-elevate-sales-team__featured-card-measure {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
   /* On mobile show meeting/calendar first, contact card below. */
   .hs-elevate-sales-team__meeting-col {
     order: -1;
