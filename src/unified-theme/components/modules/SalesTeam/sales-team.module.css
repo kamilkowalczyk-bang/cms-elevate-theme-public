@@ -435,23 +435,38 @@
   .hs-elevate-sales-team__featured-row {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
 
-  /* Keep the featured contact card visible on mobile (stacked layout). */
+  /* Keep featured card visible and center only this child (do not stretch it). */
   .hs-elevate-sales-team__featured-card {
     display: flex;
+    align-self: center;
+    width: auto;
+    max-width: 100%;
+    flex: 0 0 auto;
+    margin-inline: auto;
   }
 
-  /* Center the featured card measure wrapper within the mobile stack. */
+  /* Wrapper follows content width for accurate centering/measurement. */
   .hs-elevate-sales-team__featured-card-measure {
-    display: flex;
-    justify-content: center;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+
+  /* Keep same card width as grid cards while allowing narrow-screen shrink. */
+  .hs-elevate-sales-team__featured-card .hs-elevate-sales-team__card {
+    width: 330px !important;
+    max-width: calc(100vw - 32px) !important;
+    flex: 0 0 auto !important;
+    margin-inline: auto;
   }
 
   /* On mobile show meeting/calendar first, contact card below. */
   .hs-elevate-sales-team__meeting-col {
     order: -1;
+    width: 100%;
+    align-self: stretch;
   }
 
   /*

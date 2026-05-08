@@ -165,4 +165,38 @@
   .hs-elevate-contact-tabs-intro {
     padding-top: var(--hsElevate--spacing--64, 64px);
   }
+
+  /*
+   * Sales tab featured card (under meeting iframe on mobile):
+   * keep card width consistent with other 330px cards and center the whole slot.
+   * Page-level override is used here to avoid module-scoping/order issues.
+   */
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-row {
+    align-items: stretch;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card {
+    align-self: center !important;
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    margin-inline: auto !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card-measure {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card .hs-elevate-sales-team__card {
+    width: 330px !important;
+    max-width: calc(100vw - 32px) !important;
+    flex: 0 0 auto !important;
+    margin-inline: auto !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__meeting-col {
+    width: 100% !important;
+    align-self: stretch !important;
+  }
 }
