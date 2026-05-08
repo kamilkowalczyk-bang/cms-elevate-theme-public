@@ -334,6 +334,7 @@ const MeetingFrameWrap = createComponent('div');
 const MeetingIframe = createComponent('iframe');
 const MeetingFallbackLink = createComponent('a');
 const MeetingFooterActions = createComponent('div');
+const MeetingStatus = createComponent('p');
 const GridSection = createComponent('div');
 const GridInner = createComponent('div');
 const GridSlot = createComponent('div');
@@ -356,6 +357,15 @@ const BookDemoCtaLink = createComponent('a');
 function prefersReducedMotion(): boolean {
   if (typeof window === 'undefined' || !window.matchMedia) return false;
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function isMobileViewport(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 880;
+}
+
+function getRepDisplayName(row: unknown): string {
+  return getHubDbString(row, ['full_name', 'name', 'hs_name']) || 'selected rep';
 }
 
 export default function SalesTeamIsland(props: SalesTeamProps) {
@@ -409,8 +419,14 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
 
   const [activeRowId, setActiveRowId] = useState<string | number | null>(() => initialActiveId);
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
+  const [isSwitchingRep, setIsSwitchingRep] = useState(false);
+  const [isMeetingLoading, setIsMeetingLoading] = useState(false);
+  const [pendingRepName, setPendingRepName] = useState('');
+  const [meetingStatusMessage, setMeetingStatusMessage] = useState('');
   const featuredCardColRef = useRef<HTMLDivElement | null>(null);
+  const meetingFrameRef = useRef<HTMLDivElement | null>(null);
   const [meetingFramePx, setMeetingFramePx] = useState<number | null>(null);
+  const meetingLoadTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!enableGeoAutoSelect || bookDemo) return;
@@ -497,8 +513,26 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     (row: unknown) => {
       const id = getRowId(row);
       if (id == null || rowIdsEqual(id, activeRowId)) return;
+      const repName = getRepDisplayName(row);
+      setPendingRepName(repName);
+      setIsSwitchingRep(true);
+      setIsMeetingLoading(true);
+      setMeetingStatusMessage(`Loading meeting for ${repName}.`);
 
       const apply = () => setActiveRowId(id);
+      if (isMobileViewport()) {
+        const frameEl = meetingFrameRef.current;
+        if (frameEl) {
+          const rect = frameEl.getBoundingClientRect();
+          const isInViewport = rect.top >= 0 && rect.top <= window.innerHeight * 0.6;
+          if (!isInViewport) {
+            frameEl.scrollIntoView({
+              behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+              block: 'start',
+            });
+          }
+        }
+      }
       if (prefersReducedMotion()) {
         apply();
         return;
@@ -513,6 +547,54 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   );
 
   const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow) : undefined;
+  const activeRepName = activeRow ? getRepDisplayName(activeRow) : 'selected rep';
+
+  useEffect(() => {
+    if (!isMeetingLoading) {
+      if (meetingLoadTimeoutRef.current != null) {
+        window.clearTimeout(meetingLoadTimeoutRef.current);
+        meetingLoadTimeoutRef.current = null;
+      }
+      return;
+    }
+
+    if (!meetingSrc) {
+      setIsMeetingLoading(false);
+      setIsSwitchingRep(false);
+      setMeetingStatusMessage(`Meeting details updated for ${pendingRepName || activeRepName}.`);
+      return;
+    }
+
+    if (meetingLoadTimeoutRef.current != null) {
+      window.clearTimeout(meetingLoadTimeoutRef.current);
+    }
+
+    meetingLoadTimeoutRef.current = window.setTimeout(() => {
+      setIsMeetingLoading(false);
+      setIsSwitchingRep(false);
+      setMeetingStatusMessage(`Meeting ready for ${pendingRepName || activeRepName}.`);
+      setPendingRepName('');
+      meetingLoadTimeoutRef.current = null;
+    }, 5000);
+
+    return () => {
+      if (meetingLoadTimeoutRef.current != null) {
+        window.clearTimeout(meetingLoadTimeoutRef.current);
+        meetingLoadTimeoutRef.current = null;
+      }
+    };
+  }, [activeRepName, isMeetingLoading, meetingSrc, pendingRepName]);
+
+  const handleMeetingLoaded = useCallback(() => {
+    if (meetingLoadTimeoutRef.current != null) {
+      window.clearTimeout(meetingLoadTimeoutRef.current);
+      meetingLoadTimeoutRef.current = null;
+    }
+    setIsMeetingLoading(false);
+    setIsSwitchingRep(false);
+    setMeetingStatusMessage(`Meeting ready for ${pendingRepName || activeRepName}.`);
+    setPendingRepName('');
+  }, [activeRepName, pendingRepName]);
 
   const rootStyleWithMeeting = useMemo((): CSSPropertiesMap => {
     const next: CSSPropertiesMap = { ...cssVarsMap };
@@ -752,10 +834,17 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
         </FeaturedCardCol>
         <MeetingCol className={swm('hs-elevate-sales-team__meeting-col')}>
           <MeetingFrameWrap
+            ref={meetingFrameRef}
             className={cx(swm('hs-elevate-sales-team__meeting-frame'), {
               [swm('hs-elevate-sales-team__featured-card--dim')]: featuredDimmed,
+              [swm('hs-elevate-sales-team__meeting-frame--loading')]: isMeetingLoading,
             })}
           >
+            {isMeetingLoading && (
+              <div className={swm('hs-elevate-sales-team__meeting-loading-overlay')}>
+                Updating meeting for {pendingRepName || activeRepName}...
+              </div>
+            )}
             {meetingSrc ? (
               <MeetingIframe
                 key={String(activeRowId)}
@@ -764,6 +853,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
                 title="Book a meeting"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                onLoad={handleMeetingLoaded}
               />
             ) : (
               <div className={swm('hs-elevate-sales-team__meeting-placeholder')}>
@@ -771,6 +861,9 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
               </div>
             )}
           </MeetingFrameWrap>
+          <MeetingStatus className={swm('hs-elevate-sales-team__meeting-status')} aria-live="polite" aria-atomic="true">
+            {meetingStatusMessage}
+          </MeetingStatus>
           {(meetingSrc || hasBookDemoCta) && (
             <MeetingFooterActions className={swm('hs-elevate-sales-team__meeting-footer-actions')}>
               {meetingSrc && (
