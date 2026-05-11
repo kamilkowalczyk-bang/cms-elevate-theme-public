@@ -334,7 +334,6 @@ const MeetingFrameWrap = createComponent('div');
 const MeetingIframe = createComponent('iframe');
 const MeetingFallbackLink = createComponent('a');
 const MeetingFooterActions = createComponent('div');
-const MeetingStatus = createComponent('p');
 const GridSection = createComponent('div');
 const GridInner = createComponent('div');
 const GridSlot = createComponent('div');
@@ -372,6 +371,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   const {
     bookDemo = false,
     enableGeoAutoSelect = false,
+    simplifyRegionalGridCards = false,
     groupBookDemoCta: {
       prefaceText: bookDemoCtaPrefaceText = 'Not your region?',
       linkText: bookDemoCtaLinkText = 'Contact our sales team',
@@ -421,8 +421,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
   const [isSwitchingRep, setIsSwitchingRep] = useState(false);
   const [isMeetingLoading, setIsMeetingLoading] = useState(false);
-  const [pendingRepName, setPendingRepName] = useState('');
-  const [meetingStatusMessage, setMeetingStatusMessage] = useState('');
   const featuredCardColRef = useRef<HTMLDivElement | null>(null);
   const meetingFrameRef = useRef<HTMLDivElement | null>(null);
   const [meetingFramePx, setMeetingFramePx] = useState<number | null>(null);
@@ -513,11 +511,8 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     (row: unknown) => {
       const id = getRowId(row);
       if (id == null || rowIdsEqual(id, activeRowId)) return;
-      const repName = getRepDisplayName(row);
-      setPendingRepName(repName);
       setIsSwitchingRep(true);
       setIsMeetingLoading(true);
-      setMeetingStatusMessage(`Loading meeting for ${repName}.`);
 
       const apply = () => setActiveRowId(id);
       if (isMobileViewport()) {
@@ -547,7 +542,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   );
 
   const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow) : undefined;
-  const activeRepName = activeRow ? getRepDisplayName(activeRow) : 'selected rep';
 
   useEffect(() => {
     if (!isMeetingLoading) {
@@ -561,7 +555,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     if (!meetingSrc) {
       setIsMeetingLoading(false);
       setIsSwitchingRep(false);
-      setMeetingStatusMessage(`Meeting details updated for ${pendingRepName || activeRepName}.`);
       return;
     }
 
@@ -572,8 +565,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     meetingLoadTimeoutRef.current = window.setTimeout(() => {
       setIsMeetingLoading(false);
       setIsSwitchingRep(false);
-      setMeetingStatusMessage(`Meeting ready for ${pendingRepName || activeRepName}.`);
-      setPendingRepName('');
       meetingLoadTimeoutRef.current = null;
     }, 5000);
 
@@ -583,7 +574,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
         meetingLoadTimeoutRef.current = null;
       }
     };
-  }, [activeRepName, isMeetingLoading, meetingSrc, pendingRepName]);
+  }, [isMeetingLoading, meetingSrc]);
 
   const handleMeetingLoaded = useCallback(() => {
     if (meetingLoadTimeoutRef.current != null) {
@@ -592,9 +583,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     }
     setIsMeetingLoading(false);
     setIsSwitchingRep(false);
-    setMeetingStatusMessage(`Meeting ready for ${pendingRepName || activeRepName}.`);
-    setPendingRepName('');
-  }, [activeRepName, pendingRepName]);
+  }, []);
 
   const rootStyleWithMeeting = useMemo((): CSSPropertiesMap => {
     const next: CSSPropertiesMap = { ...cssVarsMap };
@@ -643,10 +632,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     const phoneHref = getFallbackOrLinkHref(hubDbPhoneText || '', getLinkFieldHref(effectivePhoneLink), 'phone');
     const emailHref = getFallbackOrLinkHref(hubDbEmailText || '', getLinkFieldHref(effectiveEmailLink), 'email');
 
-    const hasPhone = Boolean(hubDbShowPhone !== false && hubDbPhoneText);
-    const hasEmail = Boolean(hubDbShowEmail !== false && hubDbEmailText);
-    const hasSocial = Boolean(hubDbShowSocial && socialLink && socialLabel);
-    const hasButton = Boolean(!bookDemo && hubDbShowButton !== false && hubDbButtonText);
+    let hasPhone = Boolean(hubDbShowPhone !== false && hubDbPhoneText);
+    let hasEmail = Boolean(hubDbShowEmail !== false && hubDbEmailText);
+    let hasSocial = Boolean(hubDbShowSocial && socialLink && socialLabel);
+    let hasButton = Boolean(!bookDemo && hubDbShowButton !== false && hubDbButtonText);
+    if (opts.variant === 'grid' && simplifyRegionalGridCards) {
+      hasPhone = false;
+      hasEmail = false;
+      hasSocial = false;
+      hasButton = false;
+    }
     const shouldRenderCardBottom = hasPhone || hasEmail || hasSocial || hasButton;
 
     const cardInlineStyles: CSSPropertiesMap | undefined = showCardBorder ? undefined : { border: 'none' };
@@ -840,11 +835,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
               [swm('hs-elevate-sales-team__meeting-frame--loading')]: isMeetingLoading,
             })}
           >
-            {isMeetingLoading && (
-              <div className={swm('hs-elevate-sales-team__meeting-loading-overlay')}>
-                Updating meeting for {pendingRepName || activeRepName}...
-              </div>
-            )}
             {meetingSrc ? (
               <MeetingIframe
                 key={String(activeRowId)}
@@ -861,9 +851,6 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
               </div>
             )}
           </MeetingFrameWrap>
-          <MeetingStatus className={swm('hs-elevate-sales-team__meeting-status')} aria-live="polite" aria-atomic="true">
-            {meetingStatusMessage}
-          </MeetingStatus>
           {(meetingSrc || hasBookDemoCta) && (
             <MeetingFooterActions className={swm('hs-elevate-sales-team__meeting-footer-actions')}>
               {meetingSrc && (

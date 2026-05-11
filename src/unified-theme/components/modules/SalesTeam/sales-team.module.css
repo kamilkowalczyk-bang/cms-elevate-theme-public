@@ -107,31 +107,6 @@
   opacity: 0.4;
 }
 
-.hs-elevate-sales-team__meeting-loading-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--hsElevate--spacing--16, 16px);
-  background: rgba(255, 255, 255, 0.78);
-  font-family: var(--hsElevate--body__font);
-  font-size: var(--hsElevate--body--small__fontSize);
-  color: var(--hsElevate--salesTeam__textColor, #121212);
-  text-align: center;
-  pointer-events: none;
-}
-
-.hs-elevate-sales-team__meeting-status {
-  margin: var(--hsElevate--spacing--8, 8px) 0 0;
-  min-height: 1.25em;
-  font-family: var(--hsElevate--body__font);
-  font-size: var(--hsElevate--body--small__fontSize);
-  color: var(--hsElevate--salesTeam__textColor, #121212);
-  opacity: 0.82;
-}
-
 .hs-elevate-sales-team--book-demo .hs-elevate-sales-team__meeting-frame {
   height: max(
     calc(350px + var(--hsElevate--salesTeam__bookDemoDesktopMeetingExtraPx, 0px)),
@@ -536,10 +511,6 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-  }
-
-  .hs-elevate-sales-team__meeting-status {
-    margin-top: var(--hsElevate--spacing--10, 10px);
   }
 
   .hs-elevate-sales-team__book-demo-cta--meeting-footer-only {

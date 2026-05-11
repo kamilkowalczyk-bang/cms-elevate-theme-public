@@ -40,6 +40,14 @@ export const fields = (
       visibility={geoAutoSelectFieldVisibility}
       helpText="Uses visitor IP country (client-side) to match a contact_cards row by Sales region; falls back to the Default sales rep when unknown. Ignored when Book demo is on."
     />
+    <BooleanField
+      label="Simplify regional picker cards"
+      name="simplifyRegionalGridCards"
+      display="toggle"
+      default={false}
+      visibility={geoAutoSelectFieldVisibility}
+      helpText="When on, the bottom regional grid hides phone, email, social link, and book/CTA button so each card is only a rep selector; the featured card beside the meeting stays unchanged. Default off for other pages."
+    />
     <FieldGroup
       label="Book demo CTA"
       name="groupBookDemoCta"
@@ -62,6 +70,7 @@ export const fields = (
         default={{
           url: {
             type: 'EXTERNAL',
+            content_id: 0,
             href: '',
           },
           open_in_new_tab: false,

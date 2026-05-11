@@ -32,6 +32,8 @@ export type SalesTeamProps = {
   bookDemo: BooleanFieldType['default'];
   /** When true, client-side geo resolves visitor country → HubDB sales_region for featured rep + meeting. */
   enableGeoAutoSelect?: BooleanFieldType['default'];
+  /** When true, bottom grid cards omit phone, email, social, and HubDB CTA; featured card unchanged. */
+  simplifyRegionalGridCards?: BooleanFieldType['default'];
   groupBookDemoCta?: {
     prefaceText: TextFieldType['default'];
     linkText: TextFieldType['default'];
