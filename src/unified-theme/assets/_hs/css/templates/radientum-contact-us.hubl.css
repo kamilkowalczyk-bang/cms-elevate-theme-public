@@ -148,21 +148,77 @@
 
 @media (max-width: 879px) {
   .hs-elevate-contact-tabs-section {
-    transform: translateY(-62px);
-    margin-bottom: -62px;
+    transform: translateY(-46px);
+    margin-bottom: -46px;
   }
 
-  .hs-elevate-contact-tabs {
-    /* justify-content: flex-start; */
-    overflow-x: auto;
+  .hs-elevate-contact-tabs-section__tabs-wrap {
+    width: 100%;
     padding-inline: var(--hsElevate--spacing--16, 16px);
   }
 
-  .hs-elevate-contact-tabs__tab {
+  .hs-elevate-contact-tabs {
+    width: 100%;
+    gap: 6px;
+    padding-inline: 0;
+  }
+
+  .hs-elevate-contact-tabs a.hs-elevate-contact-tabs__tab {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+    padding: var(--hsElevate--spacing--12, 12px) var(--hsElevate--spacing--8, 8px);
+    font-size: clamp(0.8125rem, 2.8vw, var(--hsElevate--body__fontSize));
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 480px) {
+    .hs-elevate-contact-tabs-section__tabs-wrap {
+      padding-inline: var(--hsElevate--spacing--12, 12px);
+    }
+
+    .hs-elevate-contact-tabs {
+      gap: 4px;
+    }
   }
 
   .hs-elevate-contact-tabs-intro {
     padding-top: var(--hsElevate--spacing--64, 64px);
+  }
+
+  /*
+   * Sales tab featured card (under meeting iframe on mobile):
+   * keep card width consistent with other 330px cards and center the whole slot.
+   * Page-level override is used here to avoid module-scoping/order issues.
+   */
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-row {
+    align-items: stretch;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card {
+    align-self: center !important;
+    width: auto !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    margin-inline: auto !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card-measure {
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__featured-card .hs-elevate-sales-team__card {
+    width: 330px !important;
+    max-width: calc(100vw - 32px) !important;
+    flex: 0 0 auto !important;
+    margin-inline: auto !important;
+  }
+
+  .hs-elevate-contact-tabs-content .hs-elevate-sales-team__meeting-col {
+    width: 100% !important;
+    align-self: stretch !important;
   }
 }

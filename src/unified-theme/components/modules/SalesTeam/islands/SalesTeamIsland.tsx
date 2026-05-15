@@ -358,10 +358,20 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function isMobileViewport(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 880;
+}
+
+function getRepDisplayName(row: unknown): string {
+  return getHubDbString(row, ['full_name', 'name', 'hs_name']) || 'selected rep';
+}
+
 export default function SalesTeamIsland(props: SalesTeamProps) {
   const {
     bookDemo = false,
     enableGeoAutoSelect = false,
+    simplifyRegionalGridCards = false,
     groupBookDemoCta: {
       prefaceText: bookDemoCtaPrefaceText = 'Not your region?',
       linkText: bookDemoCtaLinkText = 'Contact our sales team',
@@ -409,8 +419,12 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
 
   const [activeRowId, setActiveRowId] = useState<string | number | null>(() => initialActiveId);
   const [featuredDimmed, setFeaturedDimmed] = useState(false);
+  const [isSwitchingRep, setIsSwitchingRep] = useState(false);
+  const [isMeetingLoading, setIsMeetingLoading] = useState(false);
   const featuredCardColRef = useRef<HTMLDivElement | null>(null);
+  const meetingFrameRef = useRef<HTMLDivElement | null>(null);
   const [meetingFramePx, setMeetingFramePx] = useState<number | null>(null);
+  const meetingLoadTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!enableGeoAutoSelect || bookDemo) return;
@@ -497,8 +511,23 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     (row: unknown) => {
       const id = getRowId(row);
       if (id == null || rowIdsEqual(id, activeRowId)) return;
+      setIsSwitchingRep(true);
+      setIsMeetingLoading(true);
 
       const apply = () => setActiveRowId(id);
+      if (isMobileViewport()) {
+        const frameEl = meetingFrameRef.current;
+        if (frameEl) {
+          const rect = frameEl.getBoundingClientRect();
+          const isInViewport = rect.top >= 0 && rect.top <= window.innerHeight * 0.6;
+          if (!isInViewport) {
+            frameEl.scrollIntoView({
+              behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+              block: 'start',
+            });
+          }
+        }
+      }
       if (prefersReducedMotion()) {
         apply();
         return;
@@ -513,6 +542,48 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
   );
 
   const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow) : undefined;
+
+  useEffect(() => {
+    if (!isMeetingLoading) {
+      if (meetingLoadTimeoutRef.current != null) {
+        window.clearTimeout(meetingLoadTimeoutRef.current);
+        meetingLoadTimeoutRef.current = null;
+      }
+      return;
+    }
+
+    if (!meetingSrc) {
+      setIsMeetingLoading(false);
+      setIsSwitchingRep(false);
+      return;
+    }
+
+    if (meetingLoadTimeoutRef.current != null) {
+      window.clearTimeout(meetingLoadTimeoutRef.current);
+    }
+
+    meetingLoadTimeoutRef.current = window.setTimeout(() => {
+      setIsMeetingLoading(false);
+      setIsSwitchingRep(false);
+      meetingLoadTimeoutRef.current = null;
+    }, 5000);
+
+    return () => {
+      if (meetingLoadTimeoutRef.current != null) {
+        window.clearTimeout(meetingLoadTimeoutRef.current);
+        meetingLoadTimeoutRef.current = null;
+      }
+    };
+  }, [isMeetingLoading, meetingSrc]);
+
+  const handleMeetingLoaded = useCallback(() => {
+    if (meetingLoadTimeoutRef.current != null) {
+      window.clearTimeout(meetingLoadTimeoutRef.current);
+      meetingLoadTimeoutRef.current = null;
+    }
+    setIsMeetingLoading(false);
+    setIsSwitchingRep(false);
+  }, []);
 
   const rootStyleWithMeeting = useMemo((): CSSPropertiesMap => {
     const next: CSSPropertiesMap = { ...cssVarsMap };
@@ -561,10 +632,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     const phoneHref = getFallbackOrLinkHref(hubDbPhoneText || '', getLinkFieldHref(effectivePhoneLink), 'phone');
     const emailHref = getFallbackOrLinkHref(hubDbEmailText || '', getLinkFieldHref(effectiveEmailLink), 'email');
 
-    const hasPhone = Boolean(hubDbShowPhone !== false && hubDbPhoneText);
-    const hasEmail = Boolean(hubDbShowEmail !== false && hubDbEmailText);
-    const hasSocial = Boolean(hubDbShowSocial && socialLink && socialLabel);
-    const hasButton = Boolean(!bookDemo && hubDbShowButton !== false && hubDbButtonText);
+    let hasPhone = Boolean(hubDbShowPhone !== false && hubDbPhoneText);
+    let hasEmail = Boolean(hubDbShowEmail !== false && hubDbEmailText);
+    let hasSocial = Boolean(hubDbShowSocial && socialLink && socialLabel);
+    let hasButton = Boolean(!bookDemo && hubDbShowButton !== false && hubDbButtonText);
+    if (opts.variant === 'grid' && simplifyRegionalGridCards) {
+      hasPhone = false;
+      hasEmail = false;
+      hasSocial = false;
+      hasButton = false;
+    }
     const shouldRenderCardBottom = hasPhone || hasEmail || hasSocial || hasButton;
 
     const cardInlineStyles: CSSPropertiesMap | undefined = showCardBorder ? undefined : { border: 'none' };
@@ -752,8 +829,10 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
         </FeaturedCardCol>
         <MeetingCol className={swm('hs-elevate-sales-team__meeting-col')}>
           <MeetingFrameWrap
+            ref={meetingFrameRef}
             className={cx(swm('hs-elevate-sales-team__meeting-frame'), {
               [swm('hs-elevate-sales-team__featured-card--dim')]: featuredDimmed,
+              [swm('hs-elevate-sales-team__meeting-frame--loading')]: isMeetingLoading,
             })}
           >
             {meetingSrc ? (
@@ -764,6 +843,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
                 title="Book a meeting"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
+                onLoad={handleMeetingLoaded}
               />
             ) : (
               <div className={swm('hs-elevate-sales-team__meeting-placeholder')}>

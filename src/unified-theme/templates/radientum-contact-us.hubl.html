@@ -4,12 +4,12 @@
   label: Radientum Contact us
   screenshotPath: ../images/template-previews/radientum-contact-us.png
 -->
+{% extends "./layouts/base.hubl.html" %}
+{% set template_css = "../../assets/_hs/css/templates/radientum-contact-us.hubl.css" %}
 {# Important note:
   The template currently uses `contact_base_path = "/contact"`.
   If your published parent dynamic page path differs, update the constant below.
 #}
-{% set template_css = "../../assets/_hs/css/templates/radientum-contact-us.hubl.css" %}
-{% extends "./layouts/base.hubl.html" %}
 
 {% block body %}
   {# TODO: Keep this in sync with the published dynamic parent page URL. #}
@@ -373,6 +373,7 @@
             path="../components/modules/SalesTeam",
             bookDemo=false,
             enableGeoAutoSelect=true,
+            simplifyRegionalGridCards=true,
             groupRegionalCards=sales_card_rows,
           groupStyle={
             "groupCard" : {
