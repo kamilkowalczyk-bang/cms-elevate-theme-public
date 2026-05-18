@@ -132,6 +132,38 @@ function getNativeImageDimensions(image: ImageAndCaptionProps['image']): {
   };
 }
 
+/** srcset/sizes may be present at runtime when responsive={true} but are not on ImageFieldType. */
+function getImageResponsiveAttributes(image: ImageAndCaptionProps['image']): {
+  srcSet?: string;
+  sizes?: string;
+} {
+  if (image == null || typeof image !== 'object') {
+    return {};
+  }
+
+  const record = image as Record<string, unknown>;
+  const srcset = record.srcset ?? record.srcSet;
+  const sizes = record.sizes;
+
+  return {
+    ...(typeof srcset === 'string' && srcset.length > 0 ? { srcSet: srcset } : {}),
+    ...(typeof sizes === 'string' && sizes.length > 0 ? { sizes } : {}),
+  };
+}
+
+function getImageTitle(image: ImageAndCaptionProps['image']): string | undefined {
+  if (image == null || typeof image !== 'object') {
+    return undefined;
+  }
+
+  const record = image as Record<string, unknown>;
+  if (typeof record.title === 'string' && record.title.length > 0) {
+    return record.title;
+  }
+
+  return typeof image.alt === 'string' && image.alt.length > 0 ? image.alt : undefined;
+}
+
 export const Component = (props: ImageAndCaptionProps) => {
   const {
     moduleName,
@@ -158,6 +190,11 @@ export const Component = (props: ImageAndCaptionProps) => {
     hasImage &&
     useAdvancedImageEditing === true &&
     (aspectChoice !== 'original' || imageObjectFitCover === true);
+
+  const usesNativeImageLayout = hasImage && !needsMediaFrame;
+  /* Shrink-wrap so flexbox-positioned DnD columns center the module like @hubspot/linked_image. */
+  const sectionShrinkWrap = showCaption || needsMediaFrame || usesNativeImageLayout;
+  const imageResponsiveAttributes = getImageResponsiveAttributes(image);
 
   const cssVarsMap: CSSPropertiesMap = {
     '--hsElevate--imageAndCaption__captionBackgroundColor': colorWithOpacity(
@@ -198,23 +235,41 @@ export const Component = (props: ImageAndCaptionProps) => {
 
   const renderImage = () => (
     <Image
-      className={swm('hs-elevate-image-and-caption__image')}
+      className={cx(
+        swm('hs-elevate-image-and-caption__image'),
+        usesNativeImageLayout && 'hs-image-widget',
+        usesNativeImageLayout && swm('hs-elevate-image-and-caption__image--native'),
+      )}
       src={image?.src}
       alt={image?.alt}
       width={needsMediaFrame ? undefined : nativeImageDimensions.width}
       height={needsMediaFrame ? undefined : nativeImageDimensions.height}
       loading={image?.loading && image.loading !== 'disabled' ? image.loading : 'lazy'}
       data-hs-token={getDataHSToken(moduleName, 'image')}
-      style={framedImageStyle}
+      style={usesNativeImageLayout ? { maxWidth: '100%', height: 'auto' } : framedImageStyle}
+      {...(usesNativeImageLayout ? imageResponsiveAttributes : {})}
+      {...(usesNativeImageLayout && getImageTitle(image) != null
+        ? { title: getImageTitle(image) }
+        : {})}
     />
   );
 
   return (
     <ImageAndCaptionSection
-      className={swm('hs-elevate-image-and-caption__section')}
+      className={cx(
+        swm('hs-elevate-image-and-caption__section'),
+        sectionShrinkWrap && swm('hs-elevate-image-and-caption__section--shrink-wrap'),
+      )}
       style={cssVarsMap}
     >
-      <ImageAndCaptionContainer className={swm('hs-elevate-image-and-caption')}>
+      <ImageAndCaptionContainer
+        className={cx(
+          swm('hs-elevate-image-and-caption'),
+          usesNativeImageLayout &&
+            !showCaption &&
+            swm('hs-elevate-image-and-caption--native-only'),
+        )}
+      >
         {hasImage && !needsMediaFrame && renderImage()}
         {hasImage && needsMediaFrame && (
           <ImageAndCaptionMedia

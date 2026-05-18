@@ -1,19 +1,32 @@
-/* Outer section: default HubSpot–style block, centered, no vertical margin. */
+/* Outer section: no vertical margin; shrink-wrap only when caption or advanced frame needs it. */
 .hs-elevate-image-and-caption__section {
   margin-block: 0;
   margin-inline: auto;
-  width: fit-content;
   max-width: 100%;
 }
 
-/* Let HubSpot ImageField width/height (and srcset/sizes) control layout; do not override with width: 100%. */
+.hs-elevate-image-and-caption__section--shrink-wrap {
+  margin-inline: auto;
+  width: fit-content;
+}
+
 .hs-elevate-image-and-caption {
   margin: 0;
 }
 
-.hs-elevate-image-and-caption__image {
-  max-width: 100%;
+/* Default / native ImageField: match hs-image-widget (max-width + height auto, intrinsic width from attributes). */
+.hs-elevate-image-and-caption__image--native {
   display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+
+/* Native image-only: figure shrinks to img so parent flexbox centering matches linked_image span wrapper. */
+.hs-elevate-image-and-caption--native-only {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
 }
 
 /* Framed image: aspect / cover / focal (advanced editing) */
