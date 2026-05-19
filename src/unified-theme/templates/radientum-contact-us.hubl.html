@@ -6,14 +6,45 @@
 -->
 {% extends "./layouts/base.hubl.html" %}
 {% set template_css = "../../assets/_hs/css/templates/radientum-contact-us.hubl.css" %}
-{# Important note:
-  The template currently uses `contact_base_path = "/contact"`.
-  If your published parent dynamic page path differs, update the constant below.
-#}
+{# Multi-language: tab copy from HubDB contact_tabs (language column). Base path derived from request.path. #}
 
 {% block body %}
-  {# TODO: Keep this in sync with the published dynamic parent page URL. #}
-  {% set contact_base_path = "/contact" %}
+  {% set template_translations = load_translations("./_locales", html_lang, "en") %}
+  {% set page_lang = content.language.languageTag|default(html_lang)|default("en") %}
+  {# Fetch all rows once; filter by `language` in HubL (HubDB API filter fails until the column exists in the portal). #}
+  {% set all_contact_tabs_rows = hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+  {% set contact_tabs_rows = [] %}
+  {% for tab_row in all_contact_tabs_rows %}
+    {% set row_lang_raw = tab_row.language|default(tab_row.values.language if tab_row.values else none) %}
+    {% set row_lang_candidate = row_lang_raw %}
+    {% if row_lang_candidate and row_lang_candidate.name is defined %}
+      {% set row_lang_candidate = row_lang_candidate.name %}
+    {% elif row_lang_candidate and row_lang_candidate.value is defined %}
+      {% set row_lang_candidate = row_lang_candidate.value %}
+    {% endif %}
+    {% set row_lang_norm = row_lang_candidate|default("")|string|lower|trim %}
+    {% if row_lang_norm == page_lang %}
+      {% do contact_tabs_rows.append(tab_row) %}
+    {% endif %}
+  {% endfor %}
+  {% if contact_tabs_rows|length == 0 and page_lang != "en" %}
+    {% for tab_row in all_contact_tabs_rows %}
+      {% set row_lang_raw = tab_row.language|default(tab_row.values.language if tab_row.values else none) %}
+      {% set row_lang_candidate = row_lang_raw %}
+      {% if row_lang_candidate and row_lang_candidate.name is defined %}
+        {% set row_lang_candidate = row_lang_candidate.name %}
+      {% elif row_lang_candidate and row_lang_candidate.value is defined %}
+        {% set row_lang_candidate = row_lang_candidate.value %}
+      {% endif %}
+      {% set row_lang_norm = row_lang_candidate|default("")|string|lower|trim %}
+      {% if row_lang_norm == "en" %}
+        {% do contact_tabs_rows.append(tab_row) %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% if contact_tabs_rows|length == 0 %}
+    {% set contact_tabs_rows = all_contact_tabs_rows %}
+  {% endif %}
 
   {% dnd_area "hero_area"
     label="Hero section"
@@ -96,7 +127,6 @@
   {% end_dnd_area %}
 
   {# Tab route: prefer URL last segment. dynamic_page_hubdb_row is often the parent row on all routes, so reading it first wrongly pins active tab to Sales. #}
-  {% set base_slug = contact_base_path|regex_replace("^/+", "")|regex_replace("/+$", "") %}
   {% set normalized_request_path = request.path|default("")|lower|trim|regex_replace("^/+", "")|regex_replace("/+$", "") %}
   {% set path_segments = normalized_request_path|split("/") %}
   {% set last_slug = path_segments|last|default("") %}
@@ -108,12 +138,10 @@
     {% set current_tab_path = "offices" %}
   {% elif last_slug == "sales" %}
     {% set current_tab_path = "sales" %}
-  {% elif last_slug == base_slug %}
-    {% set current_tab_path = "sales" %}
   {% endif %}
 
   {% if not current_tab_path and dynamic_page_hubdb_row %}
-    {% set current_tab_path = dynamic_page_hubdb_row.hs_path|default(dynamic_page_hubdb_row.path)|default("")|lower %}
+    {% set current_tab_path = dynamic_page_hubdb_row.tab_path|default(dynamic_page_hubdb_row.values.tab_path if dynamic_page_hubdb_row.values else none)|default(dynamic_page_hubdb_row.hs_path)|default(dynamic_page_hubdb_row.path)|default("")|lower %}
   {% endif %}
   {% if not current_tab_path %}
     {% set current_tab_path = "sales" %}
@@ -132,8 +160,13 @@
     {% set active_tab_path = "sales" %}
   {% endif %}
 
+  {% set contact_base_path = request.path|default("/contact") %}
+  {% if current_tab_path and current_tab_path != "sales" %}
+    {% set contact_base_path = contact_base_path|regex_replace("/" ~ current_tab_path ~ "/?$", "") %}
+  {% endif %}
+
   {% set enabled_contact_tabs = [] %}
-  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
+  {% for tab_row in contact_tabs_rows %}
     {% set enabled_raw = tab_row.is_enabled|default(tab_row.values.is_enabled)|default(0)|string|lower|trim %}
     {% set is_enabled = (enabled_raw == "1" or enabled_raw == "true" or enabled_raw == "on" or enabled_raw == "yes") %}
     {% if is_enabled %}
@@ -146,8 +179,8 @@
   {# Match heading/label to HubDB row by resolved URL slug (active_tab_path). #}
   {# Note: do not assign tab description into a variable inside this `if` then read it later — Jinjava can block-scope `{% set %}` so the outer variable never updates. Render description inline below. #}
   {% set heading_tab_match = none %}
-  {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
-    {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+  {% for tab_row in contact_tabs_rows %}
+    {% set tp = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default(tab_row.hs_path)|default(tab_row.path)|default("")|lower %}
     {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
       {% set heading_tab_match = tab_row %}
     {% endif %}
@@ -243,10 +276,10 @@
 
   <section class="hs-elevate-contact-tabs-section">
     <div class="hs-elevate-content-wrapper hs-elevate-content-wrapper--compact hs-elevate-contact-tabs-section__tabs-wrap">
-      <nav class="hs-elevate-contact-tabs" aria-label="Contact categories">
+      <nav class="hs-elevate-contact-tabs" aria-label="{{ template_translations.contact_tabs_aria_label.message }}">
         {% if enabled_contact_tabs|length > 0 %}
           {% for tab_row in enabled_contact_tabs %}
-            {% set tab_path = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+            {% set tab_path = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default(tab_row.hs_path)|default(tab_row.path)|default("")|lower %}
             {% set tab_href = contact_base_path %}
             {% if tab_path and tab_path != "sales" %}
               {% set tab_href = contact_base_path ~ "/" ~ tab_path %}
@@ -324,8 +357,8 @@
           }
         %}
         <h2 class="hs-elevate-contact-tabs__heading">{{ active_tab_heading }}</h2>
-        {% for tab_row in hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
-          {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|lower %}
+        {% for tab_row in contact_tabs_rows %}
+          {% set tp = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default(tab_row.hs_path)|default(tab_row.path)|default("")|lower %}
           {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
             {% set dcell = tab_row.description_default %}
             {% if (dcell is none or (dcell is string and dcell|trim == "")) and tab_row.values %}
@@ -429,8 +462,7 @@
           </div>
         {% else %}
           <p class="hs-elevate-contact-tabs__empty">
-            No invoicing contacts are configured in HubDB yet. In the <strong>contact_cards</strong> table, enable
-            <strong>Show on Invoicing and purchasing tab</strong> for one or more rows, then publish the table.
+            {{ template_translations.contact_empty_invoicing.message|sanitize_html }}
           </p>
         {% endif %}
       {% elif active_tab == "offices" %}
@@ -451,8 +483,7 @@
           </div>
         {% else %}
           <p class="hs-elevate-contact-tabs__empty">
-            No offices are published in the <strong>offices</strong> HubDB table yet. Add rows in HubDB, publish the
-            table, then return to this page.
+            {{ template_translations.contact_empty_offices.message|sanitize_html }}
           </p>
         {% endif %}
       {% endif %}
