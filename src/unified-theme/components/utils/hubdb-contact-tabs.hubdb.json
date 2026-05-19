@@ -7,29 +7,58 @@
   "enableChildTablePages": false,
   "columns": [
     {
+      "name": "language",
+      "label": "Language",
+      "type": "SELECT",
+      "description": "Page language for this row (en or fi). Must match HubSpot content.language.languageTag. Create one row per tab per language.",
+      "options": [
+        {
+          "name": "en",
+          "label": "English",
+          "type": "option"
+        },
+        {
+          "name": "fi",
+          "label": "Finnish",
+          "type": "option"
+        }
+      ]
+    },
+    {
+      "name": "tab_path",
+      "label": "Tab URL segment",
+      "type": "TEXT",
+      "description": "URL path segment for this tab (sales, invoicing-and-purchasing, offices). Use the same value for EN and FI pairs. The Contact template builds tab links from this column."
+    },
+    {
       "name": "tab_label",
       "label": "Tab label",
-      "type": "TEXT"
+      "type": "TEXT",
+      "description": "Short label shown on the tab control."
     },
     {
       "name": "heading_default",
       "label": "Default heading",
-      "type": "TEXT"
+      "type": "TEXT",
+      "description": "Heading shown above the tab content."
     },
     {
       "name": "description_default",
       "label": "Default description",
-      "type": "RICHTEXT"
+      "type": "RICHTEXT",
+      "description": "Optional rich text below the heading."
     },
     {
       "name": "is_enabled",
       "label": "Tab enabled",
-      "type": "BOOLEAN"
+      "type": "BOOLEAN",
+      "description": "When off, the tab is hidden from navigation."
     },
     {
       "name": "sort_order",
       "label": "Sort order",
-      "type": "NUMBER"
+      "type": "NUMBER",
+      "description": "Lower numbers appear first in the tab bar."
     }
   ],
   "rows": [
@@ -37,6 +66,8 @@
       "name": "Sales",
       "path": "sales",
       "values": {
+        "language": { "name": "en", "type": "option" },
+        "tab_path": "sales",
         "tab_label": "Sales",
         "heading_default": "CONTACT SALES",
         "description_default": "",
@@ -48,6 +79,8 @@
       "name": "Invoicing and purchasing",
       "path": "invoicing-and-purchasing",
       "values": {
+        "language": { "name": "en", "type": "option" },
+        "tab_path": "invoicing-and-purchasing",
         "tab_label": "Invoicing and purchasing",
         "heading_default": "INVOICING AND PURCHASING",
         "description_default": "",
@@ -59,8 +92,49 @@
       "name": "Offices",
       "path": "offices",
       "values": {
+        "language": { "name": "en", "type": "option" },
+        "tab_path": "offices",
         "tab_label": "Offices",
         "heading_default": "OFFICES",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 30
+      }
+    },
+    {
+      "name": "Myynti",
+      "path": "sales-fi",
+      "values": {
+        "language": { "name": "fi", "type": "option" },
+        "tab_path": "sales",
+        "tab_label": "Myynti",
+        "heading_default": "OTA YHTEYTTÄ MYYNTIIN",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 10
+      }
+    },
+    {
+      "name": "Laskutus ja hankinta",
+      "path": "invoicing-and-purchasing-fi",
+      "values": {
+        "language": { "name": "fi", "type": "option" },
+        "tab_path": "invoicing-and-purchasing",
+        "tab_label": "Laskutus ja hankinta",
+        "heading_default": "LASKUTUS JA HANKINTA",
+        "description_default": "",
+        "is_enabled": 1,
+        "sort_order": 20
+      }
+    },
+    {
+      "name": "Toimistot",
+      "path": "offices-fi",
+      "values": {
+        "language": { "name": "fi", "type": "option" },
+        "tab_path": "offices",
+        "tab_label": "Toimistot",
+        "heading_default": "TOIMISTOT",
         "description_default": "",
         "is_enabled": 1,
         "sort_order": 30
