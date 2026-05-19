@@ -143,17 +143,24 @@ Supporting assets and utilities:
 - `assets/numeric-to-alpha2.json` and `assets/country-codes.ts/js` for country code mapping and labels.
 - Internal helpers such as `create-component`, `classnames`, and `color-to-css`.
 
-### Contact Us template CSS and geolocation
+### Contact Us template CSS, geolocation, and i18n
 
 Paths:
 - CSS: `src/unified-theme/assets/_hs/css/templates/radientum-contact-us.hubl.css`
-- Template toggle: `src/unified-theme/templates/radientum-contact-us.hubl.html`
+- Template: `src/unified-theme/templates/radientum-contact-us.hubl.html`
+- Template locales: `src/unified-theme/templates/_locales/{en,fi}/messages.json`
+- HubDB tabs: `src/unified-theme/components/utils/hubdb-contact-tabs.hubdb.json` (`language`: `en` / `fi`; `tab_path`: shared URL segment per tab; EN rows keep original HubDB `path` values)
 - Geo logic: `src/unified-theme/components/modules/SalesTeam/geo.ts`
 - Geo runtime usage: `src/unified-theme/components/modules/SalesTeam/islands/SalesTeamIsland.tsx`
 
 Notes:
 - `radientum-contact-us.hubl.css` is styling-only and does not contain geolocation code.
-- Geolocation is enabled in the Contact Us template by passing `enableGeoAutoSelect=true` to `SalesTeam`.
+- Geolocation is enabled in the Contact Us template by passing `enableGeoAutoSelect=true` to `SalesTeam`. Geo is country-based and works the same on EN and FI page variants.
+- Tab labels/headings come from `contact_tabs` filtered by page language, with fallback to `language=en`, then unfiltered rows (migration). English hardcoded tab fallbacks remain as last resort.
+
+**HubDB `contact_tabs` (portal 51079453):** Table was recreated via `hs hubdb` (May 2026) with `language` + `tab_path` columns and 6 rows (3 EN + 3 FI). For `hs hubdb create`, SELECT values must use `{ "name": "en", "type": "option" }` format in row JSON.
+
+**CMS after deploy:** (1) Create Finnish language variant of the Contact page. (2) Add FI global header variation if needed. (3) Publish both page variants.
 
 Geolocation dependencies:
 - `react` for lifecycle-driven auto-selection behavior.
