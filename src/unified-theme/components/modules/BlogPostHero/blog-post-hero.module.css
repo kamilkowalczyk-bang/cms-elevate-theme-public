@@ -76,6 +76,25 @@
   grid-template-columns: 1fr;
   gap: var(--hsElevate--spacing--4, 4px);
 }
+@media (width <= 880px) {
+  .hs-elevate-blog-post-hero-split__text > :global(h1),
+  .hs-elevate-blog-post-hero-split__text > :global(h2),
+  .hs-elevate-blog-post-hero-split__text > :global(h3),
+  .hs-elevate-blog-post-hero-split__text > :global(h4),
+  .hs-elevate-blog-post-hero-split__text > :global(h5),
+  .hs-elevate-blog-post-hero-split__text > :global(h6),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-display-1),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-display-2),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-display-title),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h1),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h2),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h3),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h4),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h5),
+  .hs-elevate-blog-post-hero-split__text > :global(.hs-elevate-h6) {
+    font-size: calc(var(--hsElevate--h1__fontSize) * var(--hsElevate--heading__tablet-modifier));
+  }
+}
 
 @media (width >= 768px) {
   .hs-elevate-blog-post-hero-split__grid {
