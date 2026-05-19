@@ -80,7 +80,7 @@
 @media (width >= 768px) {
   .hs-elevate-blog-post-hero-split__grid {
     grid-template-columns: 1fr 1fr;
-    gap: var(--hsElevate--spacing--8, 8px);
+    gap: var(--hsElevate--spacing--24, 24px);
   }
 }
 
@@ -96,6 +96,7 @@
 
 @media (width < 768px) {
   .hs-elevate-blog-post-hero-split__image {
+    order: -1;
     aspect-ratio: 1.25;
   }
 }
