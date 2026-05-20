@@ -10,7 +10,7 @@
 
 {% block body %}
   {% set template_translations = load_translations("./_locales", html_lang, "en") %}
-  {% set page_lang = content.language.languageTag|default(html_lang)|default("en") %}
+  {% set page_lang = content.language.languageTag|default(html_lang)|default("en")|string|lower|trim|split("-")|first %}
   {# Fetch all rows once; filter by `language` in HubL (HubDB API filter fails until the column exists in the portal). #}
   {% set all_contact_tabs_rows = hubdb_table_rows("contact_tabs", "orderBy=sort_order") %}
   {% set contact_tabs_rows = [] %}
@@ -23,6 +23,9 @@
       {% set row_lang_candidate = row_lang_candidate.value %}
     {% endif %}
     {% set row_lang_norm = row_lang_candidate|default("")|string|lower|trim %}
+    {% if row_lang_norm == "" %}
+      {% set row_lang_norm = "en" %}
+    {% endif %}
     {% if row_lang_norm == page_lang %}
       {% do contact_tabs_rows.append(tab_row) %}
     {% endif %}
@@ -37,6 +40,9 @@
         {% set row_lang_candidate = row_lang_candidate.value %}
       {% endif %}
       {% set row_lang_norm = row_lang_candidate|default("")|string|lower|trim %}
+      {% if row_lang_norm == "" %}
+        {% set row_lang_norm = "en" %}
+      {% endif %}
       {% if row_lang_norm == "en" %}
         {% do contact_tabs_rows.append(tab_row) %}
       {% endif %}
@@ -176,25 +182,19 @@
 
   {% set active_tab_label = "Sales" %}
   {% set active_tab_heading = "CONTACT SALES" %}
-  {# Match heading/label to HubDB row by resolved URL slug (active_tab_path). #}
-  {# Note: do not assign tab description into a variable inside this `if` then read it later — Jinjava can block-scope `{% set %}` so the outer variable never updates. Render description inline below. #}
-  {% set heading_tab_match = none %}
+  {# Match HubDB row for active tab by tab_path (not row.path). Use list append — Jinjava block-scopes {% set %} inside loops. #}
+  {% set matched_active_tab_rows = [] %}
   {% for tab_row in contact_tabs_rows %}
-    {% set tp = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default(tab_row.hs_path)|default(tab_row.path)|default("")|lower %}
+    {% set tp = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default("")|string|lower|trim %}
+    {% if tp == "" %}
+      {% set tp = tab_row.hs_path|default(tab_row.path)|default("")|string|lower|trim %}
+    {% endif %}
     {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
-      {% set heading_tab_match = tab_row %}
+      {% do matched_active_tab_rows.append(tab_row) %}
     {% endif %}
   {% endfor %}
-  {% if heading_tab_match %}
-    {% set active_tab_label = heading_tab_match.tab_label|default(heading_tab_match.values.tab_label)|default(active_tab_label) %}
-    {% set active_tab_heading = heading_tab_match.heading_default|default(heading_tab_match.values.heading_default)|default(active_tab_heading) %}
-  {% elif active_tab == "invoicing" %}
-    {% set active_tab_label = "Invoicing and purchasing" %}
-    {% set active_tab_heading = "INVOICING AND PURCHASING" %}
-  {% elif active_tab == "offices" %}
-    {% set active_tab_label = "Offices" %}
-    {% set active_tab_heading = "OFFICES" %}
-  {% endif %}
+  {% set active_tab_hubdb_row = matched_active_tab_rows|first %}
+  {# Do not assign heading/label inside `if` blocks — Jinjava block-scopes `{% set %}`; render from active_tab_hubdb_row inline below. #}
 
   {% set all_contact_rows = hubdb_table_rows("contact_cards") %}
   {# Sales tab should continue to show all sales team contacts. #}
@@ -356,13 +356,21 @@
             }
           }
         %}
-        <h2 class="hs-elevate-contact-tabs__heading">{{ active_tab_heading }}</h2>
-        {% for tab_row in contact_tabs_rows %}
-          {% set tp = tab_row.tab_path|default(tab_row.values.tab_path if tab_row.values else none)|default(tab_row.hs_path)|default(tab_row.path)|default("")|lower %}
-          {% if tp == active_tab_path or (active_tab_path == "sales" and (tp == "sales" or tp == "")) %}
-            {% set dcell = tab_row.description_default %}
-            {% if (dcell is none or (dcell is string and dcell|trim == "")) and tab_row.values %}
-              {% set dcell = tab_row.values.description_default %}
+        <h2 class="hs-elevate-contact-tabs__heading">
+          {% if active_tab_hubdb_row %}
+            {{ active_tab_hubdb_row.heading_default|default(active_tab_hubdb_row.values.heading_default)|default(active_tab_heading) }}
+          {% elif active_tab == "invoicing" %}
+            INVOICING AND PURCHASING
+          {% elif active_tab == "offices" %}
+            OFFICES
+          {% else %}
+            {{ active_tab_heading }}
+          {% endif %}
+        </h2>
+        {% if active_tab_hubdb_row %}
+            {% set dcell = active_tab_hubdb_row.description_default %}
+            {% if (dcell is none or (dcell is string and dcell|trim == "")) and active_tab_hubdb_row.values %}
+              {% set dcell = active_tab_hubdb_row.values.description_default %}
             {% endif %}
             {% set dhtml = "" %}
             {% if dcell is string %}
@@ -371,8 +379,8 @@
               {% set dhtml = dcell.html|default(dcell.value)|default("") %}
             {% endif %}
             {% set dvis = dhtml|default("")|string|trim %}
-            {% if dvis|length == 0 and tab_row.hs_id %}
-              {% set snap = hubdb_table_row("contact_tabs", tab_row.hs_id|int) %}
+            {% if dvis|length == 0 and active_tab_hubdb_row.hs_id %}
+              {% set snap = hubdb_table_row("contact_tabs", active_tab_hubdb_row.hs_id|int) %}
               {% set sc = none %}
               {% if snap and snap.values %}
                 {% set sc = snap.values.description_default %}
@@ -396,8 +404,7 @@
                 {% endif %}
               </div>
             {% endif %}
-          {% endif %}
-        {% endfor %}
+        {% endif %}
       </div>
       {% if active_tab == "sales" %}
         {# Sales team: default (non-book-demo) layout: featured rep, meeting iframe, regional rep grid. #}
