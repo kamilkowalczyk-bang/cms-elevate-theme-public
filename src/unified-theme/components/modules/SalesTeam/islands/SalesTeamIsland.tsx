@@ -358,9 +358,16 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-function isMobileViewport(): boolean {
-  if (typeof window === 'undefined') return false;
-  return window.innerWidth < 880;
+/** When the calendar block is off-screen, bring it into view (same UX on all breakpoints). */
+function scrollMeetingFrameIntoViewIfNeeded(frameEl: HTMLElement | null): void {
+  if (typeof window === 'undefined' || !frameEl) return;
+  const rect = frameEl.getBoundingClientRect();
+  const isInViewport = rect.top >= 0 && rect.top <= window.innerHeight * 0.6;
+  if (isInViewport) return;
+  frameEl.scrollIntoView({
+    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+    block: 'start',
+  });
 }
 
 function getRepDisplayName(row: unknown): string {
@@ -515,19 +522,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
       setIsMeetingLoading(true);
 
       const apply = () => setActiveRowId(id);
-      if (isMobileViewport()) {
-        const frameEl = meetingFrameRef.current;
-        if (frameEl) {
-          const rect = frameEl.getBoundingClientRect();
-          const isInViewport = rect.top >= 0 && rect.top <= window.innerHeight * 0.6;
-          if (!isInViewport) {
-            frameEl.scrollIntoView({
-              behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-              block: 'start',
-            });
-          }
-        }
-      }
+      scrollMeetingFrameIntoViewIfNeeded(meetingFrameRef.current);
       if (prefersReducedMotion()) {
         apply();
         return;
