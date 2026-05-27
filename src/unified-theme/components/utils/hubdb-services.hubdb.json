@@ -1,0 +1,481 @@
+{
+  "name": "services",
+  "label": "Services",
+  "useForPages": false,
+  "allowPublicApiAccess": false,
+  "allowChildTables": false,
+  "enableChildTablePages": false,
+  "columns": [
+    {
+      "name": "name",
+      "label": "Name",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_title",
+      "label": "Service title",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_description",
+      "label": "Service description",
+      "type": "RICHTEXT"
+    },
+    {
+      "name": "service_link_text",
+      "label": "Service link button text",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_link_url",
+      "label": "Service link URL",
+      "type": "URL"
+    },
+    {
+      "name": "featured_service",
+      "label": "Featured service",
+      "type": "BOOLEAN"
+    },
+    {
+      "name": "service_categories",
+      "label": "Service categories",
+      "type": "MULTISELECT",
+      "options": [
+        {
+          "name": "show_all_categories",
+          "label": "Show all",
+          "type": "option"
+        },
+        {
+          "name": "communication_systems",
+          "label": "Communication systems",
+          "type": "option"
+        },
+        {
+          "name": "positioning_tracking_systems",
+          "label": "Positioning & tracking systems",
+          "type": "option"
+        },
+        {
+          "name": "manufacturing_technologies",
+          "label": "Manufacturing technologies",
+          "type": "option"
+        },
+        {
+          "name": "all_services",
+          "label": "All Services",
+          "type": "option"
+        }
+      ]
+    },
+    {
+      "name": "service_bg_img",
+      "label": "Service background image",
+      "type": "IMAGE"
+    },
+    {
+      "name": "notes",
+      "label": "Notes",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_title_fi",
+      "label": "Service title (FI)",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_title_fr",
+      "label": "Service title (FR)",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_title_de",
+      "label": "Service title (DE)",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_description_fi",
+      "label": "Service description (FI)",
+      "type": "RICHTEXT"
+    },
+    {
+      "name": "service_description_fr",
+      "label": "Service description (FR)",
+      "type": "RICHTEXT"
+    },
+    {
+      "name": "service_description_de",
+      "label": "Service description (DE)",
+      "type": "RICHTEXT"
+    },
+    {
+      "name": "service_link_text_fi",
+      "label": "Service link button text (FI)",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_link_text_fr",
+      "label": "Service link button text (FR)",
+      "type": "TEXT"
+    },
+    {
+      "name": "service_link_text_de",
+      "label": "Service link button text (DE)",
+      "type": "TEXT"
+    }
+  ],
+  "rows": [
+    {
+      "values": {
+        "name": "Antenna Design",
+        "service_title": "Antenna Design",
+        "service_description": "Custom antenna design delivering reliable wireless performance from concept to certification",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-design/",
+        "featured_service": 1,
+        "service_bg_img": {
+          "url": "https://147292194.fs1.hubspotusercontent-eu1.net/hubfs/147292194/Brand%20Visuals/Brand_picture_watch_navigation.jpg",
+          "width": 1280,
+          "height": 720,
+          "type": "image"
+        }
+      }
+    },
+    {
+      "values": {
+        "service_title": "Antenna Measurements",
+        "service_description": "Verify, tune, and benchmark antenna performance with precise OTA and conducted measurements",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-measurements/",
+        "featured_service": 1,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Antenna & RF Design Consultants",
+        "service_description": "On-demand antenna and RF experts strengthening your team exactly when needed",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/consultants/antenna-and-rf-design-consultants/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Embedded Wireless Consultants",
+        "service_description": "Flexible wireless and embedded engineers integrated seamlessly into your development team",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/consultants/",
+        "featured_service": 1,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Extended Hardware Services",
+        "service_description": "Extended hardware and certification support removing wireless risks from product development",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/extended-hardware-services/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Antenna Consulting",
+        "service_description": "Specialist antenna consulting to diagnose, unblock, and optimize wireless performance with simulation-backed guidance.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-consulting/",
+        "featured_service": 0,
+        "service_categories": [],
+        "notes": "to be removed"
+      }
+    },
+    {
+      "values": {
+        "service_title": "Antenna Simulation",
+        "service_description": "Simulation-driven design predicting RF performance early to reduce prototypes, risks, and cost.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-simulation/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Custom Antenna Design",
+        "service_description": "Tailored antennas maximizing performance, overcoming constraints, reducing BOM, and improving reliability.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-design/custom-antenna-design/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Standard Antenna Integration",
+        "service_description": "Integrate off-the-shelf chip antennas rapidly with data-driven placement, matching, and materials choices.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/antenna-design/standard-antenna-integration/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "Signal & Power Integrity (SI/PI) Simulation",
+        "service_description": "Signal and power integrity simulations ensuring clean interfaces, lower latency, and reliability under constraints.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/si-pi-simulation/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "EMC/EMI Consultant (On-Demand)",
+        "service_description": "Embedded EMC/EMI consultant speeding pre-compliance, debugging emissions, and smoothing certifications with hands-on support.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/consultants/emc-emi-consultant/",
+        "featured_service": 0,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "EMC & EMI Testing Services",
+        "service_description": "R&D, pre-cert, and official EMC/EMI testing to de-risk launches and schedules through actionable debugging.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/emc-emi-testing-services/",
+        "featured_service": 1,
+        "service_categories": []
+      }
+    },
+    {
+      "values": {
+        "service_title": "RF testing",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/rf-testing/",
+        "featured_service": 0
+      }
+    },
+    {
+      "values": {
+        "service_title": "Material RF characterization",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/material-rf-characterization/",
+        "featured_service": 0
+      }
+    },
+    {
+      "values": {
+        "service_title": "EMC Consultancy",
+        "service_description": "Early-stage EMC consulting, simulations, and lab checks to prevent costly certification surprises later on.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/services/emc-concultancy/",
+        "featured_service": 0,
+        "service_categories": [],
+        "notes": "to be removed"
+      }
+    },
+    {
+      "values": {
+        "service_title": "Cellular Antennas (2G\u20135G Sub-6)",
+        "service_description": "Multiband cellular antennas meeting strict operator requirements for global connected products",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/gsm-3g-4g-lte-5g-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "communication_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "5G mmWave Antennas",
+        "service_description": "High-frequency 5G mmWave antenna arrays engineered for performance in compact devices",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/5g-mmwave-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "communication_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "Wi\u2011Fi Antennas",
+        "service_description": "High-efficiency Wi\u2011Fi antennas optimized for throughput, range, and challenging layouts",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/wi-fi-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "communication_systems",
+            "type": "option"
+          },
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "GPS / GNSS Antennas",
+        "service_description": "Integrated GNSS antennas delivering accurate positioning performance in challenging environments",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/gps-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "positioning_tracking_systems",
+            "type": "option"
+          },
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "PCB Antennas",
+        "service_description": "Custom PCB antennas engineered for performance, manufacturability, and low system cost",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/pcb-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "manufacturing_technologies",
+            "type": "option"
+          },
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "NFC / RFID Antenna Design",
+        "service_description": "Custom NFC coils and RFID antennas integrated into constrained materials, mechanics, and environments.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/nfc-and-rfid-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "positioning_tracking_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "IoT Antenna Design",
+        "service_description": "Robust IoT antennas maximizing range, battery life, and performance in harsh environments and installations.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/iot-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "communication_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "Bluetooth Antenna Design",
+        "service_description": "Efficient Bluetooth antennas and PCB traces improving BLE range and battery life reliably.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/bluetooth-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "communication_systems",
+            "type": "option"
+          },
+          {
+            "name": "positioning_tracking_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "Radar Antenna Design",
+        "service_description": "Custom radar antenna arrays for 24/60/77 GHz sensing, resolution, and compact integration.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/radar-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "positioning_tracking_systems",
+            "type": "option"
+          }
+        ]
+      }
+    },
+    {
+      "values": {
+        "service_title": "UWB Antenna Design",
+        "service_description": "UWB antennas engineered for bandwidth, stable group delay, and accurate positioning across angles.",
+        "service_link_text": "Read more",
+        "service_link_url": "https://www.radientum.com/technologies/uwb-antenna-design/",
+        "featured_service": 0,
+        "service_categories": [
+          {
+            "name": "show_all_categories",
+            "type": "option"
+          },
+          {
+            "name": "positioning_tracking_systems",
+            "type": "option"
+          },
+          {
+            "name": "communication_systems",
+            "type": "option"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -515,6 +515,15 @@ export const hublDataTemplate = `
   {% set hubdbCards = [] %}
   {% set manualHubDbRows = [] %}
   {% set hubdb_category_tab_options = [] %}
+  {# Multi-language: pick localized HubDB columns based on page language (content.language.languageTag).
+     EN stays canonical in service_title / service_description / service_link_text; FI/FR/DE live in *_fi/_fr/_de siblings.
+     Empty/missing localized cells fall back to EN per field. Unknown languages read EN directly. #}
+  {% set page_lang = content.language.languageTag|default(html_lang)|default("en")|string|lower|trim|split("-")|first %}
+  {% set supported_langs = ["fi", "fr", "de"] %}
+  {% set lang_suffix = "" %}
+  {% if page_lang in supported_langs %}
+    {% set lang_suffix = "_" ~ page_lang %}
+  {% endif %}
   {% unless module.useHubDBFeed %}
     {% for card in module.groupCards %}
       {% set picker = card.groupHubdbRow %}
@@ -571,10 +580,22 @@ export const hublDataTemplate = `
         {% else %}
           {% set linkStr = "" %}
         {% endif %}
+        {# Localized column picks for manual-row mode. hubdb_table_row exposes column values both at root and under .values; we prefer .values for dynamic keys. #}
+        {% set t_title_loc = none %}
+        {% set t_desc_loc  = none %}
+        {% set t_link_loc  = none %}
+        {% if lang_suffix %}
+          {% set t_title_loc = dbrow.values["service_title" ~ lang_suffix] if dbrow.values else none %}
+          {% set t_desc_loc  = dbrow.values["service_description" ~ lang_suffix] if dbrow.values else none %}
+          {% set t_link_loc  = dbrow.values["service_link_text" ~ lang_suffix] if dbrow.values else none %}
+        {% endif %}
+        {% set t_title = t_title_loc if (t_title_loc and t_title_loc|string|trim != "") else dbrow.service_title %}
+        {% set t_desc  = t_desc_loc  if (t_desc_loc  and t_desc_loc|string|trim  != "") else dbrow.service_description %}
+        {% set t_link  = t_link_loc  if (t_link_loc  and t_link_loc|string|trim  != "") else dbrow.service_link_text %}
         {% do manualHubDbRows.append({
-          "service_title": dbrow.service_title,
-          "service_description": dbrow.service_description,
-          "service_link_text": dbrow.service_link_text,
+          "service_title": t_title,
+          "service_description": t_desc,
+          "service_link_text": t_link,
           "service_link_url": linkStr,
           "bgSrc": bgSrcSnap,
           "service_bg_img": bgRaw
@@ -639,9 +660,18 @@ export const hublDataTemplate = `
       {% else %}
         {% set bgSrc = "" %}
       {% endif %}
-      {% set title = row.service_title %}
-      {% set descriptionHTML = row.service_description %}
-      {% set linkText = row.service_link_text %}
+      {# Localized column picks for feed mode (hubdb_table_rows exposes values as row attributes). #}
+      {% set f_title_loc = none %}
+      {% set f_desc_loc  = none %}
+      {% set f_link_loc  = none %}
+      {% if lang_suffix %}
+        {% set f_title_loc = row["service_title"  ~ lang_suffix] %}
+        {% set f_desc_loc  = row["service_description" ~ lang_suffix] %}
+        {% set f_link_loc  = row["service_link_text" ~ lang_suffix] %}
+      {% endif %}
+      {% set title           = f_title_loc if (f_title_loc and f_title_loc|string|trim != "") else row.service_title %}
+      {% set descriptionHTML = f_desc_loc  if (f_desc_loc  and f_desc_loc|string|trim  != "") else row.service_description %}
+      {% set linkText        = f_link_loc  if (f_link_loc  and f_link_loc|string|trim  != "") else row.service_link_text %}
       {% set linkUrl = row.service_link_url %}
       {% set categories = row.service_categories %}
       {% set featured = row.featured_service %}
