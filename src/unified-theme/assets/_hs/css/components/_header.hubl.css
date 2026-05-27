@@ -32,24 +32,66 @@
   
 }
 
-/* Desktop sticky nav behavior (class-driven by StickyNavIsland). */
+/* One-shot entry animation for the sticky header (plays when it first becomes fixed). */
+@keyframes hs-elevate-header__slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hs-elevate-header__sticky-bg-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: var(--hsElevate--siteHeader__menuBackgroundOpacitySticky, 0.85);
+  }
+}
+
+/* One-shot exit animation: softens the upward threshold-cross by fading the sticky bar out
+   before it returns to in-flow. The animation name is matched in JS via `animationend`. */
+@keyframes hs-elevate-header__fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Desktop sticky nav behavior (class-driven by StickyNavIsland).
+
+   IMPORTANT: To avoid layout shift when sticky toggles on/off, the outer `<header>` always stays
+   in the document flow and reserves its natural rendered height via `min-height` (set by
+   `StickyNavIsland` as the `--hs-elevate-header-sticky-height` CSS variable). Only the inner
+   `.hs-elevate-site-header--sticky-navigation-desktop` becomes `position: fixed`. This means
+   surrounding page content (hero, slider, page sections) never re-flow when crossing the sticky
+   threshold in either direction.
+*/
 @media (width >= 1101px) {
   .hs-elevate-header.hs-elevate-header--sticky-fixed {
+    min-height: var(--hs-elevate-header-sticky-height, 0px);
+  }
+
+  .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop {
     position: fixed;
     top: 0;
     right: 0;
     left: 0;
     z-index: 20;
-    transform: translateY(0);
-    transition: transform 220ms ease;
-  }
-
-  .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop {
-    position: relative;
     isolation: isolate;
     background-color: transparent;
     box-shadow: 0 2px 10px rgb(0 0 0 / 8%);
-    transition: box-shadow 220ms ease;
+    transform: translateY(0);
+    transition: transform 220ms ease, box-shadow 220ms ease;
+    animation: hs-elevate-header__slide-down 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: transform;
   }
 
   .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop::before {
@@ -64,6 +106,24 @@
     );
     opacity: var(--hsElevate--siteHeader__menuBackgroundOpacitySticky, 0.85);
     transition: opacity 220ms ease;
+    animation: hs-elevate-header__sticky-bg-fade-in 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* While exiting we keep the inner fixed but fade it (including its translucent ::before backdrop)
+     to opacity 0. Higher specificity (4 classes incl. the descendant) overrides the slide-down
+     animation declared on the inner. JS waits for `animationend` and then removes both classes so
+     the inner returns to its in-flow position inside the (already space-reserved) outer header. */
+  .hs-elevate-header.hs-elevate-header--sticky-fixed.hs-elevate-header--sticky-exiting .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop {
+    animation: hs-elevate-header__fade-out 180ms cubic-bezier(0.4, 0, 0.6, 1) both;
+    will-change: opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop,
+    .hs-elevate-header.hs-elevate-header--sticky-fixed.hs-elevate-header--sticky-exiting .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop,
+    .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop::before {
+      animation: none;
+    }
   }
 
   .hs-elevate-header.hs-elevate-header--sticky-fixed .hs-elevate-site-header.hs-elevate-site-header--sticky-navigation-desktop > * {
