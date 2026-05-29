@@ -1,7 +1,7 @@
 import { ModuleMeta } from '../../types/modules.js';
 import { Icon, usePageUrl } from '@hubspot/cms-components';
 import socialIconSvg from './assets/social-follow.svg';
-import { TextFieldType, AlignmentFieldType, IconFieldType, ImageFieldType } from '@hubspot/cms-components/fields';
+import { TextFieldType, AlignmentFieldType, IconFieldType, ImageFieldType, BooleanFieldType } from '@hubspot/cms-components/fields';
 import { StandardSizeType, ButtonStyleType } from '../../types/fields.js';
 import { getAlignmentFieldCss } from '../../utils/style-fields.js';
 import { ButtonStyleFieldLibraryType } from '../../fieldLibrary/ButtonStyle/types.js';
@@ -27,6 +27,7 @@ type DefaultTextProps = {
 };
 
 type SocialShareProps = {
+  open_in_new_tab?: BooleanFieldType['default'];
   platforms: ('twitter' | 'facebook' | 'linkedin' | 'pinterest' | 'email')[];
   customPlatforms?: {
     platformLabel?: TextFieldType['default'];
@@ -231,6 +232,14 @@ function getPlatformMetaData(socialLink: string, defaultText: DefaultTextProps) 
   return platformMetaData[socialLink] || {};
 }
 
+function getShareLinkTarget(openInNewTab: boolean): string | undefined {
+  return openInNewTab ? '_blank' : undefined;
+}
+
+function getShareLinkRel(openInNewTab: boolean): string | undefined {
+  return openInNewTab ? 'noopener noreferrer' : undefined;
+}
+
 function resolveCustomUrl(urlTemplate: string, currentUrl: string): string {
   if (!urlTemplate) {
     return '';
@@ -245,11 +254,15 @@ function resolveCustomUrl(urlTemplate: string, currentUrl: string): string {
 
 export const Component = (props: SocialShareProps) => {
   const {
+    open_in_new_tab = true,
     platforms,
     customPlatforms = [],
     groupDefaultText,
     groupStyle: { shape, buttonStyleVariant, buttonStyleSize, spaceBetweenIcons, alignment, iconBorder },
   } = props;
+
+  const linkTarget = getShareLinkTarget(open_in_new_tab);
+  const linkRel = getShareLinkRel(open_in_new_tab);
 
   const cssVarsMap = {
     ...generateIconSizeAndPaddingCssVars(buttonStyleSize),
@@ -277,6 +290,8 @@ export const Component = (props: SocialShareProps) => {
             key={platform}
             href={`${platformMetaData.base_url}${encodeURIComponent(currentUrl)}`}
             aria-label={platformMetaData.aria_label}
+            target={linkTarget}
+            rel={linkRel}
           >
             <Icon className={swm('hs-elevate-social-share__icon')} purpose="DECORATIVE" fieldPath={iconFieldPath} />
           </SocialLink>
@@ -301,8 +316,8 @@ export const Component = (props: SocialShareProps) => {
             key={`custom-${index}`}
             href={href}
             aria-label={ariaLabel}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={linkTarget}
+            rel={linkRel}
           >
             {useImage ? (
               <SocialImage
