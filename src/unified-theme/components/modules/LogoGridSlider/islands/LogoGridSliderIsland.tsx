@@ -60,7 +60,7 @@ export default function LogoGridSliderIsland(props: LogoGridSliderIslandProps) {
 
   const hasHeading = Boolean(heading);
   const hasDescription = Boolean(description);
-  const showPagination = logoRows.length > 1;
+  const showPagination = logoRows.length > normalizedSlidesPerPage;
 
   return (
     <Root className={swm('hs-elevate-logo-grid-slider-react')} style={cssVarsMap}>
@@ -124,12 +124,15 @@ export default function LogoGridSliderIsland(props: LogoGridSliderIslandProps) {
         >
           <div className={cx('splide__track', swm('hs-elevate-logo-grid-slider-react__track'))}>
             <ul className={cx('splide__list', swm('hs-elevate-logo-grid-slider-react__list'))}>
-              {logoRows.map(item => {
+              {logoRows.map((item, index) => {
                 const alt = item.logo.alt || item.name || '';
                 const loading: 'eager' | 'lazy' = item.logo.loading === 'eager' ? 'eager' : 'lazy';
 
                 return (
-                  <li className={cx('splide__slide', swm('hs-elevate-logo-grid-slider-react__slide'))} key={item.id}>
+                  <li
+                    className={cx('splide__slide', swm('hs-elevate-logo-grid-slider-react__slide'))}
+                    key={`${item.id}-${index}`}
+                  >
                     <Item className={swm('hs-elevate-logo-grid-slider-react__item')}>
                       <Image
                         className={swm('hs-elevate-logo-grid-slider-react__logo')}
