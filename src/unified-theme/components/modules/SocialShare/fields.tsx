@@ -1,4 +1,4 @@
-import { ModuleFields, TextField, ChoiceField, IconField, FieldGroup, RepeatedFieldGroup, ImageField } from '@hubspot/cms-components/fields';
+import { ModuleFields, TextField, ChoiceField, IconField, FieldGroup, RepeatedFieldGroup, ImageField, BooleanField } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 
 export const fields = (
@@ -17,6 +17,12 @@ export const fields = (
       display='checkbox'
       default={['facebook', 'twitter', 'linkedin', 'pinterest', 'email']}
       reorderingEnabled={false}
+    />
+    <BooleanField
+      label='Open in a new tab'
+      name='open_in_new_tab'
+      display='checkbox'
+      default={true}
     />
     <FieldGroup
       label='Default icons'
