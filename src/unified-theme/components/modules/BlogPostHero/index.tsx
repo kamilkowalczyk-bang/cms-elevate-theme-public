@@ -30,9 +30,27 @@ type BlogPostHeroProps = HeadingAndTextFieldLibraryType & {
     renderedWithGrids: boolean;
     authorDisplayName: string;
     publishDate: string;
-    topicNames: string[];
+    topics: { name: string; url: string }[];
   };
 };
+
+type BlogPostTopic = { name: string; url: string };
+
+function BlogPostHeroTags({ topics }: { topics: BlogPostTopic[] }) {
+  if (topics.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className={swm('hs-elevate-blog-post-hero__tags')}>
+      {topics.map(topic => (
+        <a key={topic.url} href={topic.url} className="hs-elevate-tag">
+          {topic.name}
+        </a>
+      ))}
+    </div>
+  );
+}
 
 const BlogPostHero = createComponent('div');
 const SplitGrid = createComponent('div');
@@ -55,7 +73,7 @@ export const Component = (props: BlogPostHeroProps) => {
     headingAndTextHeading,
     headingAndTextHeadingLevel,
     image,
-    hublData: { authorDisplayName, publishDate, topicNames = [] },
+    hublData: { authorDisplayName, publishDate, topics = [] },
   } = props;
 
   const layoutType = groupLayout?.layoutType || 'split';
@@ -109,13 +127,7 @@ export const Component = (props: BlogPostHeroProps) => {
                 {publishDate}
               </p>
             ) : null}
-            {topicNames.length > 0 ? (
-              <div className={swm('hs-elevate-blog-post-hero__tags')}>
-                {topicNames.map((topicName, index) => (
-                  <span key={index} className="hs-elevate-tag">{topicName}</span>
-                ))}
-              </div>
-            ) : null}
+            <BlogPostHeroTags topics={topics} />
           </div>
         </div>
       </BlogPostHero>
@@ -147,13 +159,7 @@ export const Component = (props: BlogPostHeroProps) => {
               {publishDate}
             </p>
           ) : null}
-          {topicNames.length > 0 ? (
-            <div className={swm('hs-elevate-blog-post-hero__tags')}>
-              {topicNames.map((topicName, index) => (
-                <span key={index} className="hs-elevate-tag">{topicName}</span>
-              ))}
-            </div>
-          ) : null}
+          <BlogPostHeroTags topics={topics} />
         </SplitText>
 
         <SplitImage className={swm('hs-elevate-blog-post-hero-split__image')}>
@@ -185,11 +191,14 @@ export const hublDataTemplate = `
   {% endif %}
 
   {% set publish_date = content.publish_date ? content.publish_date|format_date('long') : "" %}
-  {% set topic_names = [] %}
+  {% set topics = [] %}
   {% if content.topic_list and content.topic_list|length > 0 %}
     {% for topic in content.topic_list %}
       {% if loop.index <= 3 %}
-        {% do topic_names.append(topic.name) %}
+        {% do topics.append({
+          "name": topic.name,
+          "url": blog_tag_url(group.id, topic.slug)|escape_url
+        }) %}
       {% endif %}
     {% endfor %}
   {% endif %}
@@ -198,7 +207,7 @@ export const hublDataTemplate = `
     "renderedWithGrids": rendered_with_grids,
     "authorDisplayName": author_display_name,
     "publishDate": publish_date,
-    "topicNames": topic_names,
+    "topics": topics,
   } %}
 `;
 
