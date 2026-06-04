@@ -49,7 +49,7 @@ export const fields = (
       label="Show navigation arrows"
       name="showNavigationArrows"
       display="toggle"
-      default={false}
+      default={true}
     />
     <TextField label="Read article link label" name="readArticleLabel" default="Read the article" />
     <HeadingAndText headingLevelDefault="h5" textVisibility={textVisibility} />
