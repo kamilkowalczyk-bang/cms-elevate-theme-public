@@ -12,8 +12,9 @@ import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
-import { ContactCardItem, ContactCardProps } from '../types.js';
+import { ContactCardItem, ContactCardProps, ManualHubDbRowSnapshot } from '../types.js';
 import {
+  ContactCardLocalizedFieldBase,
   normalizePageLang,
   pickLocalizedContactField,
 } from '../../../utils/hubdb-contact-card-i18n.js';
@@ -221,6 +222,32 @@ function hasHubDbRowData(row: unknown): boolean {
   );
 }
 
+/** Prefer HubL `hubdb_table_row` snapshot over HubDbRowField JSON (picker may omit `values` on publish). */
+function preferSnapshotString(snap: string | undefined | null): string | undefined {
+  if (snap !== undefined && snap !== null && String(snap).trim() !== '') {
+    return String(snap).trim();
+  }
+  return undefined;
+}
+
+function resolveLocalizedContactLabel(
+  snapshot: ManualHubDbRowSnapshot | null | undefined,
+  rawRow: unknown,
+  baseKey: ContactCardLocalizedFieldBase,
+  pageLang: string,
+  legacyKeys: string[],
+): string | undefined {
+  const snapString = preferSnapshotString(
+    typeof snapshot?.[baseKey] === 'string' ? snapshot[baseKey] : undefined,
+  );
+  if (snapString) return snapString;
+
+  return (
+    pickLocalizedContactField(rawRow, baseKey, pageLang) ??
+    getHubDbString(rawRow, [baseKey, ...legacyKeys])
+  );
+}
+
 async function copyTextToClipboard(text: string): Promise<void> {
   if (!text) return;
 
@@ -306,6 +333,9 @@ export default function ContactCardIsland(props: ContactCardProps) {
           groupButton,
         } = card;
 
+        const hubDbSnapshot: ManualHubDbRowSnapshot | null | undefined = useHubDB
+          ? (manualHubDbRows[index] ?? null)
+          : undefined;
         const hubDbSource = useHubDB
           ? isManualInvoicingFeed
             ? manualHubDbRows[index]
@@ -313,19 +343,31 @@ export default function ContactCardIsland(props: ContactCardProps) {
           : undefined;
         const isHubDbCard = useHubDB && hasHubDbRowData(hubDbSource);
         const hubDbName = getHubDbString(hubDbSource, ['full_name', 'name', 'hs_name']);
-        const hubDbDepartment =
-          pickLocalizedContactField(hubDbSource, 'department', resolvedPageLang) ??
-          getHubDbString(hubDbSource, ['job_title', 'role']);
-        const hubDbRegion =
-          pickLocalizedContactField(hubDbSource, 'region', resolvedPageLang) ??
-          getHubDbString(hubDbSource, ['country_region', 'location']);
+        const hubDbDepartment = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'department',
+          resolvedPageLang,
+          ['job_title', 'role'],
+        );
+        const hubDbRegion = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'region',
+          resolvedPageLang,
+          ['country_region', 'location'],
+        );
         const hubDbPhoneText = getHubDbString(hubDbSource, ['phone', 'phone_text', 'phone_number', 'mobile']);
         const hubDbPhoneLink = getHubDbString(hubDbSource, ['phone_link', 'phone_url']);
         const hubDbEmailText = getHubDbString(hubDbSource, ['email', 'email_text', 'email_address']);
         const hubDbEmailLink = getHubDbString(hubDbSource, ['email_link', 'email_url']);
-        const hubDbButtonText =
-          pickLocalizedContactField(hubDbSource, 'button_text', resolvedPageLang) ??
-          getHubDbString(hubDbSource, ['cta_text', 'button_label']);
+        const hubDbButtonText = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'button_text',
+          resolvedPageLang,
+          ['cta_text', 'button_label'],
+        );
         const hubDbButtonLink = getHubDbString(hubDbSource, ['button_link', 'button_url', 'cta_link']);
         const hubDbImageSrc = getHubDbImageSrc(hubDbSource, ['contact_image', 'image', 'photo', 'profile_image']);
         const hubDbShowRegion = getHubDbBoolean(hubDbSource, ['show_region']);
