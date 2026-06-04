@@ -140,3 +140,7 @@ src/unified-theme/assets/dist/
 
 # Storybook build output
 cms-elevate-theme-static-assets/dist/
+
+# HubDB API patch temp artifacts (scripts/patch-contact-cards-hubdb.py)
+.tmp_contact_cards_*.json
+scripts/patch-contact-cards-hubdb.py

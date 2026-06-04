@@ -13,6 +13,10 @@ import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
 import { ContactCardItem, ContactCardProps } from '../types.js';
+import {
+  normalizePageLang,
+  pickLocalizedContactField,
+} from '../../../utils/hubdb-contact-card-i18n.js';
 import styles from '../contact-card.module.css';
 
 const swm = staticWithModule(styles);
@@ -259,9 +263,11 @@ export default function ContactCardIsland(props: ContactCardProps) {
     moduleName,
     useHubDB = false,
     groupContactCards = [],
-    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly: feedFromManualOnly = false } = {},
+    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly: feedFromManualOnly = false, pageLang } = {},
     groupStyle,
   } = props;
+
+  const resolvedPageLang = normalizePageLang(pageLang);
 
   const isManualInvoicingFeed = Boolean(
     useHubDB && feedFromManualOnly && Array.isArray(manualHubDbRows) && manualHubDbRows.length > 0,
@@ -307,13 +313,19 @@ export default function ContactCardIsland(props: ContactCardProps) {
           : undefined;
         const isHubDbCard = useHubDB && hasHubDbRowData(hubDbSource);
         const hubDbName = getHubDbString(hubDbSource, ['full_name', 'name', 'hs_name']);
-        const hubDbDepartment = getHubDbString(hubDbSource, ['department', 'job_title', 'role']);
-        const hubDbRegion = getHubDbString(hubDbSource, ['region', 'country_region', 'location']);
+        const hubDbDepartment =
+          pickLocalizedContactField(hubDbSource, 'department', resolvedPageLang) ??
+          getHubDbString(hubDbSource, ['job_title', 'role']);
+        const hubDbRegion =
+          pickLocalizedContactField(hubDbSource, 'region', resolvedPageLang) ??
+          getHubDbString(hubDbSource, ['country_region', 'location']);
         const hubDbPhoneText = getHubDbString(hubDbSource, ['phone', 'phone_text', 'phone_number', 'mobile']);
         const hubDbPhoneLink = getHubDbString(hubDbSource, ['phone_link', 'phone_url']);
         const hubDbEmailText = getHubDbString(hubDbSource, ['email', 'email_text', 'email_address']);
         const hubDbEmailLink = getHubDbString(hubDbSource, ['email_link', 'email_url']);
-        const hubDbButtonText = getHubDbString(hubDbSource, ['button_text', 'cta_text', 'button_label']);
+        const hubDbButtonText =
+          pickLocalizedContactField(hubDbSource, 'button_text', resolvedPageLang) ??
+          getHubDbString(hubDbSource, ['cta_text', 'button_label']);
         const hubDbButtonLink = getHubDbString(hubDbSource, ['button_link', 'button_url', 'cta_link']);
         const hubDbImageSrc = getHubDbImageSrc(hubDbSource, ['contact_image', 'image', 'photo', 'profile_image']);
         const hubDbShowRegion = getHubDbBoolean(hubDbSource, ['show_region']);

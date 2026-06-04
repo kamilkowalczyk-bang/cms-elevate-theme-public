@@ -79,5 +79,7 @@ export type ContactCardProps = {
     manualHubDbRows?: (Record<string, unknown> | null)[];
     /** Set when hublDataTemplate used invoicing-only table rows instead of per-slot HubDB pickers. */
     feedFromManualHubDbOnly?: boolean;
+    /** Page language slug from content.language.languageTag (en, fi, fr, de). */
+    pageLang?: string;
   };
 };

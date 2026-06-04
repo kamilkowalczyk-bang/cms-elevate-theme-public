@@ -10,6 +10,7 @@ import {
 } from '@hubspot/cms-components/fields';
 import StyleFields from './styleFields.js';
 import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
+import { CONTACT_CARD_LOCALIZED_COLUMNS_TO_FETCH } from '../../utils/hubdb-contact-card-i18n.js';
 
 const bookDemoFieldVisibility = {
   controlling_field_path: 'bookDemo',
@@ -119,6 +120,7 @@ export const fields = (
           'social_icon_name',
           'social_label',
           'social_link',
+          ...CONTACT_CARD_LOCALIZED_COLUMNS_TO_FETCH,
         ]}
         displayColumns={['full_name']}
         displayFormat="%0"

@@ -13,6 +13,10 @@ import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
 import { SalesTeamProps } from '../types.js';
 import {
+  normalizePageLang,
+  pickLocalizedContactField,
+} from '../../../utils/hubdb-contact-card-i18n.js';
+import {
   countryToRegion,
   GEO_IPAPI_URL,
   getRegionFromUrl,
@@ -285,8 +289,10 @@ function rowIdsEqual(a: string | number | null, b: string | number | null): bool
   return String(a) === String(b);
 }
 
-function getDisplayRegionLabel(row: unknown): string | undefined {
-  const legacy = getHubDbString(row, ['region', 'country_region', 'location']);
+function getDisplayRegionLabel(row: unknown, pageLang: unknown): string | undefined {
+  const localizedRegion = pickLocalizedContactField(row, 'region', pageLang);
+  if (localizedRegion) return localizedRegion;
+  const legacy = getHubDbString(row, ['country_region', 'location']);
   if (legacy) return legacy;
   const opt = getSalesRegionOptionName(row);
   if (opt && SALES_REGION_LABELS[opt]) return SALES_REGION_LABELS[opt];
@@ -384,13 +390,15 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
       linkText: bookDemoCtaLinkText = 'Contact our sales team',
       link: bookDemoCtaLinkField,
     } = {},
-    hublData: { manualHubDbRowsRegional = [], featuredHubDbRow = null, featuredRowId = null } = {},
+    hublData: { manualHubDbRowsRegional = [], featuredHubDbRow = null, featuredRowId = null, pageLang } = {},
     groupStyle: {
       groupCard: { cardStyleVariant, showCardShadow = true, showCardBorder = false },
       groupLayout: { cardsAlignment, contentAlignment },
       groupButton: { buttonStyleVariant, buttonStyleSize },
     },
   } = props;
+
+  const resolvedPageLang = normalizePageLang(pageLang);
 
   const cssVarsMap = {
     ...generateColorCssVars(cardStyleVariant),
@@ -601,12 +609,16 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
 
   const renderHubCard = (hubRow: unknown, opts: { variant: 'featured' | 'grid'; gridPickLabel?: string }) => {
     const hubDbName = getHubDbString(hubRow, ['full_name', 'name', 'hs_name']);
-    const hubDbDepartment = getHubDbString(hubRow, ['department', 'job_title', 'role']);
+    const hubDbDepartment =
+      pickLocalizedContactField(hubRow, 'department', resolvedPageLang) ??
+      getHubDbString(hubRow, ['job_title', 'role']);
     const hubDbPhoneText = getHubDbString(hubRow, ['phone', 'phone_text', 'phone_number', 'mobile']);
     const hubDbPhoneLink = getHubDbString(hubRow, ['phone_link', 'phone_url']);
     const hubDbEmailText = getHubDbString(hubRow, ['email', 'email_text', 'email_address']);
     const hubDbEmailLink = getHubDbString(hubRow, ['email_link', 'email_url']);
-    const hubDbButtonText = getHubDbString(hubRow, ['button_text', 'cta_text', 'button_label']);
+    const hubDbButtonText =
+      pickLocalizedContactField(hubRow, 'button_text', resolvedPageLang) ??
+      getHubDbString(hubRow, ['cta_text', 'button_label']);
     const hubDbButtonLink = getHubDbString(hubRow, ['button_link', 'button_url', 'cta_link']);
     const hubDbImageSrc = getHubDbImageSrc(hubRow, ['contact_image', 'image', 'photo', 'profile_image']);
     const hubDbShowRegion = getHubDbBoolean(hubRow, ['show_region']);
@@ -617,7 +629,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     const socialLabel = getHubDbString(hubRow, ['social_label']);
     const socialLink = getHubDbString(hubRow, ['social_link', 'social_url']);
 
-    const regionLabel = getDisplayRegionLabel(hubRow);
+    const regionLabel = getDisplayRegionLabel(hubRow, resolvedPageLang);
     const showRegion = hubDbShowRegion !== false && Boolean(regionLabel);
 
     const effectivePhoneLink = createExternalLinkField(hubDbPhoneLink);

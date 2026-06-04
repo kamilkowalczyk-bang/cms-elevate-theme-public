@@ -13,6 +13,7 @@ export const Component = (props: ContactCardProps) => {
 export { fields } from './fields.js';
 
 export const hublDataTemplate = `
+  {% set page_lang = content.language.languageTag|default(html_lang)|default("en")|string|lower|trim|split("-")|first %}
   {% set manualHubDbRows = [] %}
   {% set feedFromManualHubDbOnly = false %}
   {% if module.useHubDB %}
@@ -68,7 +69,8 @@ export const hublDataTemplate = `
   {% endif %}
   {% set hublData = {
       "manualHubDbRows": manualHubDbRows,
-      "feedFromManualHubDbOnly": feedFromManualHubDbOnly
+      "feedFromManualHubDbOnly": feedFromManualHubDbOnly,
+      "pageLang": page_lang
     }
   %}
 `;

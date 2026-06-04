@@ -150,6 +150,7 @@ Paths:
 - Template: `src/unified-theme/templates/radientum-contact-us.hubl.html`
 - Template locales: `src/unified-theme/templates/_locales/{en,fi}/messages.json`
 - HubDB tabs: `src/unified-theme/components/utils/hubdb-contact-tabs.hubdb.json` (`language`: `en` / `fi`; `tab_path`: shared URL segment per tab; EN rows keep original HubDB `path` values)
+- HubDB contact cards: `src/unified-theme/components/utils/hubdb-contact-cards.hubdb.json` (EN in `region` / `department` / `button_text`; FI/FR/DE in `*_fi` / `*_fr` / `*_de` siblings). Resolved in `SalesTeam` and `ContactCard` via `hubdb-contact-card-i18n.ts` from `content.language.languageTag`.
 - Geo logic: `src/unified-theme/components/modules/SalesTeam/geo.ts`
 - Geo runtime usage: `src/unified-theme/components/modules/SalesTeam/islands/SalesTeamIsland.tsx`
 
@@ -159,6 +160,8 @@ Notes:
 - Tab labels/headings come from `contact_tabs` filtered by page language, with fallback to `language=en`, then unfiltered rows (migration). English hardcoded tab fallbacks remain as last resort.
 
 **HubDB `contact_tabs` (portal 51079453):** Table was recreated via `hs hubdb` (May 2026) with `language` + `tab_path` columns and 6 rows (3 EN + 3 FI). For `hs hubdb create`, SELECT values must use `{ "name": "en", "type": "option" }` format in row JSON.
+
+**HubDB `contact_cards` (portal `dev-radientum` / 51079453):** Add i18n columns via API: fetch draft (`hs api /cms/v3/hubdb/tables/258639751/draft`), build payload with `scripts/patch-contact-cards-hubdb.py`, `PATCH` draft, then `POST .../draft/publish`. Fill `region_fi`, `department_fi`, `button_text_fi` (and FR/DE) per row in HubDB UI. Empty localized cells fall back to EN.
 
 **CMS after deploy:** (1) Create Finnish language variant of the Contact page. (2) Add FI global header variation if needed. (3) Publish both page variants.
 
