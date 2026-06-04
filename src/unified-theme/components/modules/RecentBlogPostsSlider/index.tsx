@@ -15,6 +15,7 @@ export const Component = (props: RecentBlogPostsSliderProps) => {
       groupStyle: { cardStyleVariant },
       groupPlaceholderText: { placeholderTitle, placeholderDescription },
       readArticleLabel,
+      showNavigationArrows,
     },
     serverSideProps,
   } = props;
@@ -33,6 +34,7 @@ export const Component = (props: RecentBlogPostsSliderProps) => {
       placeholderDescription={placeholderDescription}
       readArticleLabel={readArticleLabel}
       gatedContentIds={gatedContentIds}
+      showNavigationArrows={showNavigationArrows}
       clientOnly={true}
     />
   );
