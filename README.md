@@ -150,7 +150,7 @@ Paths:
 - Template: `src/unified-theme/templates/radientum-contact-us.hubl.html`
 - Template locales: `src/unified-theme/templates/_locales/{en,fi}/messages.json`
 - HubDB tabs: `src/unified-theme/components/utils/hubdb-contact-tabs.hubdb.json` (`language`: `en` / `fi`; `tab_path`: shared URL segment per tab; EN rows keep original HubDB `path` values)
-- HubDB contact cards: `src/unified-theme/components/utils/hubdb-contact-cards.hubdb.json` (EN in `region` / `department` / `button_text`; FI/FR/DE in `*_fi` / `*_fr` / `*_de` siblings). Resolved in `SalesTeam` and `ContactCard` via `hubdb-contact-card-i18n.ts` from `content.language.languageTag`.
+- HubDB contact cards: `src/unified-theme/components/utils/hubdb-contact-cards.hubdb.json` (EN in `region` / `department` / `button_text` / `meeting_embed_url`; FI/FR/DE in `*_fi` / `*_fr` / `*_de` siblings). Labels and button text resolve in `SalesTeam` and `ContactCard` via `hubdb-contact-card-i18n.ts` from `content.language.languageTag`. The meetings iframe `src` in **SalesTeam** uses the same helper for `meeting_embed_url` (empty localized cells fall back to EN).
 - Geo logic: `src/unified-theme/components/modules/SalesTeam/geo.ts`
 - Geo runtime usage: `src/unified-theme/components/modules/SalesTeam/islands/SalesTeamIsland.tsx`
 
@@ -161,7 +161,9 @@ Notes:
 
 **HubDB `contact_tabs` (portal 51079453):** Table was recreated via `hs hubdb` (May 2026) with `language` + `tab_path` columns and 6 rows (3 EN + 3 FI). For `hs hubdb create`, SELECT values must use `{ "name": "en", "type": "option" }` format in row JSON.
 
-**HubDB `contact_cards` (portal `dev-radientum` / 51079453):** Add i18n columns via API: fetch draft (`hs api /cms/v3/hubdb/tables/258639751/draft`), build payload with `scripts/patch-contact-cards-hubdb.py`, `PATCH` draft, then `POST .../draft/publish`. Fill `region_fi`, `department_fi`, `button_text_fi` (and FR/DE) per row in HubDB UI. Empty localized cells fall back to EN.
+**HubDB `contact_cards` (portal `dev-radientum` / 51079453):** Add i18n columns via API: fetch draft (`hs api /cms/v3/hubdb/tables/258639751/draft`), build payload with `scripts/patch-contact-cards-hubdb.py`, `PATCH` draft, then `POST .../draft/publish`. Fill `region_fi`, `department_fi`, `button_text_fi`, `meeting_embed_url_fi` (and FR/DE siblings) per row in HubDB UI. Empty localized cells fall back to EN.
+
+**Meetings embed URLs:** Create one HubSpot scheduling page per language per rep (set **Booking page language** on each), copy each iframe `src` from **Actions → Embed**, and paste into `meeting_embed_url` / `meeting_embed_url_fi` / `_fr` / `_de` on the matching `contact_cards` row. After deploy, verify EN vs FI Contact Us page variants show the correct iframe language when switching reps.
 
 **CMS after deploy:** (1) Create Finnish language variant of the Contact page. (2) Add FI global header variation if needed. (3) Publish both page variants.
 

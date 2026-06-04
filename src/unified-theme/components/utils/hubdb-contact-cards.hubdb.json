@@ -164,6 +164,21 @@
       "type": "URL"
     },
     {
+      "name": "meeting_embed_url_fi",
+      "label": "Meetings embed URL (FI)",
+      "type": "URL"
+    },
+    {
+      "name": "meeting_embed_url_fr",
+      "label": "Meetings embed URL (FR)",
+      "type": "URL"
+    },
+    {
+      "name": "meeting_embed_url_de",
+      "label": "Meetings embed URL (DE)",
+      "type": "URL"
+    },
+    {
       "name": "invoicing_and_purchasing",
       "label": "Show on Invoicing and purchasing tab",
       "type": "BOOLEAN"

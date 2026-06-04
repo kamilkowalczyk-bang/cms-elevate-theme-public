@@ -144,3 +144,5 @@ cms-elevate-theme-static-assets/dist/
 # HubDB API patch temp artifacts (scripts/patch-contact-cards-hubdb.py)
 .tmp_contact_cards_*.json
 scripts/patch-contact-cards-hubdb.py
+.tmp_publish_response.json
+.tmp_patch_response.json

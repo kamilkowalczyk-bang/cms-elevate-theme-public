@@ -1,12 +1,17 @@
 /**
- * Localized label columns on contact_cards (region, department, button_text + *_fi/_fr/_de).
+ * Localized contact_cards columns (region, department, button_text, meeting_embed_url + *_fi/_fr/_de).
  * EN uses base columns; matches ServiceCard / hubdb-services suffix pattern.
  */
 
 export const CONTACT_CARD_LOCALIZED_LANGS = ['fi', 'fr', 'de'] as const;
 export type ContactCardLocalizedLang = (typeof CONTACT_CARD_LOCALIZED_LANGS)[number];
 
-export const CONTACT_CARD_LOCALIZED_FIELD_BASES = ['region', 'department', 'button_text'] as const;
+export const CONTACT_CARD_LOCALIZED_FIELD_BASES = [
+  'region',
+  'department',
+  'button_text',
+  'meeting_embed_url',
+] as const;
 export type ContactCardLocalizedFieldBase = (typeof CONTACT_CARD_LOCALIZED_FIELD_BASES)[number];
 
 /** HubDbRowField columnsToFetch entries for FI/FR/DE label siblings. */

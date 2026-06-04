@@ -48,3 +48,40 @@ describe('pickLocalizedContactField', () => {
     expect(pickLocalizedContactField(rowWithBoth, 'department', 'en')).toBe('Sales');
   });
 });
+
+describe('pickLocalizedContactField meeting_embed_url', () => {
+  const rowWithBoth = {
+    meeting_embed_url: 'https://meetings.hubspot.com/rep-en',
+    meeting_embed_url_fi: 'https://meetings.hubspot.com/rep-fi',
+    values: {
+      meeting_embed_url: 'https://meetings.hubspot.com/rep-en',
+      meeting_embed_url_fi: 'https://meetings.hubspot.com/rep-fi',
+    },
+  };
+
+  test('prefers localized embed URL when page language is fi', () => {
+    expect(pickLocalizedContactField(rowWithBoth, 'meeting_embed_url', 'fi')).toBe(
+      'https://meetings.hubspot.com/rep-fi',
+    );
+  });
+
+  test('falls back to EN embed URL when localized cell is empty', () => {
+    const rowEnOnly = {
+      meeting_embed_url: 'https://meetings.hubspot.com/rep-en',
+      meeting_embed_url_fi: '',
+      values: {
+        meeting_embed_url: 'https://meetings.hubspot.com/rep-en',
+        meeting_embed_url_fi: '',
+      },
+    };
+    expect(pickLocalizedContactField(rowEnOnly, 'meeting_embed_url', 'fi')).toBe(
+      'https://meetings.hubspot.com/rep-en',
+    );
+  });
+
+  test('uses EN embed URL for unknown language', () => {
+    expect(pickLocalizedContactField(rowWithBoth, 'meeting_embed_url', 'es')).toBe(
+      'https://meetings.hubspot.com/rep-en',
+    );
+  });
+});

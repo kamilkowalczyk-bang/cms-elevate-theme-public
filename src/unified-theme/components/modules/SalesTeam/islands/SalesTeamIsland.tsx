@@ -299,8 +299,10 @@ function getDisplayRegionLabel(row: unknown, pageLang: unknown): string | undefi
   return undefined;
 }
 
-function getMeetingEmbedUrl(row: unknown): string | undefined {
-  const raw = getHubDbString(row, ['meeting_embed_url', 'meeting_embed']);
+function getMeetingEmbedUrl(row: unknown, pageLang: unknown): string | undefined {
+  const raw =
+    pickLocalizedContactField(row, 'meeting_embed_url', pageLang) ??
+    getHubDbString(row, ['meeting_embed', 'meeting_embed_url']);
   if (!raw) return undefined;
   try {
     const u = new URL(raw);
@@ -544,7 +546,7 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     [activeRowId],
   );
 
-  const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow) : undefined;
+  const meetingSrc = activeRow ? getMeetingEmbedUrl(activeRow, resolvedPageLang) : undefined;
 
   useEffect(() => {
     if (!isMeetingLoading) {
