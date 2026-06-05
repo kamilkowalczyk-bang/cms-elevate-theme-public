@@ -247,6 +247,9 @@ export const fields = (
           'service_link_text_fr',
           'service_link_text_de',
           'service_link_url',
+          'service_link_url_fi',
+          'service_link_url_fr',
+          'service_link_url_de',
           'service_bg_img',
           'image',
         ]}

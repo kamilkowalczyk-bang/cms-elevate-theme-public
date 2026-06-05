@@ -163,6 +163,8 @@ Notes:
 
 **HubDB `contact_cards` (portal `dev-radientum` / 51079453):** Add i18n columns via API: fetch draft (`hs api /cms/v3/hubdb/tables/258639751/draft`), build payload with `scripts/patch-contact-cards-hubdb.py`, `PATCH` draft, then `POST .../draft/publish`. Fill `region_fi`, `department_fi`, `button_text_fi`, `button_link_fi`, `meeting_embed_url_fi` (and FR/DE siblings) per row in HubDB UI. Empty localized cells fall back to EN.
 
+**HubDB `services` (portal `dev-radientum` / 51079453, table id `234247952`):** ServiceCard feed i18n uses EN base columns (`service_title`, `service_description`, `service_link_text`, `service_link_url`) with FI/FR/DE siblings (`*_fi`, `*_fr`, `*_de`). Button hrefs resolve from `service_link_url_*` when the page language is fi/fr/de (empty cells fall back to `service_link_url`). Sync schema from theme JSON: `hs api /cms/v3/hubdb/tables/234247952/draft --account 51079453 --format-output-as-json > .tmp_services_draft.json`, `python3 scripts/patch-services-hubdb.py`, `PATCH` draft with `.tmp_services_patch.json`, then `POST .../draft/publish`. Fill localized URLs per row in HubDB UI (e.g. `/fi/...` paths).
+
 **Meetings embed URLs:** Create one HubSpot scheduling page per language per rep (set **Booking page language** on each), copy each iframe `src` from **Actions → Embed**, and paste into `meeting_embed_url` / `meeting_embed_url_fi` / `_fr` / `_de` on the matching `contact_cards` row. After deploy, verify EN vs FI Contact Us page variants show the correct iframe language when switching reps.
 
 **CMS after deploy:** (1) Create Finnish language variant of the Contact page. (2) Add FI global header variation if needed. (3) Publish both page variants.

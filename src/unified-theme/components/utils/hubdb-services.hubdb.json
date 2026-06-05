@@ -122,6 +122,21 @@
       "name": "service_link_text_de",
       "label": "Service link button text (DE)",
       "type": "TEXT"
+    },
+    {
+      "name": "service_link_url_fi",
+      "label": "Service link URL (FI)",
+      "type": "URL"
+    },
+    {
+      "name": "service_link_url_fr",
+      "label": "Service link URL (FR)",
+      "type": "URL"
+    },
+    {
+      "name": "service_link_url_de",
+      "label": "Service link URL (DE)",
+      "type": "URL"
     }
   ],
   "rows": [

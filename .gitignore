@@ -145,6 +145,6 @@ scripts/patch-contact-cards-hubdb.py
 .tmp_patch_response.json
 .tmp_contact_cards_patch.json
 .tmp_contact_cards_draft.json
-.tmp_services_draft.json
 .tmp_services_patch.json
+.tmp_services_draft.json
 scripts/patch-services-hubdb.py
