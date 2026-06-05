@@ -1,5 +1,5 @@
 /**
- * Localized contact_cards columns (region, department, button_text, meeting_embed_url + *_fi/_fr/_de).
+ * Localized contact_cards columns (region, department, button_text, button_link, meeting_embed_url + *_fi/_fr/_de).
  * EN uses base columns; matches ServiceCard / hubdb-services suffix pattern.
  */
 
@@ -10,6 +10,7 @@ export const CONTACT_CARD_LOCALIZED_FIELD_BASES = [
   'region',
   'department',
   'button_text',
+  'button_link',
   'meeting_embed_url',
 ] as const;
 export type ContactCardLocalizedFieldBase = (typeof CONTACT_CARD_LOCALIZED_FIELD_BASES)[number];

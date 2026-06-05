@@ -97,6 +97,21 @@
       "type": "URL"
     },
     {
+      "name": "button_link_fi",
+      "label": "Button link (FI)",
+      "type": "URL"
+    },
+    {
+      "name": "button_link_fr",
+      "label": "Button link (FR)",
+      "type": "URL"
+    },
+    {
+      "name": "button_link_de",
+      "label": "Button link (DE)",
+      "type": "URL"
+    },
+    {
       "name": "button_show_icon",
       "label": "Button show icon",
       "type": "BOOLEAN"

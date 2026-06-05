@@ -223,10 +223,21 @@ function hasHubDbRowData(row: unknown): boolean {
 }
 
 /** Prefer HubL `hubdb_table_row` snapshot over HubDbRowField JSON (picker may omit `values` on publish). */
-function preferSnapshotString(snap: string | undefined | null): string | undefined {
-  if (snap !== undefined && snap !== null && String(snap).trim() !== '') {
-    return String(snap).trim();
+function preferSnapshotString(snap: unknown): string | undefined {
+  if (typeof snap === 'string') {
+    const trimmed = snap.trim();
+    return trimmed || undefined;
   }
+
+  if (snap && typeof snap === 'object') {
+    const record = snap as Record<string, unknown>;
+    const nested = record.href ?? record.url ?? record.value ?? record.label;
+    if (typeof nested === 'string') {
+      const trimmed = nested.trim();
+      return trimmed || undefined;
+    }
+  }
+
   return undefined;
 }
 
@@ -237,9 +248,7 @@ function resolveLocalizedContactLabel(
   pageLang: string,
   legacyKeys: string[],
 ): string | undefined {
-  const snapString = preferSnapshotString(
-    typeof snapshot?.[baseKey] === 'string' ? snapshot[baseKey] : undefined,
-  );
+  const snapString = preferSnapshotString(snapshot?.[baseKey]);
   if (snapString) return snapString;
 
   return (
@@ -368,7 +377,13 @@ export default function ContactCardIsland(props: ContactCardProps) {
           resolvedPageLang,
           ['cta_text', 'button_label'],
         );
-        const hubDbButtonLink = getHubDbString(hubDbSource, ['button_link', 'button_url', 'cta_link']);
+        const hubDbButtonLink = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'button_link',
+          resolvedPageLang,
+          ['button_url', 'cta_link'],
+        );
         const hubDbImageSrc = getHubDbImageSrc(hubDbSource, ['contact_image', 'image', 'photo', 'profile_image']);
         const hubDbShowRegion = getHubDbBoolean(hubDbSource, ['show_region']);
         const hubDbShowPhone = getHubDbBoolean(hubDbSource, ['show_phone']);

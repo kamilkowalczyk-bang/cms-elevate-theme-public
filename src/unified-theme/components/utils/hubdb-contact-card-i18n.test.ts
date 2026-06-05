@@ -85,3 +85,40 @@ describe('pickLocalizedContactField meeting_embed_url', () => {
     );
   });
 });
+
+describe('pickLocalizedContactField button_link', () => {
+  const rowWithBoth = {
+    button_link: 'https://example.com/en/contact',
+    button_link_fi: 'https://example.com/fi/contact',
+    values: {
+      button_link: 'https://example.com/en/contact',
+      button_link_fi: 'https://example.com/fi/contact',
+    },
+  };
+
+  test('prefers localized button link when page language is fi', () => {
+    expect(pickLocalizedContactField(rowWithBoth, 'button_link', 'fi')).toBe(
+      'https://example.com/fi/contact',
+    );
+  });
+
+  test('falls back to EN button link when localized cell is empty', () => {
+    const rowEnOnly = {
+      button_link: 'https://example.com/en/contact',
+      button_link_fi: '',
+      values: {
+        button_link: 'https://example.com/en/contact',
+        button_link_fi: '',
+      },
+    };
+    expect(pickLocalizedContactField(rowEnOnly, 'button_link', 'fi')).toBe(
+      'https://example.com/en/contact',
+    );
+  });
+
+  test('uses EN button link for unknown language', () => {
+    expect(pickLocalizedContactField(rowWithBoth, 'button_link', 'es')).toBe(
+      'https://example.com/en/contact',
+    );
+  });
+});

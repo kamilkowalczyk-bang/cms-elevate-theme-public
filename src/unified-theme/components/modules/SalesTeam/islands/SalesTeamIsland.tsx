@@ -621,7 +621,9 @@ export default function SalesTeamIsland(props: SalesTeamProps) {
     const hubDbButtonText =
       pickLocalizedContactField(hubRow, 'button_text', resolvedPageLang) ??
       getHubDbString(hubRow, ['cta_text', 'button_label']);
-    const hubDbButtonLink = getHubDbString(hubRow, ['button_link', 'button_url', 'cta_link']);
+    const hubDbButtonLink =
+      pickLocalizedContactField(hubRow, 'button_link', resolvedPageLang) ??
+      getHubDbString(hubRow, ['button_url', 'cta_link', 'button_link']);
     const hubDbImageSrc = getHubDbImageSrc(hubRow, ['contact_image', 'image', 'photo', 'profile_image']);
     const hubDbShowRegion = getHubDbBoolean(hubRow, ['show_region']);
     const hubDbShowPhone = getHubDbBoolean(hubRow, ['show_phone']);
