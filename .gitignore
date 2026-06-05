@@ -140,3 +140,8 @@ src/unified-theme/assets/dist/
 
 # Storybook build output
 cms-elevate-theme-static-assets/dist/
+scripts/patch-contact-cards-hubdb.py
+.tmp_publish_response.json
+.tmp_patch_response.json
+.tmp_contact_cards_patch.json
+.tmp_contact_cards_draft.json
