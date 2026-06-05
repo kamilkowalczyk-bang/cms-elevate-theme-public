@@ -12,7 +12,12 @@ import { getDataHSToken } from '../../../utils/inline-editing.js';
 import { createComponent } from '../../../utils/create-component.js';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { CSSPropertiesMap } from '../../../types/components.js';
-import { ContactCardItem, ContactCardProps } from '../types.js';
+import { ContactCardItem, ContactCardProps, ManualHubDbRowSnapshot } from '../types.js';
+import {
+  ContactCardLocalizedFieldBase,
+  normalizePageLang,
+  pickLocalizedContactField,
+} from '../../../utils/hubdb-contact-card-i18n.js';
 import styles from '../contact-card.module.css';
 
 const swm = staticWithModule(styles);
@@ -217,6 +222,41 @@ function hasHubDbRowData(row: unknown): boolean {
   );
 }
 
+/** Prefer HubL `hubdb_table_row` snapshot over HubDbRowField JSON (picker may omit `values` on publish). */
+function preferSnapshotString(snap: unknown): string | undefined {
+  if (typeof snap === 'string') {
+    const trimmed = snap.trim();
+    return trimmed || undefined;
+  }
+
+  if (snap && typeof snap === 'object') {
+    const record = snap as Record<string, unknown>;
+    const nested = record.href ?? record.url ?? record.value ?? record.label;
+    if (typeof nested === 'string') {
+      const trimmed = nested.trim();
+      return trimmed || undefined;
+    }
+  }
+
+  return undefined;
+}
+
+function resolveLocalizedContactLabel(
+  snapshot: ManualHubDbRowSnapshot | null | undefined,
+  rawRow: unknown,
+  baseKey: ContactCardLocalizedFieldBase,
+  pageLang: string,
+  legacyKeys: string[],
+): string | undefined {
+  const snapString = preferSnapshotString(snapshot?.[baseKey]);
+  if (snapString) return snapString;
+
+  return (
+    pickLocalizedContactField(rawRow, baseKey, pageLang) ??
+    getHubDbString(rawRow, [baseKey, ...legacyKeys])
+  );
+}
+
 async function copyTextToClipboard(text: string): Promise<void> {
   if (!text) return;
 
@@ -259,9 +299,11 @@ export default function ContactCardIsland(props: ContactCardProps) {
     moduleName,
     useHubDB = false,
     groupContactCards = [],
-    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly: feedFromManualOnly = false } = {},
+    hublData: { manualHubDbRows = [], feedFromManualHubDbOnly: feedFromManualOnly = false, pageLang } = {},
     groupStyle,
   } = props;
+
+  const resolvedPageLang = normalizePageLang(pageLang);
 
   const isManualInvoicingFeed = Boolean(
     useHubDB && feedFromManualOnly && Array.isArray(manualHubDbRows) && manualHubDbRows.length > 0,
@@ -300,6 +342,9 @@ export default function ContactCardIsland(props: ContactCardProps) {
           groupButton,
         } = card;
 
+        const hubDbSnapshot: ManualHubDbRowSnapshot | null | undefined = useHubDB
+          ? (manualHubDbRows[index] ?? null)
+          : undefined;
         const hubDbSource = useHubDB
           ? isManualInvoicingFeed
             ? manualHubDbRows[index]
@@ -307,14 +352,38 @@ export default function ContactCardIsland(props: ContactCardProps) {
           : undefined;
         const isHubDbCard = useHubDB && hasHubDbRowData(hubDbSource);
         const hubDbName = getHubDbString(hubDbSource, ['full_name', 'name', 'hs_name']);
-        const hubDbDepartment = getHubDbString(hubDbSource, ['department', 'job_title', 'role']);
-        const hubDbRegion = getHubDbString(hubDbSource, ['region', 'country_region', 'location']);
+        const hubDbDepartment = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'department',
+          resolvedPageLang,
+          ['job_title', 'role'],
+        );
+        const hubDbRegion = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'region',
+          resolvedPageLang,
+          ['country_region', 'location'],
+        );
         const hubDbPhoneText = getHubDbString(hubDbSource, ['phone', 'phone_text', 'phone_number', 'mobile']);
         const hubDbPhoneLink = getHubDbString(hubDbSource, ['phone_link', 'phone_url']);
         const hubDbEmailText = getHubDbString(hubDbSource, ['email', 'email_text', 'email_address']);
         const hubDbEmailLink = getHubDbString(hubDbSource, ['email_link', 'email_url']);
-        const hubDbButtonText = getHubDbString(hubDbSource, ['button_text', 'cta_text', 'button_label']);
-        const hubDbButtonLink = getHubDbString(hubDbSource, ['button_link', 'button_url', 'cta_link']);
+        const hubDbButtonText = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'button_text',
+          resolvedPageLang,
+          ['cta_text', 'button_label'],
+        );
+        const hubDbButtonLink = resolveLocalizedContactLabel(
+          hubDbSnapshot,
+          hubDbSource,
+          'button_link',
+          resolvedPageLang,
+          ['button_url', 'cta_link'],
+        );
         const hubDbImageSrc = getHubDbImageSrc(hubDbSource, ['contact_image', 'image', 'photo', 'profile_image']);
         const hubDbShowRegion = getHubDbBoolean(hubDbSource, ['show_region']);
         const hubDbShowPhone = getHubDbBoolean(hubDbSource, ['show_phone']);

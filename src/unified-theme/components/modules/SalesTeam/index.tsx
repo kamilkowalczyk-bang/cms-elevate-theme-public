@@ -13,6 +13,7 @@ export const Component = (props: SalesTeamProps) => {
 export { fields } from './fields.js';
 
 export const hublDataTemplate = `
+  {% set page_lang = content.language.languageTag|default(html_lang)|default("en")|string|lower|trim|split("-")|first %}
   {% set manualHubDbRowsRegional = [] %}
   {% for slot in module.groupRegionalCards %}
     {% set picker = slot.groupHubdbRow %}
@@ -75,7 +76,8 @@ export const hublDataTemplate = `
   {% set hublData = {
       "manualHubDbRowsRegional": manualHubDbRowsRegional,
       "featuredHubDbRow": featuredHubDbRow,
-      "featuredRowId": featuredRowId
+      "featuredRowId": featuredRowId,
+      "pageLang": page_lang
     }
   %}
 `;

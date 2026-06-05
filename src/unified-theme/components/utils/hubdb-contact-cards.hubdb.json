@@ -97,6 +97,21 @@
       "type": "URL"
     },
     {
+      "name": "button_link_fi",
+      "label": "Button link (FI)",
+      "type": "URL"
+    },
+    {
+      "name": "button_link_fr",
+      "label": "Button link (FR)",
+      "type": "URL"
+    },
+    {
+      "name": "button_link_de",
+      "label": "Button link (DE)",
+      "type": "URL"
+    },
+    {
       "name": "button_show_icon",
       "label": "Button show icon",
       "type": "BOOLEAN"
@@ -164,9 +179,69 @@
       "type": "URL"
     },
     {
+      "name": "meeting_embed_url_fi",
+      "label": "Meetings embed URL (FI)",
+      "type": "URL"
+    },
+    {
+      "name": "meeting_embed_url_fr",
+      "label": "Meetings embed URL (FR)",
+      "type": "URL"
+    },
+    {
+      "name": "meeting_embed_url_de",
+      "label": "Meetings embed URL (DE)",
+      "type": "URL"
+    },
+    {
       "name": "invoicing_and_purchasing",
       "label": "Show on Invoicing and purchasing tab",
       "type": "BOOLEAN"
+    },
+    {
+      "name": "region_fi",
+      "label": "Region (FI)",
+      "type": "TEXT"
+    },
+    {
+      "name": "region_fr",
+      "label": "Region (FR)",
+      "type": "TEXT"
+    },
+    {
+      "name": "region_de",
+      "label": "Region (DE)",
+      "type": "TEXT"
+    },
+    {
+      "name": "department_fi",
+      "label": "Department (FI)",
+      "type": "TEXT"
+    },
+    {
+      "name": "department_fr",
+      "label": "Department (FR)",
+      "type": "TEXT"
+    },
+    {
+      "name": "department_de",
+      "label": "Department (DE)",
+      "type": "TEXT"
+    },
+    {
+      "name": "button_text_fi",
+      "label": "Button text (FI)",
+      "type": "TEXT"
+    },
+    {
+      "name": "button_text_fr",
+      "label": "Button text (FR)",
+      "type": "TEXT"
+    },
+    {
+      "name": "button_text_de",
+      "label": "Button text (DE)",
+      "type": "TEXT"
     }
   ],
   "rows": [
@@ -203,7 +278,16 @@
         },
         "default_sales_rep": 1,
         "meeting_embed_url": "",
-        "invoicing_and_purchasing": 0
+        "invoicing_and_purchasing": 0,
+        "region_fi": "USA ja Kanada",
+        "region_fr": "États-Unis et Canada",
+        "region_de": "USA und Kanada",
+        "department_fi": "Myynti",
+        "department_fr": "Ventes",
+        "department_de": "Vertrieb",
+        "button_text_fi": "Varaa tapaaminen kanssani",
+        "button_text_fr": "Réserver une réunion avec moi",
+        "button_text_de": "Termin mit mir buchen"
       }
     },
     {
@@ -275,7 +359,10 @@
         },
         "default_sales_rep": 0,
         "meeting_embed_url": "",
-        "invoicing_and_purchasing": 1
+        "invoicing_and_purchasing": 1,
+        "region_fi": "USA ja Kanada",
+        "department_fi": "Laskutus ja hankinta",
+        "button_text_fi": "Varaa tapaaminen kanssani"
       }
     },
     {
