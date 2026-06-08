@@ -66,6 +66,7 @@ type ContentGroup = {
 type ButtonGroup = {
   groupButton: ButtonContentType & {
     showButton: BooleanFieldType['default'];
+    buttonOpenInNewTab?: BooleanFieldType['default'];
   };
 };
 
@@ -170,6 +171,7 @@ type ServiceCardProps = {
   groupCards: GroupCards[];
   groupStyle: GroupStyle;
   useHubDBFeed?: boolean;
+  hubDbButtonOpenInNewTab?: boolean;
   serviceCategory?: string;
   showFeaturedCards?: boolean;
   hideCategoryTabs?: boolean;
@@ -609,6 +611,7 @@ export const hublDataTemplate = `
     {% endfor %}
   {% endunless %}
   {% if module.useHubDBFeed %}
+    {% set hubdbButtonOpenInNewTab = module.hubDbButtonOpenInNewTab|default(true) %}
     {% set hubdb_svc_table_id = "${HUBDB_TABLE_NAMES.serviceCard}" %}
     {% set hubdb_cat_col = hubdb_table_column(hubdb_svc_table_id, "service_categories") %}
     {% if hubdb_cat_col and hubdb_cat_col.options %}
@@ -700,7 +703,7 @@ export const hublDataTemplate = `
       {% if showButton %}
         {% set buttonLink = {
           "url": { "href": linkUrl, "type": "EXTERNAL" },
-          "open_in_new_tab": true
+          "open_in_new_tab": hubdbButtonOpenInNewTab
         } %}
       {% else %}
         {% set buttonLink = {} %}
