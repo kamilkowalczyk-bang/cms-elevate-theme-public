@@ -1,3 +1,9 @@
+/***** ERROR PAGES (404 / 500) *****/
+
+.hs-elevate-error-page .hs-elevate-heading-container__heading {
+  text-align: center;
+}
+
 /***** EMAIL BACKUP UNSUBSCRIBE *****/
 
 /* Makes h2/h3 appear as paragraph content */
