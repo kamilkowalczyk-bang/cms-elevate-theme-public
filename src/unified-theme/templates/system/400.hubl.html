@@ -4,23 +4,30 @@
   label: Elevate - 404 error
   screenshotPath: ../../images/template-previews/404.png
 -->
+{% set template_css = "../../assets/dist/css/system.hubl.css" %}
 {% extends "../layouts/base.hubl.html" %}
 
 {% block body %}
-  <section class="hs-elevate-content-wrapper hs-elevate-content-padding">
+  <section style="background-color: rgba(22, 28, 38, 1);">
+  <div class="hs-elevate-content-wrapper" style="padding-top: 96px; padding-bottom: 32px;">
+    <div aria-hidden="true"></div>
+  </div>
+</section>
+
+  <section class="hs-elevate-content-wrapper hs-elevate-content-padding hs-elevate-error-page">
     <div class="hs-elevate-display-1" style="text-align: center;">404</div>
 
     {% module "error_heading"
       path="../../components/modules/Heading",
-      headingAndTextHeadingLevel="h1",
-      headingAndTextHeading={{ template_translations.error_404_heading.message }},
       groupStyle={
         "alignment": {
           "text_align": "CENTER"
         },
         "headingStyleVariant": "h1",
         "sectionStyleVariant": "section_variant_1"
-      }
+      },
+      headingAndTextHeading={{ "Page not found" or template_translations.error_404_heading.message }},
+      headingAndTextHeadingLevel="h1"
     %}
 
     {% module_block module "error_description"
@@ -40,7 +47,7 @@
       path="../../components/modules/Button",
       groupButtons=[
         {
-          "buttonContentText": template_translations.error_404_button.message,
+          "buttonContentText": "Go to Home" or template_translations.error_404_button.message,
           "buttonContentLink": {
             "url": {
               "href": "/"
