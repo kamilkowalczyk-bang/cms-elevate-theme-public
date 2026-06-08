@@ -95,6 +95,45 @@ const manualOnlyWhenNoHubDbRowSelected: AdvancedVisibility = {
   ],
 } as const satisfies AdvancedVisibility;
 
+const hubDbRowSelectedVisibility: AdvancedVisibility = {
+  boolean_operator: 'OR',
+  criteria: [
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'id',
+      operator: 'NOT_EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'rowId',
+      operator: 'NOT_EMPTY',
+    },
+    {
+      controlling_field_path: 'groupCards.groupHubdbRow',
+      property: 'row_id',
+      operator: 'NOT_EMPTY',
+    },
+  ],
+} as const satisfies AdvancedVisibility;
+
+/** Per-card toggle when a HubDB row supplies the link URL (Link field is hidden in that case). */
+const hubDbRowButtonOpenInNewTabVisibility: AdvancedVisibility = {
+  boolean_operator: 'AND',
+  criteria: [
+    {
+      controlling_field_path: 'useHubDBFeed',
+      controlling_value_regex: 'false',
+      operator: 'EQUAL',
+    },
+    {
+      controlling_field_path: 'groupCards.groupButton.showButton',
+      controlling_value_regex: 'true',
+      operator: 'EQUAL',
+    },
+  ],
+  children: [hubDbRowSelectedVisibility],
+} as const satisfies AdvancedVisibility;
+
 const hubDbButtonTextLinkVisibility: AdvancedVisibility = {
   boolean_operator: 'AND',
   criteria: [
@@ -165,6 +204,15 @@ export const fields = (
       advancedVisibility={hideCategoryTabsVisibility}
     />
 
+    <BooleanField
+      label='Open button link in new tab'
+      name='hubDbButtonOpenInNewTab'
+      display='toggle'
+      default={true}
+      visibility={hubDBFeedVisibility}
+      helpText='Applies to all service cards when using the HubDB feed.'
+    />
+
     <ChoiceField
       label='Image or icon'
       name='imageOrIcon'
@@ -206,6 +254,7 @@ export const fields = (
           },
           groupButton: {
             showButton: true,
+            buttonOpenInNewTab: true,
             buttonContentText: 'Explore more',
             buttonContentLink: {
               open_in_new_tab: true,
@@ -324,6 +373,15 @@ export const fields = (
       </FieldGroup>
       <FieldGroup label='Button' name='groupButton' display='inline'>
         <BooleanField label='Show button' name='showButton' display='toggle' default={false} />
+        <BooleanField
+          label='Open link in new tab'
+          name='buttonOpenInNewTab'
+          display='toggle'
+          default={true}
+          visibilityRules='ADVANCED'
+          advancedVisibility={hubDbRowButtonOpenInNewTabVisibility}
+          helpText='Applies when this card uses a HubDB row for the button link.'
+        />
         <ButtonContent
           textDefault='Explore more'
           linkDefault={{
