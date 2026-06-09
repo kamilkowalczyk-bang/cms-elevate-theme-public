@@ -8,6 +8,23 @@
 {% extends "./layouts/base.hubl.html" %}
 
 {% block body %}
+{# Tag and author listing views render dynamically so theme updates apply (request.full_url disables prerender cache). #}
+{% if tag or blog_author %}
+<script>
+(function () {
+  if (window.location.search.indexOf('hsCacheBuster=true') !== -1) {
+    return;
+  }
+
+  var url = new URL(window.location.href);
+  url.searchParams.set('hsCacheBuster', 'true');
+  window.location.replace(url.toString());
+})();
+</script>
+<span hidden aria-hidden="true">{{ request.full_url }}</span>
+{% endif %}
+
+{# blog listing: main, tag, and author views share this template #}
 
 {% dnd_area "main" %}
   {% dnd_section
