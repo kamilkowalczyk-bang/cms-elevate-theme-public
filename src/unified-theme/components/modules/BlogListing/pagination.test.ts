@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { standardizePathName, buildPaginationNumbers } from './pagination.js';
+import { standardizePathName, buildPaginationNumbers, buildPageLink } from './pagination.js';
 
 describe('Pagination utilities', () => {
   describe('standardizePathName', () => {
@@ -29,6 +29,16 @@ describe('Pagination utilities', () => {
 
     test('should handle empty string input', () => {
       expect(standardizePathName('')).toBe('');
+    });
+  });
+
+  describe('buildPageLink', () => {
+    test('should return firstPageLink for page 1', () => {
+      expect(buildPageLink('/blog/page', '/blog', 1)).toBe('/blog');
+    });
+
+    test('should return basePagePath with page number for other pages', () => {
+      expect(buildPageLink('/blog/tag/team/page', '/blog/tag/team', 2)).toBe('/blog/tag/team/page/2');
     });
   });
 
