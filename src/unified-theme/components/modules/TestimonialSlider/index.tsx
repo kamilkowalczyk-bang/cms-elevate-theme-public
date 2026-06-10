@@ -15,7 +15,6 @@ export const Component = (props: TestimonialSliderProps) => {
       groupTestimonial={props.groupTestimonial}
       groupStyle={props.groupStyle}
       groupDefaultText={props.groupDefaultText}
-      clientOnly={true}
     />
   );
 };
