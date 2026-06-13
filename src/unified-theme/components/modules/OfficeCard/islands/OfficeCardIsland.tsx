@@ -334,23 +334,15 @@ export default function OfficeCardIsland(props: OfficeCardProps) {
                     { [swm('hs-elevate-office-cards__map--embed')]: hasMapEmbed },
                   )}
                 >
-                  {hasMapEmbed && embedUrl && mapHref && (
-                    <>
-                      <MapIframe
-                        className={swm('hs-elevate-office-cards__map-iframe')}
-                        src={embedUrl}
-                        title={officeName ? `Google Map of ${officeName}` : 'Google Map'}
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                      />
-                      <MapLink
-                        className={swm('hs-elevate-office-cards__map-hit-area')}
-                        href={mapHref}
-                        target={mapTarget}
-                        rel={mapRel}
-                        aria-label={officeName ? `Open ${officeName} in Google Maps` : 'Open in Google Maps'}
-                      />
-                    </>
+                  {hasMapEmbed && embedUrl && (
+                    <MapIframe
+                      className={swm('hs-elevate-office-cards__map-iframe')}
+                      src={embedUrl}
+                      title={officeName ? `Google Map of ${officeName}` : 'Google Map'}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
                   )}
                   {!hasMapEmbed && hasMapImage && mapHref && (
                     <MapLink
