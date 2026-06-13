@@ -4,6 +4,51 @@
     "description": "",
     "placeholders": null
   },
+  "groupLayout.label": {
+    "message": "Layout",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.layoutType.label": {
+    "message": "Layout type",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.layoutType.choices.testimonial": {
+    "message": "Testimonial",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.layoutType.choices.info": {
+    "message": "Info",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.showInfoArrows.label": {
+    "message": "Show navigation arrows (info layout)",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.infoAutoplayInterval.label": {
+    "message": "Autoplay interval",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.infoAutoplayInterval.help_text": {
+    "message": "Time each slide stays visible before advancing to the next.",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.infoTransitionSpeed.label": {
+    "message": "Transition speed",
+    "description": "",
+    "placeholders": null
+  },
+  "groupLayout.infoTransitionSpeed.help_text": {
+    "message": "Duration of the slide transition animation.",
+    "description": "",
+    "placeholders": null
+  },
   "groupTestimonial.label": {
     "message": "Testimonial",
     "description": "",
