@@ -149,12 +149,14 @@ export const fields = (
           'map_zoom',
           'office_location',
           'google_maps_url',
+          'google_place_id',
+          'google_maps_embed_url',
           'map_image',
         ]}
         displayColumns={['office_name']}
         displayFormat="%0"
         visibility={hubDbPickerVisibility}
-        helpText="Select a row from offices to populate this card."
+        helpText="Select a row from offices. For Google Place map previews, set google_maps_url (place or short link), google_maps_embed_url (Share → Embed a map iframe src), and optionally google_place_id in HubDB."
       />
       <FieldGroup
         label="Office info"

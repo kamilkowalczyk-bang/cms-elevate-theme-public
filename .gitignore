@@ -148,7 +148,7 @@ scripts/patch-contact-cards-hubdb.py
 .tmp_services_patch.json
 .tmp_services_draft.json
 scripts/patch-services-hubdb.py
-.tmp_offices_draft_147292194.json
-.tmp_offices_draft.json
-.tmp_offices_patch.json
 scripts/patch-offices-hubdb.py
+.tmp_offices_patch.json
+.tmp_offices_draft.json
+.tmp_offices_draft_147292194.json
