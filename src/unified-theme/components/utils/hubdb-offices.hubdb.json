@@ -57,6 +57,16 @@
       "type": "URL"
     },
     {
+      "name": "google_place_id",
+      "label": "Google Place ID",
+      "type": "TEXT"
+    },
+    {
+      "name": "google_maps_embed_url",
+      "label": "Google Maps embed URL",
+      "type": "URL"
+    },
+    {
       "name": "map_image",
       "label": "Map image",
       "type": "IMAGE"
@@ -79,7 +89,9 @@
           "long": 23.7608,
           "type": "location"
         },
-        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Visiokatu+4,+33720+Tampere,+Finland",
+        "google_maps_url": "https://maps.app.goo.gl/55Vq82bnd8Lgw7GC7",
+        "google_place_id": "0x468edfc822017339:0xe9dda0439f0a2c6",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1907.040698752981!2d23.859836613169943!3d61.4466514756068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468edfc822017339%3A0xe9dda0439f0a2c6!2sRadientum%20Oy!5e0!3m2!1sen!2sfi!4v1781380345375!5m2!1sen!2sfi",
         "map_image": {
           "url": "https://staticmap.openstreetmap.de/staticmap.php?center=61.4981,23.7608&zoom=12&size=640x400&markers=61.4981,23.7608,red-pushpin",
           "width": 640,
@@ -104,7 +116,9 @@
           "long": 24.826,
           "type": "location"
         },
-        "google_maps_url": "https://www.google.com/maps/search/?api=1&query=Tekniikantie+14,+02150+Espoo,+Finland",
+        "google_maps_url": "https://maps.app.goo.gl/akdSafKv7YEGKp6a9",
+        "google_place_id": "0x468df5acee121ee1:0x3e3cc4b844db98ca",
+        "google_maps_embed_url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1983.5391119928088!2d24.806110013099325!3d60.18836057493765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x468df5acee121ee1%3A0x3e3cc4b844db98ca!2sRadientum%20Oy!5e0!3m2!1sen!2sfi!4v1781380448287!5m2!1sen!2sfi",
         "map_image": {
           "url": "https://staticmap.openstreetmap.de/staticmap.php?center=60.1868,24.826&zoom=12&size=640x400&markers=60.1868,24.826,red-pushpin",
           "width": 640,
