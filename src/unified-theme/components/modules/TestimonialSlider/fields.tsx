@@ -1,4 +1,12 @@
-import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField, AdvancedVisibility } from '@hubspot/cms-components/fields';
+import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField, AdvancedVisibility, NumberField } from '@hubspot/cms-components/fields';
+import {
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN,
+} from './types.js';
 import { ButtonContent, RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
@@ -217,6 +225,38 @@ export const fields = (
         name="showInfoArrows"
         display="toggle"
         default={true}
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      />
+      <NumberField
+        label="Autoplay interval"
+        name="infoAutoplayInterval"
+        display="slider"
+        min={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN}
+        max={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX}
+        step={100}
+        suffix="ms"
+        default={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT}
+        helpText="Time each slide stays visible before advancing to the next."
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      />
+      <NumberField
+        label="Transition speed"
+        name="infoTransitionSpeed"
+        display="slider"
+        min={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN}
+        max={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX}
+        step={50}
+        suffix="ms"
+        default={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT}
+        helpText="Duration of the slide transition animation."
         visibility={{
           controlling_field_path: 'groupLayout.layoutType',
           controlling_value_regex: 'info',

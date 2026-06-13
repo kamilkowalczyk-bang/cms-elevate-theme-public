@@ -78,9 +78,21 @@ export type TestimonialContentProps = {
 
 export type TestimonialSliderLayoutType = 'testimonial' | 'info';
 
+/** Info-layout Splide autoplay interval (ms). */
+export const TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT = 8000;
+export const TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN = 4000;
+export const TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX = 16000;
+
+/** Info-layout Splide transition speed (ms). */
+export const TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT = 600;
+export const TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN = 300;
+export const TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX = 1200;
+
 export type TestimonialLayoutProps = {
   layoutType: TestimonialSliderLayoutType;
   showInfoArrows?: BooleanFieldType['default'];
+  infoAutoplayInterval?: NumberFieldType['default'];
+  infoTransitionSpeed?: NumberFieldType['default'];
 };
 
 // Types for testimonial slide styles

@@ -10,6 +10,12 @@ import {
   TestimonialMetaProps,
   TestimonialProps,
   TestimonialSliderProps,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN,
 } from '../types.js';
 import type { ImageFieldType } from '@hubspot/cms-components/fields';
 import { CardVariantType, ElementPositionType } from '../../../types/fields.js';
@@ -398,6 +404,18 @@ function generateBlockquoteCssVar(cardVariantField: CardVariantType): CSSPropert
   };
 }
 
+function resolveInfoAutoplayInterval(intervalMs?: number): number {
+  const raw = typeof intervalMs === 'number' && !Number.isNaN(intervalMs) ? intervalMs : TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT;
+
+  return Math.min(TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX, Math.max(TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN, raw));
+}
+
+function resolveInfoTransitionSpeed(speedMs?: number): number {
+  const raw = typeof speedMs === 'number' && !Number.isNaN(speedMs) ? speedMs : TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT;
+
+  return Math.min(TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX, Math.max(TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN, raw));
+}
+
 /** Testimonial slide featured image column; clamped like LogoGrid slider max dimensions. */
 function generateFeaturedImageMaxWidthCssVar(widthPx?: number): CSSPropertiesMap {
   const raw = typeof widthPx === 'number' && !Number.isNaN(widthPx) ? widthPx : 400;
@@ -443,6 +461,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
   const isInfoLayout = layoutType === 'info';
   const showArrows =
     hasMultipleTestimonials && (!isInfoLayout || groupLayout?.showInfoArrows !== false);
+  const infoAutoplayInterval = resolveInfoAutoplayInterval(groupLayout?.infoAutoplayInterval);
+  const infoTransitionSpeed = resolveInfoTransitionSpeed(groupLayout?.infoTransitionSpeed);
 
   return (
     <TestimonialSliderContainer
@@ -460,6 +480,14 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           lazyLoad: true,
           rewind: true,
           autoplay: isInfoLayout,
+          ...(isInfoLayout
+            ? {
+                interval: infoAutoplayInterval,
+                speed: infoTransitionSpeed,
+                pauseOnHover: true,
+                pauseOnFocus: true,
+              }
+            : {}),
           direction: htmlDirection,
           arrows: showArrows,
           pagination: hasMultipleTestimonials,
