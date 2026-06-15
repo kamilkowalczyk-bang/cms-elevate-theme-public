@@ -168,7 +168,7 @@ Notes:
 | `services` | `hubdb-services.hubdb.json` | ServiceCard feed i18n |
 | `offices` | `hubdb-offices.hubdb.json` | OfficeCard, footer (`google_maps_embed_url`, `google_place_id`, `google_maps_url`) |
 
-Schema and seed data live in the theme JSON files above. **Syncing columns or rows to a HubSpot portal** (draft PATCH, publish) is done outside this repo via the HubSpot UI or internal runbook / `hs api` — not part of `hs project upload` (`srcDir` is `src` only). Local API scratch files (`.tmp_*`) and patch scripts are gitignored.
+Schema and seed data live in the theme JSON files above. **Syncing columns or rows to a HubSpot portal** (draft PATCH, publish) is done outside this repo via the HubSpot UI or internal runbook / `hs api` — not part of `hs project upload` (`srcDir` is `src` only). The repo-root `scripts/` folder and `.tmp_*` API scratch files are gitignored (local helpers only).
 
 **Meetings embed URLs:** Create one HubSpot scheduling page per language per rep (set **Booking page language** on each), copy each iframe `src` from **Actions → Embed**, and paste into `meeting_embed_url` / `meeting_embed_url_fi` / `_fr` / `_de` on the matching `contact_cards` row. After deploy, verify EN vs FI Contact Us page variants show the correct iframe language when switching reps.
 

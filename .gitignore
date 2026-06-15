@@ -141,7 +141,7 @@ src/unified-theme/assets/dist/
 # Storybook build output
 cms-elevate-theme-static-assets/dist/
 
-# HubDB API sync scratch + local-only patch scripts (not part of theme build; see README)
+# HubDB API sync scratch + local-only helpers (not part of theme build; see README)
 .tmp_*
 .hubdb-sync/
-scripts/patch-*-hubdb.py
+/scripts/
