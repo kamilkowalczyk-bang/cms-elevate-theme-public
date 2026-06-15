@@ -102,3 +102,10 @@
   }
 }
 
+.hs-elevate-blog-listing__search-status {
+  margin: 0 0 var(--hsElevate--spacing--32, 32px);
+  color: var(--hsElevate--section--lightSection--1__textColor);
+  font-family: var(--hsElevate--body__font);
+  font-size: var(--hsElevate--body__fontSize);
+}
+

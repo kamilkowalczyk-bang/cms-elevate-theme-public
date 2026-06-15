@@ -150,6 +150,7 @@ Paths:
 - Template: `src/unified-theme/templates/radientum-contact-us.hubl.html`
 - Template locales: `src/unified-theme/templates/_locales/{en,fi}/messages.json`
 - HubDB tabs: `src/unified-theme/components/utils/hubdb-contact-tabs.hubdb.json` (`language`: `en` / `fi`; `tab_path`: shared URL segment per tab; EN rows keep original HubDB `path` values)
+- HubDB contact cards: `src/unified-theme/components/utils/hubdb-contact-cards.hubdb.json` (EN in `region` / `department` / `button_text` / `button_link` / `meeting_embed_url`; FI/FR/DE in `*_fi` / `*_fr` / `*_de` siblings). Labels, button text, and CTA hrefs resolve in `SalesTeam` and `ContactCard` via `hubdb-contact-card-i18n.ts` from `content.language.languageTag` (use localized `button_link_*` for language-specific paths, e.g. `/fi/...`). The meetings iframe `src` in **SalesTeam** uses the same helper for `meeting_embed_url` (empty localized cells fall back to EN).
 - Geo logic: `src/unified-theme/components/modules/SalesTeam/geo.ts`
 - Geo runtime usage: `src/unified-theme/components/modules/SalesTeam/islands/SalesTeamIsland.tsx`
 
@@ -158,7 +159,18 @@ Notes:
 - Geolocation is enabled in the Contact Us template by passing `enableGeoAutoSelect=true` to `SalesTeam`. Geo is country-based and works the same on EN and FI page variants.
 - Tab labels/headings come from `contact_tabs` filtered by page language, with fallback to `language=en`, then unfiltered rows (migration). English hardcoded tab fallbacks remain as last resort.
 
-**HubDB `contact_tabs` (portal 51079453):** Table was recreated via `hs hubdb` (May 2026) with `language` + `tab_path` columns and 6 rows (3 EN + 3 FI). For `hs hubdb create`, SELECT values must use `{ "name": "en", "type": "option" }` format in row JSON.
+**HubDB tables (theme JSON under `src/unified-theme/components/utils/`):**
+
+| Table | Theme JSON | Used by |
+|-------|------------|---------|
+| `contact_tabs` | `hubdb-contact-tabs.hubdb.json` | Contact Us tab labels/paths (`language`, `tab_path`) |
+| `contact_cards` | `hubdb-contact-cards.hubdb.json` | SalesTeam, ContactCard (i18n via `*_fi` / `*_fr` / `*_de` columns) |
+| `services` | `hubdb-services.hubdb.json` | ServiceCard feed i18n |
+| `offices` | `hubdb-offices.hubdb.json` | OfficeCard, footer (`google_maps_embed_url`, `google_place_id`, `google_maps_url`) |
+
+Schema and seed data live in the theme JSON files above. **Syncing columns or rows to a HubSpot portal** (draft PATCH, publish) is done outside this repo via the HubSpot UI or internal runbook / `hs api` — not part of `hs project upload` (`srcDir` is `src` only). The repo-root `scripts/` folder and `.tmp_*` API scratch files are gitignored (local helpers only).
+
+**Meetings embed URLs:** Create one HubSpot scheduling page per language per rep (set **Booking page language** on each), copy each iframe `src` from **Actions → Embed**, and paste into `meeting_embed_url` / `meeting_embed_url_fi` / `_fr` / `_de` on the matching `contact_cards` row. After deploy, verify EN vs FI Contact Us page variants show the correct iframe language when switching reps.
 
 **CMS after deploy:** (1) Create Finnish language variant of the Contact page. (2) Add FI global header variation if needed. (3) Publish both page variants.
 

@@ -15,6 +15,7 @@ import { ButtonContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import teamMemberUseBackgroundMed1 from '../../../images/team-member-use-background-med-1.png';
 import { HUBDB_TABLE_NAMES } from '../../utils/hubdb-table-names.js';
+import { CONTACT_CARD_LOCALIZED_COLUMNS_TO_FETCH } from '../../utils/hubdb-contact-card-i18n.js';
 
 const buttonFieldVisibility: AdvancedVisibility = {
   boolean_operator: 'OR',
@@ -398,6 +399,7 @@ export const fields = (
           'show_region',
           'show_social_media',
           'show_button',
+          ...CONTACT_CARD_LOCALIZED_COLUMNS_TO_FETCH,
         ]}
         displayColumns={['full_name']}
         displayFormat='%0'

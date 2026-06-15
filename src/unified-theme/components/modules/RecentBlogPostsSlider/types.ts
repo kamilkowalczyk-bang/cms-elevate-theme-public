@@ -32,6 +32,7 @@ export type RecentBlogPostsSliderProps = {
       placeholderDescription: string;
     };
     readArticleLabel: string;
+    showNavigationArrows: boolean;
   };
   serverSideProps?: {
     gatedContentIds: number[];
@@ -47,4 +48,5 @@ export type RecentBlogPostsSliderIslandProps = {
   placeholderDescription: string;
   readArticleLabel: string;
   gatedContentIds: number[];
+  showNavigationArrows: boolean;
 };

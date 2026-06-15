@@ -63,6 +63,12 @@
   border-color: var(--hsElevate--tag__notSelectedBorderColor, var(--hsElevate--tag__borderColor));
 }
 
+.hs-elevate-blog-post-hero__tags :global(a.hs-elevate-tag) {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
 .hs-elevate-blog-post-hero-split {
   width: 100%;
   padding-block: var(--hsElevate--spacing--40, 40px);

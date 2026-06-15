@@ -4,7 +4,20 @@ import { RichText } from '@hubspot/cms-components';
 import styles from '../testimonial-slider.module.css';
 import cx, { staticWithModule } from '../../../utils/classnames.js';
 import { createComponent } from '../../../utils/create-component.js';
-import { TestimonialLinkProps, TestimonialMetaProps, TestimonialProps, TestimonialSliderProps } from '../types.js';
+import {
+  TestimonialImageProps,
+  TestimonialLinkProps,
+  TestimonialMetaProps,
+  TestimonialProps,
+  TestimonialSliderProps,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN,
+} from '../types.js';
+import type { ImageFieldType } from '@hubspot/cms-components/fields';
 import { CardVariantType, ElementPositionType } from '../../../types/fields.js';
 import { getLinkFieldHref, getLinkFieldRel, getLinkFieldTarget } from '../../../utils/content-fields.js';
 import { getDataHSToken } from '../../../utils/inline-editing.js';
@@ -225,6 +238,63 @@ const Testimonial = (props: TestimonialProps) => {
 
 const InfoContentWrapper = createComponent('div');
 const InfoButtonContainer = createComponent('div');
+const InfoBackgroundImage = createComponent('img');
+
+/** srcset/sizes may be present at runtime when responsive={true} but are not on ImageFieldType. */
+function getImageResponsiveAttributes(image?: ImageFieldType['default']): {
+  srcSet?: string;
+  sizes?: string;
+} {
+  if (image == null || typeof image !== 'object') {
+    return {};
+  }
+
+  const record = image as Record<string, unknown>;
+  const srcset = record.srcset ?? record.srcSet;
+  const sizes = record.sizes;
+
+  return {
+    ...(typeof srcset === 'string' && srcset.length > 0 ? { srcSet: srcset } : {}),
+    ...(typeof sizes === 'string' && sizes.length > 0 ? { sizes } : {}),
+  };
+}
+
+function getInfoBackgroundLoading(image: ImageFieldType['default'] | undefined, slideIndex: number): 'eager' | 'lazy' {
+  if (image?.loading && image.loading !== 'disabled') {
+    return image.loading;
+  }
+
+  return slideIndex === 0 ? 'eager' : 'lazy';
+}
+
+function hasInfoBackgroundImage(groupInfoImage?: TestimonialImageProps): boolean {
+  return groupInfoImage?.showImage === true && Boolean(groupInfoImage?.image?.src);
+}
+
+type InfoBackgroundImageProps = {
+  image: ImageFieldType['default'];
+  slideIndex: number;
+};
+
+const InfoBackgroundImageElement = ({ image, slideIndex }: InfoBackgroundImageProps) => {
+  const loading = getInfoBackgroundLoading(image, slideIndex);
+  const alt = image.alt ?? '';
+  const isDecorative = alt.length === 0;
+
+  return (
+    <InfoBackgroundImage
+      className={swm('hs-elevate-testimonial-slider__info-bg-image')}
+      src={image.src}
+      alt={alt}
+      {...(isDecorative ? { 'aria-hidden': true } : {})}
+      {...(typeof image.width === 'number' ? { width: image.width } : {})}
+      {...(typeof image.height === 'number' ? { height: image.height } : {})}
+      loading={loading}
+      {...(slideIndex === 0 && loading === 'eager' ? { fetchPriority: 'high' as const } : {})}
+      {...getImageResponsiveAttributes(image)}
+    />
+  );
+};
 
 type InfoContentProps = {
   moduleName?: string;
@@ -334,6 +404,18 @@ function generateBlockquoteCssVar(cardVariantField: CardVariantType): CSSPropert
   };
 }
 
+function resolveInfoAutoplayInterval(intervalMs?: number): number {
+  const raw = typeof intervalMs === 'number' && !Number.isNaN(intervalMs) ? intervalMs : TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT;
+
+  return Math.min(TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX, Math.max(TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN, raw));
+}
+
+function resolveInfoTransitionSpeed(speedMs?: number): number {
+  const raw = typeof speedMs === 'number' && !Number.isNaN(speedMs) ? speedMs : TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT;
+
+  return Math.min(TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX, Math.max(TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN, raw));
+}
+
 /** Testimonial slide featured image column; clamped like LogoGrid slider max dimensions. */
 function generateFeaturedImageMaxWidthCssVar(widthPx?: number): CSSPropertiesMap {
   const raw = typeof widthPx === 'number' && !Number.isNaN(widthPx) ? widthPx : 400;
@@ -379,6 +461,8 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
   const isInfoLayout = layoutType === 'info';
   const showArrows =
     hasMultipleTestimonials && (!isInfoLayout || groupLayout?.showInfoArrows !== false);
+  const infoAutoplayInterval = resolveInfoAutoplayInterval(groupLayout?.infoAutoplayInterval);
+  const infoTransitionSpeed = resolveInfoTransitionSpeed(groupLayout?.infoTransitionSpeed);
 
   return (
     <TestimonialSliderContainer
@@ -396,6 +480,14 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
           lazyLoad: true,
           rewind: true,
           autoplay: isInfoLayout,
+          ...(isInfoLayout
+            ? {
+                interval: infoAutoplayInterval,
+                speed: infoTransitionSpeed,
+                pauseOnHover: true,
+                pauseOnFocus: true,
+              }
+            : {}),
           direction: htmlDirection,
           arrows: showArrows,
           pagination: hasMultipleTestimonials,
@@ -416,27 +508,20 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
         <div className="splide__track hs-elevate-testimonial-slider__track">
           <div className="splide__list hs-elevate-testimonial-slider__list">
             {groupTestimonial.map((testimonial, index) => {
-              const infoImage = layoutType === 'info' ? testimonial.groupInfoImage?.image : undefined;
-              const hasInfoBackground = layoutType === 'info' && Boolean(infoImage?.src);
-              const slideStyle =
-                hasInfoBackground
-                  ? {
-                      backgroundImage: `url(${infoImage.src})`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }
-                  : undefined;
+              const hasInfoBackground = layoutType === 'info' && hasInfoBackgroundImage(testimonial.groupInfoImage);
+              const infoImage = hasInfoBackground ? testimonial.groupInfoImage?.image : undefined;
 
               return (
                 <div
                   className={cx('splide__slide', 'hs-elevate-testimonial-slider__slide', {
                     [styles['hs-elevate-testimonial-slider__slide--info-has-bg']]: hasInfoBackground,
                   })}
-                  style={slideStyle}
                   key={index}
                 >
                   {layoutType === 'info' ? (
-                    <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
+                    <>
+                      {infoImage && <InfoBackgroundImageElement image={infoImage} slideIndex={index} />}
+                      <ContentContainer className={swm('hs-elevate-testimonial-slider__content-container')}>
                       <InfoContent
                         moduleName={moduleName}
                         index={index}
@@ -444,6 +529,7 @@ const TestimonialSlider = (props: TestimonialSliderProps) => {
                       />
                       <InfoButton moduleName={moduleName} index={index} button={testimonial.groupInfoButton} />
                     </ContentContainer>
+                    </>
                   ) : (
                     <Testimonial
                       moduleName={moduleName}

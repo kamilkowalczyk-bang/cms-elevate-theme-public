@@ -45,5 +45,7 @@ export type SalesTeamProps = {
     manualHubDbRowsRegional?: (Record<string, unknown> | null | undefined)[];
     featuredHubDbRow?: Record<string, unknown> | null;
     featuredRowId?: number | null;
+    /** Page language slug from content.language.languageTag (en, fi, fr, de). */
+    pageLang?: string;
   };
 };

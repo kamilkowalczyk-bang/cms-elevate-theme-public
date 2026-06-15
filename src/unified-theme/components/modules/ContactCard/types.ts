@@ -52,6 +52,29 @@ export type ContactCardItem = {
   };
 };
 
+/** Server-resolved HubDB row for manual / feed mode (`hubdb_table_row` in hublDataTemplate). */
+export type ManualHubDbRowSnapshot = {
+  region?: string;
+  department?: string;
+  button_text?: string;
+  full_name?: string;
+  contact_image?: unknown;
+  phone_text?: string;
+  phone_link?: unknown;
+  email_text?: string;
+  email_link?: unknown;
+  button_link?: unknown;
+  show_region?: unknown;
+  show_phone?: unknown;
+  show_email?: unknown;
+  show_social_media?: unknown;
+  show_button?: unknown;
+  values?: Record<string, unknown>;
+  hs_id?: unknown;
+  id?: unknown;
+  [key: string]: unknown;
+};
+
 export type ContactCardStyles = {
   groupCard: CardStyleFieldLibraryType & {
     showCardShadow: BooleanFieldType['default'];
@@ -76,8 +99,10 @@ export type ContactCardProps = {
   /** When omitted (e.g. template `{% module %}` overrides), the island uses field defaults. */
   groupStyle?: ContactCardStyles;
   hublData?: {
-    manualHubDbRows?: (Record<string, unknown> | null)[];
+    manualHubDbRows?: (ManualHubDbRowSnapshot | null)[];
     /** Set when hublDataTemplate used invoicing-only table rows instead of per-slot HubDB pickers. */
     feedFromManualHubDbOnly?: boolean;
+    /** Page language slug from content.language.languageTag (en, fi, fr, de). */
+    pageLang?: string;
   };
 };

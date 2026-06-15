@@ -1,8 +1,16 @@
-import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField, AdvancedVisibility } from '@hubspot/cms-components/fields';
+import { ModuleFields, RepeatedFieldGroup, FieldGroup, TextField, ImageField, BooleanField, LinkField, ChoiceField, AdvancedVisibility, NumberField } from '@hubspot/cms-components/fields';
+import {
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX,
+  TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX,
+  TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN,
+} from './types.js';
 import { ButtonContent, RichTextContent } from '../../fieldLibrary/index.js';
 import StyleFields from './styleFields.js';
 import authorImage from './assets/author-avatar.png';
-import heroImage from './assets/hero.png';
+import heroImage from './assets/hero.avif';
 import testimonialImageOne from './assets/testimonial-image-1.png';
 import testimonialImageTwo from './assets/testimonial-image-2.jpg';
 import testimonialImageThree from './assets/testimonial-image-3.jpg';
@@ -61,8 +69,9 @@ const defaultTestimonial = {
     showImage: false,
     image: {
       alt: '',
-      max_height: 315,
-      max_width: 315,
+      loading: 'lazy',
+      max_height: 1080,
+      max_width: 1920,
       size_type: 'auto_custom_max',
       src: heroImage,
     },
@@ -99,7 +108,7 @@ const testimonial1 = {
   groupInfoImage: {
     ...defaultTestimonial.groupInfoImage,
     showImage: true,
-    image: { ...defaultTestimonial.groupInfoImage.image, src: heroImage },
+    image: { ...defaultTestimonial.groupInfoImage.image, loading: 'eager', src: heroImage },
   },
   groupInfoButton: {
     ...defaultTestimonial.groupInfoButton,
@@ -216,6 +225,38 @@ export const fields = (
         name="showInfoArrows"
         display="toggle"
         default={true}
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      />
+      <NumberField
+        label="Autoplay interval"
+        name="infoAutoplayInterval"
+        display="slider"
+        min={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MIN}
+        max={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_MAX}
+        step={100}
+        suffix="ms"
+        default={TESTIMONIAL_SLIDER_INFO_AUTOPLAY_INTERVAL_DEFAULT}
+        helpText="Time each slide stays visible before advancing to the next."
+        visibility={{
+          controlling_field_path: 'groupLayout.layoutType',
+          controlling_value_regex: 'info',
+          operator: 'EQUAL',
+        }}
+      />
+      <NumberField
+        label="Transition speed"
+        name="infoTransitionSpeed"
+        display="slider"
+        min={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MIN}
+        max={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_MAX}
+        step={50}
+        suffix="ms"
+        default={TESTIMONIAL_SLIDER_INFO_TRANSITION_SPEED_DEFAULT}
+        helpText="Duration of the slide transition animation."
         visibility={{
           controlling_field_path: 'groupLayout.layoutType',
           controlling_value_regex: 'info',
@@ -351,9 +392,9 @@ export const fields = (
         <ImageField
           label="Background image"
           name="image"
-          resizable={false}
-          responsive={false}
-          showLoading={false}
+          resizable={true}
+          responsive={true}
+          showLoading={true}
           visibility={{
             controlling_field_path: 'groupTestimonial.groupInfoImage.showImage',
             controlling_value_regex: 'true',
@@ -361,6 +402,10 @@ export const fields = (
           }}
           default={{
             alt: '',
+            loading: 'lazy',
+            max_height: 1080,
+            max_width: 1920,
+            size_type: 'auto_custom_max',
             src: heroImage,
           }}
         />

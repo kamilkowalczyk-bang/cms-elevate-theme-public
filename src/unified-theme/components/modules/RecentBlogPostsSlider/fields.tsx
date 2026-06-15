@@ -45,6 +45,12 @@ export const fields = (
       step={1}
       helpText="Set how many recent posts to show."
     />
+    <BooleanField
+      label="Show navigation arrows"
+      name="showNavigationArrows"
+      display="toggle"
+      default={true}
+    />
     <TextField label="Read article link label" name="readArticleLabel" default="Read the article" />
     <HeadingAndText headingLevelDefault="h5" textVisibility={textVisibility} />
     <StyleFields />

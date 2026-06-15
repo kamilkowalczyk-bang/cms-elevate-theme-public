@@ -21,6 +21,26 @@
   {% do blog_posts.append(temp_post) %}
 {% endfor %}
 
+{% set all_tags = [] %}
+{% for tag_item in blog_tags(group.id, 250) %}
+  {% set temp_tag = {
+    "name": tag_item.name,
+    "slug": tag_item.slug,
+    "url": blog_tag_url(group.id, tag_item.slug)|escape_url
+  } %}
+  {% do all_tags.append(temp_tag) %}
+{% endfor %}
+
+{% set active_tag_slug = tag.slug|default('') if tag else '' %}
+{% if not active_tag_slug and '/tag/' in request.path %}
+  {% set active_tag_slug = request.path|split('/tag/')|last|split('/')|first|default('') %}
+{% endif %}
+{% set first_page_link = blog_page_link(1)|cut("/page/1") %}
+{% set blog_listing_url = group.absolute_url|escape_url %}
+{% set current_path = request.path|default('') %}
+
+{% set search_page_size = blog_posts|length if blog_posts|length > 0 else 12 %}
+
 {% set hublData = {
     blogPosts: blog_posts,
     blogPostIds: blog_post_ids,
@@ -28,6 +48,14 @@
     nextPageNumber: next_page_num,
     previousPageNumber: previous_page_num,
     totalPageCount: contents.total_page_count,
-    use_featured_image_in_summary: group.use_featured_image_in_summary
+    contentsTotalCount: contents.total_count,
+    use_featured_image_in_summary: group.use_featured_image_in_summary,
+    allTags: all_tags,
+    activeTagSlug: active_tag_slug,
+    blogListingUrl: blog_listing_url,
+    firstPageLink: first_page_link,
+    currentPath: current_path,
+    blogGroupId: group.id,
+    searchPageSize: search_page_size
   }
 %}

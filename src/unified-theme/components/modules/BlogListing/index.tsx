@@ -8,6 +8,12 @@ import fetchGatedPosts from '../../utils/ServerSideProps/fetchGatedBlogPosts.js'
 // @ts-expect-error -- ?island modules are resolved at build time
 import BlogListingIsland from './islands/BlogListingIsland.js?island';
 
+type BlogTag = {
+  name: string;
+  slug: string | null;
+  url: string;
+};
+
 type BlogListingProps = HeadingAndTextFieldLibraryType & {
   readArticleLabel?: string;
   hublData: {
@@ -27,7 +33,15 @@ type BlogListingProps = HeadingAndTextFieldLibraryType & {
     currentPageNumber: number;
     nextPageNumber: number;
     totalPageCount: number;
+    contentsTotalCount?: number;
     use_featured_image_in_summary: boolean;
+    allTags: BlogTag[];
+    activeTagSlug: string | null;
+    blogListingUrl: string;
+    firstPageLink: string;
+    currentPath?: string;
+    blogGroupId: number;
+    searchPageSize: number;
   };
   serverSideProps: {
     gatedContentIds: number[];

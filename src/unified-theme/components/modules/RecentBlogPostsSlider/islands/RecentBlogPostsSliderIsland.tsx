@@ -104,6 +104,7 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
     placeholderDescription,
     readArticleLabel,
     gatedContentIds,
+    showNavigationArrows,
   } = props;
 
   const postsToUse = posts || [];
@@ -111,6 +112,7 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
   const gatedSet = new Set((gatedContentIds || []).map(id => String(id)));
   const enableAutoplay = postsToUse.length > 1;
   const showPagination = postsToUse.length > 1;
+  const showArrows = showNavigationArrows && postsToUse.length > 1;
   const rootStyle = generatePaginationColorCssVar(cardStyleVariant);
 
   if (postsToUse.length === 0 && isInEditor) {
@@ -126,7 +128,12 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
   }
 
   return (
-    <Root className={swm('hs-elevate-recent-blog-posts-slider')} style={rootStyle}>
+    <Root
+      className={cx(swm('hs-elevate-recent-blog-posts-slider'), {
+        [swm('hs-elevate-recent-blog-posts-slider--arrows')]: showArrows,
+      })}
+      style={rootStyle}
+    >
       <Splide
         className={cx('splide', swm('hs-elevate-recent-blog-posts-slider__splide'))}
         style={rootStyle}
@@ -137,7 +144,7 @@ export default function RecentBlogPostsSliderIsland(props: RecentBlogPostsSlider
           perPage: 3,
           perMove: 1,
           gap: 32,
-          arrows: false,
+          arrows: showArrows,
           pagination: showPagination,
           autoplay: enableAutoplay,
           interval: 5000,

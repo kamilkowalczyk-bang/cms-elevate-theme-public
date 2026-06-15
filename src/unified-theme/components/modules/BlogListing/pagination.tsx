@@ -12,6 +12,7 @@ type PaginationProps = {
   currentPageNumber: number;
   totalPageCount: number;
   nextPageNumber: number;
+  firstPageLink?: string;
   defaultContent: {
     nextPage: string;
     previousPage: string;
@@ -29,6 +30,10 @@ export function standardizePathName(currentPathName: string) {
    */
 
   return currentPathName === '/' ? '' : currentPathName;
+}
+
+export function buildPageLink(basePagePath: string, firstPageLink: string, pageNumber: number) {
+  return pageNumber === 1 ? firstPageLink : `${basePagePath}/${pageNumber}`;
 }
 
 export function buildPaginationNumbers(currentPageNumber: number, totalPageCount: number) {
@@ -126,13 +131,21 @@ const Ellipsis = () => {
 };
 
 export default function Pagination(props: PaginationProps) {
-  const { currentPageNumber, totalPageCount, nextPageNumber, defaultContent } = props;
-
+  const { currentPageNumber, totalPageCount, nextPageNumber, firstPageLink, defaultContent } = props;
   const currentPathName = standardizePathName(usePageUrl().pathname);
+
+  if (totalPageCount <= 1) {
+    return null;
+  }
   const pathNameWithoutPageInfo = currentPathName.replace(/\/page\/\d+/, '');
   const basePagePath = `${pathNameWithoutPageInfo}/page`;
-  const nextPageUrl = `${basePagePath}/${nextPageNumber}`;
-  const previousPageUrl = `${basePagePath}/${currentPageNumber > 1 ? currentPageNumber - 1 : 1}`;
+  const resolvedFirstPageLink = firstPageLink || buildPageLink(basePagePath, `${basePagePath}/1`, 1);
+  const nextPageUrl = buildPageLink(basePagePath, resolvedFirstPageLink, nextPageNumber);
+  const previousPageUrl = buildPageLink(
+    basePagePath,
+    resolvedFirstPageLink,
+    currentPageNumber > 1 ? currentPageNumber - 1 : 1,
+  );
   const enableNextButton = currentPageNumber < totalPageCount;
   const enablePreviousButton = currentPageNumber > 1;
 
@@ -159,7 +172,7 @@ export default function Pagination(props: PaginationProps) {
       </NavLink>
 
       {displayFirstNumber && (
-        <PaginationLink className={paginationLinkClasses} href={`${basePagePath}/1`}>
+        <PaginationLink className={paginationLinkClasses} href={resolvedFirstPageLink}>
           1
         </PaginationLink>
       )}
@@ -168,14 +181,14 @@ export default function Pagination(props: PaginationProps) {
         <PaginationLink
           className={cx(paginationLinkClasses, { [styles['hs-elevate-blog-listing__pagination-link--active']]: currentPageNumber === index })}
           key={index}
-          href={`${basePagePath}/${index}`}
+          href={buildPageLink(basePagePath, resolvedFirstPageLink, index)}
         >
           {index}
         </PaginationLink>
       ))}
       {displayNextEllipsis && <Ellipsis />}
       {displayLastNumber && (
-        <PaginationLink className={paginationLinkClasses} href={`${basePagePath}/${totalPageCount}`}>
+        <PaginationLink className={paginationLinkClasses} href={buildPageLink(basePagePath, resolvedFirstPageLink, totalPageCount)}>
           {totalPageCount}
         </PaginationLink>
       )}

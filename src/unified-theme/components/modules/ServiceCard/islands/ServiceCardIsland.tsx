@@ -59,6 +59,7 @@ type ContentGroup = {
 type ButtonGroup = {
   groupButton: ButtonContentType & {
     showButton: BooleanFieldType['default'];
+    buttonOpenInNewTab?: BooleanFieldType['default'];
   };
 };
 
@@ -655,6 +656,7 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
         const {
           groupButton: {
             showButton,
+            buttonOpenInNewTab = true,
             buttonContentText: text,
             buttonContentLink: link = {},
             buttonContentShowIcon: showIcon,
@@ -702,7 +704,7 @@ const ServiceCardIsland = (props: ServiceCardProps) => {
           derivedButtonUrlHref
             ? {
                 url: { href: derivedButtonUrlHref, type: 'EXTERNAL' },
-                open_in_new_tab: true,
+                open_in_new_tab: buttonOpenInNewTab ?? true,
               }
             : link;
 

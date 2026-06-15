@@ -139,12 +139,90 @@
 /* Slider chrome: padding + dot nav (TestimonialSlider-style, scoped to this Splide root only) */
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
   position: relative;
-  padding-block-end: var(--hsElevate--spacing--56, 56px);
+  --hsElevate--recentBlogSlider__paginationBand: var(--hsElevate--spacing--56, 56px);
+  padding-block-end: var(--hsElevate--recentBlogSlider__paginationBand);
+}
+
+/* Side gutters for nav arrows (outside track, inside module) */
+.hs-elevate-recent-blog-posts-slider--arrows {
+  --hsElevate--recentBlogSlider__arrowGutter: var(--hsElevate--spacing--32, 32px);
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) {
+  padding-inline: var(--hsElevate--recentBlogSlider__arrowGutter);
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows),
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow) {
   display: none !important;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows) {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: var(--hsElevate--recentBlogSlider__paginationBand);
+  left: 0;
+  z-index: 2;
+  display: block !important;
+  pointer-events: none;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow) {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent !important;
+  cursor: pointer;
+  transform: translateY(-50%);
+  pointer-events: auto;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow:disabled) {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow--prev) {
+  left: 0;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow--next) {
+  right: 0;
+}
+
+/*
+ * Splide arrow icon chrome is normally from @splidejs/react-splide/css (prev flip + svg size).
+ * Duplicated here so live-site island bundles match dev when that stylesheet is absent or late
+ * (same approach as TestimonialSlider testimonial-slider.module.css).
+ */
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow svg),
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow path) {
+  fill: var(--hsElevate--recentBlogSlider__paginationColor, #52bad1);
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow svg) {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrow--prev svg) {
+  transform: scaleX(-1);
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide.splide--rtl) :global(.splide__arrow--prev svg),
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows--rtl .splide__arrow--prev svg) {
+  transform: scaleX(1);
+}
+
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide.splide--rtl) :global(.splide__arrow--next svg),
+.hs-elevate-recent-blog-posts-slider--arrows .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__arrows--rtl .splide__arrow--next svg) {
+  transform: scaleX(-1);
 }
 
 .hs-elevate-recent-blog-posts-slider__splide:global(.splide) :global(.splide__pagination) {
@@ -159,7 +237,7 @@
   padding: 0 1em;
   list-style: none;
   list-style-type: none !important;
-  bottom: 0;
+  bottom: calc((var(--hsElevate--recentBlogSlider__paginationBand) - 4px) / 2);
   gap: 0;
   pointer-events: none;
 }
