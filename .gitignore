@@ -140,15 +140,8 @@ src/unified-theme/assets/dist/
 
 # Storybook build output
 cms-elevate-theme-static-assets/dist/
-scripts/patch-contact-cards-hubdb.py
-.tmp_publish_response.json
-.tmp_patch_response.json
-.tmp_contact_cards_patch.json
-.tmp_contact_cards_draft.json
-.tmp_services_patch.json
-.tmp_services_draft.json
-scripts/patch-services-hubdb.py
-scripts/patch-offices-hubdb.py
-.tmp_offices_patch.json
-.tmp_offices_draft.json
-.tmp_offices_draft_147292194.json
+
+# HubDB API sync scratch + local-only patch scripts (not part of theme build; see README)
+.tmp_*
+.hubdb-sync/
+scripts/patch-*-hubdb.py

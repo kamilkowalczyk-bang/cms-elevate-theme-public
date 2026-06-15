@@ -159,13 +159,16 @@ Notes:
 - Geolocation is enabled in the Contact Us template by passing `enableGeoAutoSelect=true` to `SalesTeam`. Geo is country-based and works the same on EN and FI page variants.
 - Tab labels/headings come from `contact_tabs` filtered by page language, with fallback to `language=en`, then unfiltered rows (migration). English hardcoded tab fallbacks remain as last resort.
 
-**HubDB `contact_tabs` (portal 51079453):** Table was recreated via `hs hubdb` (May 2026) with `language` + `tab_path` columns and 6 rows (3 EN + 3 FI). For `hs hubdb create`, SELECT values must use `{ "name": "en", "type": "option" }` format in row JSON.
+**HubDB tables (theme JSON under `src/unified-theme/components/utils/`):**
 
-**HubDB `contact_cards` (portal `dev-radientum` / 51079453):** Add i18n columns via API: fetch draft (`hs api /cms/v3/hubdb/tables/258639751/draft`), build payload with `scripts/patch-contact-cards-hubdb.py`, `PATCH` draft, then `POST .../draft/publish`. Fill `region_fi`, `department_fi`, `button_text_fi`, `button_link_fi`, `meeting_embed_url_fi` (and FR/DE siblings) per row in HubDB UI. Empty localized cells fall back to EN.
+| Table | Theme JSON | Used by |
+|-------|------------|---------|
+| `contact_tabs` | `hubdb-contact-tabs.hubdb.json` | Contact Us tab labels/paths (`language`, `tab_path`) |
+| `contact_cards` | `hubdb-contact-cards.hubdb.json` | SalesTeam, ContactCard (i18n via `*_fi` / `*_fr` / `*_de` columns) |
+| `services` | `hubdb-services.hubdb.json` | ServiceCard feed i18n |
+| `offices` | `hubdb-offices.hubdb.json` | OfficeCard, footer (`google_maps_embed_url`, `google_place_id`, `google_maps_url`) |
 
-**HubDB `services` (portal `dev-radientum` / 51079453, table id `234247952`):** ServiceCard feed i18n uses EN base columns (`service_title`, `service_description`, `service_link_text`, `service_link_url`) with FI/FR/DE siblings (`*_fi`, `*_fr`, `*_de`). Button hrefs resolve from `service_link_url_*` when the page language is fi/fr/de (empty cells fall back to `service_link_url`). Sync schema from theme JSON: `hs api /cms/v3/hubdb/tables/234247952/draft --account 51079453 --format-output-as-json > .tmp_services_draft.json`, `python3 scripts/patch-services-hubdb.py`, `PATCH` draft with `.tmp_services_patch.json`, then `POST .../draft/publish`. Fill localized URLs per row in HubDB UI (e.g. `/fi/...` paths).
-
-**HubDB `offices` (portal `dev-radientum` / 51079453):** OfficeCard map previews use optional `google_maps_embed_url` (iframe `src` from Google Maps Share → Embed a map), `google_place_id`, and `google_maps_url` (place link or `maps.app.goo.gl` short link). Legacy rows with only address search URLs in `google_maps_url` still work. Sync schema from theme JSON: fetch draft (`hs api /cms/v3/hubdb/tables/<offices_table_id>/draft`), `python3 scripts/patch-offices-hubdb.py`, `PATCH` draft with `.tmp_offices_patch.json`, then `POST .../draft/publish`. Copy per-office place link, embed URL, and place ID from Google Business Profile into HubDB; publish table. Theme seed: `src/unified-theme/components/utils/hubdb-offices.hubdb.json`.
+Schema and seed data live in the theme JSON files above. **Syncing columns or rows to a HubSpot portal** (draft PATCH, publish) is done outside this repo via the HubSpot UI or internal runbook / `hs api` — not part of `hs project upload` (`srcDir` is `src` only). Local API scratch files (`.tmp_*`) and patch scripts are gitignored.
 
 **Meetings embed URLs:** Create one HubSpot scheduling page per language per rep (set **Booking page language** on each), copy each iframe `src` from **Actions → Embed**, and paste into `meeting_embed_url` / `meeting_embed_url_fi` / `_fr` / `_de` on the matching `contact_cards` row. After deploy, verify EN vs FI Contact Us page variants show the correct iframe language when switching reps.
 
